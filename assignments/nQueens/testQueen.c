@@ -100,5 +100,4 @@ int main(void) {
     RUN_TEST(test_invalidPlacement_left_down_violation);
     RUN_TEST(test_invalidPlacement_right_up_violation);
     RUN_TEST(test_invalidPlacement_left_up_violation);
-
 }

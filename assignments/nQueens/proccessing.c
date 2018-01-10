@@ -125,3 +125,68 @@ bool isValidPlacement(queen newPlacement, boardState currentBoard) {
        }
     return ret;
 }
+
+char** getSolutions(int nQueens) {
+    boardState newBoard;
+    queen firstQueen;
+    solutions boardSolutions;
+
+    firstQueen.row = 0;
+    firstQueen.col = 0;
+
+    newBoard.numQueens = 1;
+    newBoard.boardSize = 1;
+
+    newBoard.placements[0] = firstQueen;
+
+    boardSolutions.boardSize = 1;
+    boardSolutions.list = initList();
+    
+    listAdd(&boardSolutions.list, newBoard);
+
+    int x;
+    x = 3 + 4;
+}
+
+solutionList initList() {
+    solutionList list;
+    list.size = 0;
+    list.head = NULL;
+
+    return list;
+}
+
+void listAdd(solutionList* list, boardState newState) {
+    listNode* newNode = makeNode(newState);
+    listNode* currentNode;
+    int i;
+
+    // if the list is empty
+    if(list->size == 0) {
+        list->size = 1;
+        list->head = newNode;
+    }
+    // else the list has entries
+    else {
+        // getting last node in list
+        currentNode = list->head;
+        for(i = 1; i < list->size; i++) {
+            currentNode = currentNode->next;
+        }
+        currentNode->next = newNode;
+        list->size = list->size + 1;
+    }
+}
+
+listNode* makeNode(boardState state) {
+    listNode node;
+    listNode* nodePtr = malloc(sizeof(listNode));
+
+    node.data = state;
+    node.next = NULL;
+
+    *nodePtr = node;
+    return nodePtr;
+}
+
+//solutions getNextSolutionSet()
