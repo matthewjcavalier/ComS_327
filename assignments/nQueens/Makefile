@@ -1,11 +1,11 @@
 queen: queens.c
 	gcc queens.c -o queen
 proccessing.o: proccessing.c
-	gcc -c proccessing.c
-test: proccessing.o testQueen.c
-	gcc testQueen.c proccessing.o unity.c -o test
+	gcc -g -c proccessing.c
+testCompile: proccessing.c testQueen.c
+	gcc -g testQueen.c proccessing.c unity.c -o test
+test: testCompile
 	clear
 	./test
-	
 clean:
 	rm *.o test

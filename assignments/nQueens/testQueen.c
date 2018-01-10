@@ -1,113 +1,90 @@
 #include "unity.h"
 #include "proccessing.h"
 
-void test_1_1(void) {
-  int sizeOfBoard = 3;
+boardState genBoard() {
+    boardState currentState;
 
-  queen original;
-  original.row = 1;
-  original.col = 1;
+    queen firstQ;
+    firstQ.row = 2;
+    firstQ.col = 2;
 
-  queen expected;
-  expected.row = 1;
-  expected.col = 3;
+    queen secondQ;
+    secondQ.row = 4;
+    secondQ.col = 3;
 
-  queen actual = rotatePosition(original, sizeOfBoard);
+    currentState.placements[0] = firstQ;
+    currentState.placements[1] = secondQ;
 
-  TEST_ASSERT_EQUAL(expected.row, actual.row);
-  TEST_ASSERT_EQUAL(expected.col, actual.col);
+    currentState.numQueens = 2;
+    currentState.boardSize = 5;
+
+    return currentState;
 }
 
+void test_validPlacement() {
+    boardState currentState = genBoard();
 
-void test_1_2(void) {
-  int sizeOfBoard = 3;
-
-  queen original;
-  original.row = 1;
-  original.col = 2;
-
-  queen expected;
-  expected.row = 2;
-  expected.col = 3;
-
-  queen actual = rotatePosition(original, sizeOfBoard);
-
-  TEST_ASSERT_EQUAL(expected.row, actual.row);
-  TEST_ASSERT_EQUAL(expected.col, actual.col);
+    queen newQueen;
+    newQueen.row = 1;
+    newQueen.col = 4;
+    bool result = isValidPlacement(newQueen, currentState);
+    TEST_ASSERT_TRUE(result);
 }
 
-void test_1_3(void) {
-  int sizeOfBoard = 3;
+void test_invalidPlacement_same_row() {
+    boardState currentState = genBoard();
 
-  queen original;
-  original.row = 1;
-  original.col = 3;
+    queen newQueen;
+    newQueen.row = 2;
+    newQueen.col = 1;
 
-  queen expected;
-  expected.row = 3;
-  expected.col = 3;
-
-  queen actual = rotatePosition(original, sizeOfBoard);
-
-  TEST_ASSERT_EQUAL(expected.row, actual.row);
-  TEST_ASSERT_EQUAL(expected.col, actual.col);
+    TEST_ASSERT_FALSE(isValidPlacement(newQueen, currentState));
 }
 
-void test_2_1(void) {
-  int sizeOfBoard = 3;
+void test_invalidPlacement_same_col() {
+    boardState currentState = genBoard();
 
-  queen original;
-  original.row = 2;
-  original.col = 1;
+    queen newQueen;
+    newQueen.row = 0;
+    newQueen.col = 3;
 
-  queen expected;
-  expected.row = 1;
-  expected.col = 2;
-
-  queen actual = rotatePosition(original, sizeOfBoard);
-
-  TEST_ASSERT_EQUAL(expected.row, actual.row);
-  TEST_ASSERT_EQUAL(expected.col, actual.col);
+    TEST_ASSERT_FALSE(isValidPlacement(newQueen, currentState));
 }
 
-void test_2_2(void) {
-  int sizeOfBoard = 3;
+void test_invalidPlacement_right_down_violation() {
+    boardState currentState = genBoard();
 
-  queen original;
-  original.row = 2;
-  original.col = 2;
+    queen newQueen;
+    newQueen.row = 0;
+    newQueen.col = 0;
 
-  queen expected;
-  expected.row = 2;
-  expected.col = 2;
-
-  queen actual = rotatePosition(original, sizeOfBoard);
-
-  TEST_ASSERT_EQUAL(expected.row, actual.row);
-  TEST_ASSERT_EQUAL(expected.col, actual.col);
+    TEST_ASSERT_FALSE(isValidPlacement(newQueen, currentState));
 }
 
-void test_3_1(void) {
-  int sizeOfBoard = 3;
+void test_invalidPlacement_left_down_violation() {
+    boardState currentState = genBoard();
 
-  queen original;
-  original.row = 3;
-  original.col = 1;
+    queen newQueen;
+    newQueen.row = 0;
+    newQueen.col = 4;
 
-  queen expected;
-  expected.row = 1;
-  expected.col = 1;
-
-  queen actual = rotatePosition(original, sizeOfBoard);
-
-  TEST_ASSERT_EQUAL(expected.row, actual.row);
-  TEST_ASSERT_EQUAL(expected.col, actual.col);
+    TEST_ASSERT_FALSE(isValidPlacement(newQueen, currentState));
 }
+
+void test_invalidPlacement_right_up_violation() {
+    boardState currentState = genBoard();
+
+    queen newQueen;
+    newQueen.row = 4;
+    newQueen.col = 1;
+
+    TEST_ASSERT_FALSE(isValidPlacement(newQueen, currentState));   
+}
+
 int main(void) {
-  RUN_TEST(test_1_1);
-  RUN_TEST(test_1_2);
-  RUN_TEST(test_1_3);
-  RUN_TEST(test_2_1);
-  RUN_TEST(test_2_2);
-  RUN_TEST(test_3_1);
+    RUN_TEST(test_validPlacement);
+    RUN_TEST(test_invalidPlacement_same_row);
+    RUN_TEST(test_invalidPlacement_same_col);
+    RUN_TEST(test_invalidPlacement_right_down_violation);
+    RUN_TEST(test_invalidPlacement_left_down_violation);
 }
