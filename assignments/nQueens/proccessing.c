@@ -127,9 +127,11 @@ bool isValidPlacement(queen newPlacement, boardState currentBoard) {
 }
 
 char** getSolutions(int nQueens) {
-    boardState newBoard;
+    boardState newBoard = getEmptyBoard();
     queen firstQueen;
     solutions boardSolutions;
+    bool solutionExists;
+    int i;
 
     firstQueen.row = 0;
     firstQueen.col = 0;
@@ -141,11 +143,12 @@ char** getSolutions(int nQueens) {
 
     boardSolutions.boardSize = 1;
     boardSolutions.list = initList();
+    boardSolutions.solutionsFound = 1;
     
     listAdd(&boardSolutions.list, newBoard);
-
-    int x;
-    x = 3 + 4;
+    for(i = 1; i < nQueens; i++) {
+       solutionExists = getNextSolutionSet(&boardSolutions, i);
+    }
 }
 
 solutionList initList() {
@@ -189,4 +192,93 @@ listNode* makeNode(boardState state) {
     return nodePtr;
 }
 
-//solutions getNextSolutionSet()
+boardState getEmptyBoard() {
+    boardState newBoard;
+    queen impossibleQueen;
+    int i;
+
+    newBoard.numQueens = 0;
+    newBoard.boardSize = 0;
+
+    impossibleQueen.row = -1;
+    impossibleQueen.col = -1;
+
+    for(i = 0; i < MAX_BOARD_SIZE; i++) {
+        newBoard.placements[i] = impossibleQueen;
+    }
+
+    return newBoard;
+}
+
+bool getNextSolutionSet(solutions* boardSolutions, int boardSize) {
+    int size = boardSolutions->boardSize;
+    int col, row, i;
+    listNode* currentNode;
+    solutions newSolutions;
+    boardState currentSolution;
+    boardState newSolutionBoard;
+    queen newQueen;
+    int queenIttr;
+    bool newSolutionFound = false;
+
+    currentNode = boardSolutions->list.head;
+
+    // loop through the existing solutions to the n-1 problem
+    for(i = 0; i < boardSolutions->solutionsFound; i++) {
+        currentSolution = currentNode->data;
+
+        // loop through the last column of the new board
+        newQueen.col = boardSize;
+        for(row = 0; row < boardSize + 1; row++) {
+            newQueen.row = row;
+            if(isValidPlacement(newQueen, currentSolution)) {
+                newSolutionBoard.numQueens = boardSize;
+                newSolutionBoard.boardSize = boardSize;
+                for(queenIttr = 0; queenIttr < boardSize; queenIttr++) {
+                    newSolutionBoard.placements[queenIttr] = currentSolution.placements[queenIttr];
+                }
+                newSolutionBoard.placements[boardSize] = newQueen;
+                // if this is the first new solution
+                if(!newSolutionFound) {
+                    // make a new solutions list
+                    newSolutions.solutionsFound = 0;
+                    newSolutions.boardSize = boardSize;
+                    newSolutions.list = initList();
+                    newSolutionFound = true;
+                }
+                listAdd(&newSolutions.list, newSolutionBoard);
+                newSolutions.solutionsFound++;
+            }
+        }
+        // loop through the last row of the board excpet for the last column of the last row
+        newQueen.row = boardSize;
+        // this only itterates to boardsize since we have already checked the last column
+        for(col = 0; col < boardSize; col++) {
+            newQueen.col = col;
+            if(isValidPlacement(newQueen, currentSolution)) {
+                newSolutionBoard.numQueens = boardSize;
+                newSolutionBoard.boardSize = boardSize;
+                for(queenIttr = 0; queenIttr < boardSize; queenIttr++) {
+                    newSolutionBoard.placements[queenIttr] = currentSolution.placements[queenIttr];
+                }
+                newSolutionBoard.placements[boardSize] = newQueen;
+                // if this is the first new solution
+                if(!newSolutionFound) {
+                    // make a new solutions list
+                    newSolutions.solutionsFound = 0;
+                    newSolutions.boardSize = boardSize;
+                    newSolutions.list = initList();
+                    newSolutionFound = true;
+                }
+                listAdd(&newSolutions.list, newSolutionBoard);
+                newSolutions.solutionsFound++;
+            }
+        }
+        currentNode = currentNode->next;
+    }
+
+    if(newSolutionFound) {
+        *boardSolutions = newSolutions;
+    }
+    return newSolutionFound;
+}

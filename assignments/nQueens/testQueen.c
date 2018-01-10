@@ -91,6 +91,17 @@ void test_invalidPlacement_left_up_violation() {
     TEST_ASSERT_FALSE(isValidPlacement(newQueen, currentState));   
 }
 
+void test_getEmptyBoard() {
+    boardState actualBoard = getEmptyBoard();
+    int i;
+    for(i = 0; i < MAX_BOARD_SIZE; i++) {
+        TEST_ASSERT_EQUAL(-1, actualBoard.placements[i].row);
+        TEST_ASSERT_EQUAL(-1, actualBoard.placements[i].col);
+    }
+    TEST_ASSERT_EQUAL(0, actualBoard.numQueens);
+    TEST_ASSERT_EQUAL(0, actualBoard.boardSize);
+}
+
 
 int main(void) {
     RUN_TEST(test_validPlacement);
@@ -100,4 +111,5 @@ int main(void) {
     RUN_TEST(test_invalidPlacement_left_down_violation);
     RUN_TEST(test_invalidPlacement_right_up_violation);
     RUN_TEST(test_invalidPlacement_left_up_violation);
+    RUN_TEST(test_getEmptyBoard);
 }
