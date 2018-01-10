@@ -144,12 +144,9 @@ boardState getEmptyBoard();
  */
 solutionList initList();
 /**
- * @brief takes in a solution set from the previous itteration
- *        and finds a solution to the next set
+ * @brief generates the solutions to the board
  * 
- * @param boardSolutions a pointer to the solutions from the last itteration
- * @param boardSize the size of the board for the next itteration
- * @return true if a new set of solutions was found
- * @return false if no solutions were found for the board size
+ * @param boardState current board state
+ * @param sol solutions struct
  */
-bool getNextSolutionSet(solutions* boardSolutions, int boardSize);
+void placeNextPiece(boardState, solutions* sol);
