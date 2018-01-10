@@ -16,7 +16,7 @@ boardState genBoard() {
     currentState.placements[1] = secondQ;
 
     currentState.numQueens = 2;
-    currentState.boardSize = 5;
+    currentState.boardSize = 6;
 
     return currentState;
 }
@@ -75,11 +75,22 @@ void test_invalidPlacement_right_up_violation() {
     boardState currentState = genBoard();
 
     queen newQueen;
-    newQueen.row = 4;
+    newQueen.row = 3;
     newQueen.col = 1;
 
     TEST_ASSERT_FALSE(isValidPlacement(newQueen, currentState));   
 }
+
+void test_invalidPlacement_left_up_violation() {
+    boardState currentState = genBoard();
+
+    queen newQueen;
+    newQueen.row = 5;
+    newQueen.col = 5;
+
+    TEST_ASSERT_FALSE(isValidPlacement(newQueen, currentState));   
+}
+
 
 int main(void) {
     RUN_TEST(test_validPlacement);
@@ -87,4 +98,7 @@ int main(void) {
     RUN_TEST(test_invalidPlacement_same_col);
     RUN_TEST(test_invalidPlacement_right_down_violation);
     RUN_TEST(test_invalidPlacement_left_down_violation);
+    RUN_TEST(test_invalidPlacement_right_up_violation);
+    RUN_TEST(test_invalidPlacement_left_up_violation);
+
 }

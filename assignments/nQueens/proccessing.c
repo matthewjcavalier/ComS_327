@@ -46,11 +46,47 @@ bool noConflictLeftDownDiag(queen newPlacement, boardState currentBoard) {
 }
 
 bool noConflictRightUpDiag(queen newPlacement, boardState currentBoard) {
-    return true;
+    bool ret = true;
+    int row, col, queen;
+
+    row = newPlacement.row;
+    col = newPlacement.col;
+
+    while(row > -1 && col < currentBoard.boardSize) {
+        for(queen = 0; queen < currentBoard.numQueens; queen++) {
+            if(currentBoard.placements[queen].row == row &&
+                currentBoard.placements[queen].col == col) {
+                    ret = false;
+                    break;
+            }
+        }
+        row--;
+        col++;
+    }
+
+    return ret;
 }
 
 bool noConflictLeftUpDiag(queen newPlacement, boardState currentBoard) {
-    return true;
+    bool ret = true;
+    int row, col, queen;
+
+    row = newPlacement.row;
+    col = newPlacement.col;
+
+    while(row > -1 && col > -1) {
+        for(queen = 0; queen < currentBoard.numQueens; queen++) {
+            if(currentBoard.placements[queen].row == row &&
+                currentBoard.placements[queen].col == col) {
+                    ret = false;
+                    break;
+            }
+        }
+        row--;
+        col--;
+    }
+
+    return ret;
 }
 
 bool noConflictVertically(queen newPlacement, boardState currentBoard) {
