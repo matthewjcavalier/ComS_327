@@ -1,3 +1,5 @@
+all: queens debug
+
 queens: queens.c
 	gcc queens.c -o queens
 debug: queens.c
