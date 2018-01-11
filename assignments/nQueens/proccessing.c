@@ -128,6 +128,7 @@ bool isValidPlacement(queen newPlacement, boardState currentBoard) {
 
 char** getSolutions(int nQueens) {
     boardState newBoard = getEmptyBoard();
+    newBoard.boardSize = MAX_BOARD_SIZE;
     solutions boardSolutions;
     
     boardSolutions.solutionsFound = 0;
@@ -156,7 +157,7 @@ void placeNextPiece(boardState currentState, solutions* sol) {
 }
 
 char** convertSolutionsToStrings(solutions sol) {
-
+    int numSol = sol.solutionsFound;
 }
 
 solutionList initList() {

@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#define MAX_BOARD_SIZE  8
+#define MAX_BOARD_SIZE 8
 
 // datatypes
 typedef struct queen {
@@ -150,3 +150,4 @@ solutionList initList();
  * @param sol solutions struct
  */
 void placeNextPiece(boardState, solutions* sol);
+char** convertSolutionsToStrings(solutions sol);
