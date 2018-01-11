@@ -3,7 +3,7 @@
 typedef enum  {false, true} boolean;
 
 
-#define N_QUEENS 4
+#define N_QUEENS 8
 
 int board[N_QUEENS][N_QUEENS];
 
@@ -22,7 +22,7 @@ boolean invalidUpRight(int row, int col) {
     row--;
     col++;
 
-    while(row > 0 && col < N_QUEENS) {
+    while(row > -1 && col < N_QUEENS) {
         if(board[row][col] == 1) {
             invalid = true;
             break;
@@ -37,7 +37,7 @@ boolean invalidUpRight(int row, int col) {
 boolean invlaidUpLeft(int row, int col) {
     boolean invalid = false;
     row--;
-    col++;
+    col--;
 
     while(row > -1 && col > -1) {
         if(board[row][col] == 1) {
