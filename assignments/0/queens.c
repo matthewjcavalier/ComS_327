@@ -2,11 +2,15 @@
 
 typedef enum  {false, true} boolean;
 
-
 #define N_QUEENS 8
 
+// The board that holds the queens
 int board[N_QUEENS][N_QUEENS];
 
+/**
+ * @brief puts zeros at every index in the board
+ * 
+ */
 void clearBoard() {
     int row, col;
     
@@ -17,6 +21,13 @@ void clearBoard() {
     }
 }
 
+/**
+ * @brief Checks if there is a violation in the up right diagonal from the input row col
+ * 
+ * @param row to start looking at
+ * @param col to start looking at
+ * @return boolean if there was a rule violation
+ */
 boolean invalidUpRight(int row, int col) {
     boolean invalid = false;
     row--;
@@ -34,6 +45,13 @@ boolean invalidUpRight(int row, int col) {
     return invalid;
 }
 
+/**
+ * @brief Checks if there is a violation in the up left diagonal from the input row col
+ * 
+ * @param row to start looking at
+ * @param col to start looking at
+ * @return boolean if there was a rule violation
+ */
 boolean invlaidUpLeft(int row, int col) {
     boolean invalid = false;
     row--;
@@ -51,6 +69,13 @@ boolean invlaidUpLeft(int row, int col) {
     return invalid;
 }
 
+/**
+ * @brief Checks if there is a violation in the down right diagonal from the input row col
+ * 
+ * @param row to start looking at
+ * @param col to start looking at
+ * @return boolean if there was a rule violation
+ */
 boolean invalidDownRight(int row, int col) {
     boolean invalid = false;
     row++;
@@ -68,6 +93,13 @@ boolean invalidDownRight(int row, int col) {
     return invalid;
 }
 
+/**
+ * @brief Checks if there is a violation in the down left diagonal from the input row col
+ * 
+ * @param row to start looking at
+ * @param col to start looking at
+ * @return boolean if there was a rule violation
+ */
 boolean invalidDownLeft(int row, int col) {
     boolean invalid = false;
     row++;
@@ -85,6 +117,13 @@ boolean invalidDownLeft(int row, int col) {
     return invalid;
 }
 
+/**
+ * @brief Checks if there is a violation in the col input
+ * 
+ * @param row to start looking at
+ * @param col to start looking at
+ * @return boolean if there was a rule violation
+ */
 boolean invalidVertically(int col) {
     boolean invalid = false;
     int row, queenCount = 0;
@@ -102,6 +141,13 @@ boolean invalidVertically(int col) {
     return invalid;
 }
 
+/**
+ * @brief Checks if there is a violation in the row input
+ * 
+ * @param row to start looking at
+ * @param col to start looking at
+ * @return boolean if there was a rule violation
+ */
 boolean invalidHorizontally(int row) {
     boolean invalid = false;
     int col, queenCount = 0;
@@ -119,6 +165,14 @@ boolean invalidHorizontally(int row) {
     return invalid;
 }
 
+/**
+ * @brief Checks to make sure that there are not any placement
+ *        violations when a peice is placed at the input row col
+ * 
+ * @param row that the new peice is at
+ * @param col that the new peice is at
+ * @return boolean if the placement is valid, false if it is not valid
+ */
 boolean isValidPlacement(int row, int col) {
     boolean isValid = true;
 
@@ -143,7 +197,10 @@ boolean isValidPlacement(int row, int col) {
 
     return isValid;
 }
-
+/**
+ * @brief converts the current board into the string representation
+ *        and prints it
+ */
 void printBoardString() {
     int col, row;
     char charToPrint;
@@ -183,9 +240,17 @@ void printBoardString() {
     printf("\n");
 }
 
+/**
+ * @brief places a new peice in the given row such that
+ *        the new peice doesn't violate any of the placement
+ *        rules. Repeates as many times in that row as is
+ *        possible
+ * 
+ * @param row 
+ */
 void placePeice(int row) {
     int col;
-    
+
     for(col = 0; col < N_QUEENS; col++) {
         board[row][col] = 1;
         if(isValidPlacement(row, col)) {
@@ -201,6 +266,10 @@ void placePeice(int row) {
     board[row][N_QUEENS - 1] = 0;
 }
 
+/**
+ * @brief sets up the board and starts the solving process
+ * 
+ */
 void findSolutions() {
     // clean the board
     clearBoard();
