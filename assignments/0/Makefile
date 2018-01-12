@@ -8,7 +8,7 @@ debug: queens.c
 clean:
 	rm queens debug output.txt
 exportLog:
-	git --no-pager log > log.txt
+	git --no-pager log > CHANGELOG
 package:
 	mkdir cavalier_matthew.assignment-0
 	cp queens.c Makefile CHANGELOG README cavalier_matthew.assignment-0

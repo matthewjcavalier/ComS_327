@@ -1,3 +1,21 @@
+commit cd2201969907883e15c58a265f90d08d8b526d03
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Jan 12 14:56:19 2018 -0600
+
+    updated the readme and the makefile, think this should be the last commit
+
+commit e82d491c435c4e1e8e13b289654d2c5f8a2889b0
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Jan 12 09:40:53 2018 -0600
+
+    added documentation for each of the functions
+
+commit b424c33320a91d533df59be50db10bdd17adbb77
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Thu Jan 11 13:49:53 2018 -0600
+
+    added change log
+
 commit b20faf6ac4c0b05d32e6a41e748aea0ba68f4554
 Author: Matt Cavalier <matthewjcavalier@gmail.com>
 Date:   Thu Jan 11 13:47:55 2018 -0600
