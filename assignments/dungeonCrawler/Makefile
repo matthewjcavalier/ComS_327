@@ -8,3 +8,5 @@ run: crawler
 	./crawler
 clean:
 	rm debug crawler
+add: clean
+	git add .
