@@ -59,8 +59,10 @@ void placeHallways(Dungeon* dun);
 void printDungeon(Dungeon* dun);
 
 int main(int argc, char* argv[]) {
+  
   // seed random num gen
-  srand(time(0));
+  //srand(time(0));
+  srand(5);
 
   // set up the dungeon
   Dungeon* dungeon;
@@ -227,9 +229,11 @@ void printDungeon(Dungeon* dun) {
           printf("%c", HALL_CHAR);
         }
 
-        // debugging print of hardness
         else {
-          printf("%d", dun->map[row][col].hardness);
+          // debugging hardness  
+          //printf("%d", dun->map[row][col].hardness);
+
+          printf(" ");
         }
       }
     }
