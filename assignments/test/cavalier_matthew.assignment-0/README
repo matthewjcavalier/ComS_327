@@ -1,0 +1,44 @@
+Spec Compliance:
+    This program finds and prints solutions to the 8Queens
+    probelm. The each solution is output in a single line in
+    the specified format.
+
+MakeRules:
+    The first rule in the Makefile compiles the program for regular
+    use as well as debugging. There is a rule called run that will
+    compile the program, run it and redirect the output to a text
+    file called output.txt
+
+Functions:
+    clearBoard: 
+        puts zeros at evey index of the board
+
+    invalid family of functions:
+        check to see if the peice at a location on the board
+        breaks a placement rule in the different directions from
+        the peice
+ 
+    isValidPlacement:
+        checks that if a peice placed at the row col violates any
+        placement rules
+
+    printBoardString():
+        prints the chessboard in string representation
+    
+    placePiece(int row):
+        places tries to place a new peice in the specified row at
+        all positions, only makeing a recursive call when the placement
+        is valid
+
+Files:
+    Makefile: contains make rules
+
+    changeLog.txt: contains the git log for the assignment
+
+    queens.c: the c source file for the assignment
+
+    output.txt: the file generated when calling "make run"
+
+    queens: the binary program
+
+    debug: the binary program with debug flags turned on
