@@ -61,8 +61,8 @@ void printDungeon(Dungeon* dun);
 int main(int argc, char* argv[]) {
   
   // seed random num gen
-  //srand(time(0));
-  srand(5);
+  srand(time(0));
+  //srand(5);
 
   // set up the dungeon
   Dungeon* dungeon;
@@ -181,9 +181,9 @@ void clearRooms(Dungeon* dun) {
 boolean isValidRoomPlacement(int xLoc, int yLoc, Dungeon* dun, Room newRoom) {
   int col, row;
   boolean ret = true;
-  for(row = yLoc - 1; row < newRoom.height + 2; row++) {
-    for(col = xLoc - 1; col < newRoom.width + 2; col++) {
-      if(dun->map[row][col].isRoom) {
+  for(row = yLoc - 1; row < yLoc + newRoom.height + 1; row++) {
+    for(col = xLoc - 1; col < xLoc + newRoom.width + 1; col++) {
+      if(dun->map[row][col].isRoom || dun->map[row][col].isBorder) {
         ret = false;
         break;
       }
