@@ -57,6 +57,8 @@ void addRoomToDungeon(Dungeon* dun, Room newRoom);
 
 void placeHallways(Dungeon* dun);
 
+void makePathToRoom(int row1, int col1, int row2, int col2, Dungeon* dun);
+
 void placeHallTile(int col, int row, Dungeon* dun);
 
 void printDungeon(Dungeon* dun);
@@ -206,7 +208,6 @@ void addRoomToDungeon(Dungeon* dun, Room newRoom) {
 
 void placeHallways(Dungeon* dun) {
   int xPos1, xPos2, yPos1, yPos2, roomNum;
-  int xMult, yMult;
   
   for(roomNum = 0; roomNum < dun->numRooms - 1; roomNum++) {
     xPos1 = dun->rooms[roomNum].xPos;
@@ -215,31 +216,43 @@ void placeHallways(Dungeon* dun) {
     xPos2 = dun->rooms[roomNum + 1].xPos;
     yPos2 = dun->rooms[roomNum + 1].yPos;
     
-    if(xPos1 > xPos2){
-      xMult = -1;
-    } else {
-      xMult = 1;
-    }
-
-    if(yPos1 > yPos2) {
-      yMult = -1;
-    } else {
-      yMult = 1;
-    }
     
-    // get to the same row
-    while(yPos1 != yPos2) {
-      placeHallTile(xPos1, yPos1, dun);
-      yPos1 += yMult;
-    }
-
-    while(xPos1 != xPos2) {
-      placeHallTile(xPos1, yPos1, dun);
-      xPos1 += xMult;
-    }
+    
+    makePathToRoom(yPos1, xPos1, yPos2, xPos2, dun);
   }
   
 }
+
+void makePathToRoom(int row1, int col1, int row2, int col2, Dungeon* dun){
+  int xMult, yMult;
+
+  if(col1 > col2){
+    xMult = -1;
+  } else {
+    xMult = 1;
+  }
+
+  if(row1 > row2) {
+    yMult = -1;
+  } else {
+    yMult = 1;
+  }
+
+  while(row1 != row2 || col1 != col2) {
+    // if even work on row
+    if(rand() % 2 == 0) {
+      if(row1 != row2) {
+        row1 += yMult;
+        placeHallTile(col1, row1, dun);
+      }
+    } else if(col1 != col2) {
+      col1 += xMult;
+      placeHallTile(col1, row1, dun);
+    }
+  }
+}
+
+
 
 void placeHallTile(int col, int row, Dungeon* dun) {
   if(!dun->map[row][col].isRoom) {
