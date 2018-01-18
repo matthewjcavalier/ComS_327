@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 #define MAX_DUNGEON_HEIGHT 21
 #define MAX_DUNGEON_WIDTH 80
@@ -16,8 +17,16 @@
 #define EXPECTED_ROOM_COUNT 10
 #define MIN_ROOM_COUNT 5
 
+#define COOL_ROOM_CHAR "\u26c6"
+#define COOL_HALL_CHAR "\u26da"
+
 
 typedef enum {false, true} boolean;
+
+typedef struct {
+  int seed;
+  boolean useCoolChars;
+} Setup;
 
 typedef struct {
   int xPos;
@@ -38,6 +47,8 @@ typedef struct {
   Room rooms[EXPECTED_ROOM_COUNT];
   int numRooms;
 } Dungeon;
+
+Setup parseArgs(int argc, char* argv[]);
 
 Dungeon* genDungeon();
 
@@ -61,20 +72,44 @@ void makePathToRoom(int row1, int col1, int row2, int col2, Dungeon* dun);
 
 void placeHallTile(int col, int row, Dungeon* dun);
 
-void printDungeon(Dungeon* dun);
+void printDungeon(Dungeon* dun, Setup setup);
 
 int main(int argc, char* argv[]) {
-  
-  // seed random num gen
   srand(time(0));
-  //srand(5);
+
+  Setup setup = parseArgs(argc, argv);
+  
+  printf("Using seed: %d\n", setup.seed);
+  // seed random num gen
+  srand(setup.seed);
 
   // set up the dungeon
   Dungeon* dungeon;
   dungeon = genDungeon();
   
   // print the dungeon
-  printDungeon(dungeon);
+  printDungeon(dungeon, setup);
+}
+
+Setup parseArgs(int argc, char* argv[]) {
+  Setup ret;
+  int i;
+
+  ret.seed = rand();
+  ret.useCoolChars = false;
+  
+  // look for flags
+  for(i = 0; i < argc; i++) {
+    if(strcmp(argv[i], "-s") == 0) {
+      if(i + 1 < argc){
+        ret.seed = atoi(argv[i+1]);
+      }
+    }
+    if(strcmp(argv[i], "-cool") == 0) {
+      ret.useCoolChars = true;
+    }
+  }
+  return ret;
 }
 
 Dungeon* genDungeon() {
@@ -260,7 +295,7 @@ void placeHallTile(int col, int row, Dungeon* dun) {
   }
 }
 
-void printDungeon(Dungeon* dun) {
+void printDungeon(Dungeon* dun, Setup setup) {
   int row, col;
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
@@ -278,9 +313,17 @@ void printDungeon(Dungeon* dun) {
       // else the tile is part of the normal dungeon
       else {
         if(dun->map[row][col].isRoom) {
-          printf("%c", ROOM_CHAR);
+          if(setup.useCoolChars) {
+            printf("%s", COOL_ROOM_CHAR);
+          } else {
+            printf("%c", ROOM_CHAR);
+          }
         } else if(dun->map[row][col].isHallway) {
-          printf("%c", HALL_CHAR);
+          if(setup.useCoolChars) {
+            printf("%s", COOL_HALL_CHAR);
+          } else {
+            printf("%c", HALL_CHAR);
+          }
         }
 
         else {
