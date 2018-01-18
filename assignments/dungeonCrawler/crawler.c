@@ -36,6 +36,7 @@ typedef struct {
 typedef struct {
   Tile map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH];
   Room rooms[EXPECTED_ROOM_COUNT];
+  int numRooms;
 } Dungeon;
 
 Dungeon* genDungeon();
@@ -55,6 +56,8 @@ boolean isValidRoomPlacement(int xLoc, int yLoc, Dungeon* dun, Room newRoom);
 void addRoomToDungeon(Dungeon* dun, Room newRoom); 
 
 void placeHallways(Dungeon* dun);
+
+void placeHallTile(int col, int row, Dungeon* dun);
 
 void printDungeon(Dungeon* dun);
 
@@ -130,10 +133,8 @@ void setHardnesses(Dungeon* dun) {
 }
 
 void placeRooms(Dungeon* dun) {
-  boolean roomsPlacedSuccess = false;
   int roomNum, xLoc, yLoc; 
   int totalRoomsPlaced = 0;
-  Room currentRoom;
 
   // set room sizes
   for(roomNum = 0; roomNum < EXPECTED_ROOM_COUNT; roomNum++) {
@@ -161,6 +162,7 @@ void placeRooms(Dungeon* dun) {
       }
     }
   }
+  dun->numRooms = totalRoomsPlaced;
 }
 
 void clearRooms(Dungeon* dun) {
@@ -178,6 +180,7 @@ void clearRooms(Dungeon* dun) {
     }
   }
 }
+
 boolean isValidRoomPlacement(int xLoc, int yLoc, Dungeon* dun, Room newRoom) {
   int col, row;
   boolean ret = true;
@@ -202,8 +205,46 @@ void addRoomToDungeon(Dungeon* dun, Room newRoom) {
 }
 
 void placeHallways(Dungeon* dun) {
+  int xPos1, xPos2, yPos1, yPos2, roomNum;
+  int xMult, yMult;
+  
+  for(roomNum = 0; roomNum < dun->numRooms - 1; roomNum++) {
+    xPos1 = dun->rooms[roomNum].xPos;
+    yPos1 = dun->rooms[roomNum].yPos;
 
+    xPos2 = dun->rooms[roomNum + 1].xPos;
+    yPos2 = dun->rooms[roomNum + 1].yPos;
+    
+    if(xPos1 > xPos2){
+      xMult = -1;
+    } else {
+      xMult = 1;
+    }
 
+    if(yPos1 > yPos2) {
+      yMult = -1;
+    } else {
+      yMult = 1;
+    }
+    
+    // get to the same row
+    while(yPos1 != yPos2) {
+      placeHallTile(xPos1, yPos1, dun);
+      yPos1 += yMult;
+    }
+
+    while(xPos1 != xPos2) {
+      placeHallTile(xPos1, yPos1, dun);
+      xPos1 += xMult;
+    }
+  }
+  
+}
+
+void placeHallTile(int col, int row, Dungeon* dun) {
+  if(!dun->map[row][col].isRoom) {
+    dun->map[row][col].isHallway = true;
+  }
 }
 
 void printDungeon(Dungeon* dun) {
