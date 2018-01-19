@@ -8,8 +8,17 @@
 #define ROOM_CHAR '.'
 #define HALL_CHAR '#'
 
-#define COOL_ROOM_CHAR "\u26c6" //  ⛆ 
-#define COOL_HALL_CHAR "\u26da" // ⛚
+//#define COOL_ROOM_CHAR            "\u26c6"  //  ⛆ 
+#define COOL_ROOM_CHAR            "\u2593"  //  ▓
+//#define COOL_HALL_CHAR            "\u26da"  //  ⛚
+#define COOL_HALL_CHAR            "\u2592"  //  ▒
+#define COOL_ROCK                 "\u2591"  //  ░
+#define COOL_BORDER_TOP_LEFT      "\u2554"  // 	╔
+#define COOL_BORDER_TOP_RIGHT     "\u2557"  //  ╗
+#define COOL_BORDER_BOTTOM_LEFT   "\u255a"  //  ╚
+#define COOL_BORDER_BOTTOM_RIGHT  "\u255d"  //  ╝
+#define COOL_BORDER_VERT          "\u2551"  //  ║
+#define COOL_BORDER_HOR           "\u2550"  //  ═
 
 typedef struct {
   int seed;
@@ -34,3 +43,8 @@ Setup parseArgs(int argc, char* argv[]);
  */
 void printDungeon(Dungeon* dun, Setup setup);
 
+
+void printStandardDun(Dungeon* dun);
+
+
+void printCoolDun(Dungeon* dun);

@@ -1,6 +1,7 @@
 #include "crawler.h"
 
 int main(int argc, char* argv[]) {
+
   srand(time(0));
 
   Setup setup = parseArgs(argc, argv);
@@ -53,6 +54,14 @@ Setup parseArgs(int argc, char* argv[]) {
  * @param setup   a struct containg print info
  */
 void printDungeon(Dungeon* dun, Setup setup) {
+  if(setup.useCoolChars) {
+    printCoolDun(dun);
+  } else {
+    printStandardDun(dun);
+  }
+}
+
+void printStandardDun(Dungeon* dun) {
   int row, col;
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
@@ -70,26 +79,50 @@ void printDungeon(Dungeon* dun, Setup setup) {
       // else the tile is part of the normal dungeon
       else {
         if(dun->map[row][col].isRoom) {
-          if(setup.useCoolChars) {
-            printf("%s", COOL_ROOM_CHAR);
-          } else {
-            printf("%c", ROOM_CHAR);
-          }
+          printf("%c", ROOM_CHAR);
         } else if(dun->map[row][col].isHallway) {
-          if(setup.useCoolChars) {
-            printf("%s", COOL_HALL_CHAR);
-          } else {
-            printf("%c", HALL_CHAR);
-          }
+          printf("%c", HALL_CHAR);
         }
 
         else {
-          // debugging hardness  
-          //printf("%d", dun->map[row][col].hardness);
-
           printf(" ");
         }
       }
+    }
+    printf("\n");
+  }
+}
+
+void printCoolDun(Dungeon* dun) {
+  int row, col;
+  char* charToPrint;
+
+  for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
+      if(dun->map[row][col].isBorder) {
+        if(row == 0 && col == 0) {
+          charToPrint = COOL_BORDER_TOP_LEFT;
+        } else if(row == 0 && col == MAX_DUNGEON_WIDTH - 1) {
+          charToPrint = COOL_BORDER_TOP_RIGHT;
+        } else if(row == MAX_DUNGEON_HEIGHT - 1 && col == 0) {
+          charToPrint = COOL_BORDER_BOTTOM_LEFT;
+        } else if(row == MAX_DUNGEON_HEIGHT - 1 && col == MAX_DUNGEON_WIDTH - 1) {
+          charToPrint = COOL_BORDER_BOTTOM_RIGHT;
+        } else if(row == 0 || row == MAX_DUNGEON_HEIGHT -1) {
+          charToPrint = COOL_BORDER_HOR;
+        } else if(col == 0 || col == MAX_DUNGEON_WIDTH -1){
+          charToPrint = COOL_BORDER_VERT;
+        }
+      } else {
+        if(dun->map[row][col].isHallway) {
+          charToPrint = COOL_HALL_CHAR;
+        } else if(dun->map[row][col].isRoom) {
+          charToPrint = COOL_ROOM_CHAR;
+        } else {
+          charToPrint = COOL_ROCK;
+        }
+      }
+      printf("%s", charToPrint);
     }
     printf("\n");
   }
