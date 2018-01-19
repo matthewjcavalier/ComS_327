@@ -1,0 +1,125 @@
+commit 67894802f21145b96bca87ef8e58a6d0680f86c7
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Thu Jan 18 16:14:52 2018 -0600
+
+    added start up parameters for setting the seed used as well as the option to us cool unicode fonts
+
+commit 871a6a32d664c7d6d30e54a25b95815c045fbba3
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Thu Jan 18 14:37:13 2018 -0600
+
+    The room pathing is a bit more interesting now, but I still think it could be better
+
+commit 1272eb942c6eb8069c94937ffdad070c67ac3755
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Thu Jan 18 14:19:49 2018 -0600
+
+    places halls in a correct fashon but is a bit boring
+
+commit e1f2b1bcae8ba02b8030364a7eeaaf2093f20bf1
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 16 19:41:53 2018 -0600
+
+    figured out the room bug, now rooms are being generated and placed properly
+
+commit 182d642b57765fc3fd32edd8439ddd5d8f9656ae
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 16 17:29:26 2018 -0600
+
+    set the rand num gen to a constant to start debugging the issue with room generation
+
+commit 61da9a319402e537e44f4234fb89f1eecfafe406
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 16 17:24:31 2018 -0600
+
+    the room generation is placing rooms, but the logic is still a little funky (i.e. placing rooms right next to each other with no space between
+
+commit 3437bc1b95914f2bf576d828163cee0e1cb302b1
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 16 15:52:33 2018 -0600
+
+    the dungeon is bieng populated with tiles that are either a border or they have a hardness value
+
+commit e51c921326ba8d02cec2c670162da41f016b2efc
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 16 15:27:36 2018 -0600
+
+    have the differnet methods for generating the dungeon stubbed
+
+commit d5c2f46e0909643ff63ebddbbb2f43962719e3de
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 16 15:02:12 2018 -0600
+
+    created the basic files
+
+commit 2960d787ef375ae45510296d9beebbcbaab4b5f2
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 16 15:00:29 2018 -0600
+
+    updated the gitignore
+
+commit e47c32218319ec783024938c9629cbddb739567a
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 16 14:47:18 2018 -0600
+
+    about to merge
+
+commit b0e6c6f72cd3cd088a70af7b2d73d6b311f29df1
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 16 11:01:09 2018 -0600
+
+    added syllabus
+
+commit 5d139b9433003ba0804b1b44f5a63cb3bfc654ca
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Jan 12 14:58:21 2018 -0600
+
+    packaged up
+
+commit cd2201969907883e15c58a265f90d08d8b526d03
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Jan 12 14:56:19 2018 -0600
+
+    updated the readme and the makefile, think this should be the last commit
+
+commit e82d491c435c4e1e8e13b289654d2c5f8a2889b0
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Jan 12 09:40:53 2018 -0600
+
+    added documentation for each of the functions
+
+commit b424c33320a91d533df59be50db10bdd17adbb77
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Thu Jan 11 13:49:53 2018 -0600
+
+    added change log
+
+commit b20faf6ac4c0b05d32e6a41e748aea0ba68f4554
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Thu Jan 11 13:47:55 2018 -0600
+
+    I am dumb, one of the validitiy checks was stopping at row = 1 instead of row = 0, fixed it, and it works as perscribed in the doc
+
+commit d3b729513211e38828e45f634c99e872cbbd07a8
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Thu Jan 11 13:23:50 2018 -0600
+
+    I have added in all of the functions needed and I think that it works on a 4 by 4
+
+commit d8dd527e6fbb9034a51e85c7870d4ab6a1c568d9
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Thu Jan 11 12:01:16 2018 -0600
+
+    put bare bones basics into Makefile, queens.c is now a hello world
+
+commit 04d5426311569e07254aadfd42d1fb8dab1fb581
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Thu Jan 11 11:54:58 2018 -0600
+
+    created the neccisary files, all are empty
+
+commit a19603b7da103f94a34f78db0c06919b11afcf5d
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Thu Jan 4 17:37:18 2018 -0600
+
+    first commit
