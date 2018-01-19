@@ -1,3 +1,21 @@
+commit 6859c5fd93f4ee3a672a98482af24ea218d19644
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Jan 19 15:32:11 2018 -0600
+
+    updated the README
+
+commit 0db33dd5c6de9f252e2111997a65b9942c9835c3
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Jan 19 12:21:17 2018 -0600
+
+    added better cool dungeon option
+
+commit a6ab08a0979419f90bb46ffa234e6671c7f1ca39
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Jan 19 11:28:17 2018 -0600
+
+    pulled out parts of the code from crawler.c to separate source files and put headers on all functions giving descriptions to what they do. Also played around and added two turnary statements to the makePathToRoom func in generator.c
+
 commit 67894802f21145b96bca87ef8e58a6d0680f86c7
 Author: Matt Cavalier <matthewjcavalier@gmail.com>
 Date:   Thu Jan 18 16:14:52 2018 -0600

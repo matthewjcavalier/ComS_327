@@ -14,3 +14,6 @@ exportLog:
 	git --no-pager log > CHANGELOG
 package:
 	mkdir cavalier_matthew.assignment-1.01
+	cp generator.* crawler.* Makefile README CHANGELOG cavalier_matthew.assignment-1.01
+	tar cvfz cavalier_matthew.assignment-1.01.tar.gz cavalier_matthew.assignment-1.01/
+	rm -rf cavalier_matthew.assignment-1.01
