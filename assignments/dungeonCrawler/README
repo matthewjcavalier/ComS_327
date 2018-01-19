@@ -1,0 +1,59 @@
+Compliance:
+
+  The current state of the program allows for a dungeon to be generated randomly. A minimum of 5
+  rooms with each room being connected to a network of all of the rooms in the dungeon.
+
+  Side Notes:
+
+    The current program can also take in parameters at runtime those parameters are as
+    follows:
+      
+      -s      This flag followed by any number or string will be used as the seed for 
+              generating the dungeon.
+
+              example:
+                
+                  ./crawler -s 1234556
+
+      -cool   This flag makes the program use unicode characters to display the dungeon
+              in a different fashion than normal
+
+              example:
+                  
+                  ./crawler -cool
+
+Interesting Functions:
+
+  genDungeon (see generator.h)
+    - goes through all of the steps to create the dungeon
+      from adding rooms to placing hallways
+
+  placeRooms (see generator.h)
+    - places the rooms of random size at random in the
+      dungeon
+
+  makePathToRoom (see generator.h)
+    - goes through the process of making a path between
+      two rooms
+
+Data structures:
+
+  Room struct (see generator.h)
+    - holds data needed to describe a room
+
+  Tile struct (see generator.h)
+    - holds info regarding one tile in the dungeon
+
+  Dungeon struct (see generator.h)
+    - represents the entire dugeon and holds a list
+      of rooms in the dungeon
+
+File Names:
+
+  crawler.c     holds the main func for the program as well as printing
+
+  crawler.h     holds the header info for crawler.c as well as includes generator.h
+
+  generator.c   holds the logic for generating the dungeon
+
+  generator.h   holds the header info for generator.c
