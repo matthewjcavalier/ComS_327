@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "list.h"
 
 #define MAX_DUNGEON_HEIGHT 21
 #define MAX_DUNGEON_WIDTH 80
@@ -28,8 +29,7 @@ typedef struct {
 
 typedef struct {
   Tile map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH];
-  Room rooms[EXPECTED_ROOM_COUNT];
-  int numRooms;
+  struct List* rooms;
 } Dungeon;
 
 /**
@@ -46,7 +46,7 @@ Dungeon* genDungeon();
  * 
  * @param dun   the dungeon being worked on
  */
-void zeroOutDungeon(Dungeon* dun);
+void initDungeon(Dungeon* dun);
 
 /**
  * @brief   Adds a border to the dungeon. Each tile in

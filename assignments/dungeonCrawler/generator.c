@@ -10,7 +10,7 @@ Dungeon* genDungeon() {
   Dungeon* newDungeon;
   newDungeon = malloc(sizeof(Dungeon));
 
-  zeroOutDungeon(newDungeon);
+  initDungeon(newDungeon);
   
   addBorders(newDungeon);
 
@@ -29,7 +29,7 @@ Dungeon* genDungeon() {
  * 
  * @param dun 
  */
-void zeroOutDungeon(Dungeon* dun) {
+void initDungeon(Dungeon* dun) {
   int row, col;
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
@@ -39,6 +39,7 @@ void zeroOutDungeon(Dungeon* dun) {
       dun->map[row][col].isRoom = false;
     }
   }
+  dun->rooms = initList();
 }
 
 /**
@@ -88,35 +89,38 @@ void setHardnesses(Dungeon* dun) {
  */
 void placeRooms(Dungeon* dun) {
   int roomNum, xLoc, yLoc; 
-  int totalRoomsPlaced = 0;
-
+  Room* newRoom;
+/*
   // set room sizes
   for(roomNum = 0; roomNum < EXPECTED_ROOM_COUNT; roomNum++) {
     dun->rooms[roomNum].height = MIN_ROOM_HEIGHT + (rand() % 10);
     dun->rooms[roomNum].width = MIN_ROOM_WIDTH + (rand() % 10);
   }
-
-  while(totalRoomsPlaced <= MIN_ROOM_COUNT) {
-    totalRoomsPlaced = 0;
+*/
+  while(dun->rooms->length <= MIN_ROOM_COUNT) {
     clearRooms(dun);
+
     for(roomNum = 0; roomNum < EXPECTED_ROOM_COUNT; roomNum++) {
+      newRoom = malloc(sizeof(Room));
+      newRoom->height = MIN_ROOM_HEIGHT + (rand() % 10);
+      newRoom->width = MIN_ROOM_WIDTH + (rand() % 10);
+
       // minus 2 for the two borders, plus 1 to start at col 1
       xLoc = rand() % (MAX_DUNGEON_WIDTH - 2) + 1;
       // minus 2 for the two borders, plus 1 to start at row 1
       yLoc = rand() % (MAX_DUNGEON_HEIGHT - 2) + 1;
       
-      if(isValidRoomPlacement(xLoc, yLoc, dun, dun->rooms[roomNum])) {
-        dun->rooms[roomNum].xPos = xLoc;
-        dun->rooms[roomNum].yPos = yLoc;
+      if(isValidRoomPlacement(xLoc, yLoc, dun, *newRoom)) {
+        newRoom->xPos = xLoc;
+        newRoom->yPos = yLoc;
         
-        addRoomToDungeon(dun, dun->rooms[roomNum]);
-        totalRoomsPlaced++;
+        addRoomToDungeon(dun, *newRoom);
+        listAdd(newRoom, dun->rooms);
       } else {
         break;
       }
     }
   }
-  dun->numRooms = totalRoomsPlaced;
 }
 
 /**
@@ -126,11 +130,10 @@ void placeRooms(Dungeon* dun) {
  * @param dun   the dungeon being worked on
  */
 void clearRooms(Dungeon* dun) {
-  int roomNum, row, col;
-  // loop through and clear room coords
-  for(roomNum = 0; roomNum < EXPECTED_ROOM_COUNT; roomNum++) {
-    dun->rooms[roomNum].xPos = -1;
-    dun->rooms[roomNum].yPos = -1;
+  int row, col;
+  // loop through and free the mem that each room took up in the list
+  while(dun->rooms->length > 0) {
+    listRemove(0, dun->rooms);
   }
 
   // loop through and clear the dungeon map
@@ -183,17 +186,27 @@ void addRoomToDungeon(Dungeon* dun, Room newRoom) {
 
 void placeHallways(Dungeon* dun) {
   int xPos1, xPos2, yPos1, yPos2, roomNum;
-  
-  for(roomNum = 0; roomNum < dun->numRooms - 1; roomNum++) {
-    xPos1 = dun->rooms[roomNum].xPos;
-    yPos1 = dun->rooms[roomNum].yPos;
+  Node* currentNode;
+  Room currentRoom, nextRoom;
 
-    xPos2 = dun->rooms[roomNum + 1].xPos;
-    yPos2 = dun->rooms[roomNum + 1].yPos;
+  for(roomNum = 0; roomNum < dun->rooms->length - 1; roomNum++) {
+    if(roomNum == 0) {
+      currentNode = dun->rooms->head;
+    } else {
+        currentNode = currentNode->next;
+    }
+
+    currentRoom = *(Room*) currentNode->dataPtr;
+    nextRoom = *(Room*) currentNode->next->dataPtr;
+
+    xPos1 = currentRoom.xPos;
+    yPos1 = currentRoom.yPos;
+
+    xPos2 = nextRoom.xPos;
+    yPos2 = nextRoom.yPos;
     
     makePathToRoom(yPos1, xPos1, yPos2, xPos2, dun);
   }
-  
 }
 
 /**

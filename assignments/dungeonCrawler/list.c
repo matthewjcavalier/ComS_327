@@ -1,19 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-
-#define INVALID_INDEX_EXCEPTION 1
-
-typedef struct Node{
-  void* dataPtr;
-  struct Node* next;
-  struct Node* prev;
-} Node;
-
-typedef struct List{
-  struct Node* head;
-  struct Node* tail;
-  int length;
-} List;
+#include "list.h"
 
 List* initList() {
   List* newList;

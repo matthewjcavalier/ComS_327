@@ -1,14 +1,14 @@
 all: crawler debug
-crawler: crawler.o generator.o
-	gcc -Wall -Werror crawler.o generator.o -o crawler
+crawler: crawler.o generator.o list.o
+	gcc -Wall -Werror crawler.o generator.o list.o -o crawler
+debug: crawler.o generator.o list.o
+	gcc -g -Wall -Werror crawler.o generator.o list.o -o debug
 crawler.o: crawler.c
-	gcc -Wall -Werror -c crawler.c
+	gcc -g -Wall -Werror -c crawler.c
 generator.o: generator.c
-	gcc -Wall -Werror -c generator.c
+	gcc -g -Wall -Werror -c generator.c
 list.o: list.c
-	gcc -Wall -Werror -c list.c
-debug: crawler.o generator.o
-	gcc -g -Wall -Werror crawler.o generator.o -o debug
+	gcc -g -Wall -Werror -c list.c
 run: crawler
 	./crawler -cool
 clean:
