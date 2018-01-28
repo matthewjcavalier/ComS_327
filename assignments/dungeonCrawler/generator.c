@@ -261,6 +261,9 @@ void saveDungeon(Dungeon* dun, char* saveLoc) {
   uint32_t roomStorageSize = 4; // 4 bytes
   uint32_t fileSize = 1700 + (roomStorageSize * dun->rooms->length);
   int row, col;
+  Node* currentNode;
+  int index;
+  Room currentRoom;
 
 
   fileSize = endianSwap_uInt(fileSize);
@@ -268,10 +271,22 @@ void saveDungeon(Dungeon* dun, char* saveLoc) {
   fwrite(str, sizeof(str), 1, file);
   fwrite(&version, sizeof(uint32_t), 1, file);
   fwrite(&fileSize, sizeof(uint32_t), 1, file);
+
+  // save dungeon map
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
       fwrite(&dun->map[row][col].hardness, sizeof(uint8_t), 1, file);
     }
+  }
+
+  // save the rooms
+  currentNode = dun->rooms->head;
+  for(index = 0; index < dun->rooms->length; index++){
+    currentRoom = *(Room*)currentNode->dataPtr;
+    fwrite(&currentRoom.yPos, sizeof(uint8_t), 1, file);
+    fwrite(&currentRoom.xPos, sizeof(uint8_t), 1, file);
+    fwrite(&currentRoom.height, sizeof(uint8_t), 1, file);
+    fwrite(&currentRoom.width, sizeof(uint8_t), 1, file);
   }
 }
 
