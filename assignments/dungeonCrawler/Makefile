@@ -10,7 +10,7 @@ generator.o: generator.c
 list.o: list.c
 	gcc -g -Wall -Werror -c list.c
 run: crawler
-	./crawler -cool
+	./crawler -cool --save -s 5157108739
 clean:
 	- rm debug crawler
 	- rm *.o

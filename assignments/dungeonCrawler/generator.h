@@ -1,6 +1,19 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "list.h"
+#ifndef STDIO_H
+  #define STDIO_H
+  #include <stdio.h>
+#endif
+#ifndef STDLIB_H
+  #define STDLIB_H
+  #include <stdlib.h>
+#endif
+#ifndef STRING_H
+  #define STRING_H
+  #include <string.h>
+#endif
+#ifndef LIST_H
+  #define LIST_H
+  #include "list.h"
+#endif
 
 #define MAX_DUNGEON_HEIGHT 21
 #define MAX_DUNGEON_WIDTH 80
@@ -132,3 +145,7 @@ void makePathToRoom(int row1, int col1, int row2, int col2, Dungeon* dun);
  * @param dun   the dungeon being worked on
  */
 void placeHallTile(int row, int col, Dungeon* dun);
+
+void saveDungeon(Dungeon* dun, char* saveLoc);
+
+unsigned int endianSwap_uInt(unsigned int input);

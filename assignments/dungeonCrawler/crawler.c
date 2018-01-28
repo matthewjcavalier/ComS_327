@@ -12,10 +12,18 @@ int main(int argc, char* argv[]) {
 
   // set up the dungeon
   Dungeon* dungeon;
-  dungeon = genDungeon();
+  if(setup.load){
+
+  } else {
+    dungeon = genDungeon();
+  }
   
   // print the dungeon
   printDungeon(dungeon, setup);
+
+  if(setup.save) {
+    saveDungeon(dungeon, setup.saveLoadLocation);
+  }
 }
 
 /**
@@ -32,6 +40,8 @@ Setup parseArgs(int argc, char* argv[]) {
 
   ret.seed = rand();
   ret.useCoolChars = false;
+  ret.save = false;
+  ret.load = false;
   
   // look for flags
   for(i = 0; i < argc; i++) {
@@ -40,9 +50,20 @@ Setup parseArgs(int argc, char* argv[]) {
         ret.seed = atoi(argv[i+1]);
       }
     }
-    if(strcmp(argv[i], "-cool") == 0) {
+    else if(strcmp(argv[i], "-cool") == 0) {
       ret.useCoolChars = true;
     }
+    else if(strcmp(argv[i], "--save") == 0) {
+      ret.save = true;
+    }
+    else if(strcmp(argv[i], "--load") == 0) {
+      ret.load = true;
+    }
+  }
+
+  if(ret.save || ret.load) {
+    ret.saveLoadLocation = getenv("HOME");
+    ret.saveLoadLocation = strcat(ret.saveLoadLocation, "/.rlg327/dungeon");
   }
   return ret;
 }

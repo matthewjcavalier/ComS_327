@@ -1,6 +1,19 @@
-#include <time.h>
-#include <string.h>
-#include "generator.h"
+#ifndef TIME_H
+  #define TIME_H
+  #include <time.h>
+#endif
+#ifndef STRING_H
+  #define STRING_H
+  #include <string.h>
+#endif
+#ifndef STDLIB_H
+  #define STDLIB_H
+  #include <stdlib.h>
+#endif
+#ifndef GENERATOR_H
+  #define GENERATOR_H
+  #include "generator.h"
+#endif
 
 
 #define BORDER_HOR_CHAR '-'
@@ -23,6 +36,9 @@
 typedef struct {
   int seed;
   boolean useCoolChars;
+  boolean save;
+  boolean load;
+  char* saveLoadLocation;
 } Setup;
 
 /**

@@ -249,3 +249,28 @@ void placeHallTile(int row, int col, Dungeon* dun) {
     dun->map[row][col].isHallway = true;
   }
 }
+
+void saveDungeon(Dungeon* dun, char* saveLoc) {
+  FILE* file = fopen(saveLoc, "w");
+  char str[12] = {'R', 'L', 'G', '3', '2', '7', '-', 'S', '2', '0', '1', '8'};
+  unsigned int version = 0;
+  //unsigned int roomStorageSize = 4; // 4 bytes
+  unsigned int fileSize = 1700 ;//+ (roomStorageSize * dun->rooms->length);
+
+  fileSize = endianSwap_uInt(fileSize);
+
+  fwrite(str, sizeof(str), 1, file);
+  fwrite(&version, sizeof(unsigned int), 1, file);
+  fwrite(&fileSize, sizeof(unsigned int), 1, file);
+}
+
+unsigned int endianSwap_uInt(unsigned int input) {
+  unsigned int leftMost = (input << 8 * 3) & 0xff000000;
+  unsigned int left = (input << 8) & 0x00ff0000;
+  unsigned int right = (input >> 8) & 0x0000ff00;
+  unsigned int rightMost = (input >> 8 * 3) & 0x000000ff;
+  printf("leftMost: %x\nleft: %x\nright: %x\nrightMost: %x", leftMost, left, right, rightMost);
+  unsigned int ret = leftMost + left + right + rightMost;
+  
+  return ret;
+}
