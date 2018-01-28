@@ -54,13 +54,17 @@ void addBorders(Dungeon* dun) {
   // add borders to the first row and last row
   for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
     dun->map[0][col].isBorder = true;
+    dun->map[0][col].hardness = MAX_ROCK_HARDNESS;
     dun->map[MAX_DUNGEON_HEIGHT - 1][col].isBorder = true;
+    dun->map[MAX_DUNGEON_HEIGHT - 1][col].hardness = MAX_ROCK_HARDNESS;
   }
   
   // add borders to the first and last column
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     dun->map[row][0].isBorder = true;
+    dun->map[row][0].hardness = MAX_ROCK_HARDNESS;
     dun->map[row][MAX_DUNGEON_WIDTH - 1].isBorder = true;
+    dun->map[row][MAX_DUNGEON_WIDTH - 1].hardness = MAX_ROCK_HARDNESS;
   }
 }
 
@@ -253,24 +257,31 @@ void placeHallTile(int row, int col, Dungeon* dun) {
 void saveDungeon(Dungeon* dun, char* saveLoc) {
   FILE* file = fopen(saveLoc, "w");
   char str[12] = {'R', 'L', 'G', '3', '2', '7', '-', 'S', '2', '0', '1', '8'};
-  unsigned int version = 0;
-  //unsigned int roomStorageSize = 4; // 4 bytes
-  unsigned int fileSize = 1700 ;//+ (roomStorageSize * dun->rooms->length);
+  uint32_t version = 0;
+  uint32_t roomStorageSize = 4; // 4 bytes
+  uint32_t fileSize = 1700 + (roomStorageSize * dun->rooms->length);
+  int row, col;
+
 
   fileSize = endianSwap_uInt(fileSize);
 
   fwrite(str, sizeof(str), 1, file);
-  fwrite(&version, sizeof(unsigned int), 1, file);
-  fwrite(&fileSize, sizeof(unsigned int), 1, file);
+  fwrite(&version, sizeof(uint32_t), 1, file);
+  fwrite(&fileSize, sizeof(uint32_t), 1, file);
+  for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
+      fwrite(&dun->map[row][col].hardness, sizeof(uint8_t), 1, file);
+    }
+  }
 }
 
-unsigned int endianSwap_uInt(unsigned int input) {
-  unsigned int leftMost = (input << 8 * 3) & 0xff000000;
-  unsigned int left = (input << 8) & 0x00ff0000;
-  unsigned int right = (input >> 8) & 0x0000ff00;
-  unsigned int rightMost = (input >> 8 * 3) & 0x000000ff;
+uint32_t endianSwap_uInt(uint32_t input) {
+  uint32_t leftMost = (input << 8 * 3) & 0xff000000;
+  uint32_t left = (input << 8) & 0x00ff0000;
+  uint32_t right = (input >> 8) & 0x0000ff00;
+  uint32_t rightMost = (input >> 8 * 3) & 0x000000ff;
   printf("leftMost: %x\nleft: %x\nright: %x\nrightMost: %x", leftMost, left, right, rightMost);
-  unsigned int ret = leftMost + left + right + rightMost;
+  uint32_t ret = leftMost + left + right + rightMost;
   
   return ret;
 }

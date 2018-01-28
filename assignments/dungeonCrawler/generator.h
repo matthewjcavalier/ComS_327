@@ -14,6 +14,10 @@
   #define LIST_H
   #include "list.h"
 #endif
+#ifndef STDINT_H
+  #define STDINT_H
+  #include <stdint.h>
+#endif
 
 #define MAX_DUNGEON_HEIGHT 21
 #define MAX_DUNGEON_WIDTH 80
@@ -27,14 +31,14 @@
 typedef enum {false, true} boolean;
 
 typedef struct {
-  int xPos;
-  int yPos;
-  int height;
-  int width;
+  uint8_t xPos;
+  uint8_t yPos;
+  uint8_t height;
+  uint8_t width;
 } Room;
 
 typedef struct {
-  int hardness;
+  uint8_t hardness;
   boolean isBorder;
   boolean isHallway;
   boolean isRoom;
@@ -148,4 +152,4 @@ void placeHallTile(int row, int col, Dungeon* dun);
 
 void saveDungeon(Dungeon* dun, char* saveLoc);
 
-unsigned int endianSwap_uInt(unsigned int input);
+uint32_t endianSwap_uInt(uint32_t input);
