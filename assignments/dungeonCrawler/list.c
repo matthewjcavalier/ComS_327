@@ -2,7 +2,7 @@
 
 List* initList() {
   List* newList;
-  newList = malloc(sizeof(List));
+  newList = malloc(sizeof(*newList));
   newList->head = NULL;
   newList->tail = NULL;
   newList->length = 0;
@@ -11,7 +11,7 @@ List* initList() {
 }
 
 Node* makeNode(void* dataPtr) {
-  Node* newNode = malloc(sizeof(Node));
+  Node* newNode = malloc(sizeof(*newNode));
 
   newNode->dataPtr = dataPtr;
   newNode->next = NULL;
@@ -66,27 +66,3 @@ void listRemove(int index, List* list) {
   free(current);
   list->length--;
 }
-/*
-int main(int argc, char* argv[]) {
-  List* list = initList();
-  int* a = malloc(sizeof(int));
-  int* b = malloc(sizeof(int)); 
-  int* c = malloc(sizeof(int));
-
-  *a = 1;
-  *b = 2;
-  *c = 3;
-
-  listAdd(a, list);
-  listAdd(b, list);
-  listAdd(c, list);
-
-  listRemove(-1, list);
-
-  Node* node1 = list->head;
-  Node* node2 = node1->next;
-
-
-  printf("index 1: %d, index 2: %d\n", *(int*)node1->dataPtr, *(int*)node2->dataPtr);
-}
-*/

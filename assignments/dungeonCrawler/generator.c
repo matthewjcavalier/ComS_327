@@ -104,19 +104,12 @@ void setHardnesses(Dungeon* dun) {
 void placeRooms(Dungeon* dun) {
   int roomNum, xLoc, yLoc; 
   Room* newRoom;
-  Node* currentNode;
-/*
-  // set room sizes
-  for(roomNum = 0; roomNum < EXPECTED_ROOM_COUNT; roomNum++) {
-    dun->rooms[roomNum].height = MIN_ROOM_HEIGHT + (rand() % 10);
-    dun->rooms[roomNum].width = MIN_ROOM_WIDTH + (rand() % 10);
-  }
-*/
+
   while(dun->rooms->length <= MIN_ROOM_COUNT) {
     clearRooms(dun);
 
     for(roomNum = 0; roomNum < EXPECTED_ROOM_COUNT; roomNum++) {
-      newRoom = malloc(sizeof(Room));
+      newRoom = malloc(sizeof(*newRoom));
       newRoom->height = MIN_ROOM_HEIGHT + (rand() % 10);
       newRoom->width = MIN_ROOM_WIDTH + (rand() % 10);
 
@@ -132,16 +125,10 @@ void placeRooms(Dungeon* dun) {
         addRoomToDungeon(dun, *newRoom);
         listAdd(newRoom, dun->rooms);
       } else {
+        free(newRoom);
         break;
       }
     }
-  }
-
-  currentNode = dun->rooms->head;
-  for(roomNum = 1; roomNum <= dun->rooms->length; roomNum++) {
-    newRoom = (Room*)currentNode->dataPtr;
-    printf("xPos:%3d, yPos:%3d, height:%3d, width:%3d\n", newRoom->xPos, newRoom->yPos, newRoom->height, newRoom->width);
-    currentNode = currentNode->next;
   }
 }
 
@@ -182,7 +169,7 @@ boolean isValidRoomPlacement(int xLoc, int yLoc, Dungeon* dun, Room newRoom) {
   boolean ret = true;
   for(row = yLoc - 1; row < yLoc + newRoom.height + 1; row++) {
     for(col = xLoc - 1; col < xLoc + newRoom.width + 1; col++) {
-      if(dun->map[row][col].isRoom || dun->map[row][col].isBorder) {
+      if(row >= MAX_DUNGEON_HEIGHT || row < 0 || col >= MAX_DUNGEON_WIDTH || col < 0 || dun->map[row][col].isRoom == true || dun->map[row][col].isBorder == true) {
         ret = false;
         break;
       }
