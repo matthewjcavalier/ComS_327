@@ -354,10 +354,14 @@ Dungeon* loadDungeon(char* loadLoc) {
     fread(&currentRoom->xPos, sizeof(uint8_t), 1, file);
     fread(&currentRoom->height, sizeof(uint8_t), 1, file);
     fread(&currentRoom->width, sizeof(uint8_t), 1, file);
+    addRoomToDungeon(newDungeon, *currentRoom);
     listAdd(currentRoom, newDungeon->rooms);
   }
 
-  return NULL;
+  // define remaining tiles
+  defineTiles(newDungeon);
+
+  return newDungeon;
 }
 
 uint32_t endianSwap_uInt(uint32_t input) {
@@ -368,4 +372,19 @@ uint32_t endianSwap_uInt(uint32_t input) {
   uint32_t ret = leftMost + left + right + rightMost;
   
   return ret;
+}
+
+void defineTiles(Dungeon* dun) {
+  int row, col;
+  
+  for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
+      if(dun->map[row][col].hardness == MAX_ROCK_HARDNESS) {
+        dun->map[row][col].isBorder = true;
+      } else if(dun->map[row][col].hardness == MIN_ROCK_HARDNESS && 
+          !dun->map[row][col].isRoom) {
+        dun->map[row][col].isHallway = true;
+      }
+    }
+  }
 }

@@ -157,4 +157,4 @@ Dungeon* loadDungeon(char* LoadLoc);
 
 uint32_t endianSwap_uInt(uint32_t input);
 
-
+void defineTiles(Dungeon* dun);
