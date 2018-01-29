@@ -30,6 +30,7 @@
 
 
 typedef enum {false, true} boolean;
+typedef enum {room, hall, border, rock} TileType;
 
 typedef struct {
   uint8_t xPos;
@@ -40,10 +41,8 @@ typedef struct {
 
 typedef struct {
   uint8_t hardness;
-  boolean isBorder;
-  boolean isHallway;
-  boolean isRoom;
-} Tile;
+  TileType type;
+  } Tile;
 
 typedef struct {
   Tile map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH];

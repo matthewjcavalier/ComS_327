@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/debug",
-            "args": ["--load"],
+            "args": ["--save"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

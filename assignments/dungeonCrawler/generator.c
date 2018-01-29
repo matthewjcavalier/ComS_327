@@ -34,9 +34,7 @@ void initDungeon(Dungeon* dun) {
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
       dun->map[row][col].hardness = -1;
-      dun->map[row][col].isBorder = false;
-      dun->map[row][col].isHallway = false;
-      dun->map[row][col].isRoom = false;
+      dun->map[row][col].type = rock;
     }
   }
   dun->rooms = initList();
@@ -53,27 +51,19 @@ void addBorders(Dungeon* dun) {
 
   // add borders to the first row and last row
   for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
-    dun->map[0][col].isBorder = true;
-    dun->map[0][col].isRoom = false;
-    dun->map[0][col].isHallway = false;
+    dun->map[0][col].type = border;
     dun->map[0][col].hardness = MAX_ROCK_HARDNESS;
 
-    dun->map[MAX_DUNGEON_HEIGHT - 1][col].isBorder = true;
-    dun->map[MAX_DUNGEON_HEIGHT - 1][col].isRoom = false;
-    dun->map[MAX_DUNGEON_HEIGHT - 1][col].isHallway = false;
+    dun->map[MAX_DUNGEON_HEIGHT - 1][col].type = border;
     dun->map[MAX_DUNGEON_HEIGHT - 1][col].hardness = MAX_ROCK_HARDNESS;
   }
   
   // add borders to the first and last column
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
-    dun->map[row][0].isBorder = true;
-    dun->map[row][0].isRoom = false;
-    dun->map[row][0].isHallway = false;
+    dun->map[row][0].type = border;
     dun->map[row][0].hardness = MAX_ROCK_HARDNESS;
 
-    dun->map[row][MAX_DUNGEON_WIDTH - 1].isBorder = true;
-    dun->map[row][MAX_DUNGEON_WIDTH - 1].isRoom = false;
-    dun->map[row][MAX_DUNGEON_WIDTH - 1].isHallway = false;
+    dun->map[row][MAX_DUNGEON_WIDTH - 1].type = border;
     dun->map[row][MAX_DUNGEON_WIDTH - 1].hardness = MAX_ROCK_HARDNESS;
   }
 }
@@ -89,7 +79,7 @@ void setHardnesses(Dungeon* dun) {
 
   for(row = 1; row < MAX_DUNGEON_HEIGHT - 1; row++) {
       for(col = 1; col < MAX_DUNGEON_WIDTH - 1; col ++) {
-        if(dun->map[row][col].isHallway == false && dun->map[row][col].isRoom == false) {
+        if(dun->map[row][col].type == rock) {
           dun->map[row][col].hardness = rand() % MAX_ROCK_HARDNESS + 1;
         }
       }
@@ -161,7 +151,7 @@ void clearRooms(Dungeon* dun) {
   // loop through and clear the dungeon map
   for(row = 1; row < MAX_DUNGEON_HEIGHT - 1; row++) {
     for(col = 1; col < MAX_DUNGEON_WIDTH - 1; col++) {
-      dun->map[row][col].isRoom = false;
+      dun->map[row][col].type = rock;
     }
   }
 }
@@ -182,7 +172,7 @@ boolean isValidRoomPlacement(int xLoc, int yLoc, Dungeon* dun, Room newRoom) {
   boolean ret = true;
   for(row = yLoc - 1; row < yLoc + newRoom.height + 1; row++) {
     for(col = xLoc - 1; col < xLoc + newRoom.width + 1; col++) {
-      if(dun->map[row][col].isRoom || dun->map[row][col].isBorder) {
+      if(dun->map[row][col].type == room || dun->map[row][col].type == border) {
         ret = false;
         break;
       }
@@ -201,9 +191,7 @@ void addRoomToDungeon(Dungeon* dun, Room newRoom) {
   int row, col;
   for(row = newRoom.yPos; row < newRoom.height + newRoom.yPos; row++) {
     for(col = newRoom.xPos; col < newRoom.width + newRoom.xPos; col++) {
-      dun->map[row][col].isRoom = true;
-      dun->map[row][col].isHallway = false;
-      dun->map[row][col].isBorder = false;
+      dun->map[row][col].type = room;
       dun->map[row][col].hardness = MIN_ROCK_HARDNESS;
     }
   }
@@ -270,17 +258,15 @@ void makePathToRoom(int row1, int col1, int row2, int col2, Dungeon* dun){
  * @param dun   the dungeon being worked on
  */
 void placeHallTile(int row, int col, Dungeon* dun) {
-  if(!dun->map[row][col].isRoom) {
-    dun->map[row][col].isHallway = true;
-    dun->map[row][col].isBorder = false;
-    dun->map[row][col].isRoom = false;
+  if(dun->map[row][col].type == rock) {
+    dun->map[row][col].type = hall;
     dun->map[row][col].hardness = MIN_ROCK_HARDNESS;
   }
 }
 
 void saveDungeon(Dungeon* dun, char* saveLoc) {
   FILE* file = fopen(saveLoc, "w");
-  char str[12] = {'R', 'L', 'G', '3', '2', '7', '-', 'S', '2', '0', '1', '8'};
+  char str[13] = {'R', 'L', 'G', '3', '2', '7', '-', 'S', '2', '0', '1', '8', '\0'};
   uint32_t version = 0;
   uint32_t roomStorageSize = 4; // 4 bytes
   uint32_t fileSize = 1700 + (roomStorageSize * dun->rooms->length);
@@ -380,10 +366,10 @@ void defineTiles(Dungeon* dun) {
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
       if(dun->map[row][col].hardness == MAX_ROCK_HARDNESS) {
-        dun->map[row][col].isBorder = true;
+        dun->map[row][col].type = border;
       } else if(dun->map[row][col].hardness == MIN_ROCK_HARDNESS && 
-          !dun->map[row][col].isRoom) {
-        dun->map[row][col].isHallway = true;
+          dun->map[row][col].type != room) {
+        dun->map[row][col].type = hall;
       }
     }
   }

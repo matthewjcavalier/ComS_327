@@ -23,6 +23,7 @@ int main(int argc, char* argv[]) {
 
   if(setup.save) {
     saveDungeon(dungeon, setup.saveLoadLocation);
+    printf("done\n");
   }
 }
 
@@ -62,7 +63,8 @@ Setup parseArgs(int argc, char* argv[]) {
   }
 
   if(ret.save || ret.load) {
-    ret.saveLoadLocation = getenv("HOME");
+    ret.saveLoadLocation = malloc((strlen(getenv("HOME") + strlen("/.rlg327/") + 1)) * sizeof(char));
+    strcpy(ret.saveLoadLocation, getenv("HOME"));
     ret.saveLoadLocation = strcat(ret.saveLoadLocation, "/.rlg327/dungeon");
   }
   return ret;
@@ -86,28 +88,26 @@ void printStandardDun(Dungeon* dun) {
   int row, col;
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
-      // if the tile is a border
-      if(dun->map[row][col].isBorder) {
-        // if the cell is in the first or last row
-        if(row == 0 || row == MAX_DUNGEON_HEIGHT - 1) {
-          printf("%c", BORDER_HOR_CHAR);
-        }
-        // else the cell is one either in the first or last col
-        else {
-          printf("%c", BORDER_VERT_CHAR);
-        }
-      }
-      // else the tile is part of the normal dungeon
-      else {
-        if(dun->map[row][col].isRoom) {
+      switch(dun->map[row][col].type) {
+        case border:
+          // if the cell is in the first or last row
+          if(row == 0 || row == MAX_DUNGEON_HEIGHT - 1) {
+            printf("%c", BORDER_HOR_CHAR);
+          }
+          // else the cell is one either in the first or last col
+          else {
+            printf("%c", BORDER_VERT_CHAR);
+          }  
+          break;
+        case room:
           printf("%c", ROOM_CHAR);
-        } else if(dun->map[row][col].isHallway) {
+          break;
+        case hall:
           printf("%c", HALL_CHAR);
-        }
-
-        else {
+          break;
+        case rock:
           printf(" ");
-        }
+          break;
       }
     }
     printf("\n");
@@ -120,28 +120,32 @@ void printCoolDun(Dungeon* dun) {
 
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
-      if(dun->map[row][col].isBorder) {
-        if(row == 0 && col == 0) {
-          charToPrint = COOL_BORDER_TOP_LEFT;
-        } else if(row == 0 && col == MAX_DUNGEON_WIDTH - 1) {
-          charToPrint = COOL_BORDER_TOP_RIGHT;
-        } else if(row == MAX_DUNGEON_HEIGHT - 1 && col == 0) {
-          charToPrint = COOL_BORDER_BOTTOM_LEFT;
-        } else if(row == MAX_DUNGEON_HEIGHT - 1 && col == MAX_DUNGEON_WIDTH - 1) {
-          charToPrint = COOL_BORDER_BOTTOM_RIGHT;
-        } else if(row == 0 || row == MAX_DUNGEON_HEIGHT -1) {
-          charToPrint = COOL_BORDER_HOR;
-        } else if(col == 0 || col == MAX_DUNGEON_WIDTH -1){
-          charToPrint = COOL_BORDER_VERT;
-        }
-      } else {
-        if(dun->map[row][col].isHallway) {
-          charToPrint = COOL_HALL_CHAR;
-        } else if(dun->map[row][col].isRoom) {
+
+      switch(dun->map[row][col].type) {
+        case border:
+          if(row == 0 && col == 0) {
+            charToPrint = COOL_BORDER_TOP_LEFT;
+          } else if(row == 0 && col == MAX_DUNGEON_WIDTH - 1) {
+            charToPrint = COOL_BORDER_TOP_RIGHT;
+          } else if(row == MAX_DUNGEON_HEIGHT - 1 && col == 0) {
+            charToPrint = COOL_BORDER_BOTTOM_LEFT;
+          } else if(row == MAX_DUNGEON_HEIGHT - 1 && col == MAX_DUNGEON_WIDTH - 1) {
+            charToPrint = COOL_BORDER_BOTTOM_RIGHT;
+          } else if(row == 0 || row == MAX_DUNGEON_HEIGHT -1) {
+            charToPrint = COOL_BORDER_HOR;
+          } else if(col == 0 || col == MAX_DUNGEON_WIDTH -1){
+            charToPrint = COOL_BORDER_VERT;
+          }  
+          break;
+        case room:
           charToPrint = COOL_ROOM_CHAR;
-        } else {
+          break;
+        case hall:
+          charToPrint = COOL_HALL_CHAR;
+          break;
+        case rock:
           charToPrint = COOL_ROCK;
-        }
+          break;
       }
       printf("%s", charToPrint);
     }
