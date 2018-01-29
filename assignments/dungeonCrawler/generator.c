@@ -8,7 +8,7 @@
  */
 Dungeon* genDungeon() {
   Dungeon* newDungeon;
-  newDungeon = malloc(sizeof(Dungeon));
+  newDungeon = malloc(sizeof(*newDungeon));
 
   initDungeon(newDungeon);
   
@@ -106,7 +106,7 @@ void placeRooms(Dungeon* dun) {
     clearRooms(dun);
 
     for(roomNum = 0; roomNum < EXPECTED_ROOM_COUNT; roomNum++) {
-      newRoom = malloc(sizeof(Room));
+      newRoom = malloc(sizeof(*newRoom));
       newRoom->height = MIN_ROOM_HEIGHT + (rand() % 10);
       newRoom->width = MIN_ROOM_WIDTH + (rand() % 10);
 

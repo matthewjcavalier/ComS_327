@@ -63,7 +63,7 @@ Setup parseArgs(int argc, char* argv[]) {
   }
 
   if(ret.save || ret.load) {
-    ret.saveLoadLocation = malloc((strlen(getenv("HOME") + strlen("/.rlg327/") + 1)) * sizeof(char));
+    ret.saveLoadLocation = malloc((strlen(getenv("HOME") + strlen("/.rlg327/dungeon") + 1)) * sizeof(char));
     strcpy(ret.saveLoadLocation, getenv("HOME"));
     ret.saveLoadLocation = strcat(ret.saveLoadLocation, "/.rlg327/dungeon");
   }

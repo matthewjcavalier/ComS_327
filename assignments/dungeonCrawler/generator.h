@@ -30,7 +30,7 @@
 
 
 typedef enum {false, true} boolean;
-typedef enum {room, hall, border, rock} TileType;
+typedef enum TileType {room, hall, border, rock} TileType;
 
 typedef struct {
   uint8_t xPos;
