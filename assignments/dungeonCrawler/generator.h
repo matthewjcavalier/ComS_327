@@ -22,6 +22,7 @@
 #define MAX_DUNGEON_HEIGHT 21
 #define MAX_DUNGEON_WIDTH 80
 #define MAX_ROCK_HARDNESS 255
+#define MIN_ROCK_HARDNESS 0
 #define MIN_ROOM_HEIGHT 2
 #define MIN_ROOM_WIDTH 3
 #define EXPECTED_ROOM_COUNT 10
@@ -152,4 +153,8 @@ void placeHallTile(int row, int col, Dungeon* dun);
 
 void saveDungeon(Dungeon* dun, char* saveLoc);
 
+Dungeon* loadDungeon(char* LoadLoc);
+
 uint32_t endianSwap_uInt(uint32_t input);
+
+

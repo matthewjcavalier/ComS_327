@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
   // set up the dungeon
   Dungeon* dungeon;
   if(setup.load){
-
+    dungeon = loadDungeon(setup.saveLoadLocation);
   } else {
     dungeon = genDungeon();
   }

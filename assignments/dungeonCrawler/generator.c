@@ -54,16 +54,26 @@ void addBorders(Dungeon* dun) {
   // add borders to the first row and last row
   for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
     dun->map[0][col].isBorder = true;
+    dun->map[0][col].isRoom = false;
+    dun->map[0][col].isHallway = false;
     dun->map[0][col].hardness = MAX_ROCK_HARDNESS;
+
     dun->map[MAX_DUNGEON_HEIGHT - 1][col].isBorder = true;
+    dun->map[MAX_DUNGEON_HEIGHT - 1][col].isRoom = false;
+    dun->map[MAX_DUNGEON_HEIGHT - 1][col].isHallway = false;
     dun->map[MAX_DUNGEON_HEIGHT - 1][col].hardness = MAX_ROCK_HARDNESS;
   }
   
   // add borders to the first and last column
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     dun->map[row][0].isBorder = true;
+    dun->map[row][0].isRoom = false;
+    dun->map[row][0].isHallway = false;
     dun->map[row][0].hardness = MAX_ROCK_HARDNESS;
+
     dun->map[row][MAX_DUNGEON_WIDTH - 1].isBorder = true;
+    dun->map[row][MAX_DUNGEON_WIDTH - 1].isRoom = false;
+    dun->map[row][MAX_DUNGEON_WIDTH - 1].isHallway = false;
     dun->map[row][MAX_DUNGEON_WIDTH - 1].hardness = MAX_ROCK_HARDNESS;
   }
 }
@@ -184,6 +194,9 @@ void addRoomToDungeon(Dungeon* dun, Room newRoom) {
   for(row = newRoom.yPos; row < newRoom.height + newRoom.yPos; row++) {
     for(col = newRoom.xPos; col < newRoom.width + newRoom.xPos; col++) {
       dun->map[row][col].isRoom = true;
+      dun->map[row][col].isHallway = false;
+      dun->map[row][col].isBorder = false;
+      dun->map[row][col].hardness = MIN_ROCK_HARDNESS;
     }
   }
 }
@@ -251,6 +264,9 @@ void makePathToRoom(int row1, int col1, int row2, int col2, Dungeon* dun){
 void placeHallTile(int row, int col, Dungeon* dun) {
   if(!dun->map[row][col].isRoom) {
     dun->map[row][col].isHallway = true;
+    dun->map[row][col].isBorder = false;
+    dun->map[row][col].isRoom = false;
+    dun->map[row][col].hardness = MIN_ROCK_HARDNESS;
   }
 }
 
@@ -290,12 +306,44 @@ void saveDungeon(Dungeon* dun, char* saveLoc) {
   }
 }
 
+Dungeon* loadDungeon(char* loadLoc) {
+  printf("loading\n");
+  Dungeon* newDungeon;
+  char* header = malloc(sizeof(char) * 12);
+  FILE* file = fopen(loadLoc, "r");
+  uint32_t versionMarker;
+  uint32_t fileSize;
+  int row, col;
+
+  newDungeon = malloc(sizeof(Dungeon));
+
+  initDungeon(newDungeon);
+
+  // read the header
+  fread(header, 12, 1, file);
+  
+  // read the version
+  fread(&versionMarker, sizeof(uint32_t), 1, file);
+  
+  // get the total file size
+  fread(&fileSize, sizeof(uint32_t), 1, file);
+  fileSize = endianSwap_uInt(fileSize);
+
+  // get the tile info
+  for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
+      fread(&newDungeon->map[row][col].hardness, sizeof(uint8_t), 1, file);
+    }
+  }
+
+  return NULL;
+}
+
 uint32_t endianSwap_uInt(uint32_t input) {
   uint32_t leftMost = (input << 8 * 3) & 0xff000000;
   uint32_t left = (input << 8) & 0x00ff0000;
   uint32_t right = (input >> 8) & 0x0000ff00;
   uint32_t rightMost = (input >> 8 * 3) & 0x000000ff;
-  printf("leftMost: %x\nleft: %x\nright: %x\nrightMost: %x", leftMost, left, right, rightMost);
   uint32_t ret = leftMost + left + right + rightMost;
   
   return ret;
