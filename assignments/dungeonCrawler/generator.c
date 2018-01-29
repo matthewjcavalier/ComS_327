@@ -104,6 +104,7 @@ void setHardnesses(Dungeon* dun) {
 void placeRooms(Dungeon* dun) {
   int roomNum, xLoc, yLoc; 
   Room* newRoom;
+  Node* currentNode;
 /*
   // set room sizes
   for(roomNum = 0; roomNum < EXPECTED_ROOM_COUNT; roomNum++) {
@@ -134,6 +135,13 @@ void placeRooms(Dungeon* dun) {
         break;
       }
     }
+  }
+
+  currentNode = dun->rooms->head;
+  for(roomNum = 1; roomNum <= dun->rooms->length; roomNum++) {
+    newRoom = (Room*)currentNode->dataPtr;
+    printf("xPos:%3d, yPos:%3d, height:%3d, width:%3d\n", newRoom->xPos, newRoom->yPos, newRoom->height, newRoom->width);
+    currentNode = currentNode->next;
   }
 }
 
@@ -303,6 +311,7 @@ void saveDungeon(Dungeon* dun, char* saveLoc) {
     fwrite(&currentRoom.xPos, sizeof(uint8_t), 1, file);
     fwrite(&currentRoom.height, sizeof(uint8_t), 1, file);
     fwrite(&currentRoom.width, sizeof(uint8_t), 1, file);
+    currentNode = currentNode->next;
   }
 }
 
@@ -314,6 +323,8 @@ Dungeon* loadDungeon(char* loadLoc) {
   uint32_t versionMarker;
   uint32_t fileSize;
   int row, col;
+  Room* currentRoom;
+  int roomNum;
 
   newDungeon = malloc(sizeof(Dungeon));
 
@@ -334,6 +345,16 @@ Dungeon* loadDungeon(char* loadLoc) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
       fread(&newDungeon->map[row][col].hardness, sizeof(uint8_t), 1, file);
     }
+  }
+
+  // get the rooms
+  for(roomNum = 0; roomNum < (fileSize - 1700)/4; roomNum++) {
+    currentRoom = malloc(sizeof(Room));
+    fread(&currentRoom->yPos, sizeof(uint8_t), 1, file);
+    fread(&currentRoom->xPos, sizeof(uint8_t), 1, file);
+    fread(&currentRoom->height, sizeof(uint8_t), 1, file);
+    fread(&currentRoom->width, sizeof(uint8_t), 1, file);
+    listAdd(currentRoom, newDungeon->rooms);
   }
 
   return NULL;
