@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
  */
 Setup parseArgs(int argc, char* argv[]) {
   Setup ret;
-  int i;
+  int i, length;
 
   ret.seed = rand();
   ret.useCoolChars = false;
@@ -62,8 +62,10 @@ Setup parseArgs(int argc, char* argv[]) {
   }
 
   if(ret.save || ret.load) {
-    ret.saveLoadLocation = getenv("HOME");
-    ret.saveLoadLocation = strcat(ret.saveLoadLocation, "/.rlg327/dungeon");
+    length = sizeof(getenv("HOME")) + sizeof("/.rlg327/dungeon") + 1;
+    ret.saveLoadLocation = malloc(length);
+    ret.saveLoadLocation = strcpy(ret.saveLoadLocation, getenv("HOME"));
+    strcat(ret.saveLoadLocation, "/.rlg327/dungeon");
   }
   return ret;
 }

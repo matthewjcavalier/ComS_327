@@ -5,55 +5,28 @@ Compliance:
 
   Side Notes:
 
-    The current program can also take in parameters at runtime those parameters are as
-    follows:
-      
-      -s      This flag followed by any number or string will be used as the seed for 
-              generating the dungeon.
+    The current release of the program comes with two more flags that can be set when the program
+    is started:
 
-              example:
+      --save    saves the dungeon that is created to ~/.rlg327/dungeon (note this will fail
+                if the directory ~/.rlg327 does not exist)
                 
-                  ./crawler -s 1234556
+                  ex:
+                        ./crawler --save
 
-      -cool   This flag makes the program use unicode characters to display the dungeon
-              in a different fashion than normal
-
-              example:
-                  
-                  ./crawler -cool
+      --load    loads the dungeon from data stored in ~/.rlg327/dungeon (note this will fail
+                if the file ~/.rlg327/dungeon does not exist)
+                
+                  ex:
+                        ./crawler --load
 
 Interesting Functions:
 
-  genDungeon (see generator.h)
-    - goes through all of the steps to create the dungeon
-      from adding rooms to placing hallways
-
-  placeRooms (see generator.h)
-    - places the rooms of random size at random in the
-      dungeon
-
-  makePathToRoom (see generator.h)
-    - goes through the process of making a path between
-      two rooms
+  :w
 
 Data structures:
 
-  Room struct (see generator.h)
-    - holds data needed to describe a room
-
-  Tile struct (see generator.h)
-    - holds info regarding one tile in the dungeon
-
-  Dungeon struct (see generator.h)
-    - represents the entire dugeon and holds a list
-      of rooms in the dungeon
+  Generic singly linked list (see list.c)
 
 File Names:
 
-  crawler.c     holds the main func for the program as well as printing
-
-  crawler.h     holds the header info for crawler.c as well as includes generator.h
-
-  generator.c   holds the logic for generating the dungeon
-
-  generator.h   holds the header info for generator.c
