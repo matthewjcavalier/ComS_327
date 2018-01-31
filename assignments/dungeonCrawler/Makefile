@@ -14,12 +14,19 @@ run: crawler
 clean:
 	- rm debug crawler
 	- rm *.o
+	- rm -rf test/
+	- rm cavalier_matthew.assignment-1.02.tar.gz
 add: clean
 	git add .
 exportLog:
 	git --no-pager log > CHANGELOG
-package:
+package: clean
 	mkdir cavalier_matthew.assignment-1.02
-	cp generator.* crawler.* Makefile README CHANGELOG cavalier_matthew.assignment-1.02
+	cp generator.* crawler.* list.* Makefile README CHANGELOG cavalier_matthew.assignment-1.02
 	tar cvfz cavalier_matthew.assignment-1.02.tar.gz cavalier_matthew.assignment-1.02/
 	rm -rf cavalier_matthew.assignment-1.02
+final: clean package
+test: package
+	mkdir test
+	tar -xf cavalier_matthew.assignment-1.02.tar.gz -C test/
+

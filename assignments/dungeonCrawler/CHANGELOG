@@ -1,3 +1,69 @@
+commit a9c62c6adaf741cd36be43b81c0db9fcc749fafc
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 30 11:11:02 2018 -0600
+
+    fixed the malloc error with getting the dungeon save file location
+
+commit 499c4af275d4d0322d213586d8d6d42f2aa3c99a
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Jan 29 16:52:17 2018 -0600
+
+    I think I got rid of the memory leaks
+
+commit 582fc9298adb63ef785eebe310fe9f56ea563957
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Jan 29 14:43:48 2018 -0600
+
+    the dungeon is now saved and loaded properly
+
+commit d97a0676a29d9ffb93ea8a6e81778b543a34a190
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Jan 29 14:30:21 2018 -0600
+
+    fixed an error where the rooms list was not being traversed during the saveing, and now the rooms are loaded from file fully
+
+commit a052b73b311282c7af8d0a744e8a9a78ad0a87b6
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Jan 29 13:20:01 2018 -0600
+
+    now loads data into the tiles array
+
+commit f0627bd59211e38bdd4dede8f87959fe6a9a81b4
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Jan 28 11:25:47 2018 -0600
+
+    now saves everything to the file successfully, now need to load from the file
+
+commit e84b700faf706731484af06c517cd4e835519fd2
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Jan 28 11:14:29 2018 -0600
+
+    now saves the dungeon map
+
+commit 5598422e4d955bf35bcd3be8a96cbccaff4d4767
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Jan 28 10:58:26 2018 -0600
+
+    can now save the header, version, and file size to file
+
+commit 2879658690fbc87505fe039f33b43b47929eb773
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Wed Jan 24 13:38:09 2018 -0600
+
+    the dungeon now fully uses a generic list for storing the rooms
+
+commit f710da3da247cab703a7960caf38ceea6dc1bd9a
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Wed Jan 24 11:53:36 2018 -0600
+
+    about to try to refactor to use the generic list for the rooms
+
+commit 760eded357bab0a9bbf2943de5be2caa6086b468
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Jan 19 15:37:27 2018 -0600
+
+    packaged up the assignment
+
 commit 6859c5fd93f4ee3a672a98482af24ea218d19644
 Author: Matt Cavalier <matthewjcavalier@gmail.com>
 Date:   Fri Jan 19 15:32:11 2018 -0600
