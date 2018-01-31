@@ -265,6 +265,13 @@ void placeHallTile(int row, int col, Dungeon* dun) {
   }
 }
 
+/**
+ * @brief Saves the current dungeon to the location
+ *        specified by saveLoc
+ * 
+ * @param dun       the dungeon to save
+ * @param saveLoc   where to save the dungeon
+ */
 void saveDungeon(Dungeon* dun, char* saveLoc) {
   FILE* file = fopen(saveLoc, "w");
   char str[12] = {'R', 'L', 'G', '3', '2', '7', '-', 'S', '2', '0', '1', '8'};
@@ -300,8 +307,16 @@ void saveDungeon(Dungeon* dun, char* saveLoc) {
     fwrite(&currentRoom.width, sizeof(uint8_t), 1, file);
     currentNode = currentNode->next;
   }
+  fclose(file);
 }
 
+/**
+ * @brief Loads and builds a dungeon bassed on
+ *        the location pointed to by LoadLoc
+ * 
+ * @param LoadLoc     where to load the new dungeon from
+ * @return Dungeon*   a pointer to the new dungeon
+ */
 Dungeon* loadDungeon(char* loadLoc) {
   printf("loading\n");
   Dungeon* newDungeon;
@@ -345,12 +360,21 @@ Dungeon* loadDungeon(char* loadLoc) {
     listAdd(currentRoom, newDungeon->rooms);
   }
 
+  fclose(file);
+
   // define remaining tiles
   defineTiles(newDungeon);
 
   return newDungeon;
 }
 
+/**
+ * @brief Swaps the endian ness of the input 32 bit
+ *        vairable
+ * 
+ * @param input       the variable to swap
+ * @return uint32_t   the swapped value
+ */
 uint32_t endianSwap_uInt(uint32_t input) {
   uint32_t leftMost = (input << 8 * 3) & 0xff000000;
   uint32_t left = (input << 8) & 0x00ff0000;
@@ -361,6 +385,12 @@ uint32_t endianSwap_uInt(uint32_t input) {
   return ret;
 }
 
+/**
+ * @brief Goes through the dungeon defining what
+ *        each tile is
+ * 
+ * @param dun  the dungeon to define tiles in
+ */
 void defineTiles(Dungeon* dun) {
   int row, col;
   

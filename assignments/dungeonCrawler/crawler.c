@@ -84,6 +84,12 @@ void printDungeon(Dungeon* dun, Setup setup) {
   }
 }
 
+/**
+ * @brief Prints the dungeon in the standard format
+ *        as perscibed in the homework description.
+ * 
+ * @param dun a pointer to the dungeon to print
+ */
 void printStandardDun(Dungeon* dun) {
   int row, col;
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
@@ -116,6 +122,13 @@ void printStandardDun(Dungeon* dun) {
   }
 }
 
+/**
+ * @brief Prints the dungeon in a cool way using
+ *        unicode characters for a better looking
+ *        dungeon map
+ * 
+ * @param dun a pointer to the dungeon to print
+ */
 void printCoolDun(Dungeon* dun) {
   int row, col;
   char* charToPrint;

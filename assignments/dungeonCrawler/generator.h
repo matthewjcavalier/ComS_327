@@ -151,10 +151,37 @@ void makePathToRoom(int row1, int col1, int row2, int col2, Dungeon* dun);
  */
 void placeHallTile(int row, int col, Dungeon* dun);
 
+/**
+ * @brief Saves the current dungeon to the location
+ *        specified by saveLoc
+ * 
+ * @param dun       the dungeon to save
+ * @param saveLoc   where to save the dungeon
+ */
 void saveDungeon(Dungeon* dun, char* saveLoc);
 
+/**
+ * @brief Loads and builds a dungeon bassed on
+ *        the location pointed to by LoadLoc
+ * 
+ * @param LoadLoc     where to load the new dungeon from
+ * @return Dungeon*   a pointer to the new dungeon
+ */
 Dungeon* loadDungeon(char* LoadLoc);
 
+/**
+ * @brief Swaps the endian ness of the input 32 bit
+ *        vairable
+ * 
+ * @param input       the variable to swap
+ * @return uint32_t   the swapped value
+ */
 uint32_t endianSwap_uInt(uint32_t input);
 
+/**
+ * @brief Goes through the dungeon defining what
+ *        each tile is
+ * 
+ * @param dun  the dungeon to define tiles in
+ */
 void defineTiles(Dungeon* dun);
