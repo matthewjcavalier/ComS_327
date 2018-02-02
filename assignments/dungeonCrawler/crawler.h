@@ -14,12 +14,17 @@
   #define GENERATOR_H
   #include "generator.h"
 #endif
+#ifndef PATHFINDING_H
+  #define PATHFINDING_H
+  #include "pathFinding.h"
+#endif
 
 
 #define BORDER_HOR_CHAR '-'
 #define BORDER_VERT_CHAR '|'
 #define ROOM_CHAR '.'
 #define HALL_CHAR '#'
+#define PC_CHAR '@'
 
 //#define COOL_ROOM_CHAR            "\u26c6"  //  ⛆ 
 #define COOL_ROOM_CHAR            "\u2593"  //  ▓
@@ -41,6 +46,12 @@ typedef struct {
   char* saveLoadLocation;
 } Setup;
 
+void runGame(Dungeon* dun, Setup setup);
+
+void randomlyPlace(Coordinate* cord, Dungeon* dun);
+
+void printPathMap(int** map, Player* pc);
+
 /**
  * @brief   Looks at the startup arguments to set flags
  *          for how the game should run
@@ -57,7 +68,7 @@ Setup parseArgs(int argc, char* argv[]);
  * @param dun     the dungeon to print
  * @param setup   a struct containg print info
  */
-void printDungeon(Dungeon* dun, Setup setup);
+void printDungeon(Dungeon* dun, Setup setup, Coordinate pc);
 
 /**
  * @brief Prints the dungeon in the standard format
@@ -65,7 +76,7 @@ void printDungeon(Dungeon* dun, Setup setup);
  * 
  * @param dun a pointer to the dungeon to print
  */
-void printStandardDun(Dungeon* dun);
+void printStandardDun(Dungeon* dun, Coordinate pc);
 
 /**
  * @brief Prints the dungeon in a cool way using
@@ -74,4 +85,4 @@ void printStandardDun(Dungeon* dun);
  * 
  * @param dun a pointer to the dungeon to print
  */
-void printCoolDun(Dungeon* dun);
+void printCoolDun(Dungeon* dun, Coordinate pc);

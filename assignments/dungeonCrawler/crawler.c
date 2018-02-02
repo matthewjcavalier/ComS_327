@@ -18,11 +18,75 @@ int main(int argc, char* argv[]) {
     dungeon = genDungeon();
   }
   
-  // print the dungeon
-  printDungeon(dungeon, setup);
+  
+  // start game loop
+  runGame(dungeon, setup);
 
   if(setup.save) {
     saveDungeon(dungeon, setup.saveLoadLocation);
+  }
+}
+
+void runGame(Dungeon* dun, Setup setup) {
+  boolean continueRunning = false;
+  int** tunnelingMap;
+  int** openSpaceMap;
+  Player pc;
+
+  randomlyPlace(&pc.coord, dun);
+  
+  do {
+    // get the map for tunneling creatures
+    tunnelingMap = getPathMapEverywhere(&pc.coord, dun);
+    // get the map for the non-tunneling creatures
+    openSpaceMap = getPathMapOnlyOpenArea(&pc.coord, dun);
+
+
+    // print the dungeon
+    printDungeon(dun, setup, pc.coord);
+
+    printPathMap(openSpaceMap, &pc);
+    
+    printPathMap(tunnelingMap, &pc);
+
+  } while(continueRunning);
+
+  
+}
+
+void randomlyPlace(Coordinate* coord, Dungeon* dun) {
+  boolean notPlaced = true;
+  int row, col;
+  while(notPlaced) {
+    row = rand() % MAX_DUNGEON_HEIGHT + 1;
+    col = rand() % MAX_DUNGEON_WIDTH + 1;
+    if(row >= 0 && row < MAX_DUNGEON_HEIGHT && col >= 0 && col < MAX_DUNGEON_WIDTH && dun->map[row][col].hardness == 0) {
+      coord->row = row;
+      coord->col =  col;
+      notPlaced = false;
+    }
+  }
+}
+    
+void printPathMap(int** tunnelingMap, Player* pc) {
+  int row, col, tileVal;
+  printf("printing path map\n");
+  
+  for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    printf("\t");
+    for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
+      tileVal = tunnelingMap[row][col];
+      if(tileVal < INT_MAX) {
+        if(tileVal == 0) {
+          printf("@");
+        } else {
+          printf("%d", tunnelingMap[row][col] % 10);
+        }
+      } else {
+        printf(" ");
+      }
+    }
+    printf("\n");
   }
 }
 
@@ -76,11 +140,11 @@ Setup parseArgs(int argc, char* argv[]) {
  * @param dun     the dungeon to print
  * @param setup   a struct containg print info
  */
-void printDungeon(Dungeon* dun, Setup setup) {
+void printDungeon(Dungeon* dun, Setup setup, Coordinate pc) {
   if(setup.useCoolChars) {
-    printCoolDun(dun);
+    printCoolDun(dun, pc);
   } else {
-    printStandardDun(dun);
+    printStandardDun(dun, pc);
   }
 }
 
@@ -90,9 +154,10 @@ void printDungeon(Dungeon* dun, Setup setup) {
  * 
  * @param dun a pointer to the dungeon to print
  */
-void printStandardDun(Dungeon* dun) {
+void printStandardDun(Dungeon* dun, Coordinate pc) {
   int row, col;
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    printf("\t");
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
       // if the tile is a border
       if(dun->map[row][col].isBorder) {
@@ -107,7 +172,9 @@ void printStandardDun(Dungeon* dun) {
       }
       // else the tile is part of the normal dungeon
       else {
-        if(dun->map[row][col].isRoom) {
+        if(row == pc.row && col == pc.col) {
+          printf("%c", PC_CHAR);
+        } else if(dun->map[row][col].isRoom) {
           printf("%c", ROOM_CHAR);
         } else if(dun->map[row][col].isHallway) {
           printf("%c", HALL_CHAR);
@@ -129,11 +196,12 @@ void printStandardDun(Dungeon* dun) {
  * 
  * @param dun a pointer to the dungeon to print
  */
-void printCoolDun(Dungeon* dun) {
+void printCoolDun(Dungeon* dun, Coordinate pc) {
   int row, col;
   char* charToPrint;
 
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    printf("\t");
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
       if(dun->map[row][col].isBorder) {
         if(row == 0 && col == 0) {
@@ -150,7 +218,7 @@ void printCoolDun(Dungeon* dun) {
           charToPrint = COOL_BORDER_VERT;
         }
       } else {
-        if(dun->map[row][col].isHallway) {
+         if(dun->map[row][col].isHallway) {
           charToPrint = COOL_HALL_CHAR;
         } else if(dun->map[row][col].isRoom) {
           charToPrint = COOL_ROOM_CHAR;
@@ -158,7 +226,11 @@ void printCoolDun(Dungeon* dun) {
           charToPrint = COOL_ROCK;
         }
       }
-      printf("%s", charToPrint);
+      if(row == pc.row && col == pc.col) {
+          printf("%c", PC_CHAR);
+        } else {
+          printf("%s", charToPrint);
+        }
     }
     printf("\n");
   }

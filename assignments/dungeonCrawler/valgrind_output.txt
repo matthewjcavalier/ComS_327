@@ -1,0 +1,53 @@
+==4916== Memcheck, a memory error detector
+==4916== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==4916== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==4916== Command: ./debug
+==4916== Parent PID: 4870
+==4916== 
+==4916== 
+==4916== HEAP SUMMARY:
+==4916==     in use at exit: 40,904 bytes in 60 blocks
+==4916==   total heap usage: 6,717 allocs, 6,657 frees, 191,652 bytes allocated
+==4916== 
+==4916== 24 bytes in 1 blocks are definitely lost in loss record 3 of 10
+==4916==    at 0x4C2CEDF: malloc (vg_replace_malloc.c:299)
+==4916==    by 0x10AD41: initCoordQueue (queue.c:5)
+==4916==    by 0x10A8A3: getPathMapEverywhere (pathFinding.c:42)
+==4916==    by 0x108C5E: runGame (crawler.c:40)
+==4916==    by 0x108BDD: main (crawler.c:23)
+==4916== 
+==4916== 24 bytes in 1 blocks are definitely lost in loss record 4 of 10
+==4916==    at 0x4C2CEDF: malloc (vg_replace_malloc.c:299)
+==4916==    by 0x10AD41: initCoordQueue (queue.c:5)
+==4916==    by 0x10A815: getPathMapOnlyOpenArea (pathFinding.c:19)
+==4916==    by 0x108C75: runGame (crawler.c:42)
+==4916==    by 0x108BDD: main (crawler.c:23)
+==4916== 
+==4916== 6,888 (168 direct, 6,720 indirect) bytes in 1 blocks are definitely lost in loss record 8 of 10
+==4916==    at 0x4C2CEDF: malloc (vg_replace_malloc.c:299)
+==4916==    by 0x10AC9B: initMap (pathFinding.c:129)
+==4916==    by 0x10A895: getPathMapEverywhere (pathFinding.c:41)
+==4916==    by 0x108C5E: runGame (crawler.c:40)
+==4916==    by 0x108BDD: main (crawler.c:23)
+==4916== 
+==4916== 6,888 (168 direct, 6,720 indirect) bytes in 1 blocks are definitely lost in loss record 9 of 10
+==4916==    at 0x4C2CEDF: malloc (vg_replace_malloc.c:299)
+==4916==    by 0x10AC9B: initMap (pathFinding.c:129)
+==4916==    by 0x10A807: getPathMapOnlyOpenArea (pathFinding.c:18)
+==4916==    by 0x108C75: runGame (crawler.c:42)
+==4916==    by 0x108BDD: main (crawler.c:23)
+==4916== 
+==4916== 27,080 (26,888 direct, 192 indirect) bytes in 1 blocks are definitely lost in loss record 10 of 10
+==4916==    at 0x4C2CEDF: malloc (vg_replace_malloc.c:299)
+==4916==    by 0x10947D: genDungeon (generator.c:11)
+==4916==    by 0x108BC0: main (crawler.c:18)
+==4916== 
+==4916== LEAK SUMMARY:
+==4916==    definitely lost: 27,272 bytes in 5 blocks
+==4916==    indirectly lost: 13,632 bytes in 55 blocks
+==4916==      possibly lost: 0 bytes in 0 blocks
+==4916==    still reachable: 0 bytes in 0 blocks
+==4916==         suppressed: 0 bytes in 0 blocks
+==4916== 
+==4916== For counts of detected and suppressed errors, rerun with: -v
+==4916== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 0 from 0)
