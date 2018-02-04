@@ -10,7 +10,7 @@ CoordQueue* initCoordQueue() {
 }
 
 void enqueue(CoordQueue* queue, Coordinate coord) {
-  CoordQueueNode* node = (CoordQueueNode*)malloc(sizeof(*node));
+  CoordQueueNode* node = malloc(sizeof(*node));
   node->coord = coord;
 
   if(isEmpty(queue)) {

@@ -23,6 +23,9 @@ int** getPathMapOnlyOpenArea(Coordinate* pc, Dungeon* dun){
   enqueue(queue, *pc);
   
   fillMap(dun, map, queue, false);
+  
+  free(queue);
+  
   return map;
 }
 
@@ -46,6 +49,8 @@ int** getPathMapEverywhere(Coordinate* pc, Dungeon* dun) {
   enqueue(queue, *pc);
   
   fillMap(dun, map, queue, true); 
+
+  free(queue);
   return map;
 }
 
@@ -126,11 +131,11 @@ void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow, Co
  * @return int**     a pointer to the map
  */
 int** initMap() {
-  int** newMap = (int**)malloc(MAX_DUNGEON_HEIGHT * sizeof(int*));
+  int** newMap = malloc(MAX_DUNGEON_HEIGHT * sizeof(int*));
   int row, col;
 
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
-    newMap[row] = (int*)malloc(MAX_DUNGEON_WIDTH * sizeof(int));
+    newMap[row] = malloc(MAX_DUNGEON_WIDTH * sizeof(int));
   }
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {

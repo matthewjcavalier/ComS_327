@@ -86,11 +86,16 @@ void addBorders(Dungeon* dun) {
  */
 void setHardnesses(Dungeon* dun) {
   int row, col;
+  int newHardness;
 
   for(row = 1; row < MAX_DUNGEON_HEIGHT - 1; row++) {
       for(col = 1; col < MAX_DUNGEON_WIDTH - 1; col ++) {
         if(dun->map[row][col].isHallway == false && dun->map[row][col].isRoom == false) {
-          dun->map[row][col].hardness = rand() % MAX_ROCK_HARDNESS + 1;
+          newHardness = rand() % MAX_ROCK_HARDNESS;
+          if(newHardness == 0) {
+            newHardness = 1;
+          }
+          dun->map[row][col].hardness = newHardness;
         }
       }
   }
