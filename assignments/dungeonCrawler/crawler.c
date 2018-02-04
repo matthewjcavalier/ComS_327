@@ -57,6 +57,10 @@ void runGame(Dungeon* dun, Setup setup) {
 void randomlyPlace(Coordinate* coord, Dungeon* dun) {
   boolean notPlaced = true;
   int row, col;
+  
+  // get a new seed based upon the room placement
+  updateSeed(dun);
+
   while(notPlaced) {
     row = rand() % MAX_DUNGEON_HEIGHT + 1;
     col = rand() % MAX_DUNGEON_WIDTH + 1;
@@ -66,6 +70,27 @@ void randomlyPlace(Coordinate* coord, Dungeon* dun) {
       notPlaced = false;
     }
   }
+}
+
+void updateSeed(Dungeon* dun) {
+  Node* currentNode = dun->rooms->head;
+  Room* currentRoom;
+  int newSeed = -1;
+  while(currentNode != NULL) {
+    currentRoom = (Room*)currentNode->dataPtr;
+    if(currentRoom->xPos % 3 == 0) {
+      newSeed += currentRoom->xPos;
+    } else {
+      newSeed -= currentRoom->xPos;
+    }
+    if(currentRoom->yPos % 2 == 0) {
+      newSeed += currentRoom->yPos;
+    } else {
+      newSeed -= currentRoom->yPos;
+    }
+    currentNode = currentNode->next;
+  }
+  srand(newSeed);
 }
     
 void printPathMap(int** tunnelingMap, Player* pc) {

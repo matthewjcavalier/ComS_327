@@ -50,6 +50,8 @@ void runGame(Dungeon* dun, Setup setup);
 
 void randomlyPlace(Coordinate* cord, Dungeon* dun);
 
+void updateSeed(Dungeon* dun);
+
 void printPathMap(int** map, Player* pc);
 
 /**
