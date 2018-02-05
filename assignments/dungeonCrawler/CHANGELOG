@@ -1,3 +1,51 @@
+commit d6192d6f5a57501cc224ff2d1023e05590fddf1a
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Feb 5 14:09:46 2018 -0600
+
+    updated the README
+
+commit ac9a2f831402ec193325eae088cf4d520c69249c
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Feb 5 13:50:48 2018 -0600
+
+    added comment sections
+
+commit e813895bb9b3512b6b240b38c020d647d0b5265d
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Feb 4 11:37:23 2018 -0600
+
+    added an algo to determine a new seed for the random number generator, so that even if the dungeon is loaded from the file, the PC is still placed in the same spot as it was originaly.
+
+commit b1c76f4a71aa421a1e231cb942976d09537866f5
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Feb 4 11:24:51 2018 -0600
+
+    discoverd I had a bug in when setting the hardness and sometimes the hardness was set to 255, fixed it
+
+commit bdfe71f43aafda639508432284e74c6532747ae5
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Feb 2 15:39:52 2018 -0600
+
+    mostly done with the homework, cleaning up memory issues
+
+commit b1370ce0d3c526b6778edab1b3c1e0d373b048d2
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Wed Jan 31 11:35:00 2018 -0600
+
+    added week 3 assignment doc
+
+commit 063d00da7047c0942ca98fe3b52a324defe15369
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Wed Jan 31 11:34:29 2018 -0600
+
+    added header comments to functions
+
+commit e4a595a03349b7f9c8b62792c7f8b24d83ffc5f0
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Jan 30 20:39:18 2018 -0600
+
+    finished with week 2
+
 commit a9c62c6adaf741cd36be43b81c0db9fcc749fafc
 Author: Matt Cavalier <matthewjcavalier@gmail.com>
 Date:   Tue Jan 30 11:11:02 2018 -0600
