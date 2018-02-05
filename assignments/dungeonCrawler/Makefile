@@ -41,4 +41,5 @@ analyze: clean debug
 test: package
 	mkdir test
 	tar -xf cavalier_matthew.assignment-1.02.tar.gz -C test/
-
+connect:
+	ssh cavalier@pyrite.cs.iastate.edu
