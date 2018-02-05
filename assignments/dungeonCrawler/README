@@ -1,48 +1,46 @@
 Compliance:
 
-  The current state of my program is able to load a dungeon from a file, save a dungeon to a
-  file, do both of those at the same time, and correctly display the loaded dungeon.
-  
-  Side Notes:
-
-    The current release of the program comes with two more flags that can be set when the program
-    is started:
-
-      --save    saves the dungeon that is created to ~/.rlg327/dungeon (note this will fail
-                if the directory ~/.rlg327 does not exist)
-                
-                  ex:
-                        ./crawler --save
-
-      --load    loads the dungeon from data stored in ~/.rlg327/dungeon (note this will fail
-                if the file ~/.rlg327/dungeon does not exist)
-                
-                  ex:
-                        ./crawler --load
+  The current state of the program complies to the homework spec. Two distance
+  maps are generated in the main game loop and they are then printed off. The 
+  main game loop only runs once at this time, in it the dungeon distance maps
+  are generated and printed. All previous functionality still works, so if needed
+  a dungeon can be saved and loaded still.
 
 Interesting Functions:
 
-  endianSwap_uInt (see generator.c)
+  fillMap & fillLogic (see pathfinding.c)
+      
+      - these two funcitons are where the bulk of the pathfinding algo, that is
+        a form of Dijkstra's algo, lives
 
-      - Because I was unaware that there was a library for swapping between endianess, I
-        went ahead and created my own converter.
+  getPathMapOnlyOpenArea & getPathMapEverywhere (see pathfinding.c)
+      
+      - these two functions are used to fill out the distance maps. The first
+        only charts the distances assuming that open terrain (i.e. halls and
+        rooms) are going to be traversed. The second function assumes that
+        the map generated should allow for tunneling through rock.
 
-  loadDungeon and saveDungeon (see generator.c)
-
-      - These two functions are the meat of the new code from this week's homework.
+  updateSeed (see crawler.c)
+      
+      - I thought it would be cool for the player character to always be placed
+        in the same random spot regardless of if the dungeon was just generated
+        or loaded. So this function seeds the random number generator using
+        the room info of the dungeon.
 
 Data structures:
 
-  Generic singly linked list (see list.c)
-  
-      - I needed to refator how I was storing my rooms, as in my previous version
-        I stored the rooms in an array of static size. So I thought it would be
-        cool if I implemented a generic linked list to store them as it's dynamic
-        in both memory usage and what can be stored in it.
+  CoordQueue (See queue.c)
+      
+      - A queue data structure that houses a queue of coordinates. Currently the
+        queue is non-generic, but the goal is for this to be completely generic
+        in the future
 
 File Names:
 
-  list.c      The c source file for the singly linked list data structure
+  queue.c         the c source file that contains the new CoordQueue data structure
 
-  list.h      The header file for list.c
+  queue.h         the header file for queue.h
 
+  pathfinding.c   the c source file that contains the functions for the pathfinding
+  
+  pathfinding.h   the header file for pathfinding.c
