@@ -46,12 +46,41 @@ typedef struct {
   char* saveLoadLocation;
 } Setup;
 
+/**
+ * @brief The function where the main game loop lives
+ * 
+ * @param dun     The dungeon that the game will use
+ * @param setup   a structure that holds settings
+ */
 void runGame(Dungeon* dun, Setup setup);
 
-void randomlyPlace(Coordinate* cord, Dungeon* dun);
+/**
+ * @brief   A function that randomly places assigns a
+ *          location to the input coord such that the
+ *          location is in a hallway or room
+ * 
+ * @param cord 
+ * @param dun 
+ */
+void randomlyPlace(Coordinate* coord, Dungeon* dun);
 
+/**
+ * @brief     Generates a new seed using the positions'
+ *            of the rooms in the dungeon
+ * 
+ * @param dun  The dungeon that is being used to
+ *             update the seed
+ */
 void updateSeed(Dungeon* dun);
 
+/**
+ * @brief       Prints the distance map that was input
+ *              as well as the player character in the
+ *              map
+ * 
+ * @param map   The map being printed
+ * @param pc    The player character
+ */
 void printPathMap(int** map, Player* pc);
 
 /**

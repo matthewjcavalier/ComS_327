@@ -17,7 +17,7 @@ pathFinding.o: pathFinding.c
 	$(CC) -g $(CFLAGS) -c pathFinding.c
 queue.o: queue.c
 	$(CC) -g $(CFLAGS) -c queue.c
-run: crawler
+run: clean crawler
 	./crawler -cool 
 clean:
 	- rm debug crawler

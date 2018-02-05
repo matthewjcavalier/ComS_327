@@ -27,6 +27,13 @@ int main(int argc, char* argv[]) {
   }
 }
 
+/**
+ * @brief The function where the main game loop lives
+ * 
+ * @param dun     The dungeon that the game will use
+ * @param setup   a structure that holds settings
+ */
+
 void runGame(Dungeon* dun, Setup setup) {
   boolean continueRunning = false;
   int** tunnelingMap;
@@ -41,7 +48,6 @@ void runGame(Dungeon* dun, Setup setup) {
     // get the map for the non-tunneling creatures
     openSpaceMap = getPathMapOnlyOpenArea(&pc.coord, dun);
 
-
     // print the dungeon
     printDungeon(dun, setup, pc.coord);
 
@@ -50,9 +56,16 @@ void runGame(Dungeon* dun, Setup setup) {
     printPathMap(tunnelingMap, &pc);
 
   } while(continueRunning);
-
-  
 }
+
+/**
+ * @brief   A function that randomly places assigns a
+ *          location to the input coord such that the
+ *          location is in a hallway or room
+ * 
+ * @param cord 
+ * @param dun 
+ */
 
 void randomlyPlace(Coordinate* coord, Dungeon* dun) {
   boolean notPlaced = true;
@@ -72,6 +85,13 @@ void randomlyPlace(Coordinate* coord, Dungeon* dun) {
   }
 }
 
+/**
+ * @brief     Generates a new seed using the positions'
+ *            of the rooms in the dungeon
+ * 
+ * @param dun  The dungeon that is being used to
+ *             update the seed
+ */
 void updateSeed(Dungeon* dun) {
   Node* currentNode = dun->rooms->head;
   Room* currentRoom;
@@ -93,6 +113,14 @@ void updateSeed(Dungeon* dun) {
   srand(newSeed);
 }
     
+/**
+ * @brief       Prints the distance map that was input
+ *              as well as the player character in the
+ *              map
+ * 
+ * @param map   The map being printed
+ * @param pc    The player character
+ */
 void printPathMap(int** tunnelingMap, Player* pc) {
   int row, col, tileVal;
   printf("printing path map\n");

@@ -54,6 +54,16 @@ int** getPathMapEverywhere(Coordinate* pc, Dungeon* dun) {
   return map;
 }
 
+/**
+ * @brief           An application of Dijkstra's algorithm
+ *                  filling out the distance map
+ * 
+ * @param dun       The dungeon that is being worked on
+ * @param map       The map being filled out
+ * @param queue     The queue of the nodes in the map to visit
+ * @param canBurrow If the map is being generated with the ability
+ *                  to burrow through rock
+ */
 void fillMap(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow) {
   Coordinate currentCoord;
   Coordinate upLeft;
@@ -105,6 +115,20 @@ void fillMap(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow) {
   }
 }
 
+/**
+ * @brief           The logic to decide if the value at certain
+ *                  map locations needs to be updated and if
+ *                  a map location should be added to the queue
+ * 
+ * @param dun       The dungeon that is being worked on
+ * @param map       The map being filled out
+ * @param queue     The queue of the nodes in the map to visit
+ * @param canBurrow If the map is being generated with the ability
+ *                  to burrow through rock
+ * @param neighbor  The neighbor vertex that we are currently looking
+ *                  at
+ * @param current   The current node that is bing looked at
+ */
 void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow, Coordinate neighbor, Coordinate current) {
   int currentMapVal = map[current.row][current.col];
   int neighborMapVal = map[neighbor.row][neighbor.col];
@@ -126,9 +150,8 @@ void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow, Co
 }
 
 /**
- * @brief   Allocates memory for a map and returns a pointer to it.
- * 
- * @return int**     a pointer to the map
+ * @brief Initializes a map that is MAX_DUNGEON_HEIGHT BY MAX_DUNGEON_WIDTH
+ * * @return int**  the reference to the map
  */
 int** initMap() {
   int** newMap = malloc(MAX_DUNGEON_HEIGHT * sizeof(int*));

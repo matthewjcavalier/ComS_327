@@ -41,8 +41,32 @@ int** getPathMapOnlyOpenArea(Coordinate* cord, Dungeon* dun);
  */
 int** getPathMapEverywhere(Coordinate* cord, Dungeon* dun);
 
+/**
+ * @brief           An application of Dijkstra's algorithm
+ *                  filling out the distance map
+ * 
+ * @param dun       The dungeon that is being worked on
+ * @param map       The map being filled out
+ * @param queue     The queue of the nodes in the map to visit
+ * @param canBurrow If the map is being generated with the ability
+ *                  to burrow through rock
+ */
 void fillMap(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow);
 
+/**
+ * @brief           The logic to decide if the value at certain
+ *                  map locations needs to be updated and if
+ *                  a map location should be added to the queue
+ * 
+ * @param dun       The dungeon that is being worked on
+ * @param map       The map being filled out
+ * @param queue     The queue of the nodes in the map to visit
+ * @param canBurrow If the map is being generated with the ability
+ *                  to burrow through rock
+ * @param neighbor  The neighbor vertex that we are currently looking
+ *                  at
+ * @param current   The current node that is bing looked at
+ */
 void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow, Coordinate neighbor, Coordinate current);
 /**
  * @brief   Allocates memory for a map and returns a pointer to it.
@@ -51,4 +75,10 @@ void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow, Co
  */
 
 int** genMap(Coordinate* cord, Dungeon* dun, int** map, boolean onlyOpenAreas);
+
+/**
+ * @brief Initializes a map that is MAX_DUNGEON_HEIGHT BY MAX_DUNGEON_WIDTH
+ *  the reference to the map
+ * @return int** 
+ */
 int** initMap();
