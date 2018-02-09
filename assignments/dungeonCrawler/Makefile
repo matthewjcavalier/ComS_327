@@ -23,7 +23,7 @@ clean:
 	- rm debug crawler
 	- rm *.o
 	- rm -rf test/
-	- rm cavalier_matthew.assignment-1.02.tar.gz
+	- rm cavalier_matthew.assignment-1.03.tar.gz
 	- rm valgrind_output.*
 	- rm vgcore.*
 add: clean
@@ -31,15 +31,15 @@ add: clean
 exportLog:
 	git --no-pager log > CHANGELOG
 package: clean
-	mkdir cavalier_matthew.assignment-1.02
-	cp generator.* crawler.* list.* queue.* pathFinding.* dungeon.h Makefile README CHANGELOG cavalier_matthew.assignment-1.02
-	tar cvfz cavalier_matthew.assignment-1.02.tar.gz cavalier_matthew.assignment-1.02/
-	rm -rf cavalier_matthew.assignment-1.02
+	mkdir cavalier_matthew.assignment-1.03
+	cp generator.* crawler.* list.* queue.* pathFinding.* dungeon.h Makefile README CHANGELOG cavalier_matthew.assignment-1.03
+	tar cvfz cavalier_matthew.assignment-1.03.tar.gz cavalier_matthew.assignment-1.03/
+	rm -rf cavalier_matthew.assignment-1.03
 final: clean package
 analyze: clean debug
 	valgrind --log-file="valgrind_output.txt" --leak-check=full ./debug
 test: package
 	mkdir test
-	tar -xf cavalier_matthew.assignment-1.02.tar.gz -C test/
+	tar -xf cavalier_matthew.assignment-1.03.tar.gz -C test/
 connect:
 	ssh cavalier@pyrite.cs.iastate.edu
