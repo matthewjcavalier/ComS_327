@@ -1,3 +1,27 @@
+commit 41085cf1413e8489b9b36ca3fbb9dbd0efcca570
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Feb 12 16:30:27 2018 -0600
+
+    tweaked it so the map with tunneling is closer, but still just barely wrong
+
+commit a9da0c6e93ad1f306b21973e201b40585e4a19cc
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Feb 9 14:39:08 2018 -0600
+
+    done with 1.03
+
+commit 20aa0cca21548e6ec136eff913cb4e45e4f5706a
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Feb 5 14:16:15 2018 -0600
+
+    added a rule to the make file to connect to pyrite
+
+commit af16b876cdf0bc0806deb43ae8a12bbd27c8ce88
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Feb 5 14:12:29 2018 -0600
+
+    think hw3 is done
+
 commit d6192d6f5a57501cc224ff2d1023e05590fddf1a
 Author: Matt Cavalier <matthewjcavalier@gmail.com>
 Date:   Mon Feb 5 14:09:46 2018 -0600
