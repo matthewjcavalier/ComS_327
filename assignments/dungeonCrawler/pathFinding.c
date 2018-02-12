@@ -132,17 +132,19 @@ void fillMap(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow) {
 void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow, Coordinate neighbor, Coordinate current) {
   int currentMapVal = map[current.row][current.col];
   int neighborMapVal = map[neighbor.row][neighbor.col];
+  Tile currentTile = dun->map[current.row][current.col];
   Tile neighborTile = dun->map[neighbor.row][neighbor.col];
+  int distance = 1;
 
   if(!neighborTile.isBorder) {
     if(neighborTile.hardness == 0) {
-      if(neighborMapVal > currentMapVal + 1) {
-        map[neighbor.row][neighbor.col] = currentMapVal + 1;
+      if(neighborMapVal > currentMapVal + distance) {
+        map[neighbor.row][neighbor.col] = currentMapVal + distance;
         enqueue(queue, neighbor);
       }
     } else if(canBurrow) {
-      if(neighborMapVal > currentMapVal + neighborTile.hardness) {
-        map[neighbor.row][neighbor.col] = currentMapVal + neighborTile.hardness;
+      if(neighborMapVal > currentMapVal + currentTile.hardness + distance) {
+        map[neighbor.row][neighbor.col] = currentMapVal + currentTile.hardness + distance;
         enqueue(queue, neighbor);
       }
     }

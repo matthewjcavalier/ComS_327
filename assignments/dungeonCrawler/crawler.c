@@ -40,7 +40,9 @@ void runGame(Dungeon* dun, Setup setup) {
   int** openSpaceMap;
   Player pc;
 
-  randomlyPlace(&pc.coord, dun);
+  //randomlyPlace(&pc.coord, dun);
+  pc.coord.row = 9;
+  pc.coord.col = 54;
   
   do {
     // get the map for tunneling creatures
