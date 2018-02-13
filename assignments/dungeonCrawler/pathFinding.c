@@ -49,9 +49,126 @@ int** getPathMapEverywhere(Coordinate* pc, Dungeon* dun) {
   enqueue(queue, *pc);
   
   fillMap(dun, map, queue, true); 
+  //dijkstra(dun, map);
 
   free(queue);
   return map;
+}
+
+void dijkstra(Dungeon* dun, int** map) {
+  int** shortestPathBools = initMap();
+  int row, col;
+  int count;
+  Coordinate currentCoord;
+  Coordinate upLeft;
+  Coordinate up;
+  Coordinate upRight;
+  Coordinate right;
+  Coordinate downRight;
+  Coordinate down;
+  Coordinate downLeft;
+  Coordinate left;
+
+  for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
+      shortestPathBools[row][col] = 0;
+    }
+  }
+
+  for(count = 0; count < MAX_DUNGEON_WIDTH * MAX_DUNGEON_HEIGHT; count++) {
+    currentCoord = minDist(map, shortestPathBools);
+
+    shortestPathBools[currentCoord.row][currentCoord.col] = 1;
+
+    upLeft.row = currentCoord.row -1;
+    upLeft.col = currentCoord.col -1;
+
+    up.row = currentCoord.row -1;
+    up.col = currentCoord.col;
+
+    upRight.row = currentCoord.row -1;
+    upRight.col = currentCoord.col +1;
+
+    right.row = currentCoord.row;
+    right.col = currentCoord.col +1;
+
+    downRight.row = currentCoord.row +1;
+    downRight.col = currentCoord.col +1;
+
+    down.row = currentCoord.row + 1;
+    down.col = currentCoord.col;
+
+    downLeft.row = currentCoord.row +1;
+    downLeft.col = currentCoord.col -1;
+
+    left.row = currentCoord.row;
+    left.col = currentCoord.col -1;
+
+    if(isValidCoord(upLeft) && shortestPathBools[upLeft.row][upLeft.col] == 0 &&
+            map[currentCoord.row][currentCoord.col] != INT_MAX &&
+            (1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col] < map[upLeft.row][upLeft.col])) {
+      map[upLeft.row][upLeft.col] = 1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col];
+    }
+    if(isValidCoord(up) && shortestPathBools[up.row][up.col] == 0 &&
+            map[currentCoord.row][currentCoord.col] != INT_MAX &&
+            (1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col] < map[up.row][up.col])) {
+      map[up.row][up.col] = 1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col];
+    }
+    if(isValidCoord(upRight) && shortestPathBools[upRight.row][upRight.col] == 0 &&
+            map[currentCoord.row][currentCoord.col] != INT_MAX &&
+            (1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col] < map[upRight.row][upRight.col])) {
+      map[upRight.row][upRight.col] = 1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col];
+    }
+    if(isValidCoord(right) && shortestPathBools[right.row][right.col] == 0 &&
+            map[currentCoord.row][currentCoord.col] != INT_MAX &&
+            (1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col] < map[right.row][right.col])) {
+      map[right.row][right.col] = 1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col];
+    }
+    if(isValidCoord(downRight) && shortestPathBools[downRight.row][downRight.col] == 0 &&
+            map[currentCoord.row][currentCoord.col] != INT_MAX &&
+            (1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col] < map[downRight.row][downRight.col])) {
+      map[downRight.row][downRight.col] = 1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col];
+    }
+    if(isValidCoord(down) && shortestPathBools[down.row][down.col] == 0 &&
+            map[currentCoord.row][currentCoord.col] != INT_MAX &&
+            (1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col] < map[down.row][down.col])) {
+      map[down.row][down.col] = 1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col];
+    }
+    if(isValidCoord(downLeft) && shortestPathBools[downLeft.row][downLeft.col] == 0 &&
+            map[currentCoord.row][currentCoord.col] != INT_MAX &&
+            (1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col] < map[downLeft.row][downLeft.col])) {
+      map[downLeft.row][downLeft.col] = 1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col];
+    }
+    if(isValidCoord(left) && shortestPathBools[left.row][left.col] == 0 &&
+            map[currentCoord.row][currentCoord.col] != INT_MAX &&
+            (1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col] < map[left.row][left.col])) {
+      map[left.row][left.col] = 1 + dun->map[currentCoord.row][currentCoord.col].hardness / 85 + map[currentCoord.row][currentCoord.col];
+    }
+
+  }
+}
+
+boolean isValidCoord(Coordinate coord) {
+  if(coord.row > 0 && coord.row < MAX_DUNGEON_HEIGHT && coord.col > 0 && coord.col < MAX_DUNGEON_WIDTH) {
+    return true;
+  }
+  return false;
+}
+
+Coordinate minDist(int** map, int** shortestPathBools) {
+    int min = INT_MAX;
+    int row, col;
+    Coordinate min_coord;
+    for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+      for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
+        if(shortestPathBools[row][col] == 0 && map[row][col] <= min) {
+          min = map[row][col];
+          min_coord.row = row;
+          min_coord.col = col;
+        }
+      }
+    }
+    return min_coord;
 }
 
 /**
@@ -103,6 +220,7 @@ void fillMap(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow) {
     left.row = currentCoord.row;
     left.col = currentCoord.col -1;
 
+    
     // for every neighbor of the coord
     fillLogic(dun, map, queue, canBurrow, upLeft, currentCoord); 
     fillLogic(dun, map, queue, canBurrow, up, currentCoord); 
@@ -143,8 +261,8 @@ void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow, Co
         enqueue(queue, neighbor);
       }
     } else if(canBurrow) {
-      if(neighborMapVal > currentMapVal + currentTile.hardness + distance) {
-        map[neighbor.row][neighbor.col] = currentMapVal + currentTile.hardness + distance;
+      if(neighborMapVal > currentMapVal + (currentTile.hardness / 85) + distance) {
+        map[neighbor.row][neighbor.col] = currentMapVal + (currentTile.hardness / 85) + distance;
         enqueue(queue, neighbor);
       }
     }
