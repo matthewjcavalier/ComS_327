@@ -83,8 +83,3 @@ int** genMap(Coordinate* cord, Dungeon* dun, int** map, boolean onlyOpenAreas);
  */
 int** initMap();
 
-void dijkstra(Dungeon* dun, int** map); 
-
-Coordinate minDist(int** map, int** shortestPathBools);
-
-boolean isValidCoord(Coordinate coord);

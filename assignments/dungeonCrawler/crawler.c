@@ -41,8 +41,6 @@ void runGame(Dungeon* dun, Setup setup) {
   Player pc;
 
   randomlyPlace(&pc.coord, dun);
-  pc.coord.row = 6;
-  pc.coord.col = 53;
   
   do {
     // get the map for tunneling creatures
