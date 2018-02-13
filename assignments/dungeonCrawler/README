@@ -6,13 +6,7 @@ Compliance:
   are generated and printed. All previous functionality still works, so if needed
   a dungeon can be saved and loaded still.
 
-  SideNote:
-  
-    When running the program using the dungeons that were provided to test the
-    map generation, I noticed that the distances for the map for the tunneling
-    monsters is just slightly wrong.
-
-Interesting Functions:
+ Functions:
 
   fillMap & fillLogic (see pathfinding.c)
       
