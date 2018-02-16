@@ -44,6 +44,7 @@ typedef struct {
   boolean save;
   boolean load;
   char* saveLoadLocation;
+  int numMonsters;
 } Setup;
 
 /**

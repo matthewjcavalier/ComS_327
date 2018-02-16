@@ -7,6 +7,7 @@ int main(int argc, char* argv[]) {
   Setup setup = parseArgs(argc, argv);
   
   printf("Using seed: %d\n", setup.seed);
+  printf("Number of Monsters: %d\n", setup.numMonsters);
   // seed random num gen
   srand(setup.seed);
 
@@ -39,6 +40,7 @@ void runGame(Dungeon* dun, Setup setup) {
   int** tunnelingMap;
   int** openSpaceMap;
   Player pc;
+  boolean printMaps = false;
 
   randomlyPlace(&pc.coord, dun);
   
@@ -51,9 +53,11 @@ void runGame(Dungeon* dun, Setup setup) {
     // print the dungeon
     printDungeon(dun, setup, pc.coord);
 
-    printPathMap(openSpaceMap, &pc);
-    
-    printPathMap(tunnelingMap, &pc);
+    if(printMaps) {
+      printPathMap(openSpaceMap, &pc);
+      
+      printPathMap(tunnelingMap, &pc);
+    }
 
   } while(continueRunning);
 }
@@ -159,6 +163,7 @@ Setup parseArgs(int argc, char* argv[]) {
   ret.useCoolChars = false;
   ret.save = false;
   ret.load = false;
+  ret.numMonsters = 0;
   
   // look for flags
   for(i = 0; i < argc; i++) {
@@ -175,6 +180,9 @@ Setup parseArgs(int argc, char* argv[]) {
     }
     else if(strcmp(argv[i], "--load") == 0) {
       ret.load = true;
+    }
+    else if(strcmp(argv[i], "--nummon") == 0) {
+      ret.numMonsters = atoi(argv[i + 1]);
     }
   }
 
