@@ -12,6 +12,11 @@
 #define EXPECTED_ROOM_COUNT 10
 #define MIN_ROOM_COUNT 5
 
+#define INTELLIGENCE_BIT 0b0001
+#define TELEPATHY_BIT 0b0010
+#define TUNNELING_BIT 0b0100
+#define ERRATIC_BIT 0b1000
+
 
 typedef enum boolean {false, true} boolean;
 
@@ -42,3 +47,16 @@ typedef struct Coordinate {
 typedef struct Player {
   Coordinate coord;
 } Player;
+
+typedef struct NPC {
+  int characteristics : 4;
+} NPC;
+
+typedef struct Character {
+  struct Coordinate coord;
+  char symbol;
+  struct Player* pc;
+  struct NPC* npc;
+  int speed;
+  int nextEventTime;
+} Character;

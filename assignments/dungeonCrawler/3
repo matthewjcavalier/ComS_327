@@ -1,0 +1,18 @@
+#include <stdio.h>
+typedef struct HeapNode {
+  void* dataPtr;
+  struct Node* parent;
+  struct Node* leftChild;
+  struct Node* rightChild;
+} HeapNode;
+
+typedef struct Heap {
+  struct HeapNode* top;
+  int size;
+} Heap = {NULL, 0};
+
+int main() {
+  Heap heap;
+  printf("%d", heap.top);
+  return 0;
+}

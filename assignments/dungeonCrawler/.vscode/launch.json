@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
     {
-        "name": "test Queue",
+        "name": "test heap",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/test",
+        "program": "${workspaceFolder}/heap",
         "args": [],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
