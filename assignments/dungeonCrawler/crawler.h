@@ -18,6 +18,10 @@
   #define PATHFINDING_H
   #include "pathFinding.h"
 #endif
+#ifndef HEAP_H
+  #define HEAP_H
+  #include "heap.h"
+#endif
 
 
 #define BORDER_HOR_CHAR '-'
@@ -100,7 +104,7 @@ Setup parseArgs(int argc, char* argv[]);
  * @param dun     the dungeon to print
  * @param setup   a struct containg print info
  */
-void printDungeon(Dungeon* dun, Setup setup, Coordinate pc);
+void printDungeon(Dungeon* dun, Setup setup, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
 
 /**
  * @brief Prints the dungeon in the standard format
@@ -108,7 +112,7 @@ void printDungeon(Dungeon* dun, Setup setup, Coordinate pc);
  * 
  * @param dun a pointer to the dungeon to print
  */
-void printStandardDun(Dungeon* dun, Coordinate pc);
+void printStandardDun(Dungeon* dun, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
 
 /**
  * @brief Prints the dungeon in a cool way using
@@ -117,4 +121,9 @@ void printStandardDun(Dungeon* dun, Coordinate pc);
  * 
  * @param dun a pointer to the dungeon to print
  */
-void printCoolDun(Dungeon* dun, Coordinate pc);
+void printCoolDun(Dungeon* dun, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
+
+void cleanPlacementMap(Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
+
+Coordinate getEmptySpot(Dungeon* dun, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
+char getSymbol(char ristics);

@@ -1,12 +1,12 @@
 CC=gcc
 CFLAGS=-Wall -Werror -std=c99
-OBJS=crawler.o generator.o list.o list.o pathFinding.o queue.o
+OBJS=crawler.o generator.o list.o list.o pathFinding.o queue.o heap.o
 
 all: crawler debug
 crawler: $(OBJS)
-	$(CC) $(CFLAGS) crawler.o generator.o list.o pathFinding.o queue.o -o crawler
+	$(CC) $(CFLAGS) crawler.o generator.o list.o pathFinding.o queue.o heap.o -o crawler
 debug: $(OBJS)
-	$(CC) -g $(CFLAGS) crawler.o generator.o list.o pathFinding.o queue.o -o debug
+	$(CC) -g $(CFLAGS) crawler.o generator.o list.o pathFinding.o queue.o heap.o -o debug
 crawler.o: crawler.c
 	$(CC) -g $(CFLAGS) -c crawler.c
 generator.o: generator.c
@@ -21,8 +21,8 @@ heap.o: heap.c
 	$(CC) -g $(CFLAGS) -c heap.c
 heap: heap.o
 	$(CC) -g $(CFLAGS) heap.o -o heap
-run: clean crawler
-	./crawler -cool 
+run: clean crawler 
+	./crawler -cool --nummon 5
 clean:
 	- rm debug crawler
 	- rm *.o
