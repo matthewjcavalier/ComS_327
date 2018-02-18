@@ -1,47 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "dungeon.h"
-#include <stdint.h>
-#include <stdlib.h>
-
-#define HEAP_OVERFLOW 1;
+#include "heap.h"
 /*
-typedef struct HeapNode {
-  void* dataPtr;
-  struct Node* parent;
-  struct Node* leftChild;
-  struct Node* rightChild;
-} HeapNode;
-
-typedef struct Heap {
-  struct HeapNode* top;
-  int size;
-} Heap;
-*/
-
-typedef struct MinHeap {
-  struct Character** arr;
-  int size;
-  int maxSize;
-} MinHeap;
-
-/**
- * NOTE: could possibly represent the heap as an array, and in the init just say how many member will be in the
- *       heap, since there are supposedly a static number of monsters
- */
-
-MinHeap* initHeap(int size);
-
-int addToHeap(MinHeap* minHeap, Character* character);
-
-Character* removeFromHeap(MinHeap* minHeap);
-
-int bubbleUp(MinHeap* minHeap);
-
-boolean isHeapEmpty(MinHeap* heap);
-
-boolean isFull(MinHeap* heap);
-
 int main() {
   MinHeap* heap = initHeap(8);
   Character* newChar;
@@ -66,6 +24,7 @@ int main() {
   }
   return 0;
 }
+*/
 
 MinHeap* initHeap(int size) {
   MinHeap* minHeap = malloc(sizeof(*minHeap));
@@ -140,59 +99,3 @@ boolean isFull(MinHeap* heap) {
   }
   return false;
 }
-
-
-/*
-int addToHeap(MinHeap* heap, void* data, int (*compare)(void*, void*)) {
-  HeapNode* newNode = malloc(sizeof(*newNode));
-  HeapNode* current;
-  boolean newNodePlaced = false;
-  boolean currentIsLeftChild = false;
-
-  newNode.parent = NULL;
-  newNode.leftChild = NULL;
-  newNode.rightChild = NULL;
-  newNode.data = data;
-
-  if(isHeapEmpty(heap) {
-    heap.top = newNode;
-  } else {
-    do {
-      current = heap->top;
-      // if the new node's value is less than the current node's data
-      if(compare(newNode->data, current->data) <= 0) {
-        newNode->leftChild = current;
-        newNode->parent = current->parent;
-        
-        // if the current node has a parent
-        if(current->parent != NULL) {
-          if(isLeftChild(current)) {
-            current->parent->leftChild = newNode;
-          } else {
-            current->parent->rightChild = newNode;
-          }
-        }
-      } else {
-        
-      }
-    } while (!newNodePlaced);
-  }
-  heap->size++;
-  return 0;
-}
-boolean isLeftChild(MinHeapNode* node) {
-  return false;
-}
-
-int removeFromHeap(MinHeap*, void* retLoc, int(*compare)(void*, void*)) {
-
-  return 0;
-}
-
-boolean isHeapEmpty(MinHeap* heap) {
-  if(heap->size = 0) {
-    return true;
-  }
-  return false;
-}
-*/
