@@ -67,7 +67,7 @@ void runGame(Dungeon* dun, Setup setup) {
   // add monsters
   for(i = 0; i < setup.numMonsters; i++) {
     currentNPC = malloc(sizeof(*currentNPC));
-    currentNPC->characteristics = 0b0000;
+    currentNPC->characteristics = 0;
     // set intelligence
     if(rand() % 2 == 0) {
       currentNPC->characteristics |= INTELLIGENCE_BIT;
@@ -136,18 +136,153 @@ void runGame(Dungeon* dun, Setup setup) {
 }
 
 void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap) {
-  printf("monster mash\n");
+  switch(character->npc->characteristics) {
+    // is intelligent
+    case 0b0001:
+      moveRandomly(character, turnQueue, dun, map, false);     
+
+      break;
+    
+    // is telepathic
+    case 0b0010:
+      moveRandomly(character, turnQueue, dun, map, false);     
+
+      break;
+
+    // is telepathic and intelligent
+    case 0b0011:
+      moveRandomly(character, turnQueue, dun, map, false);     
+
+      break;
+
+    // can tunnel
+    case 0b0100:
+      moveRandomly(character, turnQueue, dun, map, false);     
+
+      break;
+    
+    // can tunnel and is intelligent
+    case 0b0101:
+      moveRandomly(character, turnQueue, dun, map, false);     
+      break;
+
+    // can tunnel and is telepathic
+    case 0b0110:
+      moveRandomly(character, turnQueue, dun, map, false);     
+      break;
+
+    // can tunnel and is telepathic and is intelligent
+    case 0b0111:
+      moveRandomly(character, turnQueue, dun, map, false);
+      break;
+
+    // is erratic
+    case 0b1000:
+     if(rand() % 2 == 0) {
+      moveRandomly(character, turnQueue, dun, map, false);
+    } else {
+    }
+      break;
+
+    // is erratic and intelligent
+    case 0b1001:
+    if(rand() % 2 == 0) {
+      moveRandomly(character, turnQueue, dun, map, false);
+    } else {
+    }  
+      break;
+
+    // is erratic and telepathic
+    case 0b1010:
+     if(rand() % 2 == 0) {
+      moveRandomly(character, turnQueue, dun, map, false);
+    } else {
+    } 
+      break;
+
+    // is erratic and telepathic and intelligent
+    case 0b1011:
+     if(rand() % 2 == 0) {
+      moveRandomly(character, turnQueue, dun, map, false);
+    } else {
+    } 
+      break;
+
+    // is erratic and can tunnel
+    case 0b1100:
+     if(rand() % 2 == 0) {
+      moveRandomly(character, turnQueue, dun, map, false);
+    } else {
+    } 
+      break;
+
+    // is erratic and can tunnel and intelligent
+    case 0b1101:
+    if(rand() % 2 == 0) {
+      moveRandomly(character, turnQueue, dun, map, false);
+    } else {
+    }  
+      break;
+
+    // is erratic and can tunnel and telepathic
+    case 0b1110:
+    if(rand() % 2 == 0) {
+      moveRandomly(character, turnQueue, dun, map, false);
+    } else {
+    } 
+      break;
+
+    // is erratic and can tunnel and is telepathic and is intelligent
+    case 0b1111:
+    if(rand() % 2 == 0) {
+      moveRandomly(character, turnQueue, dun, map, false);
+    } else {
+    }
+      break;
+
+    // is a stupid monster overall
+    default:
+      moveRandomly(character, turnQueue, dun, map, false);
+      break;
+  }
 }
 
+boolean canTunnel(Character* character) {
+  if(character->npc->characteristics & TUNNELING_BIT) {
+    return true;
+  }
+  return false;
+}
+
+boolean isTelepathic(Character* character) {
+  if(character->npc->characteristics & TELEPATHY_BIT) {
+    return true;
+  }
+  return false;
+}
+
+boolean isInteligent(Character* character) {
+  if(character->npc->characteristics & INTELLIGENCE_BIT) {
+    return true;
+  }
+  return false;
+}
+
+boolean isErratic(Character* character) {
+  if(character->npc->characteristics & ERRATIC_BIT) {
+    return true;
+  }
+  return false;
+}
 
 void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
   // TODO: add user control
 
-  moveRandomly(character, turnQueue, dun, map);
+  moveRandomly(character, turnQueue, dun, map, false);
 
 }
 
-int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], boolean canTunnel) {
   boolean notPlaced = true;
   Coordinate movingTo;
 
@@ -158,14 +293,22 @@ int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Charact
         movingTo = character->coord;
         movingTo.row = movingTo.row -1;
         movingTo.col = movingTo.col -1;
-        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        if(canTunnel) {
+          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map);
+        } else {
+          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+        }
         break;
 
       // move up
       case 1:
         movingTo = character->coord;
         movingTo.row = movingTo.row -1;
-        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        if(canTunnel) {
+          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map);
+        } else {
+          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+        }
         break;
 
       // move up right
@@ -173,14 +316,22 @@ int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Charact
         movingTo = character->coord;
         movingTo.row = movingTo.row -1;
         movingTo.col = movingTo.col +1;
-        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        if(canTunnel) {
+          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map);
+        } else {
+          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+        }
         break;
 
       // move right
       case 3:
         movingTo = character->coord;
         movingTo.col = movingTo.col +1;
-        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        if(canTunnel) {
+          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map);
+        } else {
+          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+        }
         break;
 
       // move down right
@@ -188,14 +339,22 @@ int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Charact
         movingTo = character->coord;
         movingTo.row = movingTo.row +1;
         movingTo.col = movingTo.col +1;
-        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        if(canTunnel) {
+          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map);
+        } else {
+          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+        }
         break;
        
       // move down
       case 5:
         movingTo = character->coord;
         movingTo.row = movingTo.row +1;
-        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        if(canTunnel) {
+          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map);
+        } else {
+          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+        }
         break;
        
       // move down left
@@ -203,23 +362,47 @@ int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Charact
         movingTo = character->coord;
         movingTo.row = movingTo.row +1;
         movingTo.col = movingTo.col -1;
-        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        if(canTunnel) {
+          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map);
+        } else {
+          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+        }
         break;
        
       // move left
       default:
         movingTo = character->coord;
         movingTo.col = movingTo.col -1;
-        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        if(canTunnel) {
+          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map);
+        } else {
+          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+        }
         break;
     }
   }
   return 0;
 }
 
-boolean moveCharacter(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+boolean moveCharacterNoTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
 
   if(isEmptySpace(movingTo, dun)) {
+    // move the character
+    map[character->coord.row][character->coord.col] = NULL;
+    if(map[movingTo.row][movingTo.col] != NULL) {
+      deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
+    }
+    character->coord = movingTo;
+    map[movingTo.row][movingTo.col] = character;
+    
+    return false;
+  }
+  return true;
+}
+
+boolean moveCharacterTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+
+  if(dun->map[movingTo.row][movingTo.col].isBorder == false && movingTo.row > 0 && movingTo.row < MAX_DUNGEON_HEIGHT && movingTo.col > 0 && movingTo.col < MAX_DUNGEON_WIDTH) {
     // move the character
     map[character->coord.row][character->coord.col] = NULL;
     if(map[movingTo.row][movingTo.col] != NULL) {

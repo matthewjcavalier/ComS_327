@@ -49,7 +49,7 @@ typedef struct Player {
 } Player;
 
 typedef struct NPC {
-  int characteristics : 4;
+  char characteristics;
 } NPC;
 
 typedef struct Character {
