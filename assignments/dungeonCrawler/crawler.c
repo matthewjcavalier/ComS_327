@@ -142,133 +142,78 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
         movingTo = character->coord;
         movingTo.row = movingTo.row -1;
         movingTo.col = movingTo.col -1;
-        if(isEmptySpace(movingTo, dun)) {
-          notPlaced = false;
-          // move the character
-          map[character->coord.row][character->coord.col] = NULL;
-          if(map[movingTo.row][movingTo.col] != NULL) {
-            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
-          }
-          character->coord = movingTo;
-          map[movingTo.row][movingTo.col] = character;
-        }
+        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
         break;
+
       // move up
       case 1:
         movingTo = character->coord;
         movingTo.row = movingTo.row -1;
-        if(isEmptySpace(movingTo, dun)) {
-          notPlaced = false;
-          // move the character
-          map[character->coord.row][character->coord.col] = NULL;
-          if(map[movingTo.row][movingTo.col] != NULL) {
-            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
-          }
-          character->coord = movingTo;
-          map[movingTo.row][movingTo.col] = character;
-        }
+        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        break;
 
       // move up right
-        break;
       case 2:
         movingTo = character->coord;
         movingTo.row = movingTo.row -1;
         movingTo.col = movingTo.col +1;
-        if(isEmptySpace(movingTo, dun)) {
-          notPlaced = false;
-          // move the character
-          map[character->coord.row][character->coord.col] = NULL;
-          if(map[movingTo.row][movingTo.col] != NULL) {
-            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
-          }
-          character->coord = movingTo;
-          map[movingTo.row][movingTo.col] = character;
-        }
-       
-      // move right
+        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
         break;
+
+      // move right
       case 3:
         movingTo = character->coord;
         movingTo.col = movingTo.col +1;
-        if(isEmptySpace(movingTo, dun)) {
-          notPlaced = false;
-          // move the character
-          map[character->coord.row][character->coord.col] = NULL;
-          if(map[movingTo.row][movingTo.col] != NULL) {
-            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
-          }
-          character->coord = movingTo;
-          map[movingTo.row][movingTo.col] = character;
-        }
-      
-      // move down right
+        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
         break;
+
+      // move down right
       case 4:
         movingTo = character->coord;
         movingTo.row = movingTo.row +1;
         movingTo.col = movingTo.col +1;
-        if(isEmptySpace(movingTo, dun)) {
-          notPlaced = false;
-          if(map[movingTo.row][movingTo.col] != NULL) {
-            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
-          }
-          // move the character
-          map[character->coord.row][character->coord.col] = NULL;
-          character->coord = movingTo;
-          map[movingTo.row][movingTo.col] = character;
-        }
+        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        break;
        
       // move down
-        break;
       case 5:
         movingTo = character->coord;
         movingTo.row = movingTo.row +1;
-        if(isEmptySpace(movingTo, dun)) {
-          notPlaced = false;
-          // move the character
-          map[character->coord.row][character->coord.col] = NULL;
-          if(map[movingTo.row][movingTo.col] != NULL) {
-            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
-          }
-          character->coord = movingTo;
-          map[movingTo.row][movingTo.col] = character;
-        }
+        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
+        break;
        
       // move down left
-        break;
       case 6:
         movingTo = character->coord;
         movingTo.row = movingTo.row +1;
         movingTo.col = movingTo.col -1;
-        if(isEmptySpace(movingTo, dun)) {
-          notPlaced = false;
-          // move the character
-          map[character->coord.row][character->coord.col] = NULL;
-          if(map[movingTo.row][movingTo.col] != NULL) {
-            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
-          }
-          character->coord = movingTo;
-          map[movingTo.row][movingTo.col] = character;
-        }
-       
+        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
         break;
+       
       // move left
       default:
         movingTo = character->coord;
         movingTo.col = movingTo.col -1;
-        if(isEmptySpace(movingTo, dun)) {
-          notPlaced = false;
-          // move the character
-          map[character->coord.row][character->coord.col] = NULL;
-          if(map[movingTo.row][movingTo.col] != NULL) {
-            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
-          }
-          character->coord = movingTo;
-          map[movingTo.row][movingTo.col] = character;
-        }
+        notPlaced = moveCharacter(movingTo, character, turnQueue, dun, map);
         break;
     }
   }
+}
+
+boolean moveCharacter(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+
+  if(isEmptySpace(movingTo, dun)) {
+    // move the character
+    map[character->coord.row][character->coord.col] = NULL;
+    if(map[movingTo.row][movingTo.col] != NULL) {
+      deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
+    }
+    character->coord = movingTo;
+    map[movingTo.row][movingTo.col] = character;
+    
+    return false;
+  }
+  return true;
 }
 
 boolean isEmptySpace(Coordinate coord, Dungeon* dun) {
