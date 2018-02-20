@@ -15,7 +15,10 @@
   #include <stdlib.h>
 #endif
 
-#define HEAP_OVERFLOW 1;
+#include <stdio.h>
+
+#define HEAP_OVERFLOW 1
+#define ELEMENT_NOT_FOUND 2
 
 typedef struct MinHeap {
   struct Character** arr;
@@ -34,3 +37,5 @@ int bubbleUp(MinHeap* minHeap);
 boolean isHeapEmpty(MinHeap* heap);
 
 boolean isFull(MinHeap* heap);
+
+int deleteFromHeap(MinHeap* heap, Character* toRemove);

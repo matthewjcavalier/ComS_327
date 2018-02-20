@@ -142,10 +142,13 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
         movingTo = character->coord;
         movingTo.row = movingTo.row -1;
         movingTo.col = movingTo.col -1;
-        if(isEmptySpace(movingTo, dun, map)) {
+        if(isEmptySpace(movingTo, dun)) {
           notPlaced = false;
           // move the character
           map[character->coord.row][character->coord.col] = NULL;
+          if(map[movingTo.row][movingTo.col] != NULL) {
+            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
+          }
           character->coord = movingTo;
           map[movingTo.row][movingTo.col] = character;
         }
@@ -154,10 +157,13 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
       case 1:
         movingTo = character->coord;
         movingTo.row = movingTo.row -1;
-        if(isEmptySpace(movingTo, dun, map)) {
+        if(isEmptySpace(movingTo, dun)) {
           notPlaced = false;
           // move the character
           map[character->coord.row][character->coord.col] = NULL;
+          if(map[movingTo.row][movingTo.col] != NULL) {
+            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
+          }
           character->coord = movingTo;
           map[movingTo.row][movingTo.col] = character;
         }
@@ -168,10 +174,13 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
         movingTo = character->coord;
         movingTo.row = movingTo.row -1;
         movingTo.col = movingTo.col +1;
-        if(isEmptySpace(movingTo, dun, map)) {
+        if(isEmptySpace(movingTo, dun)) {
           notPlaced = false;
           // move the character
           map[character->coord.row][character->coord.col] = NULL;
+          if(map[movingTo.row][movingTo.col] != NULL) {
+            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
+          }
           character->coord = movingTo;
           map[movingTo.row][movingTo.col] = character;
         }
@@ -181,10 +190,13 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
       case 3:
         movingTo = character->coord;
         movingTo.col = movingTo.col +1;
-        if(isEmptySpace(movingTo, dun, map)) {
+        if(isEmptySpace(movingTo, dun)) {
           notPlaced = false;
           // move the character
           map[character->coord.row][character->coord.col] = NULL;
+          if(map[movingTo.row][movingTo.col] != NULL) {
+            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
+          }
           character->coord = movingTo;
           map[movingTo.row][movingTo.col] = character;
         }
@@ -195,8 +207,11 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
         movingTo = character->coord;
         movingTo.row = movingTo.row +1;
         movingTo.col = movingTo.col +1;
-        if(isEmptySpace(movingTo, dun, map)) {
+        if(isEmptySpace(movingTo, dun)) {
           notPlaced = false;
+          if(map[movingTo.row][movingTo.col] != NULL) {
+            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
+          }
           // move the character
           map[character->coord.row][character->coord.col] = NULL;
           character->coord = movingTo;
@@ -208,10 +223,13 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
       case 5:
         movingTo = character->coord;
         movingTo.row = movingTo.row +1;
-        if(isEmptySpace(movingTo, dun, map)) {
+        if(isEmptySpace(movingTo, dun)) {
           notPlaced = false;
           // move the character
           map[character->coord.row][character->coord.col] = NULL;
+          if(map[movingTo.row][movingTo.col] != NULL) {
+            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
+          }
           character->coord = movingTo;
           map[movingTo.row][movingTo.col] = character;
         }
@@ -222,10 +240,13 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
         movingTo = character->coord;
         movingTo.row = movingTo.row +1;
         movingTo.col = movingTo.col -1;
-        if(isEmptySpace(movingTo, dun, map)) {
+        if(isEmptySpace(movingTo, dun)) {
           notPlaced = false;
           // move the character
           map[character->coord.row][character->coord.col] = NULL;
+          if(map[movingTo.row][movingTo.col] != NULL) {
+            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
+          }
           character->coord = movingTo;
           map[movingTo.row][movingTo.col] = character;
         }
@@ -235,10 +256,13 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
       default:
         movingTo = character->coord;
         movingTo.col = movingTo.col -1;
-        if(isEmptySpace(movingTo, dun, map)) {
+        if(isEmptySpace(movingTo, dun)) {
           notPlaced = false;
           // move the character
           map[character->coord.row][character->coord.col] = NULL;
+          if(map[movingTo.row][movingTo.col] != NULL) {
+            deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
+          }
           character->coord = movingTo;
           map[movingTo.row][movingTo.col] = character;
         }
@@ -247,8 +271,8 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
   }
 }
 
-boolean isEmptySpace(Coordinate coord, Dungeon* dun, Character* entityMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
-  if(dun->map[coord.row][coord.col].hardness == 0 && entityMap[coord.row][coord.col] == NULL) {
+boolean isEmptySpace(Coordinate coord, Dungeon* dun) {
+  if(dun->map[coord.row][coord.col].hardness == 0 ) {
     return true;
   }
   return false;

@@ -24,11 +24,11 @@
         ]
     },
         {
-            "name": "(gdb) Launch",
+            "name": "heap",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/debug",
-            "args": ["--load"],
+            "program": "${workspaceFolder}/heap",
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

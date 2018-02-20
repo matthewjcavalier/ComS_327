@@ -134,4 +134,4 @@ char getSymbol(char ristics);
 
 void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
 
-boolean isEmptySpace(Coordinate coord, Dungeon* dun, Character* entityMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
+boolean isEmptySpace(Coordinate coord, Dungeon* dun);

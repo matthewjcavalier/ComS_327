@@ -1,12 +1,12 @@
 #include "heap.h"
 /*
 int main() {
-  MinHeap* heap = initHeap(8);
+  MinHeap* turnQueue = initHeap(4);
   Character* newChar;
   Character* currChar; 
   Coordinate coord;
   
-  for(int i = 0; i < heap->maxSize; i++) {
+  for(int i = 0; i < turnQueue->maxSize; i++) {
     newChar = malloc(sizeof(*newChar));
     coord.row = i;
     coord.col = i;
@@ -15,11 +15,21 @@ int main() {
     newChar->nextEventTime = rand() % 15 + 5;
     newChar->speed = 15;
     printf("%d\n", newChar->speed);
-    addToHeap(heap, newChar);
+    addToHeap(turnQueue, newChar);
   }
+  newChar = malloc(sizeof(*newChar));
+  coord.row = 3;
+  coord.col = 3;
+  newChar->coord = coord;
+  newChar->symbol = 'M';
+  newChar->nextEventTime = rand() % 15 + 5;
+  newChar->speed = 15;
+
+  deleteFromHeap(turnQueue, newChar);
+
   printf("Removing stuff now\n");
-  while(!isHeapEmpty(heap)) {
-    currChar = removeFromHeap(heap);
+  while(!isHeapEmpty(turnQueue)) {
+    currChar = removeFromHeap(turnQueue);
     printf("%d\n", currChar->nextEventTime);
   }
   return 0;
@@ -57,9 +67,24 @@ int addToHeap(MinHeap* minHeap, Character* character) {
 Character* removeFromHeap(MinHeap* heap) {
   Character* character = heap->arr[0];
   heap->arr[0] = heap->arr[heap->size -1];
+  heap->arr[heap->size -1] = NULL;
   heap->size--;
   bubbleUp(heap);
   return character;
+}
+
+int deleteFromHeap(MinHeap* heap, Character* toRemove) {
+  int index;
+  for(index = 0; index < heap->size; index++) {
+    if(heap->arr[index]->coord.row == toRemove->coord.row && heap->arr[index]->coord.col == toRemove->coord.col) {
+      heap->arr[index] = heap->arr[heap->size -1];
+      heap->arr[heap->size -1] = NULL;
+      heap->size--;
+      bubbleUp(heap);
+      return 0;
+    }
+  }
+  return ELEMENT_NOT_FOUND;
 }
 
 int bubbleUp(MinHeap* minHeap) {
