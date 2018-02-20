@@ -36,14 +36,16 @@ int main(int argc, char* argv[]) {
  */
 
 void runGame(Dungeon* dun, Setup setup) {
+//  boolean endGame = true;
   boolean endGame = false;
+
   int** tunnelingMap;
   int** openSpaceMap;
   Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH];
   int currentTurn = 0;
   int i;
   Player pc;
-  boolean printMaps = false;
+  boolean printMaps = true;
   MinHeap* turnQueue = initHeap(setup.numMonsters + 1);
   Character* currentChar = malloc(sizeof(*currentChar));
   NPC* currentNPC;
@@ -84,7 +86,7 @@ void runGame(Dungeon* dun, Setup setup) {
       currentNPC->characteristics |= ERRATIC_BIT;
     }
     //TODO remove this
-    currentNPC->characteristics = 0b0001;
+    currentNPC->characteristics = 0b0011;
     currentNPC->hasSeenPC = false;
 
     currentChar = malloc(sizeof(*currentChar));
@@ -127,6 +129,11 @@ void runGame(Dungeon* dun, Setup setup) {
       printf("pc routine\n");
       // print the dungeon
       printDungeon(dun, setup, placementMap);
+      if(printMaps) {
+        printPathMap(openSpaceMap, &pc);
+        
+        printPathMap(tunnelingMap, &pc);
+      }
       sleep(1);
     }
     currentChar->nextEventTime = currentChar->nextEventTime + 1000/currentChar->speed;
@@ -140,11 +147,7 @@ void runGame(Dungeon* dun, Setup setup) {
       endGame = true;
       printf("\n\n\nYOU WIN\n\n\n");
     }
-    if(printMaps) {
-      printPathMap(openSpaceMap, &pc);
-      
-      printPathMap(tunnelingMap, &pc);
-    }
+    
 
   } while(!endGame);
 }
@@ -172,6 +175,43 @@ Coordinate moveToward(Coordinate from, Coordinate to) {
   }
   return ret;
 }
+Coordinate getNextPlacement(int** map, Coordinate coord) {
+  Coordinate next = coord;
+  int min = map[coord.row][coord.col];
+  // up left
+  if(min > map[coord.row - 1][coord.col -1]) {
+    min = map[next.row--][next.col--];
+  }
+  // up
+  if(min > map[coord.row - 1][coord.col]) {
+    min = map[coord.row--][next.col];
+  }
+  // up right
+  if(min > map[coord.row - 1][coord.col +1]) {
+    min = map[next.row--][next.col++];
+  }
+  // right
+  if(min > map[coord.row][coord.col +1]) {
+    min = map[next.row][next.col++];
+  }
+  // down right
+  if(min > map[coord.row +1][coord.col +1]) {
+    min = map[next.row++][next.col++];
+  }
+  // down
+  if(min > map[coord.row +1][coord.col]) {
+    min = map[next.row++][next.col];
+  }
+  // down left
+  if(min > map[coord.row +1][coord.col -1]) {
+    min = map[next.row++][next.col--];
+  }
+  // left
+  if(min > map[coord.row][coord.col -1]) {
+    min = map[next.row][next.col--];
+  }
+  return next;
+}
 
 void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap, Character* pc) {
 
@@ -193,14 +233,13 @@ void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Cha
     
     // is telepathic
     case 0b0010:
-      moveRandomly(character, turnQueue, dun, map, false);     
-
+      moveCharacterNoTunnel(moveToward(character->coord, pc->coord), character, turnQueue, dun, map);
       break;
 
     // is telepathic and intelligent
     case 0b0011:
-      moveRandomly(character, turnQueue, dun, map, false);     
-
+      
+      moveCharacterNoTunnel(getNextPlacement(openSpaceMap, character->coord), character, turnQueue, dun, map);
       break;
 
     // can tunnel
