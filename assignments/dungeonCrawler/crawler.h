@@ -22,6 +22,10 @@
   #define HEAP_H
   #include "heap.h"
 #endif
+#ifndef UNISTD_H
+  #define UNISTD_H
+  #include <unistd.h>
+#endif
 
 
 #define BORDER_HOR_CHAR '-'
@@ -127,3 +131,7 @@ void cleanPlacementMap(Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
 
 Coordinate getEmptySpot(Dungeon* dun, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
 char getSymbol(char ristics);
+
+void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
+
+boolean isEmptySpace(Coordinate coord, Dungeon* dun, Character* entityMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);

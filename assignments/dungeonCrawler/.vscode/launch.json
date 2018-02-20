@@ -5,11 +5,11 @@
     "version": "0.2.0",
     "configurations": [
     {
-        "name": "test heap",
+        "name": "Normal",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/heap",
-        "args": [],
+        "program": "${workspaceFolder}/debug",
+        "args": ["--nummon","3"],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
         "environment": [],

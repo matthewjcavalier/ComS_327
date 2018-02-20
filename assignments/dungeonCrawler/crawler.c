@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
  */
 
 void runGame(Dungeon* dun, Setup setup) {
-  boolean endGame = true;
+  boolean endGame = false;
   int** tunnelingMap;
   int** openSpaceMap;
   Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH];
@@ -87,20 +87,38 @@ void runGame(Dungeon* dun, Setup setup) {
     currentChar->pc = NULL;
     currentChar->npc = currentNPC;
     currentChar->speed = rand() % 15 + 5;
-    currentChar->nextEventTime = currentTurn + currentChar->speed;
+    currentChar->nextEventTime = currentTurn + 1000/currentChar->speed;
     placementMap[currentChar->coord.row][currentChar->coord.col] = currentChar;
+    addToHeap(turnQueue, currentChar);
   }
 
+  // get the map for tunneling creatures
+  tunnelingMap = getPathMapEverywhere(&pc.coord, dun);
+  // get the map for the non-tunneling creatures
+  openSpaceMap = getPathMapOnlyOpenArea(&pc.coord, dun);
+
+  // print the dungeon
+  printDungeon(dun, setup, placementMap);
 
   
   do {
-    // get the map for tunneling creatures
-    tunnelingMap = getPathMapEverywhere(&pc.coord, dun);
-    // get the map for the non-tunneling creatures
-    openSpaceMap = getPathMapOnlyOpenArea(&pc.coord, dun);
+    // do move sets
+    currentChar = removeFromHeap(turnQueue);
 
-    // print the dungeon
-    printDungeon(dun, setup, placementMap);
+    // if is an NPC
+    if(currentChar->pc == NULL) {
+      printf("monster routine\n");
+    }
+    // else is npc
+    else {
+      pc_routine(currentChar, turnQueue, dun, placementMap);
+      printf("pc routine\n");
+      // print the dungeon
+      printDungeon(dun, setup, placementMap);
+      sleep(1);
+    }
+    currentChar->nextEventTime = currentChar->nextEventTime + 1000/currentChar->speed;
+    addToHeap(turnQueue, currentChar);
 
     if(printMaps) {
       printPathMap(openSpaceMap, &pc);
@@ -109,6 +127,131 @@ void runGame(Dungeon* dun, Setup setup) {
     }
 
   } while(!endGame);
+}
+
+void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+  boolean notPlaced = true;
+  Coordinate movingTo;
+  // TODO: add user control
+
+  // move in a random direction that isn't rock
+  while(notPlaced) {
+    switch(rand() % 8) {
+      // move up left
+      case 0:
+        movingTo = character->coord;
+        movingTo.row = movingTo.row -1;
+        movingTo.col = movingTo.col -1;
+        if(isEmptySpace(movingTo, dun, map)) {
+          notPlaced = false;
+          // move the character
+          map[character->coord.row][character->coord.col] = NULL;
+          character->coord = movingTo;
+          map[movingTo.row][movingTo.col] = character;
+        }
+        break;
+      // move up
+      case 1:
+        movingTo = character->coord;
+        movingTo.row = movingTo.row -1;
+        if(isEmptySpace(movingTo, dun, map)) {
+          notPlaced = false;
+          // move the character
+          map[character->coord.row][character->coord.col] = NULL;
+          character->coord = movingTo;
+          map[movingTo.row][movingTo.col] = character;
+        }
+
+      // move up right
+        break;
+      case 2:
+        movingTo = character->coord;
+        movingTo.row = movingTo.row -1;
+        movingTo.col = movingTo.col +1;
+        if(isEmptySpace(movingTo, dun, map)) {
+          notPlaced = false;
+          // move the character
+          map[character->coord.row][character->coord.col] = NULL;
+          character->coord = movingTo;
+          map[movingTo.row][movingTo.col] = character;
+        }
+       
+      // move right
+        break;
+      case 3:
+        movingTo = character->coord;
+        movingTo.col = movingTo.col +1;
+        if(isEmptySpace(movingTo, dun, map)) {
+          notPlaced = false;
+          // move the character
+          map[character->coord.row][character->coord.col] = NULL;
+          character->coord = movingTo;
+          map[movingTo.row][movingTo.col] = character;
+        }
+      
+      // move down right
+        break;
+      case 4:
+        movingTo = character->coord;
+        movingTo.row = movingTo.row +1;
+        movingTo.col = movingTo.col +1;
+        if(isEmptySpace(movingTo, dun, map)) {
+          notPlaced = false;
+          // move the character
+          map[character->coord.row][character->coord.col] = NULL;
+          character->coord = movingTo;
+          map[movingTo.row][movingTo.col] = character;
+        }
+       
+      // move down
+        break;
+      case 5:
+        movingTo = character->coord;
+        movingTo.row = movingTo.row +1;
+        if(isEmptySpace(movingTo, dun, map)) {
+          notPlaced = false;
+          // move the character
+          map[character->coord.row][character->coord.col] = NULL;
+          character->coord = movingTo;
+          map[movingTo.row][movingTo.col] = character;
+        }
+       
+      // move down left
+        break;
+      case 6:
+        movingTo = character->coord;
+        movingTo.row = movingTo.row +1;
+        movingTo.col = movingTo.col -1;
+        if(isEmptySpace(movingTo, dun, map)) {
+          notPlaced = false;
+          // move the character
+          map[character->coord.row][character->coord.col] = NULL;
+          character->coord = movingTo;
+          map[movingTo.row][movingTo.col] = character;
+        }
+       
+        break;
+      // move left
+      default:
+        movingTo = character->coord;
+        movingTo.col = movingTo.col -1;
+        if(isEmptySpace(movingTo, dun, map)) {
+          notPlaced = false;
+          // move the character
+          map[character->coord.row][character->coord.col] = NULL;
+          character->coord = movingTo;
+          map[movingTo.row][movingTo.col] = character;
+        }
+        break;
+    }
+  }
+}
+
+boolean isEmptySpace(Coordinate coord, Dungeon* dun, Character* entityMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+  if(dun->map[coord.row][coord.col].hardness == 0 && entityMap[coord.row][coord.col] == NULL) {
+    return true;
+  }
+  return false;
 }
 
 /**
