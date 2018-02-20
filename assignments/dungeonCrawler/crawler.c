@@ -107,11 +107,17 @@ void runGame(Dungeon* dun, Setup setup) {
 
     // if is an NPC
     if(currentChar->pc == NULL) {
-      printf("monster routine\n");
+      monster_routine(currentChar, turnQueue, dun, placementMap, openSpaceMap, tunnelingMap);
     }
     // else is npc
     else {
       pc_routine(currentChar, turnQueue, dun, placementMap);
+
+      // generate the new maps
+      tunnelingMap = getPathMapEverywhere(&pc.coord, dun);
+      // get the map for the non-tunneling creatures
+      openSpaceMap = getPathMapOnlyOpenArea(&pc.coord, dun);
+
       printf("pc routine\n");
       // print the dungeon
       printDungeon(dun, setup, placementMap);
@@ -129,12 +135,22 @@ void runGame(Dungeon* dun, Setup setup) {
   } while(!endGame);
 }
 
+void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap) {
+  printf("monster mash\n");
+}
+
+
 void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
-  boolean notPlaced = true;
-  Coordinate movingTo;
   // TODO: add user control
 
-  // move in a random direction that isn't rock
+  moveRandomly(character, turnQueue, dun, map);
+
+}
+
+int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+  boolean notPlaced = true;
+  Coordinate movingTo;
+
   while(notPlaced) {
     switch(rand() % 8) {
       // move up left
@@ -198,6 +214,7 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
         break;
     }
   }
+  return 0;
 }
 
 boolean moveCharacter(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
