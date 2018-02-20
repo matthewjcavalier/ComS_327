@@ -39,3 +39,5 @@ boolean isHeapEmpty(MinHeap* heap);
 boolean isFull(MinHeap* heap);
 
 int deleteFromHeap(MinHeap* heap, Character* toRemove);
+
+int getIndexOfPC(MinHeap* heap);

@@ -45,11 +45,12 @@ typedef struct Coordinate {
 } Coordinate;
 
 typedef struct Player {
-  Coordinate coord;
 } Player;
 
 typedef struct NPC {
   char characteristics;
+  Coordinate lastKnowPCLoc;
+  boolean hasSeenPC;
 } NPC;
 
 typedef struct Character {

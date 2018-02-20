@@ -47,22 +47,24 @@ void runGame(Dungeon* dun, Setup setup) {
   MinHeap* turnQueue = initHeap(setup.numMonsters + 1);
   Character* currentChar = malloc(sizeof(*currentChar));
   NPC* currentNPC;
+  Character* pcCharacter = malloc(sizeof(*pcCharacter));
 
   // clean placement Map
   cleanPlacementMap(placementMap);
 
   // setup PC
-  randomlyPlace(&pc.coord, dun);
-  currentChar->pc = &pc;
-  currentChar->coord = pc.coord;
-  currentChar->symbol = PC_CHAR;
-  currentChar->speed = 10;
-  currentChar->npc = NULL;
-  currentChar->nextEventTime = 1000/currentChar->speed + currentTurn;
+  randomlyPlace(&pcCharacter->coord, dun);
+  pcCharacter->symbol = PC_CHAR;
+  pcCharacter->speed = 10;
+  pcCharacter->npc = NULL;
+  pcCharacter->pc = &pc;
+  pcCharacter->nextEventTime = 1000/pcCharacter->speed + currentTurn;
 
-  addToHeap(turnQueue, currentChar);
 
-  placementMap[pc.coord.row][pc.coord.col] = currentChar;
+
+  addToHeap(turnQueue, pcCharacter);
+
+  placementMap[pcCharacter->coord.row][pcCharacter->coord.col] = currentChar;
 
   // add monsters
   for(i = 0; i < setup.numMonsters; i++) {
@@ -81,6 +83,10 @@ void runGame(Dungeon* dun, Setup setup) {
       if(rand() % 2 == 0) {
       currentNPC->characteristics |= ERRATIC_BIT;
     }
+    //TODO remove this
+    currentNPC->characteristics = 0b0001;
+    currentNPC->hasSeenPC = false;
+
     currentChar = malloc(sizeof(*currentChar));
     currentChar->coord = getEmptySpot(dun, placementMap);
     currentChar->symbol = getSymbol(currentNPC->characteristics);
@@ -93,9 +99,9 @@ void runGame(Dungeon* dun, Setup setup) {
   }
 
   // get the map for tunneling creatures
-  tunnelingMap = getPathMapEverywhere(&pc.coord, dun);
+  tunnelingMap = getPathMapEverywhere(&pcCharacter->coord, dun);
   // get the map for the non-tunneling creatures
-  openSpaceMap = getPathMapOnlyOpenArea(&pc.coord, dun);
+  openSpaceMap = getPathMapOnlyOpenArea(&pcCharacter->coord, dun);
 
   // print the dungeon
   printDungeon(dun, setup, placementMap);
@@ -107,16 +113,16 @@ void runGame(Dungeon* dun, Setup setup) {
 
     // if is an NPC
     if(currentChar->pc == NULL) {
-      monster_routine(currentChar, turnQueue, dun, placementMap, openSpaceMap, tunnelingMap);
+      monster_routine(currentChar, turnQueue, dun, placementMap, openSpaceMap, tunnelingMap, pcCharacter);
     }
     // else is npc
     else {
       pc_routine(currentChar, turnQueue, dun, placementMap);
 
       // generate the new maps
-      tunnelingMap = getPathMapEverywhere(&pc.coord, dun);
+      tunnelingMap = getPathMapEverywhere(&pcCharacter->coord, dun);
       // get the map for the non-tunneling creatures
-      openSpaceMap = getPathMapOnlyOpenArea(&pc.coord, dun);
+      openSpaceMap = getPathMapOnlyOpenArea(&pcCharacter->coord, dun);
 
       printf("pc routine\n");
       // print the dungeon
@@ -126,6 +132,14 @@ void runGame(Dungeon* dun, Setup setup) {
     currentChar->nextEventTime = currentChar->nextEventTime + 1000/currentChar->speed;
     addToHeap(turnQueue, currentChar);
 
+    if(getIndexOfPC(turnQueue) == -1) {
+      endGame = true;
+      printDungeon(dun, setup, placementMap);
+      printf("\n\n\nYOU LOSE\n\n\n");
+    } else if(turnQueue->size == 1) {
+      endGame = true;
+      printf("\n\n\nYOU WIN\n\n\n");
+    }
     if(printMaps) {
       printPathMap(openSpaceMap, &pc);
       
@@ -135,12 +149,46 @@ void runGame(Dungeon* dun, Setup setup) {
   } while(!endGame);
 }
 
-void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap) {
+boolean canSeePC(Character* pc, Character* monster) {
+  //TODO fix this
+  return true;
+}
+
+Coordinate moveToward(Coordinate from, Coordinate to) {
+  Coordinate ret = from;
+  
+  if(from.row > to.row) {
+    ret.row -= 1;
+  }
+  else if(from.row < to.row) {
+    ret.row += 1;
+  }
+
+  if(from.col > to.col) {
+    ret.col -= 1;
+  }
+  else if(from.col < to.col) {
+    ret.col += 1;
+  }
+  return ret;
+}
+
+void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap, Character* pc) {
+
   switch(character->npc->characteristics) {
     // is intelligent
     case 0b0001:
-      moveRandomly(character, turnQueue, dun, map, false);     
+      // check if monster can see PC
+      if(canSeePC(pc, character)) {
+        character->npc->hasSeenPC = true;
+        character->npc->lastKnowPCLoc = pc->coord;
+      }
 
+      if(character->npc->hasSeenPC) {
+        moveCharacterNoTunnel(moveToward(character->coord, pc->coord), character, turnQueue, dun, map);
+      } else {
+        moveRandomly(character, turnQueue, dun, map, false);     
+      }
       break;
     
     // is telepathic

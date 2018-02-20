@@ -87,6 +87,16 @@ int deleteFromHeap(MinHeap* heap, Character* toRemove) {
   return ELEMENT_NOT_FOUND;
 }
 
+int getIndexOfPC(MinHeap* heap) {
+  int index;
+  for(index = 0; index < heap->size; index++) {
+    if(heap->arr[index]->pc != NULL) {
+      return index;
+    }
+  }
+  return -1;
+}
+
 int bubbleUp(MinHeap* minHeap) {
   boolean swapsPerformed = true;
   Character* swapper;
