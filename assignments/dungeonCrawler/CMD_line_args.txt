@@ -1,0 +1,34 @@
+Command Line arguments:
+
+      -s      This flag followed by any number or string will be used as the seed for 
+              generating the dungeon.
+
+              		example:
+                
+                  		./crawler -s 1234556
+
+      -cool   This flag makes the program use unicode characters to display the dungeon
+              in a different fashion than normal
+
+              		example:
+                  
+                  		./crawler -cool
+                  
+      --save  saves the dungeon that is created to ~/.rlg327/dungeon (note this will fail
+              if the directory ~/.rlg327 does not exist)
+                
+                  	example:
+                        ./crawler --save
+
+      --load  loads the dungeon from data stored in ~/.rlg327/dungeon (note this will fail
+              if the file ~/.rlg327/dungeon does not exist)
+                
+                  	example:
+                        ./crawler --load
+          
+      --nummon    This command line arg followed by a value will set the number of monsters
+      			  in the dungeon. For an easy win, set the number of monsters to zero.
+
+                  	example:
+                    
+                    	./crawler --nummon 5
