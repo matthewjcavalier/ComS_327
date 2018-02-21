@@ -86,11 +86,15 @@ void runGame(Dungeon* dun, Setup setup) {
       currentNPC->characteristics |= ERRATIC_BIT;
     }
     //TODO remove this
-    currentNPC->characteristics = 0b0001;
+    currentNPC->characteristics = 0b0100;
     currentNPC->hasSeenPC = false;
 
     currentChar = malloc(sizeof(*currentChar));
     currentChar->coord = getEmptySpot(dun, placementMap);
+    if(i == 0) {
+      currentChar->coord.row = 2;
+      currentChar->coord.col = 2;
+    }
     currentChar->symbol = getSymbol(currentNPC->characteristics);
     currentChar->pc = NULL;
     currentChar->npc = currentNPC;
