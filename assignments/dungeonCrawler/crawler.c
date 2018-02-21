@@ -66,7 +66,7 @@ void runGame(Dungeon* dun, Setup setup) {
 
   addToHeap(turnQueue, pcCharacter);
 
-  placementMap[pcCharacter->coord.row][pcCharacter->coord.col] = currentChar;
+  placementMap[pcCharacter->coord.row][pcCharacter->coord.col] = pcCharacter;
 
   // add monsters
   for(i = 0; i < setup.numMonsters; i++) {
@@ -91,12 +91,12 @@ void runGame(Dungeon* dun, Setup setup) {
 
     currentChar = malloc(sizeof(*currentChar));
     currentChar->coord = getEmptySpot(dun, placementMap);
-    
+   /* 
     if(i == 0) {
       currentChar->coord.row = 4;
       currentChar->coord.col = 14;
     }
-   
+  */ 
     currentChar->symbol = getSymbol(currentNPC->characteristics);
     currentChar->pc = NULL;
     currentChar->npc = currentNPC;
@@ -146,8 +146,8 @@ void runGame(Dungeon* dun, Setup setup) {
         printPathMap(tunnelingMap, &pc);
       }
       
-      //usleep(3);
-      sleep(1);
+      usleep(3);
+      //sleep(1);
     }
     // print the dungeon
 
@@ -517,8 +517,8 @@ boolean isErratic(Character* character) {
 
 void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
   // TODO: add user control
-
-  moveRandomly(character, turnQueue, dun, map, false, NULL);
+  
+  //moveRandomly(character, turnQueue, dun, map, false, NULL);
 
 }
 
