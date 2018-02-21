@@ -86,17 +86,17 @@ void runGame(Dungeon* dun, Setup setup) {
       currentNPC->characteristics |= ERRATIC_BIT;
     }
     //TODO remove this
-    currentNPC->characteristics = 0b0111;
+    currentNPC->characteristics = 0b0110;
     currentNPC->hasSeenPC = false;
 
     currentChar = malloc(sizeof(*currentChar));
     currentChar->coord = getEmptySpot(dun, placementMap);
-    /*
+    
     if(i == 0) {
-      currentChar->coord.row = 2;
-      currentChar->coord.col = 2;
+      currentChar->coord.row = 4;
+      currentChar->coord.col = 14;
     }
-    */
+   
     currentChar->symbol = getSymbol(currentNPC->characteristics);
     currentChar->pc = NULL;
     currentChar->npc = currentNPC;
@@ -138,8 +138,8 @@ void runGame(Dungeon* dun, Setup setup) {
         printPathMap(tunnelingMap, &pc);
       }
       
-      //usleep(3);
-      sleep(1);
+      usleep(3);
+      //sleep(1);
     }
     // print the dungeon
 
@@ -330,7 +330,7 @@ void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Cha
         character->npc->lastKnowPCLoc = pc->coord;
       }
             if(character->npc->hasSeenPC) {
-        moveCharacterTunnel(getNextPlacementTunneling(getPathMapEverywhere(&pc->coord, dun) , character->coord, dun), character, turnQueue, dun, map, tunnelingMap);
+        moveCharacterTunnel(moveToward(character->coord, pc->coord), character, turnQueue, dun, map, tunnelingMap);
       } else {
       moveRandomly(character, turnQueue, dun, map, false, NULL);     
       }
@@ -343,12 +343,21 @@ void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Cha
 
     // can tunnel and is telepathic and is intelligent
     case 0b0111:
-      moveRandomly(character, turnQueue, dun, map, false, NULL);
+      if(canSeePC(pc, character)) {
+        character->npc->hasSeenPC = true;
+        character->npc->lastKnowPCLoc = pc->coord;
+      }
+            if(character->npc->hasSeenPC) {
+        moveCharacterTunnel(getNextPlacementTunneling(getPathMapEverywhere(&pc->coord, dun) , character->coord, dun), character, turnQueue, dun, map, tunnelingMap);
+      } else {
+      moveRandomly(character, turnQueue, dun, map, false, NULL);     
+      }
       // get the map for tunneling creatures
       tunnelingMap = getPathMapEverywhere(&pc->coord, dun);
       // get the map for the non-tunneling creatures
       openSpaceMap = getPathMapOnlyOpenArea(&pc->coord, dun);
 
+      break;
       break;
 
     // is erratic
