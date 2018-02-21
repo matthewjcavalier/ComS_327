@@ -45,7 +45,7 @@ void runGame(Dungeon* dun, Setup setup) {
   int currentTurn = 0;
   int i;
   Player pc;
-  boolean printMaps = true;
+  boolean printMaps = false;
   MinHeap* turnQueue = initHeap(setup.numMonsters + 1);
   Character* currentChar = malloc(sizeof(*currentChar));
   NPC* currentNPC;
@@ -85,8 +85,6 @@ void runGame(Dungeon* dun, Setup setup) {
       if(rand() % 2 == 0) {
       currentNPC->characteristics |= ERRATIC_BIT;
     }
-    //TODO remove this
-    currentNPC->characteristics = 0b1001;
     currentNPC->hasSeenPC = false;
 
     currentChar = malloc(sizeof(*currentChar));
@@ -121,16 +119,7 @@ void runGame(Dungeon* dun, Setup setup) {
 
     // if is an NPC
     if(currentChar->pc == NULL) {
-      printf("row = %d, col = %d 's turn\n", currentChar->coord.row, currentChar->coord.col);
       monster_routine(currentChar, turnQueue, dun, placementMap, openSpaceMap, tunnelingMap, pcCharacter);
-      /*
-      printDungeon(dun, setup, placementMap);
-      if(printMaps) {
-        printPathMap(openSpaceMap, &pc);
-        
-        printPathMap(tunnelingMap, &pc);
-      }
-      */
     }
     // else is npc
     else {
@@ -146,8 +135,7 @@ void runGame(Dungeon* dun, Setup setup) {
         printPathMap(tunnelingMap, &pc);
       }
       
-      //usleep(3);
-      sleep(1);
+      usleep(3);
     }
     // print the dungeon
 
@@ -168,8 +156,15 @@ void runGame(Dungeon* dun, Setup setup) {
   } while(!endGame);
 }
 
-boolean canSeePC(Character* pc, Character* monster) {
-  //TODO fix this
+boolean canSeePC(Character* pc, Character* monster, Dungeon* dun) {
+  Coordinate currentCoord = monster->coord;
+  do {
+    currentCoord = moveToward(currentCoord, pc->coord);
+    if(dun->map[currentCoord.row][currentCoord.col].hardness != 0) {
+      return false;
+    }
+  } while(currentCoord.row != pc->coord.row && currentCoord.col != pc->coord.col);
+  // going to go in a straight line
   return true;
 }
 
@@ -290,7 +285,7 @@ void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Ch
       // is intelligent
       case 0b0001:
         // check if monster can see PC
-        if(canSeePC(pc, character)) {
+        if(canSeePC(pc, character, dun)) {
           character->npc->hasSeenPC = true;
           character->npc->lastKnowPCLoc = pc->coord;
         }
@@ -325,7 +320,7 @@ void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Ch
       
       // can tunnel and is intelligent
       case 0b0101:
-        if(canSeePC(pc, character)) {
+        if(canSeePC(pc, character, dun)) {
           character->npc->hasSeenPC = true;
           character->npc->lastKnowPCLoc = pc->coord;
         }
@@ -343,7 +338,7 @@ void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Ch
 
       // can tunnel and is telepathic
       case 0b0110:
-        if(canSeePC(pc, character)) {
+        if(canSeePC(pc, character, dun)) {
           character->npc->hasSeenPC = true;
           character->npc->lastKnowPCLoc = pc->coord;
         }
@@ -361,7 +356,7 @@ void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Ch
 
       // can tunnel and is telepathic and is intelligent
       case 0b0111:
-        if(canSeePC(pc, character)) {
+        if(canSeePC(pc, character, dun)) {
           character->npc->hasSeenPC = true;
           character->npc->lastKnowPCLoc = pc->coord;
         }
@@ -437,7 +432,7 @@ boolean isErratic(Character* character) {
 void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
   // TODO: add user control
   
-  //moveRandomly(character, turnQueue, dun, map, false, NULL);
+  moveRandomly(character, turnQueue, dun, map, false, NULL);
 
 }
 

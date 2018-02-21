@@ -140,7 +140,7 @@ boolean moveCharacterTunnel(Coordinate movingTo, Character* character, MinHeap* 
 
 boolean moveCharacterNoTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]); 
 
-boolean canSeePC(Character* pc, Character* monster);
+boolean canSeePC(Character* pc, Character* monster, Dungeon* dun);
 
 void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap, Character* pc);
 
@@ -159,3 +159,4 @@ Coordinate getNextPlacementTunneling(int** map, Coordinate coord, Dungeon* dun);
 
 void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap, Character* pc, char characteristics);
  
+Coordinate moveToward(Coordinate from, Coordinate to);
