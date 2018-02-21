@@ -86,7 +86,7 @@ void runGame(Dungeon* dun, Setup setup) {
       currentNPC->characteristics |= ERRATIC_BIT;
     }
     //TODO remove this
-    currentNPC->characteristics = 0b0101;
+    currentNPC->characteristics = 0b0111;
     currentNPC->hasSeenPC = false;
 
     currentChar = malloc(sizeof(*currentChar));
@@ -131,19 +131,19 @@ void runGame(Dungeon* dun, Setup setup) {
       tunnelingMap = getPathMapEverywhere(&pcCharacter->coord, dun);
       // get the map for the non-tunneling creatures
       openSpaceMap = getPathMapOnlyOpenArea(&pcCharacter->coord, dun);
-
+      printDungeon(dun, setup, placementMap);
+      if(printMaps) {
+        printPathMap(openSpaceMap, &pc);
+        
+        printPathMap(tunnelingMap, &pc);
+      }
       
       //usleep(3);
       sleep(1);
     }
     // print the dungeon
 
-    printDungeon(dun, setup, placementMap);
-    if(printMaps) {
-      printPathMap(openSpaceMap, &pc);
-      
-      printPathMap(tunnelingMap, &pc);
-    }
+    
     currentChar->nextEventTime = currentChar->nextEventTime + 1000/currentChar->speed;
     addToHeap(turnQueue, currentChar);
 
@@ -325,7 +325,15 @@ void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Cha
 
     // can tunnel and is telepathic
     case 0b0110:
+      if(canSeePC(pc, character)) {
+        character->npc->hasSeenPC = true;
+        character->npc->lastKnowPCLoc = pc->coord;
+      }
+            if(character->npc->hasSeenPC) {
+        moveCharacterTunnel(getNextPlacementTunneling(getPathMapEverywhere(&pc->coord, dun) , character->coord, dun), character, turnQueue, dun, map, tunnelingMap);
+      } else {
       moveRandomly(character, turnQueue, dun, map, false, NULL);     
+      }
       // get the map for tunneling creatures
       tunnelingMap = getPathMapEverywhere(&pc->coord, dun);
       // get the map for the non-tunneling creatures
