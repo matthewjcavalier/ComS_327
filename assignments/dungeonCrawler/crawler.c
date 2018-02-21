@@ -36,7 +36,6 @@ int main(int argc, char* argv[]) {
  */
 
 void runGame(Dungeon* dun, Setup setup) {
-//  boolean endGame = true;
   boolean endGame = false;
 
   int** tunnelingMap;
@@ -89,12 +88,6 @@ void runGame(Dungeon* dun, Setup setup) {
 
     currentChar = malloc(sizeof(*currentChar));
     currentChar->coord = getEmptySpot(dun, placementMap);
-   /* 
-    if(i == 0) {
-      currentChar->coord.row = 4;
-      currentChar->coord.col = 14;
-    }
-  */ 
     currentChar->symbol = getSymbol(currentNPC->characteristics);
     currentChar->pc = NULL;
     currentChar->npc = currentNPC;

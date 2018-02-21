@@ -1,46 +1,50 @@
 Compliance:
 
-  The current state of the program complies to the homework spec. Two distance
-  maps are generated in the main game loop and they are then printed off. The 
-  main game loop only runs once at this time, in it the dungeon distance maps
-  are generated and printed. All previous functionality still works, so if needed
-  a dungeon can be saved and loaded still.
+  This program currently will read in the number of monsters to place into
+  the dungeon, and randomly place each one while also making each monster
+  a set permutation of the four attributes requested. You can tell what
+  kind each monster is as signified by it's character (hex range from 0 to F).
 
- Functions:
+  Side Note:
+    
+    I still feel that the '-cool' way to run it is much more readable
 
-  fillMap & fillLogic (see pathfinding.c)
-      
-      - these two funcitons are where the bulk of the pathfinding algo, that is
-        a form of Dijkstra's algo, lives
+  modifiers (See CMD_line_args.txt for other modifiers):
+    
+    --nummon    This command line arg followed by a value will set the
+                number of monsters in the dungeon. For an easy win, set
+                the number of monsters to zero.
 
-  getPathMapOnlyOpenArea & getPathMapEverywhere (see pathfinding.c)
-      
-      - these two functions are used to fill out the distance maps. The first
-        only charts the distances assuming that open terrain (i.e. halls and
-        rooms) are going to be traversed. The second function assumes that
-        the map generated should allow for tunneling through rock.
+                  example:
+                    
+                    ./crawler --nummon 5
 
-  updateSeed (see crawler.c)
-      
-      - I thought it would be cool for the player character to always be placed
-        in the same random spot regardless of if the dungeon was just generated
-        or loaded. So this function seeds the random number generator using
-        the room info of the dungeon.
+Functions:
 
+  monster_routine && nonEraticMovement (see crawler.c)
+
+    These functions are where the logic for the monsters lives.
+
+  moveRandomly (see crawler.c)
+
+    This function moves a character (whether pc or npc) to a random spot around
+    it, keeping in mind if the entity can tunnel or not.
+
+  functions in lines 404 to 425 (see crawler.c)
+
+    These functions could be used for telling attributes of the monsters.
+    I ended up not using them, but want to include them for if they are
+    needed in the future.
+ 
 Data structures:
 
-  CoordQueue (See queue.c)
-      
-      - A queue data structure that houses a queue of coordinates. Currently the
-        queue is non-generic, but the goal is for this to be completely generic
-        in the future
+  Priority Queue:
+    This data structure was implemented by making a min heap (see heap.c),
+    this min heap is realized using an array to make the operations
+    easier when adding, removing, searching, and bubbling up.
 
 File Names:
 
-  queue.c         the c source file that contains the new CoordQueue data structure
+  heap.c: the new file added that contains the logic for the min Heap data structure
 
-  queue.h         the header file for queue.h
-
-  pathfinding.c   the c source file that contains the functions for the pathfinding
-  
-  pathfinding.h   the header file for pathfinding.c
+  heap.h: the header file for heap.c
