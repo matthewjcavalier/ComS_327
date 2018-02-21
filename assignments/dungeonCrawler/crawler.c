@@ -86,7 +86,7 @@ void runGame(Dungeon* dun, Setup setup) {
       currentNPC->characteristics |= ERRATIC_BIT;
     }
     //TODO remove this
-    currentNPC->characteristics = 0b0110;
+    currentNPC->characteristics = 0b0111;
     currentNPC->hasSeenPC = false;
 
     currentChar = malloc(sizeof(*currentChar));
@@ -121,8 +121,16 @@ void runGame(Dungeon* dun, Setup setup) {
 
     // if is an NPC
     if(currentChar->pc == NULL) {
-      monster_routine(currentChar, turnQueue, dun, placementMap, openSpaceMap, tunnelingMap, pcCharacter);
       printf("row = %d, col = %d 's turn\n", currentChar->coord.row, currentChar->coord.col);
+      monster_routine(currentChar, turnQueue, dun, placementMap, openSpaceMap, tunnelingMap, pcCharacter);
+      /*
+      printDungeon(dun, setup, placementMap);
+      if(printMaps) {
+        printPathMap(openSpaceMap, &pc);
+        
+        printPathMap(tunnelingMap, &pc);
+      }
+      */
     }
     // else is npc
     else {
@@ -138,8 +146,8 @@ void runGame(Dungeon* dun, Setup setup) {
         printPathMap(tunnelingMap, &pc);
       }
       
-      usleep(3);
-      //sleep(1);
+      //usleep(3);
+      sleep(1);
     }
     // print the dungeon
 
@@ -188,42 +196,50 @@ Coordinate getNextPlacementTunneling(int** map, Coordinate coord, Dungeon* dun) 
   int min = map[coord.row][coord.col];
   // up left
   if(min > map[coord.row - 1][coord.col -1] || 
-      (min == map[coord.row - 1][coord.col -1] &&dun->map[coord.row -1][coord.col -1].hardness == 0)) {
+      (min == map[coord.row - 1][coord.col -1] && dun->map[next.row][next.col].hardness > 0 &&dun->map[coord.row -1][coord.col -1].hardness == 0)) {
+    next = coord;
     min = map[next.row--][next.col--];
   }
   // up
   if(min > map[coord.row - 1][coord.col] || 
-      (min == map[coord.row - 1][coord.col] &&dun->map[coord.row -1][coord.col].hardness == 0)) {
+      (min == map[coord.row - 1][coord.col] && dun->map[next.row][next.col].hardness > 0 &&dun->map[coord.row -1][coord.col].hardness == 0)) {
+    next = coord;
     min = map[next.row--][next.col];
   }
   // up right
   if(min > map[coord.row - 1][coord.col +1] || 
-      (min == map[coord.row - 1][coord.col +1] &&dun->map[coord.row -1][coord.col +1].hardness == 0)) {
+      (min == map[coord.row - 1][coord.col +1] && dun->map[next.row][next.col].hardness > 0 &&dun->map[coord.row -1][coord.col +1].hardness == 0)) {
+    next = coord;
     min = map[next.row--][next.col++];
   }
   // right
   if(min > map[coord.row][coord.col +1] || 
-      (min == map[coord.row ][coord.col +1] &&dun->map[coord.row ][coord.col +1].hardness == 0)) {
+      (min == map[coord.row ][coord.col +1] && dun->map[next.row][next.col].hardness > 0 &&dun->map[coord.row ][coord.col +1].hardness == 0)) {
+    next = coord;
     min = map[next.row][next.col++];
   }
   // down right
   if(min > map[coord.row +1][coord.col +1] || 
-      (min == map[coord.row +1][coord.col +1] &&dun->map[coord.row +1][coord.col +1].hardness == 0)) {
+      (min == map[coord.row +1][coord.col +1] && dun->map[next.row][next.col].hardness > 0 &&dun->map[coord.row +1][coord.col +1].hardness == 0)) {
+    next = coord;
     min = map[next.row++][next.col++];
   }
   // down
   if(min > map[coord.row +1][coord.col] || 
-      (min == map[coord.row + 1][coord.col] &&dun->map[coord.row +1][coord.col].hardness == 0)) {
+      (min == map[coord.row + 1][coord.col] && dun->map[next.row][next.col].hardness > 0 &&dun->map[coord.row +1][coord.col].hardness == 0)) {
+    next = coord;
     min = map[next.row++][next.col];
   }
   // down left
   if(min > map[coord.row +1][coord.col -1] || 
-      (min == map[coord.row + 1][coord.col -1] &&dun->map[coord.row +1][coord.col -1].hardness == 0)) {
+      (min == map[coord.row + 1][coord.col -1] && dun->map[next.row][next.col].hardness > 0 &&dun->map[coord.row +1][coord.col -1].hardness == 0)) {
+    next = coord;
     min = map[next.row++][next.col--];
   }
   // left
   if(min > map[coord.row][coord.col -1] || 
-      (min == map[coord.row ][coord.col -1] && dun->map[coord.row ][coord.col -1].hardness == 0)) {
+      (min == map[coord.row ][coord.col -1] && dun->map[next.row][next.col].hardness > 0 && dun->map[coord.row ][coord.col -1].hardness == 0)) {
+    next = coord;
     min = map[next.row][next.col--];
   }
   return next;
