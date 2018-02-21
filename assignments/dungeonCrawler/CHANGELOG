@@ -1,3 +1,135 @@
+commit b69291d8ce480a90c126095e0df93a9cba60dad7
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 21:32:43 2018 -0600
+
+    done with 1.04
+
+commit e6e3ea741fefc3d7231cc96e791f7749feb97e79
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 21:12:25 2018 -0600
+
+    Pretty sure everything works
+
+commit 11edbfb15129bdfc2be49c5f3b3a53928b6fc169
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 20:52:17 2018 -0600
+
+    pretty sure that everything but the 'has seen pc' works now, the erratic monsters are erratic....go figure
+
+commit 2db68da004727fab32c4cd21968a086bd70e2200
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 20:18:43 2018 -0600
+
+    something is wrong with monster 7
+
+commit e04be6111f2dc472664987f5b5da19cf6b113540
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 20:14:15 2018 -0600
+
+    monster 7 works
+
+commit 2d66ad7ba752a9920d2a5e96c66b24afc37aa592
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 19:51:05 2018 -0600
+
+    monster 6 works
+
+commit bcc44a94d410f3192e280aa088c80dc80a22076e
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 19:43:34 2018 -0600
+
+    monster 6 works
+
+commit 8396bf329c24597d2b7c567304e0619709be575d
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 19:39:29 2018 -0600
+
+    monster 5 works
+
+commit a8524e23ef5255a63962ca58b33fe09ed735cb72
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 19:06:47 2018 -0600
+
+    confirmed that 0b0001 to 0b0100 works fine
+
+commit 5aebfb5d84267c1a2c1d7a4ace3ec9507ebeb5ef
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 19:00:26 2018 -0600
+
+    fixed a bug, now 0b0001 really works
+
+commit 2dffe062b7ca7672fcbfcfb8890e6c98d2f56f1f
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 17:36:11 2018 -0600
+
+    the dumb monsters that can only tunnel now tunnel properly
+
+commit a0effea21e0007bf20ecf6688f97ee0e9b994c9a
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 17:08:49 2018 -0600
+
+    0b0000 to 0b0011 works
+
+commit 43ae887bce1b363d0c62939a7106c7e9393b0de5
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 16:27:09 2018 -0600
+
+    now has a lose state where the monsters kill the pc
+
+commit c4b7afb9054c2e8c3f295a2425fff1695003018e
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 15:38:38 2018 -0600
+
+    monsters all move in a stupid fashion (all random)
+
+commit 1075ac731a922890d4a819d7fb8cf59c798e9e70
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 14:27:25 2018 -0600
+
+    further cleaned up the code, so there is now a function strictly for moving randomly
+
+commit 5e535ff5c5d9b397fd7ae6b501c41f6588b5ba3f
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 14:09:20 2018 -0600
+
+    cleaned up the movement logic by extracting some repetative code to a function
+
+commit 4e28fe40544545e8e10cf09aa162a297125dcea9
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 13:33:04 2018 -0600
+
+    added logic for deleting character from queue
+
+commit 1a8ff5c8b0d0b6525ce844559cd077d37e39bd8e
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 12:44:40 2018 -0600
+
+    the PC now moves in a random direction
+
+commit 78a2cef7806c99ec4c99d70fbfb57d3d45bebbbd
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Feb 18 15:32:10 2018 -0600
+
+    now places monsters in the dungeon
+
+commit b957723532b05a17e3eebcd9a434e7a6e01509d8
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Feb 18 14:00:47 2018 -0600
+
+    cleaned up heap.c
+
+commit 1d9a0b776097f4aafbe23fe8d525d9adbc766b86
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Feb 18 13:53:10 2018 -0600
+
+    the heap now can be initalized, added to and emptied out
+
+commit f72ceb8ee9bc1594292af1d96d45c1c60bbf64cc
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Feb 16 13:22:54 2018 -0600
+
+    merging
+
 commit 6f386151e74ef53fad84a106493305ba98c5e465
 Author: Matt Cavalier <matthewjcavalier@gmail.com>
 Date:   Tue Feb 13 14:08:40 2018 -0600
