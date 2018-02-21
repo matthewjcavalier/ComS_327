@@ -22,7 +22,7 @@ heap.o: heap.c
 heap: heap.o
 	$(CC) -g $(CFLAGS) heap.o -o heap
 run: clean crawler debug
-	./crawler -cool --nummon 3
+	./crawler -cool --nummon 3 -s 1
 clean:
 	- rm debug crawler
 	- rm *.o
