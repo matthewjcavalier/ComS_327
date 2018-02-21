@@ -156,3 +156,6 @@ boolean isInteligent(Character* character);
 boolean isErratic(Character* character);
 
 Coordinate getNextPlacementTunneling(int** map, Coordinate coord, Dungeon* dun);
+
+void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap, Character* pc, char characteristics);
+ 

@@ -24,7 +24,7 @@ heap: heap.o
 runOut: clean crawler debug
 	./crawler -cool --nummon 1 -s 1 > out.txt
 run: clean crawler debug
-	./crawler -cool --nummon 1 -s 1
+	./crawler -cool --nummon 4 -s 1
 
 clean:
 	- rm debug crawler
