@@ -86,15 +86,17 @@ void runGame(Dungeon* dun, Setup setup) {
       currentNPC->characteristics |= ERRATIC_BIT;
     }
     //TODO remove this
-    currentNPC->characteristics = 0b0100;
+    currentNPC->characteristics = 0b0101;
     currentNPC->hasSeenPC = false;
 
     currentChar = malloc(sizeof(*currentChar));
     currentChar->coord = getEmptySpot(dun, placementMap);
+    /*
     if(i == 0) {
       currentChar->coord.row = 2;
       currentChar->coord.col = 2;
     }
+    */
     currentChar->symbol = getSymbol(currentNPC->characteristics);
     currentChar->pc = NULL;
     currentChar->npc = currentNPC;
@@ -131,6 +133,7 @@ void runGame(Dungeon* dun, Setup setup) {
       openSpaceMap = getPathMapOnlyOpenArea(&pcCharacter->coord, dun);
 
       
+      //usleep(3);
       sleep(1);
     }
     // print the dungeon
@@ -179,6 +182,51 @@ Coordinate moveToward(Coordinate from, Coordinate to) {
     ret.col += 1;
   }
   return ret;
+}
+Coordinate getNextPlacementTunneling(int** map, Coordinate coord, Dungeon* dun) {
+  Coordinate next = coord;
+  int min = map[coord.row][coord.col];
+  // up left
+  if(min > map[coord.row - 1][coord.col -1] || 
+      (min == map[coord.row - 1][coord.col -1] &&dun->map[coord.row -1][coord.col -1].hardness == 0)) {
+    min = map[next.row--][next.col--];
+  }
+  // up
+  if(min > map[coord.row - 1][coord.col] || 
+      (min == map[coord.row - 1][coord.col] &&dun->map[coord.row -1][coord.col].hardness == 0)) {
+    min = map[next.row--][next.col];
+  }
+  // up right
+  if(min > map[coord.row - 1][coord.col +1] || 
+      (min == map[coord.row - 1][coord.col +1] &&dun->map[coord.row -1][coord.col +1].hardness == 0)) {
+    min = map[next.row--][next.col++];
+  }
+  // right
+  if(min > map[coord.row][coord.col +1] || 
+      (min == map[coord.row ][coord.col +1] &&dun->map[coord.row ][coord.col +1].hardness == 0)) {
+    min = map[next.row][next.col++];
+  }
+  // down right
+  if(min > map[coord.row +1][coord.col +1] || 
+      (min == map[coord.row +1][coord.col +1] &&dun->map[coord.row +1][coord.col +1].hardness == 0)) {
+    min = map[next.row++][next.col++];
+  }
+  // down
+  if(min > map[coord.row +1][coord.col] || 
+      (min == map[coord.row + 1][coord.col] &&dun->map[coord.row +1][coord.col].hardness == 0)) {
+    min = map[next.row++][next.col];
+  }
+  // down left
+  if(min > map[coord.row +1][coord.col -1] || 
+      (min == map[coord.row + 1][coord.col -1] &&dun->map[coord.row +1][coord.col -1].hardness == 0)) {
+    min = map[next.row++][next.col--];
+  }
+  // left
+  if(min > map[coord.row][coord.col -1] || 
+      (min == map[coord.row ][coord.col -1] && dun->map[coord.row ][coord.col -1].hardness == 0)) {
+    min = map[next.row][next.col--];
+  }
+  return next;
 }
 Coordinate getNextPlacement(int** map, Coordinate coord) {
   Coordinate next = coord;
@@ -264,7 +312,7 @@ void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Cha
         character->npc->lastKnowPCLoc = pc->coord;
       }
             if(character->npc->hasSeenPC) {
-        moveCharacterTunnel(moveToward(character->coord, pc->coord), character, turnQueue, dun, map, tunnelingMap);
+        moveCharacterTunnel(getNextPlacementTunneling(getPathMapEverywhere(&character->npc->lastKnowPCLoc, dun) , character->coord, dun), character, turnQueue, dun, map, tunnelingMap);
       } else {
       moveRandomly(character, turnQueue, dun, map, false, NULL);     
       }
@@ -853,46 +901,49 @@ Coordinate getEmptySpot(Dungeon* dun,Character* placementMap[MAX_DUNGEON_HEIGHT]
 char getSymbol(char ristics) {
   char ret = '!';
   switch(ristics) {
-    case 0:
+    case 0b0:
       ret = '0';
       break;
-    case 1:
+    case 0b1:
       ret = '1';
       break;
-    case 2:
+    case 0b10:
       ret = '2';
       break;
-    case 3:
+    case 0b11:
       ret = '3';
       break;
-    case 4:
+    case 0b100:
+      ret = '4';
+      break;
+    case 0b101:
       ret = '5';
       break;
-    case 6:
+    case 0b110:
       ret = '6';
       break;
-    case 7:
+    case 0b111:
       ret = '7';
       break;
-    case 8:
+    case 0b1000:
       ret = '8';
       break;
-    case 9:
+    case 0b1001:
       ret = '9';
       break;
-    case 10:
+    case 0b1010:
       ret = 'A';
       break;
-    case 11:
+    case 0b1011:
       ret = 'B';
       break;
-    case 12:
+    case 0b1100:
       ret = 'C';
       break;
-    case 13:
+    case 0b1101:
       ret = 'D';
       break;
-    case 14:
+    case 0b1110:
       ret = 'E';
       break;
     default:

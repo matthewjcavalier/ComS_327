@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Werror -std=c99
+CFLAGS=-Wall -Werror -std=gnu99
 OBJS=crawler.o generator.o list.o list.o pathFinding.o queue.o heap.o
 
 all: crawler debug
@@ -21,8 +21,11 @@ heap.o: heap.c
 	$(CC) -g $(CFLAGS) -c heap.c
 heap: heap.o
 	$(CC) -g $(CFLAGS) heap.o -o heap
+runOut: clean crawler debug
+	./crawler -cool --nummon 1 -s 1 > out.txt
 run: clean crawler debug
-	./crawler -cool --nummon 3 -s 1
+	./crawler -cool --nummon 1 -s 1
+
 clean:
 	- rm debug crawler
 	- rm *.o

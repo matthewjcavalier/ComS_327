@@ -154,3 +154,5 @@ boolean isTelepathic(Character* character);
 boolean isInteligent(Character* character);
 
 boolean isErratic(Character* character);
+
+Coordinate getNextPlacementTunneling(int** map, Coordinate coord, Dungeon* dun);
