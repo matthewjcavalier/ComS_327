@@ -2,6 +2,10 @@
   #define STDINT_H
   #include <stdint.h>
 #endif
+#ifndef CURSES_H
+  #define CURSES_H
+  #include <curses.h>
+#endif
 
 #define MAX_DUNGEON_HEIGHT 21
 #define MAX_DUNGEON_WIDTH 80
@@ -35,10 +39,6 @@
 #define COOL_BORDER_VERT          "\u2551"  //  ║
 #define COOL_BORDER_HOR           "\u2550"  //  ═
 
-#ifndef NCURSES_H
-  typedef enum bool {false, true} bool;
-#endif
-
 typedef struct {
   uint8_t xPos;
   uint8_t yPos;
@@ -48,9 +48,9 @@ typedef struct {
 
 typedef struct {
   uint8_t hardness;
-  boolean isBorder;
-  boolean isHallway;
-  boolean isRoom;
+  bool isBorder;
+  bool isHallway;
+  bool isRoom;
 } Tile;
 
 typedef struct {
@@ -69,7 +69,7 @@ typedef struct Player {
 typedef struct NPC {
   char characteristics;
   Coordinate lastKnowPCLoc;
-  boolean hasSeenPC;
+  bool hasSeenPC;
 } NPC;
 
 typedef struct Character {

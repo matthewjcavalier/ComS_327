@@ -34,9 +34,9 @@
 
 typedef struct {
   int seed;
-  boolean useCoolChars;
-  boolean save;
-  boolean load;
+  bool useCoolChars;
+  bool save;
+  bool load;
   char* saveLoadLocation;
   int numMonsters;
 } Setup;
@@ -120,26 +120,26 @@ char getSymbol(char ristics);
 
 void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
 
-boolean isEmptySpace(Coordinate coord, Dungeon* dun);
+bool isEmptySpace(Coordinate coord, Dungeon* dun);
 
-boolean moveCharacterTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** hardnessMap); 
+bool moveCharacterTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** hardnessMap); 
 
-boolean moveCharacterNoTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]); 
+bool moveCharacterNoTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]); 
 
-boolean canSeePC(Character* pc, Character* monster, Dungeon* dun);
+bool canSeePC(Character* pc, Character* monster, Dungeon* dun);
 
 void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap, Character* pc);
 
 
-int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], boolean canTunnel, int** hardnessMap);
+int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap);
 
-boolean canTunnel(Character* character);
+bool canTunnel(Character* character);
 
-boolean isTelepathic(Character* character);
+bool isTelepathic(Character* character);
 
-boolean isInteligent(Character* character);
+bool isInteligent(Character* character);
 
-boolean isErratic(Character* character);
+bool isErratic(Character* character);
 
 Coordinate getNextPlacementTunneling(int** map, Coordinate coord, Dungeon* dun);
 

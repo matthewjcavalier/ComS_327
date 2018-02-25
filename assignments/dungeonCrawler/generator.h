@@ -79,10 +79,10 @@ void clearRooms(Dungeon* dun);
  * @param yLoc      the y coordinate for the new room 
  * @param dun       a pointer to the dungeon being worked on 
  * @param newRoom   the new room that is looking to be placed
- * @return boolean  if the placment is valid true is returned, else
- *                  false is returned
+ * @return bool  if the placment is valid TRUE is returned, else
+ *                  FALSE is returned
  */
-boolean isValidRoomPlacement(int xLoc, int yLoc, Dungeon* dun, Room newRoom);
+bool isValidRoomPlacement(int xLoc, int yLoc, Dungeon* dun, Room newRoom);
 
 /**
  * @brief   Adds the new room to the dungeon.

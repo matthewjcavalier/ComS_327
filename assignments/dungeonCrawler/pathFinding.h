@@ -51,7 +51,7 @@ int** getPathMapEverywhere(Coordinate* cord, Dungeon* dun);
  * @param canBurrow If the map is being generated with the ability
  *                  to burrow through rock
  */
-void fillMap(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow);
+void fillMap(Dungeon* dun, int** map, CoordQueue* queue, bool canBurrow);
 
 /**
  * @brief           The logic to decide if the value at certain
@@ -67,14 +67,14 @@ void fillMap(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow);
  *                  at
  * @param current   The current node that is bing looked at
  */
-void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow, Coordinate neighbor, Coordinate current);
+void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, bool canBurrow, Coordinate neighbor, Coordinate current);
 /**
  * @brief   Allocates memory for a map and returns a pointer to it.
  * 
  * @return int**     a pointer to the map
  */
 
-int** genMap(Coordinate* cord, Dungeon* dun, int** map, boolean onlyOpenAreas);
+int** genMap(Coordinate* cord, Dungeon* dun, int** map, bool onlyOpenAreas);
 
 /**
  * @brief Initializes a map that is MAX_DUNGEON_HEIGHT BY MAX_DUNGEON_WIDTH

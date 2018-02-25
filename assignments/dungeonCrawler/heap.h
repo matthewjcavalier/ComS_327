@@ -34,9 +34,9 @@ Character* removeFromHeap(MinHeap* minHeap);
 
 int bubbleUp(MinHeap* minHeap);
 
-boolean isHeapEmpty(MinHeap* heap);
+bool isHeapEmpty(MinHeap* heap);
 
-boolean isFull(MinHeap* heap);
+bool isFull(MinHeap* heap);
 
 int deleteFromHeap(MinHeap* heap, Character* toRemove);
 

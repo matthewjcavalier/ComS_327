@@ -14,6 +14,9 @@ int drawString(int row, int col, char* str) {
 }
 
 int drawCharacter(int row, int col, char character) {
+  move(row, col);
+  addch(character);
+  refresh();
   return 0;
 }
 

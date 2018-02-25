@@ -22,7 +22,7 @@ int** getPathMapOnlyOpenArea(Coordinate* pc, Dungeon* dun){
   map[pc->row][pc->col] = 0;
   enqueue(queue, *pc);
   
-  fillMap(dun, map, queue, false);
+  fillMap(dun, map, queue, FALSE);
   
   free(queue);
   
@@ -48,7 +48,7 @@ int** getPathMapEverywhere(Coordinate* pc, Dungeon* dun) {
   map[pc->row][pc->col] = 0;
   enqueue(queue, *pc);
   
-  fillMap(dun, map, queue, true); 
+  fillMap(dun, map, queue, TRUE); 
 
   free(queue);
   return map;
@@ -64,7 +64,7 @@ int** getPathMapEverywhere(Coordinate* pc, Dungeon* dun) {
  * @param canBurrow If the map is being generated with the ability
  *                  to burrow through rock
  */
-void fillMap(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow) {
+void fillMap(Dungeon* dun, int** map, CoordQueue* queue, bool canBurrow) {
   Coordinate currentCoord;
   Coordinate upLeft;
   Coordinate up;
@@ -130,7 +130,7 @@ void fillMap(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow) {
  *                  at
  * @param current   The current node that is bing looked at
  */
-void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, boolean canBurrow, Coordinate neighbor, Coordinate current) {
+void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, bool canBurrow, Coordinate neighbor, Coordinate current) {
   int currentMapVal = map[current.row][current.col];
   int neighborMapVal = map[neighbor.row][neighbor.col];
   Tile currentTile = dun->map[current.row][current.col];

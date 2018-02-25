@@ -48,13 +48,13 @@ void enqueue(CoordQueue* queue, Coordinate coord);
 void dequeue(CoordQueue* queue, Coordinate* coord);
 
 /**
- * @brief returns a boolean indicateing if the queue is
+ * @brief returns a bool indicateing if the queue is
  *        empty or not
  *  
  * @param queue     the queue being checked
- * @return boolean  if the queue is empty
+ * @return bool  if the queue is empty
  */
-boolean isEmpty(CoordQueue* queue);
+bool isEmpty(CoordQueue* queue);
 
 /**
  * @brief   Peaks at the value stored in the front of the queue

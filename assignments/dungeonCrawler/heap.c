@@ -98,20 +98,20 @@ int getIndexOfPC(MinHeap* heap) {
 }
 
 int bubbleUp(MinHeap* minHeap) {
-  boolean swapsPerformed = true;
+  bool swapsPerformed = TRUE;
   Character* swapper;
   Character* parent;
   Character* current;
   int index;
   
   while(swapsPerformed) {
-    swapsPerformed = false;
+    swapsPerformed = FALSE;
     // start at last element
     for(index = minHeap->size - 1; index >= 0; index--) {
       current = minHeap->arr[index];
       parent = minHeap->arr[(index - 1) / 2];
       if(parent->nextEventTime > current->nextEventTime) {
-        swapsPerformed = true;
+        swapsPerformed = TRUE;
         swapper = parent;
         minHeap->arr[(index -1) / 2] = current;
         minHeap->arr[index] = swapper;
@@ -121,16 +121,16 @@ int bubbleUp(MinHeap* minHeap) {
   return 0;
 }
 
-boolean isHeapEmpty(MinHeap* heap) {
+bool isHeapEmpty(MinHeap* heap) {
   if(heap->size == 0) {
-    return true;
+    return TRUE;
   }
-  return false;
+  return FALSE;
 }
 
-boolean isFull(MinHeap* heap) {
+bool isFull(MinHeap* heap) {
   if(heap->size == heap->maxSize) {
-    return true;
+    return TRUE;
   }
-  return false;
+  return FALSE;
 }

@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
  */
 
 void runGame(Dungeon* dun, Setup setup) {
-  boolean endGame = false;
+  bool endGame = FALSE;
 
   int** tunnelingMap;
   int** openSpaceMap;
@@ -44,7 +44,7 @@ void runGame(Dungeon* dun, Setup setup) {
   int currentTurn = 0;
   int i;
   Player pc;
-  boolean printMaps = false;
+  bool printMaps = FALSE;
   MinHeap* turnQueue = initHeap(setup.numMonsters + 1);
   Character* currentChar = malloc(sizeof(*currentChar));
   NPC* currentNPC;
@@ -84,7 +84,7 @@ void runGame(Dungeon* dun, Setup setup) {
       if(rand() % 2 == 0) {
       currentNPC->characteristics |= ERRATIC_BIT;
     }
-    currentNPC->hasSeenPC = false;
+    currentNPC->hasSeenPC = FALSE;
 
     currentChar = malloc(sizeof(*currentChar));
     currentChar->coord = getEmptySpot(dun, placementMap);
@@ -108,7 +108,11 @@ void runGame(Dungeon* dun, Setup setup) {
   // screen startup routine
   startup();
 
+  drawDungeon(dun);
+
   sleep(2);
+
+  tearDown();
 
   return;
   do {
@@ -142,11 +146,11 @@ void runGame(Dungeon* dun, Setup setup) {
     addToHeap(turnQueue, currentChar);
 
     if(getIndexOfPC(turnQueue) == -1) {
-      endGame = true;
+      endGame = TRUE;
       printDungeon(dun, setup, placementMap);
       printf("\n\n\nYOU LOSE\n\n\n");
     } else if(turnQueue->size == 1) {
-      endGame = true;
+      endGame = TRUE;
       printf("\n\n\nYOU WIN\n\n\n");
     }
     
@@ -154,16 +158,16 @@ void runGame(Dungeon* dun, Setup setup) {
   } while(!endGame);
 }
 
-boolean canSeePC(Character* pc, Character* monster, Dungeon* dun) {
+bool canSeePC(Character* pc, Character* monster, Dungeon* dun) {
   Coordinate currentCoord = monster->coord;
   do {
     currentCoord = moveToward(currentCoord, pc->coord);
     if(dun->map[currentCoord.row][currentCoord.col].hardness != 0) {
-      return false;
+      return FALSE;
     }
   } while(currentCoord.row != pc->coord.row && currentCoord.col != pc->coord.col);
   // going to go in a straight line
-  return true;
+  return TRUE;
 }
 
 Coordinate moveToward(Coordinate from, Coordinate to) {
@@ -278,20 +282,20 @@ Coordinate getNextPlacement(int** map, Coordinate coord) {
 void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap, Character* pc, char characteristics) {
   switch(character->npc->characteristics) {
       case 0b0000:
-        moveRandomly(character, turnQueue, dun, map, false, NULL);     
+        moveRandomly(character, turnQueue, dun, map, FALSE, NULL);     
         break;
       // is intelligent
       case 0b0001:
         // check if monster can see PC
         if(canSeePC(pc, character, dun)) {
-          character->npc->hasSeenPC = true;
+          character->npc->hasSeenPC = TRUE;
           character->npc->lastKnowPCLoc = pc->coord;
         }
 
         if(character->npc->hasSeenPC) {
           moveCharacterNoTunnel(getNextPlacement(getPathMapOnlyOpenArea(&character->npc->lastKnowPCLoc, dun) , character->coord), character, turnQueue, dun, map);
         } else {
-          moveRandomly(character, turnQueue, dun, map, false, NULL);     
+          moveRandomly(character, turnQueue, dun, map, FALSE, NULL);     
         }
         break;
       
@@ -308,7 +312,7 @@ void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Ch
 
       // can tunnel
       case 0b0100:
-        moveRandomly(character, turnQueue, dun, map, true, tunnelingMap);     
+        moveRandomly(character, turnQueue, dun, map, TRUE, tunnelingMap);     
         // get the map for tunneling creatures
         tunnelingMap = getPathMapEverywhere(&pc->coord, dun);
         // get the map for the non-tunneling creatures
@@ -319,13 +323,13 @@ void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Ch
       // can tunnel and is intelligent
       case 0b0101:
         if(canSeePC(pc, character, dun)) {
-          character->npc->hasSeenPC = true;
+          character->npc->hasSeenPC = TRUE;
           character->npc->lastKnowPCLoc = pc->coord;
         }
               if(character->npc->hasSeenPC) {
           moveCharacterTunnel(getNextPlacementTunneling(getPathMapEverywhere(&character->npc->lastKnowPCLoc, dun) , character->coord, dun), character, turnQueue, dun, map, tunnelingMap);
         } else {
-        moveRandomly(character, turnQueue, dun, map, false, NULL);     
+        moveRandomly(character, turnQueue, dun, map, FALSE, NULL);     
         }
         // get the map for tunneling creatures
         tunnelingMap = getPathMapEverywhere(&pc->coord, dun);
@@ -337,13 +341,13 @@ void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Ch
       // can tunnel and is telepathic
       case 0b0110:
         if(canSeePC(pc, character, dun)) {
-          character->npc->hasSeenPC = true;
+          character->npc->hasSeenPC = TRUE;
           character->npc->lastKnowPCLoc = pc->coord;
         }
               if(character->npc->hasSeenPC) {
           moveCharacterTunnel(moveToward(character->coord, pc->coord), character, turnQueue, dun, map, tunnelingMap);
         } else {
-        moveRandomly(character, turnQueue, dun, map, false, NULL);     
+        moveRandomly(character, turnQueue, dun, map, FALSE, NULL);     
         }
         // get the map for tunneling creatures
         tunnelingMap = getPathMapEverywhere(&pc->coord, dun);
@@ -355,13 +359,13 @@ void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Ch
       // can tunnel and is telepathic and is intelligent
       case 0b0111:
         if(canSeePC(pc, character, dun)) {
-          character->npc->hasSeenPC = true;
+          character->npc->hasSeenPC = TRUE;
           character->npc->lastKnowPCLoc = pc->coord;
         }
               if(character->npc->hasSeenPC) {
           moveCharacterTunnel(getNextPlacementTunneling(getPathMapEverywhere(&pc->coord, dun) , character->coord, dun), character, turnQueue, dun, map, tunnelingMap);
         } else {
-        moveRandomly(character, turnQueue, dun, map, false, NULL);     
+        moveRandomly(character, turnQueue, dun, map, FALSE, NULL);     
         }
         // get the map for tunneling creatures
         tunnelingMap = getPathMapEverywhere(&pc->coord, dun);
@@ -386,56 +390,56 @@ void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Cha
       break;
     // is erratic
     case 0b1000:
-      moveRandomly(character, turnQueue, dun, map, false, NULL);
+      moveRandomly(character, turnQueue, dun, map, FALSE, NULL);
       break;
 
     // is erratic and intelligent
     default:
       if(rand() % 2 == 0) {
-        moveRandomly(character, turnQueue, dun, map, false, NULL);
+        moveRandomly(character, turnQueue, dun, map, FALSE, NULL);
       } else {
         nonEraticMovment(character, turnQueue, dun, map, openSpaceMap, tunnelingMap, pc, character->npc->characteristics & 0b0111);
       }
   }
 }
 
-boolean canTunnel(Character* character) {
+bool canTunnel(Character* character) {
   if(character->npc->characteristics & TUNNELING_BIT) {
-    return true;
+    return TRUE;
   }
-  return false;
+  return FALSE;
 }
 
-boolean isTelepathic(Character* character) {
+bool isTelepathic(Character* character) {
   if(character->npc->characteristics & TELEPATHY_BIT) {
-    return true;
+    return TRUE;
   }
-  return false;
+  return FALSE;
 }
 
-boolean isInteligent(Character* character) {
+bool isInteligent(Character* character) {
   if(character->npc->characteristics & INTELLIGENCE_BIT) {
-    return true;
+    return TRUE;
   }
-  return false;
+  return FALSE;
 }
 
-boolean isErratic(Character* character) {
+bool isErratic(Character* character) {
   if(character->npc->characteristics & ERRATIC_BIT) {
-    return true;
+    return TRUE;
   }
-  return false;
+  return FALSE;
 }
 
 void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
   // TODO: add user control
   
-  moveRandomly(character, turnQueue, dun, map, false, NULL);
+  moveRandomly(character, turnQueue, dun, map, FALSE, NULL);
 
 }
 
-int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], boolean canTunnel, int** hardnessMap) {
-  boolean notPlaced = true;
+int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
+  bool notPlaced = TRUE;
   Coordinate movingTo;
 
   while(notPlaced) {
@@ -536,7 +540,7 @@ int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Charact
   return 0;
 }
 
-boolean moveCharacterNoTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+bool moveCharacterNoTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
 
   if(isEmptySpace(movingTo, dun)) {
     // move the character
@@ -547,21 +551,21 @@ boolean moveCharacterNoTunnel(Coordinate movingTo, Character* character, MinHeap
     character->coord = movingTo;
     map[movingTo.row][movingTo.col] = character;
     
-    return false;
+    return FALSE;
   }
-  return true;
+  return TRUE;
 }
 
-boolean moveCharacterTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** hardnessMap) {
+bool moveCharacterTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** hardnessMap) {
 
-  if(dun->map[movingTo.row][movingTo.col].isBorder == false && movingTo.row > 0 && movingTo.row < MAX_DUNGEON_HEIGHT && movingTo.col > 0 && movingTo.col < MAX_DUNGEON_WIDTH) {
+  if(dun->map[movingTo.row][movingTo.col].isBorder == FALSE && movingTo.row > 0 && movingTo.row < MAX_DUNGEON_HEIGHT && movingTo.col > 0 && movingTo.col < MAX_DUNGEON_WIDTH) {
     if(dun->map[movingTo.row][movingTo.col].hardness > 0) {
       dun->map[movingTo.row][movingTo.col].hardness -= 85;
     }
     if(dun->map[movingTo.row][movingTo.col].hardness <= 0){
       dun->map[movingTo.row][movingTo.col].hardness = 0;
-      if(dun->map[movingTo.row][movingTo.col].isRoom == false) {
-        dun->map[movingTo.row][movingTo.col].isHallway = true;
+      if(dun->map[movingTo.row][movingTo.col].isRoom == FALSE) {
+        dun->map[movingTo.row][movingTo.col].isHallway = TRUE;
       }
       // move the character
       map[character->coord.row][character->coord.col] = NULL;
@@ -571,17 +575,17 @@ boolean moveCharacterTunnel(Coordinate movingTo, Character* character, MinHeap* 
       character->coord = movingTo;
       map[movingTo.row][movingTo.col] = character;
       
-      return false;
+      return FALSE;
     }
   }
-  return true;
+  return TRUE;
 }
 
-boolean isEmptySpace(Coordinate coord, Dungeon* dun) {
+bool isEmptySpace(Coordinate coord, Dungeon* dun) {
   if(dun->map[coord.row][coord.col].hardness == 0 ) {
-    return true;
+    return TRUE;
   }
-  return false;
+  return FALSE;
 }
 
 /**
@@ -594,7 +598,7 @@ boolean isEmptySpace(Coordinate coord, Dungeon* dun) {
  */
 
 void randomlyPlace(Coordinate* coord, Dungeon* dun) {
-  boolean notPlaced = true;
+  bool notPlaced = TRUE;
   int row, col;
   
   // get a new seed based upon the room placement
@@ -606,7 +610,7 @@ void randomlyPlace(Coordinate* coord, Dungeon* dun) {
     if(row >= 0 && row < MAX_DUNGEON_HEIGHT && col >= 0 && col < MAX_DUNGEON_WIDTH && dun->map[row][col].hardness == 0) {
       coord->row = row;
       coord->col =  col;
-      notPlaced = false;
+      notPlaced = FALSE;
     }
   }
 }
@@ -682,9 +686,9 @@ Setup parseArgs(int argc, char* argv[]) {
   int i, length;
 
   ret.seed = rand();
-  ret.useCoolChars = false;
-  ret.save = false;
-  ret.load = false;
+  ret.useCoolChars = FALSE;
+  ret.save = FALSE;
+  ret.load = FALSE;
   ret.numMonsters = 0;
   
   // look for flags
@@ -695,13 +699,13 @@ Setup parseArgs(int argc, char* argv[]) {
       }
     }
     else if(strcmp(argv[i], "-cool") == 0) {
-      ret.useCoolChars = true;
+      ret.useCoolChars = TRUE;
     }
     else if(strcmp(argv[i], "--save") == 0) {
-      ret.save = true;
+      ret.save = TRUE;
     }
     else if(strcmp(argv[i], "--load") == 0) {
-      ret.load = true;
+      ret.load = TRUE;
     }
     else if(strcmp(argv[i], "--nummon") == 0) {
       ret.numMonsters = atoi(argv[i + 1]);
@@ -827,7 +831,7 @@ void printCoolDun(Dungeon* dun, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_
   }
  }
 Coordinate getEmptySpot(Dungeon* dun,Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
-  boolean notPlaced = true;
+  bool notPlaced = TRUE;
   int row, col;
   Coordinate coord;
   
@@ -837,7 +841,7 @@ Coordinate getEmptySpot(Dungeon* dun,Character* placementMap[MAX_DUNGEON_HEIGHT]
     if(row >= 0 && row < MAX_DUNGEON_HEIGHT && col >= 0 && col < MAX_DUNGEON_WIDTH && dun->map[row][col].hardness == 0 && placementMap[row][col] == NULL) {
       coord.row = row;
       coord.col =  col;
-      notPlaced = false;
+      notPlaced = FALSE;
     }
   } 
   return coord;
