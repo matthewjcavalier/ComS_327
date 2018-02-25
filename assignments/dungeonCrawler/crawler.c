@@ -103,9 +103,14 @@ void runGame(Dungeon* dun, Setup setup) {
   openSpaceMap = getPathMapOnlyOpenArea(&pcCharacter->coord, dun);
 
   // print the dungeon
-  printDungeon(dun, setup, placementMap);
-
+  //printDungeon(dun, setup, placementMap);
   
+  // screen startup routine
+  startup();
+
+  sleep(2);
+
+  return;
   do {
     // do move sets
     currentChar = removeFromHeap(turnQueue);
