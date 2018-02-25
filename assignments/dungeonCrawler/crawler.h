@@ -31,16 +31,6 @@
   #include "printer.h"
 #endif
 
-
-typedef struct {
-  int seed;
-  bool useCoolChars;
-  bool save;
-  bool load;
-  char* saveLoadLocation;
-  int numMonsters;
-} Setup;
-
 /**
  * @brief The function where the main game loop lives
  * 

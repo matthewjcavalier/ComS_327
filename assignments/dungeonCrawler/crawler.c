@@ -108,7 +108,9 @@ void runGame(Dungeon* dun, Setup setup) {
   // screen startup routine
   startup();
 
-  drawDungeon(dun);
+  drawDungeon(dun, setup);
+
+  drawEntities(placementMap);
 
   sleep(2);
 

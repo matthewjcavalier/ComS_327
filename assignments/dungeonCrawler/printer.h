@@ -10,6 +10,10 @@
   #define DUNGEON_H
   #include "dungeon.h"
 #endif
+#ifndef CRAWLER_H
+  #define CRAWLER_H
+  #include "crawler.h"
+#endif
 
 int startup();
 
@@ -19,7 +23,13 @@ int drawCharacter(int row, int col, char character);
 
 int tearDown();
 
-int drawDungeon(Dungeon* dun);
+int drawDungeon(Dungeon* dun, Setup setup);
 
 int drawEntities(Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
+
+int drawCoolDun(Dungeon* dun);
+
+int drawStandardDun(Dungeon* dun);
+
+int drawDungeon(Dungeon* dun, Setup setup);
 

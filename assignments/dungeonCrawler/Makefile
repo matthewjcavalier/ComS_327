@@ -4,9 +4,9 @@ OBJS=crawler.o generator.o list.o list.o pathFinding.o queue.o heap.o printer.o
 
 all: crawler debug
 crawler: $(OBJS)
-	$(CC) $(CFLAGS) crawler.o generator.o list.o pathFinding.o queue.o heap.o printer.o -o crawler -lncurses
+	$(CC) $(CFLAGS) crawler.o generator.o list.o pathFinding.o queue.o heap.o printer.o -o crawler -lncursesw
 debug: $(OBJS)
-	$(CC) -g $(CFLAGS) crawler.o generator.o list.o pathFinding.o queue.o heap.o printer.o -o debug -lncurses
+	$(CC) -g $(CFLAGS) crawler.o generator.o list.o pathFinding.o queue.o heap.o printer.o -o debug -lncursesw
 crawler.o: crawler.c
 	$(CC) -g $(CFLAGS) -c crawler.c
 generator.o: generator.c
@@ -26,9 +26,9 @@ printer.o: printer.c
 printer: printer.o
 	$(CC) -g $(CFLAGS) printer.o -o printer -lncurses
 runOut: clean crawler debug
-	./crawler -cool --nummon 1 -s 1 > out.txt
+	./crawler --nummon 1 -s 1 > out.txt
 run: clean crawler debug
-	./crawler -cool --nummon 6 
+	./crawler --nummon 6 
 
 clean:
 	- rm debug crawler

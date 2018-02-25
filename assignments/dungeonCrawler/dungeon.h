@@ -46,6 +46,15 @@ typedef struct {
   uint8_t width;
 } Room;
 
+typedef struct Setup{
+  int seed;
+  bool useCoolChars;
+  bool save;
+  bool load;
+  char* saveLoadLocation;
+  int numMonsters;
+} Setup;
+
 typedef struct {
   uint8_t hardness;
   bool isBorder;

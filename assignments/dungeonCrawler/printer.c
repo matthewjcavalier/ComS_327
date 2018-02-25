@@ -25,7 +25,7 @@ int tearDown() {
   return 0;
 }
 
-int drawDungeon(Dungeon* dun) {
+int drawStandardDun(Dungeon* dun) {
   int row, col;
   char toPrint = ' ';
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
@@ -55,10 +55,63 @@ int drawDungeon(Dungeon* dun) {
       drawCharacter(row + 1, col, toPrint);
     }
   }
-  return 1;
+  return 0;
 }
 
-int drawEntities(Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
+int drawCoolDun(Dungeon* dun) {
+  int row, col;
+  char* charToPrint;
+
+  for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
+      if(dun->map[row][col].isBorder) {
+        if(row == 0 && col == 0) {
+          charToPrint = COOL_BORDER_TOP_LEFT;
+        } else if(row == 0 && col == MAX_DUNGEON_WIDTH - 1) {
+          charToPrint = COOL_BORDER_TOP_RIGHT;
+        } else if(row == MAX_DUNGEON_HEIGHT - 1 && col == 0) {
+          charToPrint = COOL_BORDER_BOTTOM_LEFT;
+        } else if(row == MAX_DUNGEON_HEIGHT - 1 && col == MAX_DUNGEON_WIDTH - 1) {
+          charToPrint = COOL_BORDER_BOTTOM_RIGHT;
+        } else if(row == 0 || row == MAX_DUNGEON_HEIGHT -1) {
+          charToPrint = COOL_BORDER_HOR;
+        } else if(col == 0 || col == MAX_DUNGEON_WIDTH -1){
+          charToPrint = COOL_BORDER_VERT;
+        }
+      } else {
+         if(dun->map[row][col].isHallway) {
+          charToPrint = COOL_HALL_CHAR;
+        } else if(dun->map[row][col].isRoom) {
+          charToPrint = COOL_ROOM_CHAR;
+        } else {
+          charToPrint = COOL_ROCK;
+        }
+      }
+    }
+    drawString(row + 1, col, charToPrint);
+  } 
+  return 0;
+}
+
+int drawDungeon(Dungeon* dun, Setup setup) {
+  if(setup.useCoolChars == TRUE) {
+    return drawCoolDun(dun);
+  } else {
+    return drawStandardDun(dun);
+  }
+}
+
+int drawEntities(Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+  int row, col;
+  for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
+      if(placementMap[row][col] != NULL) {
+        drawCharacter(row + 1, col, placementMap[row][col]->symbol);
+      }
+    }
+  }
+  return 0;
+}
 
 
 
