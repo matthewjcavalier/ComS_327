@@ -1,5 +1,7 @@
 #include "crawler.h"
 
+int maxNumMonsters = 0;
+
 int main(int argc, char* argv[]) {
 
   srand(time(0));
@@ -8,6 +10,7 @@ int main(int argc, char* argv[]) {
   
   printf("Using seed: %d\n", setup.seed);
   printf("Number of Monsters: %d\n", setup.numMonsters);
+  maxNumMonsters = setup.numMonsters;
   // seed random num gen
   srand(setup.seed);
 
@@ -121,9 +124,9 @@ void runGame(Dungeon* dun, Setup setup) {
     if(currentChar->pc == NULL) {
       monster_routine(currentChar, turnQueue, dun, placementMap, openSpaceMap, tunnelingMap, pcCharacter);
     }
-    // else is npc
+    // else is pc
     else {
-      endGame = (pc_routine(currentChar, turnQueue, dun, placementMap) == 1) ? TRUE : FALSE;
+      endGame = (pc_routine(currentChar, turnQueue, dun, placementMap, setup) == 1) ? TRUE : FALSE;
       // generate the new maps
       tunnelingMap = getPathMapEverywhere(&pcCharacter->coord, dun);
       // get the map for the non-tunneling creatures
@@ -432,7 +435,94 @@ bool isErratic(Character* character) {
   return FALSE;
 }
 
-int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+char* getMonsterLocString(int ydiff, int xdiff, char sym) {
+  char* ret = malloc(sizeof(char) * 50);
+  // if on same y axis
+  if(ydiff == 0) {
+    sprintf(ret, "%c is %d to the %s", sym, abs(xdiff), (xdiff > 0) ? "West" : "East");
+  }
+  // if on same x axis
+  else if(xdiff == 0) {
+    sprintf(ret, "%c is %d to the %s", sym, abs(ydiff), (ydiff > 0) ? "North" : "South");
+  } else {
+    sprintf(ret, "%c is %d to the %s and %d to the %s", sym, abs(ydiff), (ydiff > 0) ? "North" : "South", abs(xdiff), (xdiff > 0) ? "West" : "East");
+  }
+  return ret;
+}
+
+int monsterList_routine(Character* pc, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+  bool notEnd = TRUE;
+  char* monsterLocs[maxNumMonsters];
+  int topLeft_x = 10;
+  int topLeft_y = 5;
+  int vertBorderWidth = 2;
+  int horBorderWith = 5;
+  int stringAreaWidth = 50;
+  int xdiff, ydiff;
+  int currentTopMonst = 0;
+  int row, col, i;
+  int numMonstersShowing = 5;
+  int monstersFound = 0;
+  char userPressed;
+
+  // init monster list
+  for(i = 0; i < maxNumMonsters; i++) {
+    monsterLocs[i] = malloc(sizeof(char) * stringAreaWidth);
+    monsterLocs[i] = NULL;
+  }
+  
+  // get monster list
+  for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
+    for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
+      if(map[row][col] != NULL && map[row][col]->npc != NULL) {
+        xdiff = pc->coord.col - map[row][col]->coord.col;
+        ydiff = pc->coord.row - map[row][col]->coord.row;
+        monsterLocs[monstersFound] = getMonsterLocString(ydiff, xdiff, map[row][col]->symbol);
+        monstersFound++;
+      }
+    }
+  }
+  
+
+  do {
+    // draw cleared box
+    for(row = topLeft_y; row < topLeft_y + horBorderWith + numMonstersShowing - 1; row++) {
+      for(col = topLeft_x; col < topLeft_x + vertBorderWidth + stringAreaWidth - 1; col++) {
+        if(row == topLeft_y || row == topLeft_y + horBorderWith + numMonstersShowing - 2) {
+          drawCharacter(row + 1, col, '_');
+        } else if(col == topLeft_x || col == topLeft_x + vertBorderWidth + stringAreaWidth - 2) {
+          drawCharacter(row + 1, col, '|');
+        } else {
+          drawCharacter(row + 1, col, ' ');
+        }
+      }
+    }
+    for(i = currentTopMonst; i < monstersFound && i < currentTopMonst + numMonstersShowing; i++) {
+      drawString(topLeft_y + i - currentTopMonst + vertBorderWidth + 1, topLeft_x + horBorderWith, monsterLocs[i]);
+      fflush(stdout);
+    }
+    do {
+      userPressed = getch();
+      if(userPressed != ERR) {
+        // wait a microsecond and if no other characters came we know esc was pressed
+          if(userPressed == 2) {
+            drawString(0,0, "DOWN pressed");
+            currentTopMonst = (currentTopMonst < monstersFound - numMonstersShowing)? currentTopMonst + 1 : monstersFound - numMonstersShowing;
+          } else if(userPressed == 3) {
+            drawString(0,0, "UP pressed");
+            currentTopMonst = (currentTopMonst > 0)? currentTopMonst - 1 : 0;
+          } else if(userPressed == 27) {
+            drawString(0,0, "ESC pressed");
+            notEnd = FALSE;
+          }
+      }
+    } while(userPressed == ERR);
+  } while(notEnd);
+
+  return 1;
+}
+
+int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], Setup setup) {
   char userPressed;
   bool commandComplete = FALSE;
   // TODO: add user control
@@ -486,7 +576,9 @@ int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character
     }
     // show monster list
     if(userPressed == 'm'){
-      commandComplete = TRUE;
+      monsterList_routine(character, map);
+      drawDungeon(dun, setup);
+      drawEntities(map);
     }
     // quit game
     if(userPressed == 'Q'){

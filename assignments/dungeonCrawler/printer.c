@@ -4,6 +4,7 @@ int startup() {
   initscr();
   noecho();
   curs_set(FALSE);
+  keypad(stdscr, TRUE);
   return 0;
 }
 
