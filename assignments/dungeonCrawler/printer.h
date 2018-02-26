@@ -33,3 +33,5 @@ int drawStandardDun(Dungeon* dun);
 
 int drawDungeon(Dungeon* dun, Setup setup);
 
+char getDunChar(Tile tile, int row, int col);
+

@@ -9,7 +9,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${workspaceFolder}/debug",
-        "args": ["--nummon","1","-s", "1","-cool"],
+        "args": ["--nummon","1","-s", "1"],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
         "environment": [],

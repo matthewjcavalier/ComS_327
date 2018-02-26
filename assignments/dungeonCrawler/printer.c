@@ -30,28 +30,7 @@ int drawStandardDun(Dungeon* dun) {
   char toPrint = ' ';
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
-      // if the tile is a border
-      if(dun->map[row][col].isBorder) {
-        // if the cell is in the first or last row
-        if(row == 0 || row == MAX_DUNGEON_HEIGHT - 1) {
-          toPrint = BORDER_HOR_CHAR;
-        }
-        // else the cell is one either in the first or last col
-        else {
-          toPrint = BORDER_VERT_CHAR;
-        }
-      }
-      // else the tile is part of the normal dungeon
-      else {
-        if(dun->map[row][col].isRoom) {
-          toPrint = ROOM_CHAR;
-        } else if(dun->map[row][col].isHallway) {
-          toPrint = HALL_CHAR;
-        }
-        else {
-          toPrint = ' ';
-        }
-      }
+      toPrint = getDunChar(dun->map[row][col], row, col);
       drawCharacter(row + 1, col, toPrint);
     }
   }
@@ -113,7 +92,32 @@ int drawEntities(Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH])
   return 0;
 }
 
-
+char getDunChar(Tile tile, int row, int col) {
+  char toPrint;
+  // if the tile is a border
+  if(tile.isBorder) {
+    // if the cell is in the first or last row
+    if(row == 0 || row == MAX_DUNGEON_HEIGHT - 1) {
+      toPrint = BORDER_HOR_CHAR;
+    }
+    // else the cell is one either in the first or last col
+    else {
+      toPrint = BORDER_VERT_CHAR;
+    }
+  }
+  // else the tile is part of the normal dungeon
+  else {
+    if(tile.isRoom) {
+      toPrint = ROOM_CHAR;
+    } else if(tile.isHallway) {
+      toPrint = HALL_CHAR;
+    }
+    else {
+      toPrint = ' ';
+    }
+  }
+  return toPrint;
+}
 
 /*
 int main(int argc, char* argv[]) {

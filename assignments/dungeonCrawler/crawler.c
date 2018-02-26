@@ -85,6 +85,7 @@ void runGame(Dungeon* dun, Setup setup) {
       currentNPC->characteristics |= ERRATIC_BIT;
     }
     currentNPC->hasSeenPC = FALSE;
+//    currentNPC->characteristics = 0b0000;
 
     currentChar = malloc(sizeof(*currentChar));
     currentChar->coord = getEmptySpot(dun, placementMap);
@@ -112,11 +113,6 @@ void runGame(Dungeon* dun, Setup setup) {
 
   drawEntities(placementMap);
 
-  sleep(2);
-
-  tearDown();
-
-  return;
   do {
     // do move sets
     currentChar = removeFromHeap(turnQueue);
@@ -132,7 +128,7 @@ void runGame(Dungeon* dun, Setup setup) {
       tunnelingMap = getPathMapEverywhere(&pcCharacter->coord, dun);
       // get the map for the non-tunneling creatures
       openSpaceMap = getPathMapOnlyOpenArea(&pcCharacter->coord, dun);
-      printDungeon(dun, setup, placementMap);
+
       if(printMaps) {
         printPathMap(openSpaceMap, &pc);
         
@@ -149,14 +145,13 @@ void runGame(Dungeon* dun, Setup setup) {
 
     if(getIndexOfPC(turnQueue) == -1) {
       endGame = TRUE;
-      printDungeon(dun, setup, placementMap);
+      tearDown();
       printf("\n\n\nYOU LOSE\n\n\n");
     } else if(turnQueue->size == 1) {
       endGame = TRUE;
+      tearDown();
       printf("\n\n\nYOU WIN\n\n\n");
     }
-    
-
   } while(!endGame);
 }
 
@@ -438,11 +433,13 @@ void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Characte
   
   moveRandomly(character, turnQueue, dun, map, FALSE, NULL);
 
+  sleep(1);
 }
 
 int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
   bool notPlaced = TRUE;
   Coordinate movingTo;
+  Coordinate movingFrom = character->coord;
 
   while(notPlaced) {
     switch(rand() % 8) {
@@ -539,6 +536,8 @@ int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Charact
         break;
     }
   }
+  drawCharacter(movingFrom.row + 1, movingFrom.col, getDunChar(dun->map[movingFrom.row][movingFrom.col], movingFrom.row, movingFrom.col));
+  drawCharacter(movingTo.row + 1, movingTo.col, character->symbol);
   return 0;
 }
 
@@ -547,12 +546,14 @@ bool moveCharacterNoTunnel(Coordinate movingTo, Character* character, MinHeap* t
   if(isEmptySpace(movingTo, dun)) {
     // move the character
     map[character->coord.row][character->coord.col] = NULL;
+   drawCharacter(character->coord.row + 1, character->coord.col, 
+          getDunChar(dun->map[character->coord.row][character->coord.col],character->coord.row,character->coord.col));
     if(map[movingTo.row][movingTo.col] != NULL) {
       deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
     }
     character->coord = movingTo;
     map[movingTo.row][movingTo.col] = character;
-    
+    drawCharacter(movingTo.row + 1, movingTo.col, character->symbol);   
     return FALSE;
   }
   return TRUE;
@@ -571,12 +572,14 @@ bool moveCharacterTunnel(Coordinate movingTo, Character* character, MinHeap* tur
       }
       // move the character
       map[character->coord.row][character->coord.col] = NULL;
+      drawCharacter(character->coord.row + 1, character->coord.col, 
+          getDunChar(dun->map[character->coord.row][character->coord.col],character->coord.row,character->coord.col));
       if(map[movingTo.row][movingTo.col] != NULL) {
         deleteFromHeap(turnQueue, map[movingTo.row][movingTo.col]);
       }
       character->coord = movingTo;
       map[movingTo.row][movingTo.col] = character;
-      
+      drawCharacter(movingTo.row + 1, movingTo.col, character->symbol);
       return FALSE;
     }
   }
