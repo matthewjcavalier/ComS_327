@@ -28,7 +28,7 @@ printer: printer.o
 runOut: clean crawler debug
 	./crawler --nummon 1 -s 1 > out.txt
 run: clean crawler debug
-	./crawler --nummon 6 
+	./crawler --nummon 6 -s 5157108739
 
 clean:
 	- rm debug crawler

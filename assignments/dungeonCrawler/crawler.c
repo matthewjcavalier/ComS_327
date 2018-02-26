@@ -443,7 +443,7 @@ int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character
     drawCharacter(0,0, userPressed);
     // move up left
     if(userPressed == '7' || userPressed == 'y'){
-      commandComplete = TRUE;
+      commandComplete = moveUpLeft(character, turnQueue, dun, map, FALSE, NULL);
     }
     // move up
     if(userPressed == '8' || userPressed == 'k'){
@@ -499,6 +499,114 @@ int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character
   return 0;
 }
 
+bool moveUpLeft(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
+  bool notPlaced = TRUE;
+  Coordinate movingTo;
+
+  movingTo = character->coord;
+  movingTo.row = movingTo.row -1;
+  movingTo.col = movingTo.col -1;
+  if(canTunnel) {
+    notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
+  } else {
+    notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+  }
+  return notPlaced;
+}
+bool moveUp(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
+  bool notPlaced = TRUE;
+  Coordinate movingTo;
+
+  movingTo = character->coord;
+  movingTo.row = movingTo.row -1;
+  if(canTunnel) {
+    notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
+  } else {
+    notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+  }
+  return notPlaced;
+}
+bool moveUpRight(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
+  bool notPlaced = TRUE;
+  Coordinate movingTo;
+
+  movingTo = character->coord;
+  movingTo.row = movingTo.row -1;
+  movingTo.col = movingTo.col +1;
+  if(canTunnel) {
+    notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
+  } else {
+    notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+  } 
+  return notPlaced;
+}
+bool moveRight(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
+  bool notPlaced = TRUE;
+  Coordinate movingTo;
+
+  movingTo = character->coord;
+  movingTo.col = movingTo.col +1;
+  if(canTunnel) {
+    notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
+  } else {
+    notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+  }
+  return notPlaced;
+}
+bool moveDownRight(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
+  bool notPlaced = TRUE;
+  Coordinate movingTo;
+
+  movingTo = character->coord;
+  movingTo.row = movingTo.row +1;
+  movingTo.col = movingTo.col +1;
+  if(canTunnel) {
+    notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
+  } else {
+    notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+  }
+  return notPlaced;
+}
+bool moveDown(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
+  bool notPlaced = TRUE;
+  Coordinate movingTo;
+
+  movingTo = character->coord;
+  movingTo.row = movingTo.row +1;
+  if(canTunnel) {
+    notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
+  } else {
+    notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+  }
+  return notPlaced;
+}
+bool moveDownLeft(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
+  bool notPlaced = TRUE;
+  Coordinate movingTo;
+
+  movingTo = character->coord;
+  movingTo.row = movingTo.row +1;
+  movingTo.col = movingTo.col -1;
+  if(canTunnel) {
+    notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
+  } else {
+    notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+  }
+  return notPlaced;
+}
+bool moveLeft(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
+  bool notPlaced = TRUE;
+  Coordinate movingTo;
+
+  movingTo = character->coord;
+  movingTo.col = movingTo.col -1;
+  if(canTunnel) {
+    notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
+  } else {
+    notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
+  }
+  return notPlaced;
+}
 int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
   bool notPlaced = TRUE;
   Coordinate movingTo;
@@ -506,99 +614,33 @@ int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Charact
 
   while(notPlaced) {
     switch(rand() % 8) {
-      // move up left
       case 0:
-        movingTo = character->coord;
-        movingTo.row = movingTo.row -1;
-        movingTo.col = movingTo.col -1;
-        if(canTunnel) {
-          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
-        } else {
-          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
-        }
+        notPlaced = moveUpLeft(character, turnQueue, dun, map, canTunnel, hardnessMap);
         break;
-
-      // move up
       case 1:
-        movingTo = character->coord;
-        movingTo.row = movingTo.row -1;
-        if(canTunnel) {
-          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
-        } else {
-          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
-        }
+        notPlaced = moveUp(character, turnQueue, dun, map, canTunnel, hardnessMap);
         break;
-
-      // move up right
       case 2:
-        movingTo = character->coord;
-        movingTo.row = movingTo.row -1;
-        movingTo.col = movingTo.col +1;
-        if(canTunnel) {
-          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
-        } else {
-          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
-        }
+        notPlaced = moveUpRight(character, turnQueue, dun, map, canTunnel, hardnessMap);
         break;
-
-      // move right
       case 3:
-        movingTo = character->coord;
-        movingTo.col = movingTo.col +1;
-        if(canTunnel) {
-          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
-        } else {
-          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
-        }
+        notPlaced = moveRight(character, turnQueue, dun, map, canTunnel, hardnessMap);
         break;
-
-      // move down right
       case 4:
-        movingTo = character->coord;
-        movingTo.row = movingTo.row +1;
-        movingTo.col = movingTo.col +1;
-        if(canTunnel) {
-          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
-        } else {
-          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
-        }
+        notPlaced = moveDownRight(character, turnQueue, dun, map, canTunnel, hardnessMap);
         break;
-       
-      // move down
       case 5:
-        movingTo = character->coord;
-        movingTo.row = movingTo.row +1;
-        if(canTunnel) {
-          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
-        } else {
-          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
-        }
+        notPlaced = moveDown(character, turnQueue, dun, map, canTunnel, hardnessMap);
         break;
-       
-      // move down left
       case 6:
-        movingTo = character->coord;
-        movingTo.row = movingTo.row +1;
-        movingTo.col = movingTo.col -1;
-        if(canTunnel) {
-          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
-        } else {
-          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
-        }
+        notPlaced = moveDownLeft(character, turnQueue, dun, map, canTunnel, hardnessMap);
         break;
-       
-      // move left
       default:
-        movingTo = character->coord;
-        movingTo.col = movingTo.col -1;
-        if(canTunnel) {
-          notPlaced = moveCharacterTunnel(movingTo, character, turnQueue, dun, map, hardnessMap);
-        } else {
-          notPlaced = moveCharacterNoTunnel(movingTo, character, turnQueue, dun, map);
-        }
+        notPlaced = moveLeft(character, turnQueue, dun, map, canTunnel, hardnessMap);
         break;
     }
   }
+  movingTo = character->coord;
   drawCharacter(movingFrom.row + 1, movingFrom.col, getDunChar(dun->map[movingFrom.row][movingFrom.col], movingFrom.row, movingFrom.col));
   drawCharacter(movingTo.row + 1, movingTo.col, character->symbol);
   return 0;
