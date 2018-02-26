@@ -443,32 +443,34 @@ int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character
     drawCharacter(0,0, userPressed);
     // move up left
     if(userPressed == '7' || userPressed == 'y'){
-      commandComplete = moveUpLeft(character, turnQueue, dun, map, FALSE, NULL);
+      commandComplete = !moveUpLeft(character, turnQueue, dun, map, FALSE, NULL);
     }
     // move up
     if(userPressed == '8' || userPressed == 'k'){
-      commandComplete = TRUE;
+      commandComplete = !moveUp(character, turnQueue, dun, map, FALSE, NULL);
     }
     // move up right
     if(userPressed == '9' || userPressed == 'u'){
-      commandComplete = TRUE;
+      commandComplete = !moveUpRight(character, turnQueue, dun, map, FALSE, NULL);
     }
     // move down right
     if(userPressed == '3' || userPressed == 'n'){
-      commandComplete = TRUE;
-
+      commandComplete = !moveDownRight(character, turnQueue, dun, map, FALSE, NULL);
     }
     // move down
     if(userPressed == '2' || userPressed == 'j'){
-      commandComplete = TRUE;
+      commandComplete = !moveDown(character, turnQueue, dun, map, FALSE, NULL);
     }
     // move down left
     if(userPressed == '1' || userPressed == 'b'){
-      commandComplete = TRUE;
+      commandComplete = !moveDownLeft(character, turnQueue, dun, map, FALSE, NULL);
     }
     // move left
     if(userPressed == '4' || userPressed == 'h'){
-      commandComplete = TRUE;
+      commandComplete = !moveLeft(character, turnQueue, dun, map, FALSE, NULL);
+    }
+    if(userPressed == '6' || userPressed == 'l') {
+      commandComplete = !moveRight(character, turnQueue, dun, map, FALSE, NULL);
     }
     // try to go down stairs
     if(userPressed == '>'){
@@ -480,10 +482,6 @@ int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character
     }
     // rest for a turn
     if(userPressed == '5' || userPressed == ' '){
-      commandComplete = TRUE;
-    }
-    // move up left
-    if(userPressed == '7' || userPressed == 'y'){
       commandComplete = TRUE;
     }
     // show monster list
