@@ -52,6 +52,7 @@ void runGame(Dungeon* dun, Setup setup) {
   Character* currentChar = malloc(sizeof(*currentChar));
   NPC* currentNPC;
   Character* pcCharacter = malloc(sizeof(*pcCharacter));
+  Coordinate stairLoc;
 
   // clean placement Map
   cleanPlacementMap(placementMap);
@@ -63,8 +64,15 @@ void runGame(Dungeon* dun, Setup setup) {
   pcCharacter->npc = NULL;
   pcCharacter->pc = &pc;
   pcCharacter->nextEventTime = 1000/pcCharacter->speed + currentTurn;
+  
+  // place the stairs
+  stairLoc = getEmptySpot(dun, placementMap);
 
+  dun->map[stairLoc.row][stairLoc.col].isDownstairs = TRUE;
 
+  stairLoc = getEmptySpot(dun, placementMap);
+
+  dun->map[stairLoc.row][stairLoc.col].isUpstairs = TRUE;
 
   addToHeap(turnQueue, pcCharacter);
 
@@ -482,7 +490,6 @@ int monsterList_routine(Character* pc, Character* map[MAX_DUNGEON_HEIGHT][MAX_DU
       }
     }
   }
-  
 
   do {
     // draw cleared box

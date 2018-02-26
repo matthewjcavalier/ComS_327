@@ -60,6 +60,8 @@ typedef struct {
   bool isBorder;
   bool isHallway;
   bool isRoom;
+  bool isUpstairs;
+  bool isDownstairs;
 } Tile;
 
 typedef struct {

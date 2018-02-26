@@ -108,7 +108,11 @@ char getDunChar(Tile tile, int row, int col) {
   }
   // else the tile is part of the normal dungeon
   else {
-    if(tile.isRoom) {
+    if(tile.isUpstairs) {
+      toPrint = '<';
+    } else if(tile.isDownstairs) {
+      toPrint = '>';
+    } else if(tile.isRoom) {
       toPrint = ROOM_CHAR;
     } else if(tile.isHallway) {
       toPrint = HALL_CHAR;

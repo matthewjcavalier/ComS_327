@@ -37,6 +37,8 @@ void initDungeon(Dungeon* dun) {
       dun->map[row][col].isBorder = FALSE;
       dun->map[row][col].isHallway = FALSE;
       dun->map[row][col].isRoom = FALSE;
+      dun->map[row][col].isUpstairs = FALSE;
+      dun->map[row][col].isDownstairs = FALSE;
     }
   }
   dun->rooms = initList();
