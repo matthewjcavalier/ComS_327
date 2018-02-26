@@ -123,7 +123,7 @@ void runGame(Dungeon* dun, Setup setup) {
     }
     // else is npc
     else {
-      pc_routine(currentChar, turnQueue, dun, placementMap);
+      endGame = (pc_routine(currentChar, turnQueue, dun, placementMap) == 1) ? TRUE : FALSE;
       // generate the new maps
       tunnelingMap = getPathMapEverywhere(&pcCharacter->coord, dun);
       // get the map for the non-tunneling creatures
@@ -142,6 +142,10 @@ void runGame(Dungeon* dun, Setup setup) {
     
     currentChar->nextEventTime = currentChar->nextEventTime + 1000/currentChar->speed;
     addToHeap(turnQueue, currentChar);
+
+    if(endGame) {
+      tearDown();
+    }
 
     if(getIndexOfPC(turnQueue) == -1) {
       endGame = TRUE;
@@ -428,12 +432,71 @@ bool isErratic(Character* character) {
   return FALSE;
 }
 
-void pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
+  char userPressed;
+  bool commandComplete = FALSE;
   // TODO: add user control
   
-  moveRandomly(character, turnQueue, dun, map, FALSE, NULL);
+  //moveRandomly(character, turnQueue, dun, map, FALSE, NULL);
+  do {
+    userPressed = getch();
+    drawCharacter(0,0, userPressed);
+    // move up left
+    if(userPressed == '7' || userPressed == 'y'){
+      commandComplete = TRUE;
+    }
+    // move up
+    if(userPressed == '8' || userPressed == 'k'){
+      commandComplete = TRUE;
+    }
+    // move up right
+    if(userPressed == '9' || userPressed == 'u'){
+      commandComplete = TRUE;
+    }
+    // move down right
+    if(userPressed == '3' || userPressed == 'n'){
+      commandComplete = TRUE;
 
-  sleep(1);
+    }
+    // move down
+    if(userPressed == '2' || userPressed == 'j'){
+      commandComplete = TRUE;
+    }
+    // move down left
+    if(userPressed == '1' || userPressed == 'b'){
+      commandComplete = TRUE;
+    }
+    // move left
+    if(userPressed == '4' || userPressed == 'h'){
+      commandComplete = TRUE;
+    }
+    // try to go down stairs
+    if(userPressed == '>'){
+      commandComplete = TRUE;
+    }
+    // try to go up stairs
+    if(userPressed == '<'){
+      commandComplete = TRUE;
+    }
+    // rest for a turn
+    if(userPressed == '5' || userPressed == ' '){
+      commandComplete = TRUE;
+    }
+    // move up left
+    if(userPressed == '7' || userPressed == 'y'){
+      commandComplete = TRUE;
+    }
+    // show monster list
+    if(userPressed == 'm'){
+      commandComplete = TRUE;
+    }
+    // quit game
+    if(userPressed == 'Q'){
+      commandComplete = TRUE;
+      return 1;
+    }
+  } while(!commandComplete);
+  return 0;
 }
 
 int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
