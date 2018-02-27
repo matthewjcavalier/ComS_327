@@ -53,6 +53,7 @@ void runGame(Dungeon* dun, Setup setup) {
   NPC* currentNPC;
   Character* pcCharacter = malloc(sizeof(*pcCharacter));
   Coordinate stairLoc;
+  bool rebuild = FALSE;
 
   // clean placement Map
   cleanPlacementMap(placementMap);
@@ -64,7 +65,8 @@ void runGame(Dungeon* dun, Setup setup) {
   pcCharacter->npc = NULL;
   pcCharacter->pc = &pc;
   pcCharacter->nextEventTime = 1000/pcCharacter->speed + currentTurn;
-  
+
+
   // place the stairs
   stairLoc = getEmptySpot(dun, placementMap);
 
