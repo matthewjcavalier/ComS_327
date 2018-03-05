@@ -104,6 +104,7 @@ behind	queue.h	/^  struct CoordQueueNode* behind;$/;"	m	struct:CoordQueueNode	ty
 bubbleUp	heap.c	/^int bubbleUp(MinHeap* minHeap) {$/;"	f
 canSeePC	crawler.c	/^bool canSeePC(Character* pc, Character* monster, Dungeon* dun) {$/;"	f
 canTunnel	crawler.c	/^bool canTunnel(Character* character) {$/;"	f
+changeLevel	crawler.c	/^void changeLevel(Character* character, MinHeap* turnQueue, Dungeon* dun,Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], Setup setup) {$/;"	f
 characteristics	dungeon.h	/^  char characteristics;$/;"	m	struct:NPC
 cleanPlacementMap	crawler.c	/^ void cleanPlacementMap(Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
 clearRooms	generator.c	/^void clearRooms(Dungeon* dun) {$/;"	f
@@ -125,7 +126,7 @@ enqueue	queue.c	/^void enqueue(CoordQueue* queue, Coordinate coord) {$/;"	f
 fillLogic	pathFinding.c	/^void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, bool canBurrow, Coordinate neighbor, Coordinate current) {$/;"	f
 fillMap	pathFinding.c	/^void fillMap(Dungeon* dun, int** map, CoordQueue* queue, bool canBurrow) {$/;"	f
 front	queue.h	/^  struct CoordQueueNode* front;$/;"	m	struct:CoordQueue	typeref:struct:CoordQueue::CoordQueueNode
-genDungeon	generator.c	/^Dungeon* genDungeon() {$/;"	f
+genDungeon	generator.c	/^void genDungeon(Dungeon* dun) {$/;"	f
 getDunChar	printer.c	/^char getDunChar(Tile tile, int row, int col) {$/;"	f
 getEmptySpot	crawler.c	/^Coordinate getEmptySpot(Dungeon* dun,Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
 getIndexOfPC	heap.c	/^int getIndexOfPC(MinHeap* heap) {$/;"	f
@@ -162,7 +163,7 @@ length	list.h	/^  int length;$/;"	m	struct:List
 listAdd	list.c	/^void listAdd(void* dataPtr, List* list) {$/;"	f
 listRemove	list.c	/^void listRemove(int index, List* list) {$/;"	f
 load	dungeon.h	/^  bool load;$/;"	m	struct:Setup
-loadDungeon	generator.c	/^Dungeon* loadDungeon(char* loadLoc) {$/;"	f
+loadDungeon	generator.c	/^void loadDungeon(char* loadLoc, Dungeon* dun) {$/;"	f
 main	crawler.c	/^int main(int argc, char* argv[]) {$/;"	f
 makeNode	list.c	/^Node* makeNode(void* dataPtr) {$/;"	f
 makePathToRoom	generator.c	/^void makePathToRoom(int row1, int col1, int row2, int col2, Dungeon* dun){$/;"	f

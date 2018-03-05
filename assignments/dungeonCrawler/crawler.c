@@ -574,12 +574,14 @@ int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character
     if(userPressed == '>'){
       if(dun->map[character->coord.row][character->coord.col].isDownstairs) {
          drawString(0,0,"trying to go downstairs");       
+         changeLevel(character, turnQueue, dun, map,setup);
       }
     }
     // try to go up stairs
     if(userPressed == '<'){
       if(dun->map[character->coord.row][character->coord.col].isUpstairs) {
         drawString(0,0,"trying to go upstairs");
+         changeLevel(character, turnQueue, dun, map,setup);
       }
     }
     // rest for a turn
@@ -602,34 +604,38 @@ int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character
 }
 
 void changeLevel(Character* character, MinHeap* turnQueue, Dungeon* dun,Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], Setup setup) {
-  Character* currentCharacter;
+  Character* currentChar;
+  Coordinate stairLoc;
+  int i;
+  NPC* currentNPC;
+  int currentTurn = character->nextEventTime;
 
   // clear out the turn queue
   while(!isHeapEmpty(turnQueue)) {
-    currentCharacter = removeFromHeap(turnQueue);
+    currentChar = removeFromHeap(turnQueue);
 
     // deconstruct character
-    free(currentCharacter->npc);
-    free(currentCharacter);
+    free(currentChar->npc);
+    free(currentChar);
   }
   
   // generate the new dungeon level
   genDungeon(dun);
   cleanPlacementMap(map);
-  moveRandomly(character->coord, dun);
+  randomlyPlace(&character->coord, dun);
 
   // place the stairs
-  stairLoc = getEmptySpot(dun, placementMap);
+  stairLoc = getEmptySpot(dun, map);
 
   dun->map[stairLoc.row][stairLoc.col].isDownstairs = TRUE;
 
-  stairLoc = getEmptySpot(dun, placementMap);
+  stairLoc = getEmptySpot(dun, map);
 
   dun->map[stairLoc.row][stairLoc.col].isUpstairs = TRUE;
 
   addToHeap(turnQueue, character);
 
-  placementMap[character->coord.row][character->coord.col] = character;
+  map[character->coord.row][character->coord.col] = character;
   // add monsters
   for(i = 0; i < setup.numMonsters; i++) {
     currentNPC = malloc(sizeof(*currentNPC));
@@ -650,21 +656,19 @@ void changeLevel(Character* character, MinHeap* turnQueue, Dungeon* dun,Characte
     currentNPC->hasSeenPC = FALSE;
 
     currentChar = malloc(sizeof(*currentChar));
-    currentChar->coord = getEmptySpot(dun, placementMap);
+    currentChar->coord = getEmptySpot(dun, map);
     currentChar->symbol = getSymbol(currentNPC->characteristics);
     currentChar->pc = NULL;
     currentChar->npc = currentNPC;
     currentChar->speed = rand() % 15 + 5;
     currentChar->nextEventTime = currentTurn + 1000/currentChar->speed;
-    placementMap[currentChar->coord.row][currentChar->coord.col] = currentChar;
+    map[currentChar->coord.row][currentChar->coord.col] = currentChar;
     addToHeap(turnQueue, currentChar);
   }
 
   drawDungeon(dun, setup);
 
-  drawEntities(placementMap);
-
-  }
+  drawEntities(map);
 }
 
 bool moveUpLeft(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
@@ -775,6 +779,7 @@ bool moveLeft(Character* character, MinHeap* turnQueue, Dungeon* dun, Character*
   }
   return notPlaced;
 }
+
 int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {
   bool notPlaced = TRUE;
   Coordinate movingTo;

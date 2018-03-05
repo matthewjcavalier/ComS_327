@@ -2,11 +2,14 @@ CC=gcc
 CFLAGS=-Wall -Werror -std=gnu99
 OBJS=crawler.o generator.o list.o list.o pathFinding.o queue.o heap.o printer.o
 
-all: crawler debug
+all: clear crawler debug
 crawler: $(OBJS)
 	$(CC) $(CFLAGS) crawler.o generator.o list.o pathFinding.o queue.o heap.o printer.o -o crawler -lncursesw
 debug: $(OBJS)
+	- ctags -R
 	$(CC) -g $(CFLAGS) crawler.o generator.o list.o pathFinding.o queue.o heap.o printer.o -o debug -lncursesw
+clear:
+		clear
 crawler.o: crawler.c
 	$(CC) -g $(CFLAGS) -c crawler.c
 generator.o: generator.c
@@ -28,7 +31,7 @@ printer: printer.o
 runOut: clean crawler debug
 	./crawler --nummon 1 -s 1 > out.txt
 run: clean crawler debug
-	./crawler --nummon 15 -s 5157108739
+	./crawler --nummon 1 -s 5157108739
 
 clean:
 	- rm debug crawler
