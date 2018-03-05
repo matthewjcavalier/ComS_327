@@ -519,7 +519,7 @@ int monsterList_routine(Character* pc, Character* map[MAX_DUNGEON_HEIGHT][MAX_DU
   int row, col, i;
   int numMonstersShowing = 5;
   int monstersFound = 0;
-  int userPressed;
+  char userPressed;
 
   // init monster list
   for(i = 0; i < maxNumMonsters; i++) {
@@ -559,7 +559,6 @@ int monsterList_routine(Character* pc, Character* map[MAX_DUNGEON_HEIGHT][MAX_DU
     do {
       userPressed = getch();
       if(userPressed != ERR) {
-        // wait a microsecond and if no other characters came we know esc was pressed
           if(userPressed == 2) {
             drawString(0,0, "DOWN pressed");
             if(monstersFound > numMonstersShowing) {

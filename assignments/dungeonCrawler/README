@@ -1,50 +1,35 @@
 Compliance:
 
-  This program currently will read in the number of monsters to place into
-  the dungeon, and randomly place each one while also making each monster
-  a set permutation of the four attributes requested. You can tell what
-  kind each monster is as signified by it's character (hex range from 0 to F).
+  The current program satisfies all of the requirements specified in the doc.
+  One thing of note that was noticed during development is that when the user
+  is in the monster list and presses ESC, there is a pause before the program
+  commits to performing the escape functionality.
 
-  Side Note:
-    
-    I still feel that the '-cool' way to run it is much more readable
+  For possible command line arguments that are implemented see:
 
-  modifiers (See CMD_line_args.txt for other modifiers):
-    
-    --nummon    This command line arg followed by a value will set the
-                number of monsters in the dungeon. For an easy win, set
-                the number of monsters to zero.
+      CMD_line_args.txt
 
-                  example:
-                    
-                    ./crawler --nummon 5
 
 Functions:
+  
+  monsterList_routine (see crawler.c ~line 500)
+    
+    the subroutine that is used to show the monster locations
 
-  monster_routine && nonEraticMovement (see crawler.c)
+  pc_routine (see crawler.c ~line 590)
 
-    These functions are where the logic for the monsters lives.
+    an updated PC routine that takes in player input through the keyboard
 
-  moveRandomly (see crawler.c)
+  
 
-    This function moves a character (whether pc or npc) to a random spot around
-    it, keeping in mind if the entity can tunnel or not.
 
-  functions in lines 404 to 425 (see crawler.c)
-
-    These functions could be used for telling attributes of the monsters.
-    I ended up not using them, but want to include them for if they are
-    needed in the future.
  
 Data structures:
-
-  Priority Queue:
-    This data structure was implemented by making a min heap (see heap.c),
-    this min heap is realized using an array to make the operations
-    easier when adding, removing, searching, and bubbling up.
+  
+  No new data structures
 
 File Names:
+  
+  printer.c:  the source file for printing to screen with ncurses
 
-  heap.c: the new file added that contains the logic for the min Heap data structure
-
-  heap.h: the header file for heap.c
+  printer.h:  the header file for printer.c

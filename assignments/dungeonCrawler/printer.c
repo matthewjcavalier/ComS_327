@@ -1,7 +1,7 @@
 #include "printer.h"
 
 /**
- * @brief 
+ * @brief  stars up ncurses and the main window
  * 
  * @return int 
  */
@@ -14,12 +14,12 @@ int startup() {
 }
 
 /**
- * @brief 
+ * @brief   draws a string at the given row col location
  * 
- * @param row 
- * @param col 
- * @param str 
- * @return int 
+ * @param row   row to draw in
+ * @param col   column to start drawing at
+ * @param str   character string that is to be printed
+ * @return int  status indicator
  */
 int drawString(int row, int col, char* str) {
   mvprintw(row, col, str);
@@ -28,12 +28,12 @@ int drawString(int row, int col, char* str) {
 }
 
 /**
- * @brief 
+ * @brief  draws a character at the given row col location
  * 
- * @param row 
- * @param col 
- * @param acter 
- * @return int 
+ * @param row   row to draw at
+ * @param col   col to draw at
+ * @param character   character to draw
+ * @return int  status indicator
  */
 int drawCharacter(int row, int col, char character) {
   move(row, col);
@@ -43,9 +43,9 @@ int drawCharacter(int row, int col, char character) {
 }
 
 /**
- * @brief 
+ * @brief  properly tears down the window
  * 
- * @return int 
+ * @return int status indicator
  */
 int tearDown() {
   endwin();
@@ -53,10 +53,10 @@ int tearDown() {
 }
 
 /**
- * @brief 
+ * @brief   draws the standard dungeon using characters
  * 
- * @param dun 
- * @return int 
+ * @param dun   dungeon to draw
+ * @return int  status indicator
  */
 int drawStandardDun(Dungeon* dun) {
   int row, col;
@@ -71,10 +71,11 @@ int drawStandardDun(Dungeon* dun) {
 }
 
 /**
- * @brief 
+ * @brief  TODO fix this abomination so that we can
+ *         make dungeon drawing great again :P
  * 
- * @param dun 
- * @return int 
+ * @param dun   dungeon to draw
+ * @return int  status indicator
  */
 int drawCoolDun(Dungeon* dun) {
   int row, col;
@@ -112,11 +113,12 @@ int drawCoolDun(Dungeon* dun) {
 }
 
 /**
- * @brief 
+ * @brief   main dungeon drawing handler, will choose to draw
+ *          in the standard or cool manner
  * 
- * @param dun 
- * @param setup 
- * @return int 
+ * @param dun     dungeon to draw
+ * @param setup   setup struct that tells which way to draw
+ * @return int    status indicator
  */
 int drawDungeon(Dungeon* dun, Setup setup) {
   if(setup.useCoolChars == TRUE) {
@@ -127,10 +129,10 @@ int drawDungeon(Dungeon* dun, Setup setup) {
 }
 
 /**
- * @brief 
+ * @brief   draws the entities in the input character map to screen
  * 
- * @param placementMap 
- * @return int 
+ * @param placementMap the map that has the characters* to draw
+ * @return int  status indicator
  */
 int drawEntities(Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
   int row, col;
@@ -145,12 +147,13 @@ int drawEntities(Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH])
 }
 
 /**
- * @brief 
+ * @brief Figures out which character should be returned
+ *        based upon the input tile
  * 
- * @param tile 
- * @param row 
- * @param col 
- * @return char 
+ * @param tile  the tile being looked at
+ * @param row   the row that the tile exists at
+ * @param col   the col that the tile exists at
+ * @return char the character that corresponds with the tile
  */
 char getDunChar(Tile tile, int row, int col) {
   char toPrint;

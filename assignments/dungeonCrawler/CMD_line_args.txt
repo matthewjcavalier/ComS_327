@@ -7,9 +7,7 @@ Command Line arguments:
                 
                   		./crawler -s 1234556
 
-      -cool   This flag makes the program use unicode characters to display the dungeon
-              in a different fashion than normal
-
+      
               		example:
                   
                   		./crawler -cool
@@ -32,3 +30,17 @@ Command Line arguments:
                   	example:
                     
                     	./crawler --nummon 5
+
+  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+      THE FOLLOWING ARGUMENTS ARE DEPRECATED
+  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+      -cool   This flag makes the program use unicode characters to display the dungeon
+              in a different fashion than normal
+
+              Reason for deprecation:
+                  
+                It turns out that unicode characters doesn't play nice with ncurses.
+                Reimplementing this will be a stretch goal for the future.
+
+
