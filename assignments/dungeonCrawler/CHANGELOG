@@ -1,3 +1,105 @@
+commit 8373afd08f72a9137351b3ce7e4739f214d25420
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Mar 5 16:47:25 2018 -0600
+
+    updated the README
+
+commit b004e9f1e1f1c2bbc805067b008d3eaff5cea481
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Mar 5 14:48:03 2018 -0600
+
+    added some comments to the source files
+
+commit 120a501de3bb4acfe3a759cf67b746bc9721754c
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Mar 5 11:30:39 2018 -0600
+
+    the player can now go up and down levels in the dungeon, though there is no persitance of the levels :P
+
+commit 05e797c5fa03af29bf73165acc6eb31c7009a804
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Mar 5 09:50:19 2018 -0600
+
+    taking a break
+
+commit 55cef2d2d86cf59c680546b12501847fd96cb336
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 27 10:21:46 2018 -0600
+
+    backing up
+
+commit f7713cb1719ce07e475c620a466ad2f8ebea1746
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Feb 26 15:09:13 2018 -0600
+
+    the stairs are added in
+
+commit 421758674e930b4f66bd50609e53609cffa8e0e0
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Feb 26 14:39:50 2018 -0600
+
+    the map almost works proplery, you need to press escape twice for the routine to exit
+
+commit 483cde9af2624d6582a5320acf98508fee4c8f03
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Feb 26 12:00:42 2018 -0600
+
+    pc can now move based on user input in all 8 directions as well as rest
+
+commit 175aa79f1184ac4ed07a5b32c390e9d52d04007d
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Feb 26 11:43:34 2018 -0600
+
+    pc can move up left
+
+commit 0b3e39043c64b0111e52dc47d7e44ef6958c05f6
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Feb 26 09:58:45 2018 -0600
+
+    the quit command now works
+
+commit c0a0ef49ea23c01dbeab60b1509a382a7da6db7c
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Feb 25 18:02:32 2018 -0600
+
+    the movement works properly with ncurses now
+
+commit 7faf6b2be957a3bb27e709b66e9b6fed0c693d89
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Feb 25 17:31:36 2018 -0600
+
+    entities are now drawn once
+
+commit a8efeb846aad030f567b6bbf6bc9459676460688
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Feb 25 17:06:06 2018 -0600
+
+    updated all boolean to bool, and now the dungeon is being drawn with ncurses
+
+commit 258757c1a9e8137ee665b6ecfae170c106c24f0e
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Feb 25 16:42:27 2018 -0600
+
+    about to update boolean to bool
+
+commit dd0f0a83999c426ebd523caea46fe899a81f27ce
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Wed Feb 21 14:22:39 2018 -0600
+
+    cleaned directory
+
+commit c3d53e19b3e7333ce53a8a5037809e8b9ae8e127
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 21:40:00 2018 -0600
+
+    packed up 1.04
+
+commit ea055fe0ab47932a7aab15059e989471f24b1085
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Feb 20 21:36:03 2018 -0600
+
+    updated CHANGELOG
+
 commit 2e7d9ac81c3c0fb64ae0acc4ac81c29836c64d1b
 Author: Matt Cavalier <matthewjcavalier@gmail.com>
 Date:   Tue Feb 20 21:35:30 2018 -0600
