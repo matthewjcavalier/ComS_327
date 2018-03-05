@@ -6,21 +6,16 @@
  * 
  * @return Dungeon* 
  */
-Dungeon* genDungeon() {
-  Dungeon* newDungeon;
-  newDungeon = malloc(sizeof(Dungeon));
-
-  initDungeon(newDungeon);
+void genDungeon(Dungeon* dun) {
+  initDungeon(dun);
   
-  addBorders(newDungeon);
+  addBorders(dun);
 
-  placeRooms(newDungeon);
+  placeRooms(dun);
 
-  placeHallways(newDungeon);
+  placeHallways(dun);
 
-  setHardnesses(newDungeon);
-
-  return newDungeon;
+  setHardnesses(dun);
 }
 
 /**
@@ -324,9 +319,8 @@ void saveDungeon(Dungeon* dun, char* saveLoc) {
  * @param LoadLoc     where to load the new dungeon from
  * @return Dungeon*   a pointer to the new dungeon
  */
-Dungeon* loadDungeon(char* loadLoc) {
+void loadDungeon(char* loadLoc, Dungeon* dun) {
   printf("loading\n");
-  Dungeon* newDungeon;
   char* header = malloc(sizeof(char) * 12);
   FILE* file = fopen(loadLoc, "r");
   uint32_t versionMarker;
@@ -335,9 +329,7 @@ Dungeon* loadDungeon(char* loadLoc) {
   Room* currentRoom;
   int roomNum;
 
-  newDungeon = malloc(sizeof(Dungeon));
-
-  initDungeon(newDungeon);
+  initDungeon(dun);
 
   // read the header
   fread(header, 12, 1, file);
@@ -352,7 +344,7 @@ Dungeon* loadDungeon(char* loadLoc) {
   // get the tile info
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
     for(col = 0; col < MAX_DUNGEON_WIDTH; col++) {
-      fread(&newDungeon->map[row][col].hardness, sizeof(uint8_t), 1, file);
+      fread(&dun->map[row][col].hardness, sizeof(uint8_t), 1, file);
     }
   }
 
@@ -363,16 +355,14 @@ Dungeon* loadDungeon(char* loadLoc) {
     fread(&currentRoom->xPos, sizeof(uint8_t), 1, file);
     fread(&currentRoom->height, sizeof(uint8_t), 1, file);
     fread(&currentRoom->width, sizeof(uint8_t), 1, file);
-    addRoomToDungeon(newDungeon, *currentRoom);
-    listAdd(currentRoom, newDungeon->rooms);
+    addRoomToDungeon(dun, *currentRoom);
+    listAdd(currentRoom, dun->rooms);
   }
 
   fclose(file);
 
   // define remaining tiles
-  defineTiles(newDungeon);
-
-  return newDungeon;
+  defineTiles(dun);
 }
 
 /**

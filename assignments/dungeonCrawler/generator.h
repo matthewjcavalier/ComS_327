@@ -30,7 +30,7 @@
  * 
  * @return Dungeon* 
  */
-Dungeon* genDungeon();
+void genDungeon(Dungeon* dun);
 
 /**
  * @brief   Cleans the dungeon and sets all tiles in the
@@ -141,7 +141,7 @@ void saveDungeon(Dungeon* dun, char* saveLoc);
  * @param LoadLoc     where to load the new dungeon from
  * @return Dungeon*   a pointer to the new dungeon
  */
-Dungeon* loadDungeon(char* LoadLoc);
+void loadDungeon(char* LoadLoc, Dungeon* dun);
 
 /**
  * @brief Swaps the endian ness of the input 32 bit

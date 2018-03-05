@@ -147,3 +147,4 @@ bool moveDownLeft(Character* character, MinHeap* turnQueue, Dungeon* dun, Charac
 bool moveLeft(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap);
 int monsterList_routine(Character* pc, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);
 char* getMonsterLocString(int ydiff, int xdiff, char sym);
+void changeLevel(Character* character, MinHeap* turnQueue, Dungeon* dun,Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]);

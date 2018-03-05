@@ -1,40 +1,4 @@
 #include "heap.h"
-/*
-int main() {
-  MinHeap* turnQueue = initHeap(4);
-  Character* newChar;
-  Character* currChar; 
-  Coordinate coord;
-  
-  for(int i = 0; i < turnQueue->maxSize; i++) {
-    newChar = malloc(sizeof(*newChar));
-    coord.row = i;
-    coord.col = i;
-    newChar->coord = coord;
-    newChar->symbol = 'M';
-    newChar->nextEventTime = rand() % 15 + 5;
-    newChar->speed = 15;
-    printf("%d\n", newChar->speed);
-    addToHeap(turnQueue, newChar);
-  }
-  newChar = malloc(sizeof(*newChar));
-  coord.row = 3;
-  coord.col = 3;
-  newChar->coord = coord;
-  newChar->symbol = 'M';
-  newChar->nextEventTime = rand() % 15 + 5;
-  newChar->speed = 15;
-
-  deleteFromHeap(turnQueue, newChar);
-
-  printf("Removing stuff now\n");
-  while(!isHeapEmpty(turnQueue)) {
-    currChar = removeFromHeap(turnQueue);
-    printf("%d\n", currChar->nextEventTime);
-  }
-  return 0;
-}
-*/
 
 MinHeap* initHeap(int size) {
   MinHeap* minHeap = malloc(sizeof(*minHeap));
