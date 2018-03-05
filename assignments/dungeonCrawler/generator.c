@@ -198,6 +198,11 @@ void addRoomToDungeon(Dungeon* dun, Room newRoom) {
   }
 }
 
+/**
+ * @brief 
+ * 
+ * @param dun 
+ */
 void placeHallways(Dungeon* dun) {
   int xPos1, xPos2, yPos1, yPos2, roomNum;
   Node* currentNode;

@@ -103,10 +103,9 @@ back	queue.h	/^  struct CoordQueueNode* back;$/;"	m	struct:CoordQueue	typeref:st
 behind	queue.h	/^  struct CoordQueueNode* behind;$/;"	m	struct:CoordQueueNode	typeref:struct:CoordQueueNode::CoordQueueNode
 bubbleUp	heap.c	/^int bubbleUp(MinHeap* minHeap) {$/;"	f
 canSeePC	crawler.c	/^bool canSeePC(Character* pc, Character* monster, Dungeon* dun) {$/;"	f
-canTunnel	crawler.c	/^bool canTunnel(Character* character) {$/;"	f
 changeLevel	crawler.c	/^void changeLevel(Character* character, MinHeap* turnQueue, Dungeon* dun,Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], Setup setup) {$/;"	f
 characteristics	dungeon.h	/^  char characteristics;$/;"	m	struct:NPC
-cleanPlacementMap	crawler.c	/^ void cleanPlacementMap(Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
+cleanPlacementMap	crawler.c	/^void cleanPlacementMap(Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
 clearRooms	generator.c	/^void clearRooms(Dungeon* dun) {$/;"	f
 col	dungeon.h	/^  int col;$/;"	m	struct:Coordinate
 coord	dungeon.h	/^  struct Coordinate coord;$/;"	m	struct:Character	typeref:struct:Character::Coordinate
@@ -149,13 +148,10 @@ isBorder	dungeon.h	/^  bool isBorder;$/;"	m	struct:__anon2
 isDownstairs	dungeon.h	/^  bool isDownstairs;$/;"	m	struct:__anon2
 isEmpty	queue.c	/^bool isEmpty(CoordQueue* queue) {$/;"	f
 isEmptySpace	crawler.c	/^bool isEmptySpace(Coordinate coord, Dungeon* dun) {$/;"	f
-isErratic	crawler.c	/^bool isErratic(Character* character) {$/;"	f
 isFull	heap.c	/^bool isFull(MinHeap* heap) {$/;"	f
 isHallway	dungeon.h	/^  bool isHallway;$/;"	m	struct:__anon2
 isHeapEmpty	heap.c	/^bool isHeapEmpty(MinHeap* heap) {$/;"	f
-isInteligent	crawler.c	/^bool isInteligent(Character* character) {$/;"	f
 isRoom	dungeon.h	/^  bool isRoom;$/;"	m	struct:__anon2
-isTelepathic	crawler.c	/^bool isTelepathic(Character* character) {$/;"	f
 isUpstairs	dungeon.h	/^  bool isUpstairs;$/;"	m	struct:__anon2
 isValidRoomPlacement	generator.c	/^bool isValidRoomPlacement(int xLoc, int yLoc, Dungeon* dun, Room newRoom) {$/;"	f
 lastKnowPCLoc	dungeon.h	/^  Coordinate lastKnowPCLoc;$/;"	m	struct:NPC

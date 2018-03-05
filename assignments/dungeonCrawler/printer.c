@@ -1,5 +1,10 @@
 #include "printer.h"
 
+/**
+ * @brief 
+ * 
+ * @return int 
+ */
 int startup() {
   initscr();
   noecho();
@@ -8,12 +13,28 @@ int startup() {
   return 0;
 }
 
+/**
+ * @brief 
+ * 
+ * @param row 
+ * @param col 
+ * @param str 
+ * @return int 
+ */
 int drawString(int row, int col, char* str) {
   mvprintw(row, col, str);
   refresh();
   return 0;
 }
 
+/**
+ * @brief 
+ * 
+ * @param row 
+ * @param col 
+ * @param acter 
+ * @return int 
+ */
 int drawCharacter(int row, int col, char character) {
   move(row, col);
   addch(character);
@@ -21,11 +42,22 @@ int drawCharacter(int row, int col, char character) {
   return 0;
 }
 
+/**
+ * @brief 
+ * 
+ * @return int 
+ */
 int tearDown() {
   endwin();
   return 0;
 }
 
+/**
+ * @brief 
+ * 
+ * @param dun 
+ * @return int 
+ */
 int drawStandardDun(Dungeon* dun) {
   int row, col;
   char toPrint = ' ';
@@ -38,6 +70,12 @@ int drawStandardDun(Dungeon* dun) {
   return 0;
 }
 
+/**
+ * @brief 
+ * 
+ * @param dun 
+ * @return int 
+ */
 int drawCoolDun(Dungeon* dun) {
   int row, col;
   char* charToPrint;
@@ -73,6 +111,13 @@ int drawCoolDun(Dungeon* dun) {
   return 0;
 }
 
+/**
+ * @brief 
+ * 
+ * @param dun 
+ * @param setup 
+ * @return int 
+ */
 int drawDungeon(Dungeon* dun, Setup setup) {
   if(setup.useCoolChars == TRUE) {
     return drawCoolDun(dun);
@@ -81,6 +126,12 @@ int drawDungeon(Dungeon* dun, Setup setup) {
   }
 }
 
+/**
+ * @brief 
+ * 
+ * @param placementMap 
+ * @return int 
+ */
 int drawEntities(Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {
   int row, col;
   for(row = 0; row < MAX_DUNGEON_HEIGHT; row++) {
@@ -93,6 +144,14 @@ int drawEntities(Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH])
   return 0;
 }
 
+/**
+ * @brief 
+ * 
+ * @param tile 
+ * @param row 
+ * @param col 
+ * @return char 
+ */
 char getDunChar(Tile tile, int row, int col) {
   char toPrint;
   // if the tile is a border
@@ -123,14 +182,3 @@ char getDunChar(Tile tile, int row, int col) {
   }
   return toPrint;
 }
-
-/*
-int main(int argc, char* argv[]) {
-  startup();
-  drawString(1, 2, "hello curses");
-  sleep(1);
-
-  tearDown();
-  return 0;
-}
-*/
