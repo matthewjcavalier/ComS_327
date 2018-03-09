@@ -1,0 +1,73 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BORDER	dungeon.h	/^  BORDER$/;"	e	enum:TileType
+CC	Makefile	/^CC=g++$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-g -Wall -Werror -std=c++11$/;"	m
+Character	Character.cpp	/^Character::Character() {$/;"	f	class:Character
+Character	Character.cpp	/^Character::Character(Dungeon& dun, int x, int y, char symbol, int speed, int nextEventTime) {$/;"	f	class:Character
+Character	Character.h	/^class Character {$/;"	c
+DEFS_H	dungeon.h	10;"	d
+DUNGEON_H	dungeon.cpp	2;"	d	file:
+DUNGEON_H	game.h	2;"	d
+Dungeon	dungeon.cpp	/^Dungeon::Dungeon() {$/;"	f	class:Dungeon
+Dungeon	dungeon.h	/^class Dungeon {$/;"	c
+GAME_H	game.cpp	2;"	d	file:
+HALL	dungeon.h	/^  HALL,$/;"	e	enum:TileType
+IOSTREAM	dungeon.h	14;"	d
+IOSTREAM	game.h	18;"	d
+MAX_HARDNESS	defs.h	1;"	d
+MAX_HEIGHT	defs.h	3;"	d
+MAX_WIDTH	defs.h	2;"	d
+MIN_ROOM_COUNT	defs.h	6;"	d
+MIN_ROOM_HEIGHT	defs.h	4;"	d
+MIN_ROOM_WIDTH	defs.h	5;"	d
+REQ	Makefile	/^REQ=clean dungeon.o game.cpp genCtags$/;"	m
+ROCK	dungeon.h	/^  ROCK,$/;"	e	enum:TileType
+ROOM	dungeon.h	/^  ROOM,$/;"	e	enum:TileType
+Room	dungeon.cpp	/^Room::Room() {$/;"	f	class:Room
+Room	dungeon.cpp	/^Room::Room(int y, int x, int height, int width) {$/;"	f	class:Room
+Room	dungeon.h	/^class Room {$/;"	c
+STDLIB_H	dungeon.h	2;"	d
+STDLIB_H	game.h	10;"	d
+STDLIB_H	game.h	6;"	d
+Settings	game.h	/^class Settings{$/;"	c
+TIME_H	game.h	14;"	d
+Tile	dungeon.cpp	/^Tile::Tile(TileType type) {$/;"	f	class:Tile
+Tile	dungeon.h	/^class Tile {$/;"	c
+TileType	dungeon.h	/^enum TileType {$/;"	g
+VECTOR	dungeon.h	6;"	d
+addHallways	dungeon.cpp	/^void Dungeon::addHallways() {$/;"	f	class:Dungeon
+addRooms	dungeon.cpp	/^void Dungeon::addRooms(int numRooms) {$/;"	f	class:Dungeon
+draw	dungeon.cpp	/^void Dungeon::draw() {$/;"	f	class:Dungeon
+dun	Character.h	/^    Dungeon dun;$/;"	m	class:Character
+dungeonInit	game.cpp	/^Dungeon dungeonInit() {$/;"	f
+genBaseDun	dungeon.cpp	/^void Dungeon::genBaseDun() {$/;"	f	class:Dungeon
+hardness	dungeon.h	/^    int hardness;$/;"	m	class:Tile
+height	dungeon.h	/^    int height;$/;"	m	class:Room
+load	game.h	/^    bool load;$/;"	m	class:Settings
+main	game.cpp	/^int main(int argc, char* argv[]) {$/;"	f
+makeBorder	dungeon.cpp	/^void Tile::makeBorder() {$/;"	f	class:Tile
+makePathToRoom	dungeon.cpp	/^void  Dungeon::makePathToRoom(Room from, Room to) {$/;"	f	class:Dungeon
+map	dungeon.h	/^    vector <vector<Tile>> map;$/;"	m	class:Dungeon
+nextEventTime	Character.h	/^    int nextEventTime;$/;"	m	class:Character
+noOverlapFound	dungeon.cpp	/^bool Dungeon::noOverlapFound(Room newRoom) {$/;"	f	class:Dungeon
+putRoomsInDungeon	dungeon.cpp	/^void Dungeon::putRoomsInDungeon() {$/;"	f	class:Dungeon
+rooms	dungeon.h	/^    vector<Room> rooms;$/;"	m	class:Dungeon
+save	game.h	/^    bool save;$/;"	m	class:Settings
+seed	game.h	/^    int seed;$/;"	m	class:Settings
+setSettings	game.cpp	/^void setSettings(int argc, char* argv[]) {$/;"	f
+setType	dungeon.cpp	/^void Tile::setType(TileType type) {$/;"	f	class:Tile
+settings	game.cpp	/^Settings settings;$/;"	v
+speed	Character.h	/^    int speed;$/;"	m	class:Character
+symbol	Character.h	/^    char symbol;$/;"	m	class:Character
+takeTurn	Character.cpp	/^void Character::takeTurn() {$/;"	f	class:Character
+type	dungeon.h	/^    TileType type;$/;"	m	class:Tile
+width	dungeon.h	/^    int width;$/;"	m	class:Room
+x	Character.h	/^    int x;$/;"	m	class:Character
+x	dungeon.h	/^    int x;$/;"	m	class:Room
+y	Character.h	/^    int y;$/;"	m	class:Character
+y	dungeon.h	/^    int y;$/;"	m	class:Room
