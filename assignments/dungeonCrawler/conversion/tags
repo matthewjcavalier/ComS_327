@@ -62,6 +62,7 @@ putRoomsInDungeon	dungeon.cpp	/^void Dungeon::putRoomsInDungeon() {$/;"	f	class:
 readRooms	dungeon.cpp	/^void Dungeon::readRooms(FILE* file, int fileSize) {$/;"	f	class:Dungeon
 readTiles	dungeon.cpp	/^void Dungeon::readTiles(FILE* file) {$/;"	f	class:Dungeon
 rooms	dungeon.h	/^    vector<Room> rooms;$/;"	m	class:Dungeon
+save	dungeon.cpp	/^void Dungeon::save(string loc) {$/;"	f	class:Dungeon
 save	game.h	/^    bool save;$/;"	m	class:Settings
 seed	game.h	/^    int seed;$/;"	m	class:Settings
 setSettings	game.cpp	/^void setSettings(int argc, char* argv[]) {$/;"	f

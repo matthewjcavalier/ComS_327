@@ -12,7 +12,12 @@ int main(int argc, char* argv[]) {
   cout<<"Using Seed: "<< settings.seed <<endl;
   // get the basic dungeon
   Dungeon dun = dungeonInit();
+
   dun.draw();
+
+  if(settings.save) {
+    dun.save(settings.loadSaveLoc);
+  }
 }
 
 void setSettings(int argc, char* argv[]) {
@@ -25,6 +30,7 @@ void setSettings(int argc, char* argv[]) {
     }
     if(strcmp("--save", argv[i]) == 0) {
       settings.save = true;
+      settings.loadSaveLoc = home + loadLocSubPath;
     }
     if(strcmp("--load", argv[i]) == 0) {
       settings.load = true;

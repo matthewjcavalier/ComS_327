@@ -51,6 +51,7 @@ class Dungeon {
 
     Dungeon(); 
     Dungeon(string loc);
+    void save(string loc);
     void draw();
 
   private:

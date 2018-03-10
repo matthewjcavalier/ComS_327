@@ -15,8 +15,11 @@ void Tile::setType(TileType type) {
       hardness = MAX_HARDNESS;
       break;
     case HALL:
+      hardness = 0;
+      break;
     case ROOM:
       hardness = 0;
+      break;
     case ROCK:
       hardness = rand() % MAX_HARDNESS;
       break;
@@ -210,6 +213,34 @@ void  Dungeon::makePathToRoom(Room from, Room to) {
       map[currY][currX].setType(HALL);
     }
   }
+}
+
+void Dungeon::save(string loc) {
+  FILE* file = fopen(loc.c_str(), "w");
+  char str[] = {'R','L','G','3','2','7','-','S','2','0','1','8'};
+  uint32_t version = 0;
+  uint32_t roomStorageSize = 4; //bytes
+  uint32_t fileSize = 1700 + (roomStorageSize * rooms.size());
+
+  fileSize = endianSwap_uInt(fileSize);
+
+  fwrite(str, sizeof(str), 1, file);
+  fwrite(&version, sizeof(uint32_t), 1, file);
+  fwrite(&fileSize, sizeof(uint32_t), 1, file);
+
+  for(int row = 0; row < MAX_HEIGHT; row++) {
+    for(int col = 0; col < MAX_WIDTH; col++) {
+      fwrite(&map[row][col].hardness, sizeof(uint8_t), 1, file);
+    }
+  }
+
+  for(int i = 0; i < (int) rooms.size(); i++) {
+    fwrite(&rooms[i].y, sizeof(uint8_t), 1, file);
+    fwrite(&rooms[i].x, sizeof(uint8_t), 1, file);
+    fwrite(&rooms[i].height, sizeof(uint8_t), 1, file);
+    fwrite(&rooms[i].width, sizeof(uint8_t), 1, file);
+  }
+  fclose(file);
 }
 
 void Dungeon::draw() {
