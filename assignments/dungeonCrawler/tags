@@ -5,10 +5,13 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 -log-file	Makefile	/^	valgrind --log-file="valgrind_output.txt" --leak-check=full .\/debug$/;"	m
+BORDER	conversion/dungeon.h	/^  BORDER$/;"	e	enum:TileType
 BORDER_HOR_CHAR	dungeon.h	24;"	d
 BORDER_VERT_CHAR	dungeon.h	25;"	d
 CC	Makefile	/^CC=gcc$/;"	m
+CC	conversion/Makefile	/^CC=g++$/;"	m
 CFLAGS	Makefile	/^CFLAGS=-Wall -Werror -std=gnu99$/;"	m
+CFLAGS	conversion/Makefile	/^CFLAGS=-g -Wall -Werror -std=c++11$/;"	m
 COOL_BORDER_BOTTOM_LEFT	dungeon.h	37;"	d
 COOL_BORDER_BOTTOM_RIGHT	dungeon.h	38;"	d
 COOL_BORDER_HOR	dungeon.h	40;"	d
@@ -20,6 +23,9 @@ COOL_ROCK	dungeon.h	34;"	d
 COOL_ROOM_CHAR	dungeon.h	31;"	d
 CRAWLER_H	printer.h	14;"	d
 CURSES_H	dungeon.h	6;"	d
+Character	conversion/Character.cpp	/^Character::Character() {$/;"	f	class:Character
+Character	conversion/Character.cpp	/^Character::Character(Dungeon& dun, int x, int y, char symbol, int speed, int nextEventTime) {$/;"	f	class:Character
+Character	conversion/Character.h	/^class Character {$/;"	c
 Character	dungeon.h	/^typedef struct Character {$/;"	s
 Character	dungeon.h	/^} Character;$/;"	t	typeref:struct:Character
 CoordQueue	queue.h	/^typedef struct CoordQueue {$/;"	s
@@ -28,31 +34,47 @@ CoordQueueNode	queue.h	/^typedef struct CoordQueueNode {$/;"	s
 CoordQueueNode	queue.h	/^} CoordQueueNode;$/;"	t	typeref:struct:CoordQueueNode
 Coordinate	dungeon.h	/^typedef struct Coordinate {$/;"	s
 Coordinate	dungeon.h	/^} Coordinate;$/;"	t	typeref:struct:Coordinate
+DEFS_H	conversion/dungeon.h	10;"	d
+DUNGEON_H	conversion/dungeon.cpp	2;"	d	file:
+DUNGEON_H	conversion/game.h	2;"	d
 DUNGEON_H	generator.h	22;"	d
 DUNGEON_H	heap.h	6;"	d
 DUNGEON_H	pathFinding.h	2;"	d
 DUNGEON_H	printer.h	10;"	d
 DUNGEON_H	queue.h	2;"	d
+Dungeon	conversion/dungeon.cpp	/^Dungeon::Dungeon() {$/;"	f	class:Dungeon
+Dungeon	conversion/dungeon.cpp	/^Dungeon::Dungeon(string loc) {$/;"	f	class:Dungeon
+Dungeon	conversion/dungeon.h	/^class Dungeon {$/;"	c
 Dungeon	dungeon.h	/^} Dungeon;$/;"	t	typeref:struct:__anon3
 ELEMENT_NOT_FOUND	heap.h	21;"	d
 ERRATIC_BIT	dungeon.h	22;"	d
 EXPECTED_ROOM_COUNT	dungeon.h	16;"	d
+GAME_H	conversion/game.cpp	2;"	d	file:
 GENERATOR_H	crawler.h	14;"	d
+HALL	conversion/dungeon.h	/^  HALL,$/;"	e	enum:TileType
 HALL_CHAR	dungeon.h	27;"	d
 HEAP_H	crawler.h	22;"	d
 HEAP_OVERFLOW	heap.h	20;"	d
 INTELLIGENCE_BIT	dungeon.h	19;"	d
 INVALID_INDEX_EXCEPTION	list.h	10;"	d
+IOSTREAM	conversion/dungeon.h	14;"	d
+IOSTREAM	conversion/game.h	18;"	d
 LIMITS_H	pathFinding.h	10;"	d
 LIST_H	generator.h	18;"	d
 List	list.h	/^typedef struct List{$/;"	s
 List	list.h	/^} List;$/;"	t	typeref:struct:List
 MAX_DUNGEON_HEIGHT	dungeon.h	10;"	d
 MAX_DUNGEON_WIDTH	dungeon.h	11;"	d
+MAX_HARDNESS	conversion/defs.h	1;"	d
+MAX_HEIGHT	conversion/defs.h	3;"	d
 MAX_ROCK_HARDNESS	dungeon.h	12;"	d
+MAX_WIDTH	conversion/defs.h	2;"	d
 MIN_ROCK_HARDNESS	dungeon.h	13;"	d
+MIN_ROOM_COUNT	conversion/defs.h	6;"	d
 MIN_ROOM_COUNT	dungeon.h	17;"	d
+MIN_ROOM_HEIGHT	conversion/defs.h	4;"	d
 MIN_ROOM_HEIGHT	dungeon.h	14;"	d
+MIN_ROOM_WIDTH	conversion/defs.h	5;"	d
 MIN_ROOM_WIDTH	dungeon.h	15;"	d
 MinHeap	heap.h	/^typedef struct MinHeap {$/;"	s
 MinHeap	heap.h	/^} MinHeap;$/;"	t	typeref:struct:MinHeap
@@ -69,7 +91,13 @@ PRINTER_H	crawler.h	30;"	d
 Player	dungeon.h	/^typedef struct Player {$/;"	s
 Player	dungeon.h	/^} Player;$/;"	t	typeref:struct:Player
 QUEUE_H	pathFinding.h	14;"	d
+REQ	conversion/Makefile	/^REQ=clean dungeon.o game.cpp genCtags$/;"	m
+ROCK	conversion/dungeon.h	/^  ROCK,$/;"	e	enum:TileType
+ROOM	conversion/dungeon.h	/^  ROOM,$/;"	e	enum:TileType
 ROOM_CHAR	dungeon.h	26;"	d
+Room	conversion/dungeon.cpp	/^Room::Room() {$/;"	f	class:Room
+Room	conversion/dungeon.cpp	/^Room::Room(int y, int x, int height, int width) {$/;"	f	class:Room
+Room	conversion/dungeon.h	/^class Room {$/;"	c
 Room	dungeon.h	/^} Room;$/;"	t	typeref:struct:__anon1
 STDINT_H	dungeon.h	2;"	d
 STDINT_H	generator.h	14;"	d
@@ -77,6 +105,9 @@ STDINT_H	heap.h	10;"	d
 STDIO_H	generator.h	2;"	d
 STDIO_H	list.h	6;"	d
 STDIO_H	queue.h	10;"	d
+STDLIB_H	conversion/dungeon.h	2;"	d
+STDLIB_H	conversion/game.h	10;"	d
+STDLIB_H	conversion/game.h	6;"	d
 STDLIB_H	crawler.h	10;"	d
 STDLIB_H	generator.h	6;"	d
 STDLIB_H	heap.h	14;"	d
@@ -84,18 +115,27 @@ STDLIB_H	heap.h	2;"	d
 STDLIB_H	list.h	2;"	d
 STDLIB_H	pathFinding.h	6;"	d
 STDLIB_H	queue.h	6;"	d
+STRING	conversion/game.h	22;"	d
 STRING_H	crawler.h	6;"	d
 STRING_H	generator.h	10;"	d
+Settings	conversion/game.h	/^class Settings{$/;"	c
 Setup	dungeon.h	/^typedef struct Setup{$/;"	s
 Setup	dungeon.h	/^} Setup;$/;"	t	typeref:struct:Setup
 TELEPATHY_BIT	dungeon.h	20;"	d
+TIME_H	conversion/game.h	14;"	d
 TIME_H	crawler.h	2;"	d
 TUNNELING_BIT	dungeon.h	21;"	d
+Tile	conversion/dungeon.cpp	/^Tile::Tile(TileType type) {$/;"	f	class:Tile
+Tile	conversion/dungeon.h	/^class Tile {$/;"	c
 Tile	dungeon.h	/^} Tile;$/;"	t	typeref:struct:__anon2
+TileType	conversion/dungeon.h	/^enum TileType {$/;"	g
 UNISTD_H	crawler.h	26;"	d
 UNISTD_H	printer.h	6;"	d
+VECTOR	conversion/dungeon.h	6;"	d
 addBorders	generator.c	/^void addBorders(Dungeon* dun) {$/;"	f
+addHallways	conversion/dungeon.cpp	/^void Dungeon::addHallways() {$/;"	f	class:Dungeon
 addRoomToDungeon	generator.c	/^void addRoomToDungeon(Dungeon* dun, Room newRoom) {$/;"	f
+addRooms	conversion/dungeon.cpp	/^void Dungeon::addRooms(int numRooms) {$/;"	f	class:Dungeon
 addToHeap	heap.c	/^int addToHeap(MinHeap* minHeap, Character* character) {$/;"	f
 ahead	queue.h	/^  struct CoordQueueNode* ahead;$/;"	m	struct:CoordQueueNode	typeref:struct:CoordQueueNode::CoordQueueNode
 arr	heap.h	/^  struct Character** arr;$/;"	m	struct:MinHeap	typeref:struct:MinHeap::Character
@@ -114,17 +154,22 @@ dataPtr	list.h	/^  void* dataPtr;$/;"	m	struct:Node
 defineTiles	generator.c	/^void defineTiles(Dungeon* dun) {$/;"	f
 deleteFromHeap	heap.c	/^int deleteFromHeap(MinHeap* heap, Character* toRemove) {$/;"	f
 dequeue	queue.c	/^void dequeue(CoordQueue* queue, Coordinate* coord) {$/;"	f
+draw	conversion/dungeon.cpp	/^void Dungeon::draw() {$/;"	f	class:Dungeon
 drawCharacter	printer.c	/^int drawCharacter(int row, int col, char character) {$/;"	f
 drawCoolDun	printer.c	/^int drawCoolDun(Dungeon* dun) {$/;"	f
 drawDungeon	printer.c	/^int drawDungeon(Dungeon* dun, Setup setup) {$/;"	f
 drawEntities	printer.c	/^int drawEntities(Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
 drawStandardDun	printer.c	/^int drawStandardDun(Dungeon* dun) {$/;"	f
 drawString	printer.c	/^int drawString(int row, int col, char* str) {$/;"	f
+dun	conversion/Character.h	/^    Dungeon dun;$/;"	m	class:Character
+dungeonInit	conversion/game.cpp	/^Dungeon dungeonInit() {$/;"	f
+endianSwap_uInt	conversion/dungeon.cpp	/^uint32_t Dungeon:: endianSwap_uInt(int input) {$/;"	f	class:Dungeon
 endianSwap_uInt	generator.c	/^uint32_t endianSwap_uInt(uint32_t input) {$/;"	f
 enqueue	queue.c	/^void enqueue(CoordQueue* queue, Coordinate coord) {$/;"	f
 fillLogic	pathFinding.c	/^void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, bool canBurrow, Coordinate neighbor, Coordinate current) {$/;"	f
 fillMap	pathFinding.c	/^void fillMap(Dungeon* dun, int** map, CoordQueue* queue, bool canBurrow) {$/;"	f
 front	queue.h	/^  struct CoordQueueNode* front;$/;"	m	struct:CoordQueue	typeref:struct:CoordQueue::CoordQueueNode
+genBaseDun	conversion/dungeon.cpp	/^void Dungeon::genBaseDun() {$/;"	f	class:Dungeon
 genDungeon	generator.c	/^void genDungeon(Dungeon* dun) {$/;"	f
 getDunChar	printer.c	/^char getDunChar(Tile tile, int row, int col) {$/;"	f
 getEmptySpot	crawler.c	/^Coordinate getEmptySpot(Dungeon* dun,Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
@@ -135,9 +180,11 @@ getNextPlacementTunneling	crawler.c	/^Coordinate getNextPlacementTunneling(int**
 getPathMapEverywhere	pathFinding.c	/^int** getPathMapEverywhere(Coordinate* pc, Dungeon* dun) {$/;"	f
 getPathMapOnlyOpenArea	pathFinding.c	/^int** getPathMapOnlyOpenArea(Coordinate* pc, Dungeon* dun){$/;"	f
 getSymbol	crawler.c	/^char getSymbol(char ristics) {$/;"	f
+hardness	conversion/dungeon.h	/^    int hardness;$/;"	m	class:Tile
 hardness	dungeon.h	/^  uint8_t hardness;$/;"	m	struct:__anon2
 hasSeenPC	dungeon.h	/^  bool hasSeenPC;$/;"	m	struct:NPC
 head	list.h	/^  struct Node* head;$/;"	m	struct:List	typeref:struct:List::Node
+height	conversion/dungeon.h	/^    uint8_t height;$/;"	m	class:Room
 height	dungeon.h	/^  uint8_t height;$/;"	m	struct:__anon1
 initCoordQueue	queue.c	/^CoordQueue* initCoordQueue() {$/;"	f
 initDungeon	generator.c	/^void initDungeon(Dungeon* dun) {$/;"	f
@@ -158,11 +205,16 @@ lastKnowPCLoc	dungeon.h	/^  Coordinate lastKnowPCLoc;$/;"	m	struct:NPC
 length	list.h	/^  int length;$/;"	m	struct:List
 listAdd	list.c	/^void listAdd(void* dataPtr, List* list) {$/;"	f
 listRemove	list.c	/^void listRemove(int index, List* list) {$/;"	f
+load	conversion/game.h	/^    bool load;$/;"	m	class:Settings
 load	dungeon.h	/^  bool load;$/;"	m	struct:Setup
 loadDungeon	generator.c	/^void loadDungeon(char* loadLoc, Dungeon* dun) {$/;"	f
+loadSaveLoc	conversion/game.h	/^    string loadSaveLoc;$/;"	m	class:Settings
+main	conversion/game.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 main	crawler.c	/^int main(int argc, char* argv[]) {$/;"	f
 makeNode	list.c	/^Node* makeNode(void* dataPtr) {$/;"	f
+makePathToRoom	conversion/dungeon.cpp	/^void  Dungeon::makePathToRoom(Room from, Room to) {$/;"	f	class:Dungeon
 makePathToRoom	generator.c	/^void makePathToRoom(int row1, int col1, int row2, int col2, Dungeon* dun){$/;"	f
+map	conversion/dungeon.h	/^    vector <vector<Tile>> map;$/;"	m	class:Dungeon
 map	dungeon.h	/^  Tile map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH];$/;"	m	struct:__anon3
 maxNumMonsters	crawler.c	/^int maxNumMonsters = 0;$/;"	v
 maxSize	heap.h	/^  int maxSize;$/;"	m	struct:MinHeap
@@ -181,7 +233,9 @@ moveUp	crawler.c	/^bool moveUp(Character* character, MinHeap* turnQueue, Dungeon
 moveUpLeft	crawler.c	/^bool moveUpLeft(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {$/;"	f
 moveUpRight	crawler.c	/^bool moveUpRight(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {$/;"	f
 next	list.h	/^  struct Node* next;$/;"	m	struct:Node	typeref:struct:Node::Node
+nextEventTime	conversion/Character.h	/^    int nextEventTime;$/;"	m	class:Character
 nextEventTime	dungeon.h	/^  int nextEventTime;$/;"	m	struct:Character
+noOverlapFound	conversion/dungeon.cpp	/^bool Dungeon::noOverlapFound(Room newRoom) {$/;"	f	class:Dungeon
 nonEraticMovment	crawler.c	/^void nonEraticMovment(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap, Character* pc, char characteristics) {$/;"	f
 npc	dungeon.h	/^  struct NPC* npc;$/;"	m	struct:Character	typeref:struct:Character::NPC
 numMonsters	dungeon.h	/^  int numMonsters;$/;"	m	struct:Setup
@@ -197,25 +251,44 @@ printCoolDun	crawler.c	/^void printCoolDun(Dungeon* dun, Character* placementMap
 printDungeon	crawler.c	/^void printDungeon(Dungeon* dun, Setup setup, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
 printPathMap	crawler.c	/^void printPathMap(int** tunnelingMap, Player* pc) {$/;"	f
 printStandardDun	crawler.c	/^void printStandardDun(Dungeon* dun, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
+putRoomsInDungeon	conversion/dungeon.cpp	/^void Dungeon::putRoomsInDungeon() {$/;"	f	class:Dungeon
 randomlyPlace	crawler.c	/^void randomlyPlace(Coordinate* coord, Dungeon* dun) {$/;"	f
+readRooms	conversion/dungeon.cpp	/^void Dungeon::readRooms(FILE* file, int fileSize) {$/;"	f	class:Dungeon
+readTiles	conversion/dungeon.cpp	/^void Dungeon::readTiles(FILE* file) {$/;"	f	class:Dungeon
 removeFromHeap	heap.c	/^Character* removeFromHeap(MinHeap* heap) {$/;"	f
+rooms	conversion/dungeon.h	/^    vector<Room> rooms;$/;"	m	class:Dungeon
 rooms	dungeon.h	/^  struct List* rooms;$/;"	m	struct:__anon3	typeref:struct:__anon3::List
 row	dungeon.h	/^  int row;$/;"	m	struct:Coordinate
 runGame	crawler.c	/^void runGame(Dungeon* dun, Setup setup) {$/;"	f
+save	conversion/game.h	/^    bool save;$/;"	m	class:Settings
 save	dungeon.h	/^  bool save;$/;"	m	struct:Setup
 saveDungeon	generator.c	/^void saveDungeon(Dungeon* dun, char* saveLoc) {$/;"	f
 saveLoadLocation	dungeon.h	/^  char* saveLoadLocation;$/;"	m	struct:Setup
+seed	conversion/game.h	/^    int seed;$/;"	m	class:Settings
 seed	dungeon.h	/^  int seed;$/;"	m	struct:Setup
 setHardnesses	generator.c	/^void setHardnesses(Dungeon* dun) {$/;"	f
+setSettings	conversion/game.cpp	/^void setSettings(int argc, char* argv[]) {$/;"	f
+setType	conversion/dungeon.cpp	/^void Tile::setType(TileType type) {$/;"	f	class:Tile
+setType	conversion/dungeon.cpp	/^void Tile::setType(int hardness) {$/;"	f	class:Tile
+settings	conversion/game.cpp	/^Settings settings;$/;"	v
 size	heap.h	/^  int size;$/;"	m	struct:MinHeap
 size	queue.h	/^  int size;$/;"	m	struct:CoordQueue
+speed	conversion/Character.h	/^    int speed;$/;"	m	class:Character
 speed	dungeon.h	/^  int speed;$/;"	m	struct:Character
 startup	printer.c	/^int startup() {$/;"	f
+symbol	conversion/Character.h	/^    char symbol;$/;"	m	class:Character
 symbol	dungeon.h	/^  char symbol;$/;"	m	struct:Character
 tail	list.h	/^  struct Node* tail;$/;"	m	struct:List	typeref:struct:List::Node
+takeTurn	conversion/Character.cpp	/^void Character::takeTurn() {$/;"	f	class:Character
 tearDown	printer.c	/^int tearDown() {$/;"	f
+type	conversion/dungeon.h	/^    TileType type;$/;"	m	class:Tile
 updateSeed	crawler.c	/^void updateSeed(Dungeon* dun) {$/;"	f
 useCoolChars	dungeon.h	/^  bool useCoolChars;$/;"	m	struct:Setup
+width	conversion/dungeon.h	/^    uint8_t width;$/;"	m	class:Room
 width	dungeon.h	/^  uint8_t width;$/;"	m	struct:__anon1
+x	conversion/Character.h	/^    int x;$/;"	m	class:Character
+x	conversion/dungeon.h	/^    uint8_t x;$/;"	m	class:Room
 xPos	dungeon.h	/^  uint8_t xPos;$/;"	m	struct:__anon1
+y	conversion/Character.h	/^    int y;$/;"	m	class:Character
+y	conversion/dungeon.h	/^    uint8_t y;$/;"	m	class:Room
 yPos	dungeon.h	/^  uint8_t yPos;$/;"	m	struct:__anon1

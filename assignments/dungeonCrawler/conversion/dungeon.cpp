@@ -23,9 +23,18 @@ void Tile::setType(TileType type) {
   }
 }
 
-void Tile::makeBorder() {
-  type = BORDER;
-  hardness = MAX_HARDNESS;
+void Tile::setType(int hardness) {
+  this->hardness = hardness;
+  switch(hardness) {
+    case(MAX_HARDNESS):
+      type = BORDER;
+      break;
+    case(0):
+      type = HALL;
+      break;
+    default:
+      type = ROCK;
+  }
 }
 
 Room::Room() {
@@ -47,6 +56,68 @@ Dungeon::Dungeon() {
   genBaseDun();
   addRooms(MIN_ROOM_COUNT);
   addHallways();
+}
+
+Dungeon::Dungeon(string loc) {
+  char* header = (char*)malloc(sizeof(char) * 12);
+  FILE* file = fopen(loc.c_str(), "r");
+  uint32_t versionMarker;
+  uint32_t fileSize;
+
+  genBaseDun();
+
+  // read the header
+  fread(header, 12, 1, file);
+
+  // get version marker
+  fread(&versionMarker, sizeof(uint32_t), 1, file);
+
+  // get the size of the file
+  fread(&fileSize, sizeof(uint32_t), 1, file);
+  fileSize = endianSwap_uInt(fileSize);
+
+  // set cell types and hardnesses
+  readTiles(file);
+  
+  readRooms(file, fileSize);
+
+  fclose(file);
+
+  free(header);
+}
+
+uint32_t Dungeon:: endianSwap_uInt(int input) {
+  uint32_t leftMost = (input << 8 * 3) & 0xff000000;
+  uint32_t left = (input << 8) & 0x00ff0000;
+  uint32_t right = (input >> 8) & 0x0000ff00;
+  uint32_t rightMost = (input >> 8 * 3) & 0x000000ff;
+  uint32_t ret = leftMost + left + right + rightMost;
+  
+  return ret;
+}
+
+void Dungeon::readTiles(FILE* file) {
+  for(int row = 0; row < MAX_HEIGHT; row++) {
+    for(int col = 0; col < MAX_WIDTH; col++) {
+      uint8_t hardness;
+      fread(&hardness, sizeof(uint8_t), 1, file);
+      map[row][col].setType(hardness);
+    }
+  }
+}
+
+void Dungeon::readRooms(FILE* file, int fileSize) {
+  for(int roomNum = 0; roomNum < (int) (fileSize - 1700) / 4; roomNum++) {
+
+    Room newRoom;
+    fread(&newRoom.y, sizeof(uint8_t), 1, file);
+    fread(&newRoom.x, sizeof(uint8_t), 1, file);
+    fread(&newRoom.height, sizeof(uint8_t), 1, file);
+    fread(&newRoom.width, sizeof(uint8_t), 1, file);
+
+    rooms.push_back(newRoom);
+  }
+  putRoomsInDungeon();
 }
 
 void Dungeon::genBaseDun() {

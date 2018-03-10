@@ -18,12 +18,17 @@
   #define IOSTREAM
   #include <iostream>
 #endif
+#ifndef STRING
+  #define STRING
+  #include <string>
+#endif
 
 class Settings{
   public:
     int seed;
     bool load;
     bool save;
+    string loadSaveLoc;
 };
 
 Dungeon dungeonInit();

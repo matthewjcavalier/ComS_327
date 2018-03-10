@@ -13,4 +13,4 @@ clean:
 genCtags:
 	ctags -R
 run: all
-	./game
+	./game --load

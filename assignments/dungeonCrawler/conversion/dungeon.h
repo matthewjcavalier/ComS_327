@@ -28,19 +28,19 @@ enum TileType {
 class Tile {
   public:
     TileType type;
-    int hardness;
+    uint8_t hardness;
 
     Tile(TileType type);
-    void makeBorder();
-    void setType(TileType);
+    void setType(TileType type);
+    void setType(int hardness);
 };
 
 class Room {
   public:
-    int x;
-    int y;
-    int height;
-    int width;
+    uint8_t x;
+    uint8_t y;
+    uint8_t height;
+    uint8_t width;
     Room();
     Room(int y, int x, int height, int width);
 };
@@ -50,6 +50,7 @@ class Dungeon {
     vector <vector<Tile>> map;
 
     Dungeon(); 
+    Dungeon(string loc);
     void draw();
 
   private:
@@ -60,4 +61,7 @@ class Dungeon {
     void addHallways();
     bool noOverlapFound(Room newRoom);
     void putRoomsInDungeon();
+    void readTiles(FILE* file);
+    void readRooms(FILE* file, int fileSize);
+    uint32_t endianSwap_uInt(int input);
 };

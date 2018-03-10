@@ -16,6 +16,8 @@ int main(int argc, char* argv[]) {
 }
 
 void setSettings(int argc, char* argv[]) {
+  string home(getenv("HOME"));
+  string loadLocSubPath("/.rlg327/dungeon");
   for(int i = 0; i < argc; i++) {
     if(strcmp("--s", argv[i]) == 0 && i != argc -1) {
       cout << argv[i+1] << endl;
@@ -26,6 +28,7 @@ void setSettings(int argc, char* argv[]) {
     }
     if(strcmp("--load", argv[i]) == 0) {
       settings.load = true;
+      settings.loadSaveLoc = home + loadLocSubPath;
     }
   }
 
@@ -40,6 +43,11 @@ void setSettings(int argc, char* argv[]) {
 }
 
 Dungeon dungeonInit() {
-  Dungeon dun = Dungeon();
+  Dungeon dun;
+  if(settings.load) {
+    dun = Dungeon(settings.loadSaveLoc);
+  } else {
+    dun = Dungeon();
+  }
   return dun;
 }
