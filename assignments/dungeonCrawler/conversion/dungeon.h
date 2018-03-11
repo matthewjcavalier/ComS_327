@@ -14,6 +14,10 @@
   #define IOSTREAM
   #include <iostream>
 #endif
+#ifndef CLIMITS
+  #define CLIMITS
+  #include <climits>
+#endif
 
 
 using namespace std;
@@ -23,6 +27,30 @@ enum TileType {
   HALL,
   ROOM,
   BORDER
+};
+
+class Coordinate {
+  public:
+    int x;
+    int y;
+    Coordinate() {
+      x = 0;
+      y = 0;
+    }
+    Coordinate(int y, int x) {
+      this->y = y;
+      this->x = x;
+    }
+};
+
+class CoordPair {
+  public:
+    Coordinate initial;
+    Coordinate comparingTo;
+    CoordPair(Coordinate initial, Coordinate comparingTo) {
+      this->initial = initial;
+      this->comparingTo = comparingTo;
+    }
 };
 
 class Tile {
@@ -48,11 +76,15 @@ class Room {
 class Dungeon {
   public:
     vector <vector<Tile>> map;
+    vector <vector<int>> tunnelMap;
+    vector <vector<int>> openMap;
 
     Dungeon(); 
     Dungeon(string loc);
     void save(string loc);
     void draw();
+    void updateDistMaps();
+    vector<vector<int>> genOpenMap(int y, int x);
 
   private:
     vector<Room> rooms;
@@ -65,4 +97,9 @@ class Dungeon {
     void readTiles(FILE* file);
     void readRooms(FILE* file, int fileSize);
     uint32_t endianSwap_uInt(int input);
+    void fillDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, bool canTunnel);
+    void updateDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, CoordPair pair, bool canTunnel);
 };
+
+
+vector<vector<int>> getEmptyMap();

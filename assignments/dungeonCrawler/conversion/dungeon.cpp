@@ -263,3 +263,98 @@ void Dungeon::draw() {
     cout<<endl;
   }
 }
+
+void Dungeon::updateDistMaps() {
+  int y = 5;
+  int x = 60;
+  openMap = genOpenMap(y, x);
+
+  for(int row = 0; row < MAX_HEIGHT; row++) {
+    for(int col = 0; col < MAX_WIDTH; col++) {
+      if(row == 5 && col == 60) {
+        cout << "@";
+      } else {
+        if(openMap[row][col] == INT_MAX){
+          cout << " ";
+        } else {
+          cout << openMap[row][col] % 10;
+        }
+      }
+    }
+    cout << endl;
+  }
+}
+
+vector<vector<int>> Dungeon::genOpenMap(int y, int x) {
+  vector<vector<int>> distMap = getEmptyMap();
+  distMap[y][x] = 0;
+  vector<Coordinate> queue;
+  Coordinate initial(y,x);
+  queue.push_back(initial);
+
+  fillDistMap(distMap, queue, false);
+
+  return distMap;
+}
+
+void Dungeon::fillDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, bool canTunnel) {
+  while(queue.size() > 0) {
+    Coordinate coord = queue[0];
+    queue.erase(queue.begin());
+
+    for(int y = coord.y - 1; y < coord.y + 2; y++) {
+      for(int x = coord.x - 1; x < coord.x + 2; x++) {
+        Coordinate current(y, x);
+        CoordPair pair(coord, current);
+        updateDistMap(distMap, queue, pair, canTunnel);
+        for(int row = 0; row < MAX_HEIGHT; row++) {
+          for(int col = 0; col < MAX_WIDTH; col++) {
+            if(row == 5 && col == 60) {
+              cout << "@";
+            } else {
+              if(distMap[row][col] == INT_MAX){
+                cout << " ";
+              } else {
+                cout << distMap[row][col] % 10;
+              }
+            }
+          }
+          cout << endl;
+        }
+      }
+    }
+  }
+}
+
+void Dungeon::updateDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, CoordPair pair, bool canTunnel) {
+  Coordinate neighbor = pair.comparingTo;
+  Coordinate current = pair.initial;
+  int currentDistMapVal = distMap[current.y][current.x];
+  int distance = 1;
+
+  if(map[pair.comparingTo.y][pair.comparingTo.x].type != BORDER) {
+    if(map[pair.comparingTo.y][pair.comparingTo.x].hardness == 0) {
+      if(distMap[neighbor.y][neighbor.x] > currentDistMapVal + distance) {
+        distMap[neighbor.y][neighbor.x] = currentDistMapVal + distance;
+        queue.push_back(neighbor);
+      }
+    }
+  }
+}
+
+vector<vector<int>> getEmptyMap() {
+  vector<vector<int>> emptyMap;
+  emptyMap.resize(MAX_HEIGHT);
+
+  // make the basic dungeon with the first and last rows border
+  for(int i = 0; i < MAX_HEIGHT; i++) {
+      emptyMap[i].resize(MAX_WIDTH);
+  }
+
+  for(int row = 0; row < MAX_HEIGHT; row++) {
+    for(int col = 0; col < MAX_WIDTH; col++) {
+      emptyMap[row][col] = INT_MAX;
+    }
+  }
+  return emptyMap;
+}

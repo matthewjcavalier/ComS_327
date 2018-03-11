@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/conversion/game",
-            "args": ["--save", "--s", "2"],
+            "args": ["--load"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

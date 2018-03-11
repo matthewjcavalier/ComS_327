@@ -15,6 +15,8 @@ int main(int argc, char* argv[]) {
 
   dun.draw();
 
+  dun.updateDistMaps();
+
   if(settings.save) {
     dun.save(settings.loadSaveLoc);
   }
