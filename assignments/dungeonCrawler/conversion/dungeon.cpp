@@ -265,13 +265,14 @@ void Dungeon::draw() {
 }
 
 void Dungeon::updateDistMaps() {
-  int y = 5;
-  int x = 60;
-  openMap = genOpenMap(y, x);
+  int y = 6;
+  int x = 53;
+  openMap = genDistMap(y, x, false);
+  tunnelMap = genDistMap(y, x, true);
 
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
-      if(row == 5 && col == 60) {
+      if(row == y && col == x) {
         cout << "@";
       } else {
         if(openMap[row][col] == INT_MAX){
@@ -283,16 +284,30 @@ void Dungeon::updateDistMaps() {
     }
     cout << endl;
   }
+  for(int row = 0; row < MAX_HEIGHT; row++) {
+    for(int col = 0; col < MAX_WIDTH; col++) {
+      if(row == y && col == x) {
+        cout << "@";
+      } else {
+        if(tunnelMap[row][col] == INT_MAX){
+          cout << " ";
+        } else {
+          cout << tunnelMap[row][col] % 10;
+        }
+      }
+    }
+    cout << endl;
+  }
 }
 
-vector<vector<int>> Dungeon::genOpenMap(int y, int x) {
+vector<vector<int>> Dungeon::genDistMap(int y, int x, bool canTunnel) {
   vector<vector<int>> distMap = getEmptyMap();
   distMap[y][x] = 0;
   vector<Coordinate> queue;
   Coordinate initial(y,x);
   queue.push_back(initial);
 
-  fillDistMap(distMap, queue, false);
+  fillDistMap(distMap, queue, canTunnel);
 
   return distMap;
 }
@@ -307,20 +322,6 @@ void Dungeon::fillDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queu
         Coordinate current(y, x);
         CoordPair pair(coord, current);
         updateDistMap(distMap, queue, pair, canTunnel);
-        for(int row = 0; row < MAX_HEIGHT; row++) {
-          for(int col = 0; col < MAX_WIDTH; col++) {
-            if(row == 5 && col == 60) {
-              cout << "@";
-            } else {
-              if(distMap[row][col] == INT_MAX){
-                cout << " ";
-              } else {
-                cout << distMap[row][col] % 10;
-              }
-            }
-          }
-          cout << endl;
-        }
       }
     }
   }
@@ -330,12 +331,18 @@ void Dungeon::updateDistMap(vector<vector<int>>& distMap, vector<Coordinate>& qu
   Coordinate neighbor = pair.comparingTo;
   Coordinate current = pair.initial;
   int currentDistMapVal = distMap[current.y][current.x];
+  int neighborDistMapVal = distMap[neighbor.y][neighbor.x];
   int distance = 1;
 
   if(map[pair.comparingTo.y][pair.comparingTo.x].type != BORDER) {
     if(map[pair.comparingTo.y][pair.comparingTo.x].hardness == 0) {
       if(distMap[neighbor.y][neighbor.x] > currentDistMapVal + distance) {
         distMap[neighbor.y][neighbor.x] = currentDistMapVal + distance;
+        queue.push_back(neighbor);
+      }
+    } else if(canTunnel) {
+      if(neighborDistMapVal > currentDistMapVal + map[current.y][current.x].hardness / 85 + distance) {
+        distMap[neighbor.y][neighbor.x] = currentDistMapVal + map[current.y][current.x].hardness / 85 + distance;
         queue.push_back(neighbor);
       }
     }

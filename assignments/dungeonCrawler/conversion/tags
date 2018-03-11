@@ -57,7 +57,7 @@ dungeonInit	game.cpp	/^Dungeon dungeonInit() {$/;"	f
 endianSwap_uInt	dungeon.cpp	/^uint32_t Dungeon:: endianSwap_uInt(int input) {$/;"	f	class:Dungeon
 fillDistMap	dungeon.cpp	/^void Dungeon::fillDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, bool canTunnel) {$/;"	f	class:Dungeon
 genBaseDun	dungeon.cpp	/^void Dungeon::genBaseDun() {$/;"	f	class:Dungeon
-genOpenMap	dungeon.cpp	/^vector<vector<int>> Dungeon::genOpenMap(int y, int x) {$/;"	f	class:Dungeon
+genDistMap	dungeon.cpp	/^vector<vector<int>> Dungeon::genDistMap(int y, int x, bool canTunnel) {$/;"	f	class:Dungeon
 getEmptyMap	dungeon.cpp	/^vector<vector<int>> getEmptyMap() {$/;"	f
 hardness	dungeon.h	/^    uint8_t hardness;$/;"	m	class:Tile
 height	dungeon.h	/^    uint8_t height;$/;"	m	class:Room

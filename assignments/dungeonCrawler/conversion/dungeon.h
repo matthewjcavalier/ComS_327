@@ -84,7 +84,7 @@ class Dungeon {
     void save(string loc);
     void draw();
     void updateDistMaps();
-    vector<vector<int>> genOpenMap(int y, int x);
+    vector<vector<int>> genDistMap(int y, int x, bool canTunnel);
 
   private:
     vector<Room> rooms;
