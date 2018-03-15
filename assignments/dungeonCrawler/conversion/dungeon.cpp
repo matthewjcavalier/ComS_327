@@ -1,7 +1,5 @@
-#ifndef DUNGEON_H
-  #define DUNGEON_H
-  #include "dungeon.h"
-#endif
+#define DUNGEON_H
+#include "dungeon.h"
 
 Tile::Tile(TileType type) {
   this->type = type;
@@ -127,6 +125,7 @@ void Dungeon::genBaseDun() {
   Tile normalTile(ROCK);
   Tile borderTile(BORDER);
   map.resize(MAX_HEIGHT);
+  charMap.resize(MAX_HEIGHT);
 
   // make the basic dungeon with the first and last rows border
   for(int i = 0; i < MAX_HEIGHT; i++) {
@@ -135,6 +134,7 @@ void Dungeon::genBaseDun() {
     } else {
       map[i].resize(MAX_WIDTH, normalTile);
     }
+    charMap[i].resize(MAX_WIDTH, NULL);
   }
 
   for(int i = 0; i < MAX_HEIGHT; i++) {
@@ -244,20 +244,24 @@ void Dungeon::save(string loc) {
 }
 
 void Dungeon::draw() {
-  for(auto row: map) {
-    for(Tile tile: row) {
-      switch (tile.type) {
-        case BORDER:
-          cout<< "|";
-          break;
-        case ROOM:
-          cout<< ".";
-          break;
-        case HALL:
-          cout<< "#";
-          break;
-        default:
-          cout<< " ";
+  for(int row = 0; row < MAX_HEIGHT; row++) {
+    for(int col = 0; col < MAX_WIDTH; col++) {
+      if(charMap[row][col] != NULL) {
+        cout << charMap[row][col]->symbol;
+      } else {
+        switch (map[row][col].type) {
+          case BORDER:
+            cout<< "|";
+            break;
+          case ROOM:
+            cout<< ".";
+            break;
+          case HALL:
+            cout<< "#";
+            break;
+          default:
+            cout<< " ";
+        }
       }
     }
     cout<<endl;
@@ -352,12 +356,16 @@ void Dungeon::updateDistMap(vector<vector<int>>& distMap, vector<Coordinate>& qu
 Coordinate Dungeon::getEmptySpace() {
   int row = 0;
   int col = 0;
-  while(map[row][col].hardness != 0) {
+  while(map[row][col].hardness != 0 && charMap[row][col] == NULL) {
     row = rand() % MAX_HEIGHT;
     col = rand() % MAX_WIDTH;
   }
   Coordinate coord(row,col);
   return coord;
+}
+
+void Dungeon::updateSpace(Coordinate coord, Character* ptr) {
+  charMap[coord.y][coord.x] = ptr;
 }
 
 vector<vector<int>> getEmptyMap() {

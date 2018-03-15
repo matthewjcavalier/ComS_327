@@ -10,3 +10,16 @@
 #define TUNNELING_BIT 0b0100
 #define ERRATIC_BIT 0b1000
 
+class Coordinate {
+  public:
+    int x;
+    int y;
+    Coordinate() {
+      x = 0;
+      y = 0;
+    }
+    Coordinate(int y, int x) {
+      this->y = y;
+      this->x = x;
+    }
+};

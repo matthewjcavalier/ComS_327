@@ -1,7 +1,5 @@
-#ifndef GAME_H
-  #define GAME_H
-  #include "game.h"
-#endif
+#define GAME_H
+#include "game.h"
 
 Settings settings;
 
@@ -19,8 +17,6 @@ int main(int argc, char* argv[]) {
   // get the basic dungeon
   Dungeon dun = dungeonInit();
 
-  dun.draw();
-
   dun.updateDistMaps();
 
   runGame(dun);
@@ -35,12 +31,14 @@ void runGame(Dungeon& dun) {
   bool gameOver = false;
   Character curr;
 
-  turnQueue.push(new PC({0,0}, 10, dun, 10));
+  turnQueue.push(new PC(dun.getEmptySpace(), 10, &dun, 1000/10));
 
   for(int i = 0; i < settings.nummon; i++) {
     int speed = rand() % 15 + 5;
-    turnQueue.push(new NPC(dun.getEmptySpace(), speed, dun, speed, genCharacterType()));
+    turnQueue.push(new NPC(dun.getEmptySpace(), speed, &dun, 1000/speed, genCharacterType()));
   }
+
+  dun.draw();
   
   while(!gameOver) {
     turnQueue.top()->takeTurn();

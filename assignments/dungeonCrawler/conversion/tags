@@ -7,7 +7,8 @@
 BORDER	dungeon.h	/^  BORDER$/;"	e	enum:TileType
 CC	Makefile	/^CC=g++$/;"	m
 CFLAGS	Makefile	/^CFLAGS=-g -Wall -Werror -std=c++11$/;"	m
-CHARACTER_H	Character.cpp	2;"	d	file:
+CHARACTER_H	Character.cpp	1;"	d	file:
+CHARACTER_H	dungeon.h	22;"	d
 CHARACTER_H	game.h	30;"	d
 CLIMITS	dungeon.h	18;"	d
 Character	Character.cpp	/^Character::Character() {$/;"	f	class:Character
@@ -15,18 +16,18 @@ Character	Character.h	/^class Character {$/;"	c
 Compare	game.cpp	/^struct Compare {$/;"	s	file:
 CoordPair	dungeon.h	/^    CoordPair(Coordinate initial, Coordinate comparingTo) {$/;"	f	class:CoordPair
 CoordPair	dungeon.h	/^class CoordPair {$/;"	c
-Coordinate	dungeon.h	/^    Coordinate() {$/;"	f	class:Coordinate
-Coordinate	dungeon.h	/^    Coordinate(int y, int x) {$/;"	f	class:Coordinate
-Coordinate	dungeon.h	/^class Coordinate {$/;"	c
+Coordinate	defs.h	/^    Coordinate() {$/;"	f	class:Coordinate
+Coordinate	defs.h	/^    Coordinate(int y, int x) {$/;"	f	class:Coordinate
+Coordinate	defs.h	/^class Coordinate {$/;"	c
 DEFS_H	dungeon.h	10;"	d
 DUNGEON_H	Character.h	6;"	d
-DUNGEON_H	dungeon.cpp	2;"	d	file:
+DUNGEON_H	dungeon.cpp	1;"	d	file:
 DUNGEON_H	game.h	2;"	d
 Dungeon	dungeon.cpp	/^Dungeon::Dungeon() {$/;"	f	class:Dungeon
 Dungeon	dungeon.cpp	/^Dungeon::Dungeon(string loc) {$/;"	f	class:Dungeon
 Dungeon	dungeon.h	/^class Dungeon {$/;"	c
 ERRATIC_BIT	defs.h	11;"	d
-GAME_H	game.cpp	2;"	d	file:
+GAME_H	game.cpp	1;"	d	file:
 HALL	dungeon.h	/^  HALL,$/;"	e	enum:TileType
 INTELLIGENCE_BIT	defs.h	8;"	d
 IOSTREAM	Character.h	2;"	d
@@ -38,12 +39,12 @@ MAX_WIDTH	defs.h	2;"	d
 MIN_ROOM_COUNT	defs.h	6;"	d
 MIN_ROOM_HEIGHT	defs.h	4;"	d
 MIN_ROOM_WIDTH	defs.h	5;"	d
-NPC	Character.cpp	/^NPC::NPC(Coordinate coord, int speed, Dungeon& dun, int nextEventTime, char type) {$/;"	f	class:NPC
+NPC	Character.cpp	/^NPC::NPC(Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type) {$/;"	f	class:NPC
 NPC	Character.h	/^class NPC : public Character {$/;"	c
-PC	Character.cpp	/^PC::PC(Coordinate coord, int speed, Dungeon& dun, int nextEventTime) {$/;"	f	class:PC
+PC	Character.cpp	/^PC::PC(Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {$/;"	f	class:PC
 PC	Character.h	/^class PC : public Character {$/;"	c
 QUEUE	game.h	26;"	d
-REQ	Makefile	/^REQ=clean genCtags dungeon.o game.cpp Character.o$/;"	m
+REQ	Makefile	/^REQ=clean genCtags game.cpp dungeon.cpp Character.cpp$/;"	m
 ROCK	dungeon.h	/^  ROCK,$/;"	e	enum:TileType
 ROOM	dungeon.h	/^  ROOM,$/;"	e	enum:TileType
 Room	dungeon.cpp	/^Room::Room() {$/;"	f	class:Room
@@ -63,18 +64,22 @@ TileType	dungeon.h	/^enum TileType {$/;"	g
 VECTOR	dungeon.h	6;"	d
 addHallways	dungeon.cpp	/^void Dungeon::addHallways() {$/;"	f	class:Dungeon
 addRooms	dungeon.cpp	/^void Dungeon::addRooms(int numRooms) {$/;"	f	class:Dungeon
+charMap	dungeon.h	/^    vector <vector<Character*>> charMap;$/;"	m	class:Dungeon
 comparingTo	dungeon.h	/^    Coordinate comparingTo;$/;"	m	class:CoordPair
 coord	Character.h	/^    Coordinate coord;$/;"	m	class:Character
 draw	dungeon.cpp	/^void Dungeon::draw() {$/;"	f	class:Dungeon
-dun	Character.h	/^    Dungeon dun;$/;"	m	class:Character
+dun	Character.h	/^    Dungeon* dun;$/;"	m	class:Character
 dungeonInit	game.cpp	/^Dungeon dungeonInit() {$/;"	f
 endianSwap_uInt	dungeon.cpp	/^uint32_t Dungeon:: endianSwap_uInt(int input) {$/;"	f	class:Dungeon
 fillDistMap	dungeon.cpp	/^void Dungeon::fillDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, bool canTunnel) {$/;"	f	class:Dungeon
+fptr	Character.h	/^typedef void (*fptr)();$/;"	t
 genBaseDun	dungeon.cpp	/^void Dungeon::genBaseDun() {$/;"	f	class:Dungeon
 genCharacterType	game.cpp	/^char genCharacterType() {$/;"	f
 genDistMap	dungeon.cpp	/^vector<vector<int>> Dungeon::genDistMap(int y, int x, bool canTunnel) {$/;"	f	class:Dungeon
 getEmptyMap	dungeon.cpp	/^vector<vector<int>> getEmptyMap() {$/;"	f
 getEmptySpace	dungeon.cpp	/^Coordinate Dungeon::getEmptySpace() {$/;"	f	class:Dungeon
+getSymbol	Character.cpp	/^char getSymbol(char type) {$/;"	f
+getTurnLogic	Character.cpp	/^Character::* NPC::getTurnLogic() {$/;"	f	class:Character::NPC
 hardness	dungeon.h	/^    uint8_t hardness;$/;"	m	class:Tile
 height	dungeon.h	/^    uint8_t height;$/;"	m	class:Room
 initial	dungeon.h	/^    Coordinate initial;$/;"	m	class:CoordPair
@@ -83,6 +88,7 @@ loadSaveLoc	game.h	/^    string loadSaveLoc;$/;"	m	class:Settings
 main	game.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 makePathToRoom	dungeon.cpp	/^void  Dungeon::makePathToRoom(Room from, Room to) {$/;"	f	class:Dungeon
 map	dungeon.h	/^    vector <vector<Tile>> map;$/;"	m	class:Dungeon
+moveRand	Character.cpp	/^void Character::moveRand() {$/;"	f	class:Character
 nextEventTime	Character.h	/^    int nextEventTime;$/;"	m	class:Character
 noOverlapFound	dungeon.cpp	/^bool Dungeon::noOverlapFound(Room newRoom) {$/;"	f	class:Dungeon
 nummon	game.h	/^    int nummon;$/;"	m	class:Settings
@@ -106,12 +112,14 @@ takeTurn	Character.cpp	/^void Character::takeTurn() {$/;"	f	class:Character
 takeTurn	Character.cpp	/^void NPC::takeTurn() {$/;"	f	class:NPC
 takeTurn	Character.cpp	/^void PC::takeTurn() {$/;"	f	class:PC
 tunnelMap	dungeon.h	/^    vector <vector<int>> tunnelMap;$/;"	m	class:Dungeon
+turnLogic	Character.h	/^    Character::* turnLogic;$/;"	m	class:NPC::Character
 type	Character.h	/^    char type;$/;"	m	class:NPC
 type	dungeon.h	/^    TileType type;$/;"	m	class:Tile
 updateDistMap	dungeon.cpp	/^void Dungeon::updateDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, CoordPair pair, bool canTunnel) {$/;"	f	class:Dungeon
 updateDistMaps	dungeon.cpp	/^void Dungeon::updateDistMaps() {$/;"	f	class:Dungeon
+updateSpace	dungeon.cpp	/^void Dungeon::updateSpace(Coordinate coord, Character* ptr) {$/;"	f	class:Dungeon
 width	dungeon.h	/^    uint8_t width;$/;"	m	class:Room
-x	dungeon.h	/^    int x;$/;"	m	class:Coordinate
+x	defs.h	/^    int x;$/;"	m	class:Coordinate
 x	dungeon.h	/^    uint8_t x;$/;"	m	class:Room
-y	dungeon.h	/^    int y;$/;"	m	class:Coordinate
+y	defs.h	/^    int y;$/;"	m	class:Coordinate
 y	dungeon.h	/^    uint8_t y;$/;"	m	class:Room

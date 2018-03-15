@@ -18,29 +18,21 @@
   #define CLIMITS
   #include <climits>
 #endif
+#ifndef CHARACTER_H
+  #define CHARACTER_H
+  #include "Character.h"
+#endif
 
 
 using namespace std;
+
+class Character;
 
 enum TileType {
   ROCK,
   HALL,
   ROOM,
   BORDER
-};
-
-class Coordinate {
-  public:
-    int x;
-    int y;
-    Coordinate() {
-      x = 0;
-      y = 0;
-    }
-    Coordinate(int y, int x) {
-      this->y = y;
-      this->x = x;
-    }
 };
 
 class CoordPair {
@@ -78,6 +70,7 @@ class Dungeon {
     vector <vector<Tile>> map;
     vector <vector<int>> tunnelMap;
     vector <vector<int>> openMap;
+    vector <vector<Character*>> charMap;
 
     Dungeon(); 
     Dungeon(string loc);
@@ -86,6 +79,7 @@ class Dungeon {
     void updateDistMaps();
     vector<vector<int>> genDistMap(int y, int x, bool canTunnel);
     Coordinate getEmptySpace();
+    void updateSpace(Coordinate coord, Character* ptr);
 
   private:
     vector<Room> rooms;
