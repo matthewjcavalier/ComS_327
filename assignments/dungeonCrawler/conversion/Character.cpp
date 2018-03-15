@@ -1,20 +1,34 @@
-#include "Character.h"
+#ifndef CHARACTER_H
+  #define CHARACTER_H
+  #include "Character.h"
+#endif
 
 Character::Character() {
-  this->x = 0;
-  this->y = 0;
-  this->symbol = 'M';
-  this->speed = 10;
-  this->nextEventTime = nextEventTime;
-}
-Character::Character(Dungeon& dun, int x, int y, char symbol, int speed, int nextEventTime) {
-  this->dun = dun;
-  this->x = x;
-  this->y = y;
-  this->symbol = symbol;
-  this->speed = speed;
-  this->nextEventTime = nextEventTime;
 }
 void Character::takeTurn() {
+  cout << "generic Character took turn" << endl;
 }
 
+PC::PC(Coordinate coord, int speed, Dungeon& dun, int nextEventTime) {
+  symbol = '@';
+  this->coord = coord;
+  this->speed = speed;
+  this->dun = dun;
+  this->nextEventTime = nextEventTime;
+}
+
+void PC::takeTurn() {
+  cout<<"PC took turn"<<endl;
+}
+
+NPC::NPC(Coordinate coord, int speed, Dungeon& dun, int nextEventTime, char type) {
+  this->coord = coord;
+  this->speed = speed;
+  this->dun = dun;
+  this->type = type;
+  this->nextEventTime = nextEventTime;
+}
+
+void NPC::takeTurn() {
+  cout<<"NPC took turn"<<endl;
+}

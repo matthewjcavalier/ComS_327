@@ -349,6 +349,17 @@ void Dungeon::updateDistMap(vector<vector<int>>& distMap, vector<Coordinate>& qu
   }
 }
 
+Coordinate Dungeon::getEmptySpace() {
+  int row = 0;
+  int col = 0;
+  while(map[row][col].hardness != 0) {
+    row = rand() % MAX_HEIGHT;
+    col = rand() % MAX_WIDTH;
+  }
+  Coordinate coord(row,col);
+  return coord;
+}
+
 vector<vector<int>> getEmptyMap() {
   vector<vector<int>> emptyMap;
   emptyMap.resize(MAX_HEIGHT);

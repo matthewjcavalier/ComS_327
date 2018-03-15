@@ -7,6 +7,12 @@ Settings settings;
 
 using namespace std;
 
+struct Compare {
+  bool operator()(Character* a, Character* b) {
+    return a->nextEventTime > b->nextEventTime;
+  }
+};
+
 int main(int argc, char* argv[]) {
   setSettings(argc, argv);
   cout<<"Using Seed: "<< settings.seed <<endl;
@@ -17,9 +23,48 @@ int main(int argc, char* argv[]) {
 
   dun.updateDistMaps();
 
+  runGame(dun);
+
   if(settings.save) {
     dun.save(settings.loadSaveLoc);
   }
+}
+
+void runGame(Dungeon& dun) {
+  priority_queue<Character, vector<Character*>, Compare> turnQueue;
+  bool gameOver = false;
+  Character curr;
+
+  turnQueue.push(new PC({0,0}, 10, dun, 10));
+
+  for(int i = 0; i < settings.nummon; i++) {
+    int speed = rand() % 15 + 5;
+    turnQueue.push(new NPC(dun.getEmptySpace(), speed, dun, speed, genCharacterType()));
+  }
+  
+  while(!gameOver) {
+    turnQueue.top()->takeTurn();
+    turnQueue.top()->nextEventTime += turnQueue.top()->speed;
+    turnQueue.push(turnQueue.top());
+    turnQueue.pop();
+  }
+}
+
+char genCharacterType() {
+  char type = 0;
+  if(rand() % 2 == 0) {
+    type |= INTELLIGENCE_BIT;
+  }
+  if(rand() % 2 == 0) {
+    type |= TELEPATHY_BIT;
+  }
+   if(rand() % 2 == 0) {
+    type |= TUNNELING_BIT;
+  }
+    if(rand() % 2 == 0) {
+    type |= ERRATIC_BIT;
+  }
+  return type;
 }
 
 void setSettings(int argc, char* argv[]) {
@@ -37,6 +82,9 @@ void setSettings(int argc, char* argv[]) {
     if(strcmp("--load", argv[i]) == 0) {
       settings.load = true;
       settings.loadSaveLoc = home + loadLocSubPath;
+    }
+    if(strcmp("--nummon", argv[i]) == 0 && i != argc - 1) {
+      settings.nummon = atoi(argv[i+1]);
     }
   }
 

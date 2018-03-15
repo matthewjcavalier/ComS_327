@@ -1,9 +1,9 @@
 CC=g++
 CFLAGS=-g -Wall -Werror -std=c++11
-REQ=clean dungeon.o game.cpp genCtags
+REQ=clean genCtags dungeon.o game.cpp Character.o
 
 all: $(REQ)
-	$(CC) $(CFLAGS) game.cpp dungeon.o -o game
+	$(CC) $(CFLAGS) game.cpp dungeon.o Character.o -o game
 dungeon.o: dungeon.cpp
 	$(CC) $(CFLAGS) dungeon.cpp -c
 Character.o: Character.cpp

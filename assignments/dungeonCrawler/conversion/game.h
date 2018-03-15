@@ -22,6 +22,14 @@
   #define STRING
   #include <string>
 #endif
+#ifndef QUEUE
+  #define QUEUE
+  #include <queue>
+#endif
+#ifndef CHARACTER_H
+  #define CHARACTER_H
+  #include "Character.h"
+#endif
 
 class Settings{
   public:
@@ -29,8 +37,13 @@ class Settings{
     bool load;
     bool save;
     string loadSaveLoc;
+    int nummon;
 };
 
 Dungeon dungeonInit();
 
+void runGame(Dungeon& dun);
+
 void setSettings(int argc, char* argv[]);
+
+char genCharacterType();
