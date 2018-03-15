@@ -6,6 +6,14 @@
   #define DUNGEON_H
   #include "dungeon.h"
 #endif
+#ifndef FUNCTIONAL
+  #define FUNCTIONAL
+  #include <functional>
+#endif
+#ifndef UNISTD_H
+  #define UNISTD_H
+  #include <unistd.h>
+#endif
 
 class Dungeon;
 
@@ -16,28 +24,40 @@ class Character {
     int speed;
     int nextEventTime;
     Dungeon* dun;
+    int id;
 
     Character();
-    virtual void takeTurn();
-    void moveRand();
+    virtual int takeTurn();
+    int moveRand();
+    int moveTo(Coordinate coord);
+    int moveToward(Coordinate coord);
+    int getCharacterId(Coordinate loc);
 };
 
 class PC : public Character {
   public:
-    PC(Coordinate coord, int speed, Dungeon* dun, int nextEventTime);
-    void takeTurn();
+    PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime);
+    int takeTurn();
 };
-
-typedef void (*fptr)();
 
 class NPC : public Character {
   public:
     char type;
-    NPC(Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type);
-    void takeTurn();
+    Coordinate lastSeenPCLoc;
+    NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc);
+    int takeTurn();
   private:
-    void* turnLogic;
-    void* getTurnLogic();
+    PC* pc;
+    int (NPC::*turnLogic)();
+    void setTurnLogic();
+    void updatePCLoc();
+    int movement0001();
+    int movement0010();
+    int movement0011();
+    int movement0100();
+    int movement0101();
+    int movement0110();
+    int movement0111();
 };
 
 char getSymbol(char type);

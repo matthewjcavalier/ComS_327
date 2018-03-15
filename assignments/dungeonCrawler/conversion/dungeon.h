@@ -80,6 +80,8 @@ class Dungeon {
     vector<vector<int>> genDistMap(int y, int x, bool canTunnel);
     Coordinate getEmptySpace();
     void updateSpace(Coordinate coord, Character* ptr);
+    bool isOpenSpace(Coordinate coord);
+    bool canSeeFrom(Coordinate from, Coordinate to);
 
   private:
     vector<Room> rooms;

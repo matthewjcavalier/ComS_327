@@ -273,7 +273,7 @@ void Dungeon::updateDistMaps() {
   int x = 53;
   openMap = genDistMap(y, x, false);
   tunnelMap = genDistMap(y, x, true);
-
+/*
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
       if(row == y && col == x) {
@@ -302,6 +302,27 @@ void Dungeon::updateDistMaps() {
     }
     cout << endl;
   }
+  */
+}
+
+bool Dungeon::isOpenSpace(Coordinate coord) {
+  return map[coord.y][coord.x].hardness == 0;
+}
+
+bool Dungeon::canSeeFrom(Coordinate from, Coordinate to) {
+  Coordinate curr = from;
+  do{
+    if(curr.y != to.y) {
+      curr.y += (curr.y > to.y) ? -1 : 1;
+    }
+    if(curr.x != to.x) {
+      curr.x += (curr.x > to.x) ? -1 : 1;
+    }
+    if(!isOpenSpace(curr)) {
+      return false;
+    }
+  } while(curr.y != to.y || curr.x != to.x);
+  return true;
 }
 
 vector<vector<int>> Dungeon::genDistMap(int y, int x, bool canTunnel) {
