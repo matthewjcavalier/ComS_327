@@ -78,9 +78,10 @@ PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
 
 int PC::takeTurn() {
   nextEventTime += 1000/speed;
-  int id = moveRand();
+  //int id = moveRand();
   dun->updateDistMaps();
-  return id;
+  return 0;
+//  return id;
 }
 
 NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {
@@ -100,6 +101,24 @@ void NPC::setTurnLogic() {
   switch(type) {
     case 0b0001:
       turnLogic = &NPC::movement0001;
+      break;
+    case 0b0010:
+      turnLogic = &NPC::movement0010;
+      break;
+    case 0b0011:
+      turnLogic = &NPC::movement0011;
+      break;
+    case 0b0100:
+      turnLogic = &NPC::movement0100;
+      break;
+    case 0b0101:
+      turnLogic = &NPC::movement0101;
+      break;
+    case 0b0110:
+      turnLogic = &NPC::movement0110;
+      break;
+    case 0b0111:
+      turnLogic = &NPC::movement0111;
       break;
     default:
 //      return [this](void) mutable{NPC::moveRand();};
@@ -132,7 +151,7 @@ int NPC::movement0001() {
   }
 }
 int NPC::movement0010(){
-  return 0;
+  return moveToward(pc->coord);
 }
 int NPC::movement0011(){
   return 0;

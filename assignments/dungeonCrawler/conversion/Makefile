@@ -13,4 +13,4 @@ clean:
 genCtags:
 	ctags -R
 run: all
-	./game --nummon 1 --s 3
+	./game --nummon 1 --s 4
