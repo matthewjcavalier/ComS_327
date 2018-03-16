@@ -106,6 +106,14 @@ int PC::takeTurn() {
     if(userPressed == '6' || userPressed == 'l') {
       res = tryToMove({coord.y, coord.x + 1});
     }
+    // move down right
+    if(userPressed == '3' || userPressed == 'n') {
+      res = tryToMove({coord.y + 1, coord.x + 1});
+    }
+    // move down
+    if(userPressed == '2' || userPressed == 'j') {
+      res = tryToMove({coord.y + 1, coord.x});
+    }
   } while(!res.success);
   dun->updateDistMaps();
   dun->draw();
