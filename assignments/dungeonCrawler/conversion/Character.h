@@ -37,6 +37,7 @@ class Character {
     int id;
 
     Character();
+    virtual ~Character();
     virtual int takeTurn();
     int moveRand();
     int moveTo(Coordinate coord);
@@ -47,6 +48,7 @@ class Character {
 class PC : public Character {
   public:
     PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime);
+    ~PC();
     int takeTurn();
   private:
     movementResDTO tryToMove(Coordinate to);
@@ -57,6 +59,7 @@ class NPC : public Character {
     char type;
     Coordinate lastSeenPCLoc;
     NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc);
+    ~NPC();
     int takeTurn();
   private:
     PC* pc;

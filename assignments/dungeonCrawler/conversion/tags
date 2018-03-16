@@ -165,3 +165,6 @@ x	defs.h	/^    int x;$/;"	m	class:Coordinate
 x	dungeon.h	/^    uint8_t x;$/;"	m	class:Room
 y	defs.h	/^    int y;$/;"	m	class:Coordinate
 y	dungeon.h	/^    uint8_t y;$/;"	m	class:Room
+~Character	Character.cpp	/^Character::~Character() {}$/;"	f	class:Character
+~NPC	Character.cpp	/^NPC::~NPC(){}$/;"	f	class:NPC
+~PC	Character.cpp	/^PC::~PC(){}$/;"	f	class:PC

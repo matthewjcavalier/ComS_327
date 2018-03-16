@@ -57,8 +57,12 @@ void runGame(Dungeon& dun) {
       while(turnQueue.size() > 0) {
         if(turnQueue.top()->id != id) {
           tempList.push_back(turnQueue.top());
+          turnQueue.pop();
+        } else {
+          NPC* removing = (NPC*)turnQueue.top();
+          turnQueue.pop();
+          delete removing;
         }
-        turnQueue.pop();
       }
       for(Character* ptr : tempList) {
         turnQueue.push(ptr);

@@ -12,6 +12,9 @@ Character::Character() {
   dun = new Dungeon;
   id = -1;
 }
+
+Character::~Character() {}
+
 int Character::takeTurn() {
   cout << "generic Character took turn" << endl;
   return 0;
@@ -83,6 +86,8 @@ PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   this->id = id;
   dun->updateSpace(coord, this);
 }
+
+PC::~PC(){}
 
 int PC::takeTurn() {
   nextEventTime += 1000/speed;
@@ -159,6 +164,8 @@ NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, c
   dun->updateSpace(coord, this);
   setTurnLogic();
 }
+
+NPC::~NPC(){}
 
 void NPC::setTurnLogic() {
   switch(type) {
