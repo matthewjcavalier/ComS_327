@@ -80,6 +80,7 @@ PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   this->speed = speed;
   this->dun = dun;
   this->nextEventTime = nextEventTime;
+  this->id = id;
   dun->updateSpace(coord, this);
 }
 
@@ -87,6 +88,7 @@ int PC::takeTurn() {
   nextEventTime += 1000/speed;
   int userPressed;
   movementResDTO res;
+  dun->draw();
   do {
     userPressed = getch();
     drawCharacter({0,0}, userPressed);
@@ -122,6 +124,10 @@ int PC::takeTurn() {
     if(userPressed == '4' || userPressed == 'h') {
       res = tryToMove({coord.y, coord.x - 1});
     }
+    // rest for a turn
+    if(userPressed == '5' || userPressed == ' ') {
+      res.success = true; 
+    }
   } while(!res.success);
   dun->updateDistMaps();
   dun->draw();
@@ -132,7 +138,7 @@ movementResDTO PC::tryToMove(Coordinate to) {
   movementResDTO res;
   if(dun->isOpenSpace(to)) {
     dun->updateSpace(coord, NULL);
-    res.killed = getCharacterId(coord);
+    res.killed = getCharacterId(to);
     coord = to;
     dun->updateSpace(coord, this);
     res.success = true;
@@ -148,6 +154,7 @@ NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, c
   this->nextEventTime = nextEventTime;
   this->symbol = getSymbol(type);
   this->pc = pc;
+  this->id = id;
   lastSeenPCLoc = {0,0};
   dun->updateSpace(coord, this);
   setTurnLogic();

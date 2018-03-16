@@ -51,9 +51,25 @@ void runGame(Dungeon& dun) {
     if(id == pc->id) {
       scrTearDown();
       gameOver = true;
+      cout << "YOU LOSE" << endl;
+    } else if(id > 0) {
+      vector<Character*> tempList;
+      while(turnQueue.size() > 0) {
+        if(turnQueue.top()->id != id) {
+          tempList.push_back(turnQueue.top());
+        }
+        turnQueue.pop();
+      }
+      for(Character* ptr : tempList) {
+        turnQueue.push(ptr);
+      }
+    }
+    if(turnQueue.size() == 1) {
+      gameOver = true;
+      scrTearDown();
+      cout << "YOU WIN" << endl;
     }
   }
-  cout << "YOU LOSE" << endl;
 }
 
 char genCharacterType() {
