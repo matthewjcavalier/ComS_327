@@ -58,6 +58,7 @@ class NPC : public Character {
     int movement0101();
     int movement0110();
     int movement0111();
+    int moveRandTunneling();
 };
 
 char getSymbol(char type);

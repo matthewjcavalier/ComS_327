@@ -167,6 +167,7 @@ int NPC::movement0011(){
   return moveTo(next);
 }
 int NPC::movement0100(){
+  moveRandTunneling();
   return 0;
 }
 int NPC::movement0101(){
@@ -177,6 +178,45 @@ int NPC::movement0110(){
 }
 int NPC::movement0111(){
   return 0;
+}
+
+int NPC::moveRandTunneling() {
+  int newX = 0;
+  int newY = 0;
+  int modX = 0;
+  int modY = 0;
+  int id = 0;
+
+  do {
+    if(rand() % 2 == 0) {
+      modX = (rand() % 2 == 0) ? 1 : -1;
+    }
+    if(rand() % 2 == 0) {
+      modY = (rand() % 2 == 0) ? 1 : -1;
+    }
+    newX = coord.x + modX;
+    newY = coord.y + modY;
+  } while(dun->map[newY][newX].type == BORDER);
+  
+  if(dun->map[newY][newX].hardness > 0) {
+    if(dun->map[newY][newX].hardness < 85) {
+      dun->map[newY][newX].hardness = 0;
+    } else {
+      dun->map[newY][newX].hardness -= 85;
+    }
+  }
+
+  if(dun->map[newY][newX].hardness <= 0) {
+    if(dun->map[newY][newX].type != HALL && dun->map[newY][newX].type != ROOM) {
+      dun->map[newY][newX].setType(0);
+    }
+    dun->updateSpace(coord, NULL);
+    id = getCharacterId(coord);
+    coord = {newY, newX};
+    dun->updateSpace(coord, this);
+    dun->draw();
+  }
+  return id;
 }
 
 char getSymbol(char type) {

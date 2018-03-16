@@ -94,6 +94,7 @@ main	game.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 makePathToRoom	dungeon.cpp	/^void  Dungeon::makePathToRoom(Room from, Room to) {$/;"	f	class:Dungeon
 map	dungeon.h	/^    vector <vector<Tile>> map;$/;"	m	class:Dungeon
 moveRand	Character.cpp	/^int Character::moveRand() {$/;"	f	class:Character
+moveRandTunneling	Character.cpp	/^int NPC::moveRandTunneling() {$/;"	f	class:NPC
 moveTo	Character.cpp	/^int Character::moveTo(Coordinate coord) {$/;"	f	class:Character
 moveToward	Character.cpp	/^int Character::moveToward(Coordinate coord) {$/;"	f	class:Character
 movement0001	Character.cpp	/^int NPC::movement0001() {$/;"	f	class:NPC

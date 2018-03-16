@@ -17,6 +17,7 @@ int main(int argc, char* argv[]) {
   // get the basic dungeon
   Dungeon dun = dungeonInit();
 
+
   runGame(dun);
 
   if(settings.save) {
@@ -30,17 +31,21 @@ void runGame(Dungeon& dun) {
   Character curr;
   int id = 1;
   PC* pc = new PC(id++, dun.getEmptySpace(), 10, &dun, 1000/10);
+//  int turnCount = 0;
   
   dun.setPC(pc);
   turnQueue.push(pc);
 
   for(int i = 0; i < settings.nummon; i++) {
     int speed = rand() % 15 + 5;
-    turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed, genCharacterType(), pc));
+    //turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed, genCharacterType(), pc));
+    turnQueue.push(new NPC(id++, {2,2}, speed, &dun, 1000/speed, genCharacterType(), pc));
+
   }
 
   dun.draw();
   while(!gameOver) {
+//    cout << "Turn: " << turnCount++ << endl;
     id = turnQueue.top()->takeTurn();
     turnQueue.top()->nextEventTime += turnQueue.top()->speed;
     turnQueue.push(turnQueue.top());
@@ -67,7 +72,7 @@ char genCharacterType() {
   if(rand() % 2 == 0) {
     type |= ERRATIC_BIT;
   }
-  type = 0b0011;
+  type = 0b0100;
   return type;
 }
 
