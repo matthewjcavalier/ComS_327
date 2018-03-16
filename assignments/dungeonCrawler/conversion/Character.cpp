@@ -167,11 +167,15 @@ int NPC::movement0011(){
   return moveTo(next);
 }
 int NPC::movement0100(){
-  moveRandTunneling();
-  return 0;
+  return moveRandTunneling();
 }
 int NPC::movement0101(){
-  return 0;
+  updatePCLoc();
+  if(lastSeenPCLoc.x != 0 && lastSeenPCLoc.y != 0) {
+    return moveToward(lastSeenPCLoc);
+  } else {
+    return moveRandTunneling();
+  }
 }
 int NPC::movement0110(){
   return 0;
