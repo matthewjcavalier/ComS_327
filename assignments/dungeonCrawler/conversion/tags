@@ -4,7 +4,7 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-BORDER	dungeon.h	/^  BORDER$/;"	e	enum:TileType
+BORDER	dungeon.h	/^  BORDER,$/;"	e	enum:TileType
 CC	Makefile	/^CC=g++$/;"	m
 CFLAGS	Makefile	/^CFLAGS=-g -Wall -Werror -std=c++11$/;"	m
 CHARACTER_H	Character.cpp	1;"	d	file:
@@ -21,6 +21,7 @@ Coordinate	defs.h	/^    Coordinate(int y, int x) {$/;"	f	class:Coordinate
 Coordinate	defs.h	/^class Coordinate {$/;"	c
 DEFS_H	dungeon.h	10;"	d
 DEFS_H	screen.h	10;"	d
+DOWNSTAIR	dungeon.h	/^  DOWNSTAIR$/;"	e	enum:TileType
 DUNGEON_H	Character.h	6;"	d
 DUNGEON_H	dungeon.cpp	1;"	d	file:
 DUNGEON_H	game.h	2;"	d
@@ -41,6 +42,7 @@ MAX_WIDTH	defs.h	2;"	d
 MIN_ROOM_COUNT	defs.h	6;"	d
 MIN_ROOM_HEIGHT	defs.h	4;"	d
 MIN_ROOM_WIDTH	defs.h	5;"	d
+MOVE_BETWEEN_FLOORS	defs.h	13;"	d
 NCURSES_H	screen.h	2;"	d
 NPC	Character.cpp	/^NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {$/;"	f	class:NPC
 NPC	Character.h	/^class NPC : public Character {$/;"	c
@@ -68,9 +70,12 @@ Tile	dungeon.h	/^class Tile {$/;"	c
 TileType	dungeon.h	/^enum TileType {$/;"	g
 UNISTD_H	Character.h	14;"	d
 UNISTD_H	screen.h	6;"	d
+UPSTAIR	dungeon.h	/^  UPSTAIR,$/;"	e	enum:TileType
 VECTOR	dungeon.h	6;"	d
 addHallways	dungeon.cpp	/^void Dungeon::addHallways() {$/;"	f	class:Dungeon
 addRooms	dungeon.cpp	/^void Dungeon::addRooms(int numRooms) {$/;"	f	class:Dungeon
+addStairs	dungeon.cpp	/^void Dungeon::addStairs() {$/;"	f	class:Dungeon
+build	dungeon.cpp	/^void Dungeon::build() {$/;"	f	class:Dungeon
 canSeeFrom	dungeon.cpp	/^bool Dungeon::canSeeFrom(Coordinate from, Coordinate to) {$/;"	f	class:Dungeon
 charMap	dungeon.h	/^    vector <vector<Character*>> charMap;$/;"	m	class:Dungeon
 comparingTo	dungeon.h	/^    Coordinate comparingTo;$/;"	m	class:CoordPair
@@ -132,6 +137,7 @@ pc	dungeon.h	/^    PC* pc;$/;"	m	class:Dungeon
 putRoomsInDungeon	dungeon.cpp	/^void Dungeon::putRoomsInDungeon() {$/;"	f	class:Dungeon
 readRooms	dungeon.cpp	/^void Dungeon::readRooms(FILE* file, int fileSize) {$/;"	f	class:Dungeon
 readTiles	dungeon.cpp	/^void Dungeon::readTiles(FILE* file) {$/;"	f	class:Dungeon
+rebuild	dungeon.cpp	/^void Dungeon::rebuild() {$/;"	f	class:Dungeon
 rooms	dungeon.h	/^    vector<Room> rooms;$/;"	m	class:Dungeon
 runGame	game.cpp	/^void runGame(Dungeon& dun) {$/;"	f
 save	dungeon.cpp	/^void Dungeon::save(string loc) {$/;"	f	class:Dungeon

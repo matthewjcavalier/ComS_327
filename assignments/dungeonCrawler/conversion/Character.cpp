@@ -138,6 +138,19 @@ int PC::takeTurn() {
       res.success = true; 
       res.killed = this->id;
     }
+    // go down stairs
+    if(userPressed == '>') {
+      if(dun->map[coord.y][coord.x].type == DOWNSTAIR) {
+        return MOVE_BETWEEN_FLOORS;
+      }
+    }
+    // go up stairs
+    if(userPressed == '<') {
+      if(dun->map[coord.y][coord.x].type == UPSTAIR) {
+        return MOVE_BETWEEN_FLOORS;
+      }
+    }
+
   } while(!res.success);
   dun->updateDistMaps();
   dun->draw();

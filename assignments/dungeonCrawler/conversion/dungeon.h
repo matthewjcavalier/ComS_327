@@ -37,7 +37,9 @@ enum TileType {
   ROCK,
   HALL,
   ROOM,
-  BORDER
+  BORDER,
+  UPSTAIR,
+  DOWNSTAIR
 };
 
 class CoordPair {
@@ -79,6 +81,7 @@ class Dungeon {
 
     Dungeon(); 
     Dungeon(string loc);
+    void rebuild();
     void save(string loc);
     void draw();
     void updateDistMaps();
@@ -92,6 +95,7 @@ class Dungeon {
   private:
     vector<Room> rooms;
     PC* pc;
+    void build();
     void genBaseDun();
     void addRooms(int numRooms); 
     void makePathToRoom(Room from, Room to);
@@ -103,6 +107,7 @@ class Dungeon {
     uint32_t endianSwap_uInt(int input);
     void fillDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, bool canTunnel);
     void updateDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, CoordPair pair, bool canTunnel);
+    void addStairs();
 };
 
 

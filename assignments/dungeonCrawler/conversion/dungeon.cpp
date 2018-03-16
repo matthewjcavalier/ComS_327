@@ -18,6 +18,10 @@ void Tile::setType(TileType type) {
     case ROOM:
       hardness = 0;
       break;
+    case UPSTAIR:
+    case DOWNSTAIR:
+      hardness = 0;
+      break;
     case ROCK:
       hardness = rand() % MAX_HARDNESS;
       break;
@@ -54,9 +58,27 @@ Room::Room(int y, int x, int height, int width) {
 }
 
 Dungeon::Dungeon() {
+  build();
+}
+
+void Dungeon::build() {
   genBaseDun();
   addRooms(MIN_ROOM_COUNT);
   addHallways();
+  addStairs();
+
+}
+void Dungeon::rebuild() {
+  for(int y = 0; y < MAX_HEIGHT; y++){
+    for(int x = 0; x < MAX_WIDTH; x++) {
+      charMap[y][x] = NULL;
+      if(y > 0 && y < MAX_HEIGHT - 1 && x > 0 && x < MAX_WIDTH) {
+        map[y][x].setType(ROCK);
+      }
+    }
+  }
+  build();
+  draw();
 }
 
 Dungeon::Dungeon(string loc) {
@@ -196,6 +218,21 @@ void Dungeon::addHallways() {
   }
 }
 
+void Dungeon::addStairs() {
+  int x;
+  int y;
+  do {
+    x = rand() % MAX_WIDTH;
+    y = rand() % MAX_HEIGHT;
+  } while(!isOpenSpace({y,x}));
+  map[y][x].type = UPSTAIR;
+  do {
+    x = rand() % MAX_WIDTH;
+    y = rand() % MAX_HEIGHT;
+  } while(!isOpenSpace({y,x}));
+  map[y][x].type = DOWNSTAIR;
+}
+
 void  Dungeon::makePathToRoom(Room from, Room to) {
   int vertMod = (from.y > to.y) ? -1 : 1;
   int horzMod = (from.x > to.x) ? -1 : 1;
@@ -259,6 +296,12 @@ void Dungeon::draw() {
             break;
           case HALL:
             toDraw = '#';
+            break;
+          case UPSTAIR:
+            toDraw = '<';
+            break;
+          case DOWNSTAIR:
+            toDraw = '>';
             break;
           default:
             toDraw = ' ';
@@ -357,6 +400,13 @@ void Dungeon::fillDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queu
 void Dungeon::updateDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, CoordPair pair, bool canTunnel) {
   Coordinate neighbor = pair.comparingTo;
   Coordinate current = pair.initial;
+  if(current.y <= 0 || current.y >= MAX_HEIGHT ||
+      current.x <= 0 || current.x >= MAX_WIDTH ||
+      neighbor.y <= 0 || neighbor.y >= MAX_HEIGHT ||
+      neighbor.x <= 0 || neighbor.x >= MAX_WIDTH) {
+    return;
+  }
+
   int currentDistMapVal = distMap[current.y][current.x];
   int neighborDistMapVal = distMap[neighbor.y][neighbor.x];
   int distance = 1;

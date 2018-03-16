@@ -31,6 +31,7 @@ void runGame(Dungeon& dun) {
   bool gameOver = false;
   Character curr;
   int id = 1;
+  int resultId;
   PC* pc = new PC(id++, dun.getEmptySpace(), 10, &dun, 1000/10);
   
   dun.setPC(pc);
@@ -43,19 +44,19 @@ void runGame(Dungeon& dun) {
 
   dun.draw();
   while(!gameOver) {
-    id = turnQueue.top()->takeTurn();
+    resultId = turnQueue.top()->takeTurn();
     turnQueue.top()->nextEventTime += turnQueue.top()->speed;
     turnQueue.push(turnQueue.top());
     turnQueue.pop();
     usleep(10000);
-    if(id == pc->id) {
+    if(resultId== pc->id) {
       scrTearDown();
       gameOver = true;
       cout << "YOU LOSE" << endl;
-    } else if(id > 0) {
+    } else if(resultId > 0) {
       vector<Character*> tempList;
       while(turnQueue.size() > 0) {
-        if(turnQueue.top()->id != id) {
+        if(turnQueue.top()->id != resultId) {
           tempList.push_back(turnQueue.top());
           turnQueue.pop();
         } else {
@@ -67,6 +68,27 @@ void runGame(Dungeon& dun) {
       for(Character* ptr : tempList) {
         turnQueue.push(ptr);
       }
+    } else if (resultId == MOVE_BETWEEN_FLOORS) {
+      // clear out turn queue
+      while(turnQueue.size() > 0) {
+        if(turnQueue.top()->symbol != '@') {
+          delete turnQueue.top();
+        }
+        turnQueue.pop();
+      }
+
+      // get a new dungeon
+      dun.rebuild();
+      pc->coord = dun.getEmptySpace();
+      dun.setPC(pc);
+      dun.updateSpace(pc->coord, pc);
+      turnQueue.push(pc);
+
+      for(int i = 0; i < settings.nummon; i++) {
+        int speed = rand() % 15 + 5;
+        turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed + pc->nextEventTime, genCharacterType(), pc));
+      }
+      dun.draw();
     }
     if(turnQueue.size() == 1) {
       gameOver = true;

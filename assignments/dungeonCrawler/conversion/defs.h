@@ -10,6 +10,8 @@
 #define TUNNELING_BIT 0b0100
 #define ERRATIC_BIT 0b1000
 
+#define MOVE_BETWEEN_FLOORS -2
+
 class Coordinate {
   public:
     int x;
