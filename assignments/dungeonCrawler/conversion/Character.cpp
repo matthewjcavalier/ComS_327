@@ -182,7 +182,38 @@ int NPC::movement0110(){
   return moveTowardTunneling(pc->coord);
 }
 int NPC::movement0111(){
-  return 0;
+  Coordinate next = coord;
+  int min = INT_MAX;
+  int foundID = 0;
+  for(int y = coord.y - 1; y < coord.y + 2; y++) {
+    for(int x = coord.x - 1; x < coord.x + 2; x++) {
+      if(dun->tunnelMap[y][x] < min) {
+        min = dun->tunnelMap[y][x];
+        next = {y,x};
+      }
+    }
+  }
+
+  if(dun->map[next.y][next.x].hardness > 0) {
+    if(dun->map[next.y][next.x].hardness < 85) {
+      dun->map[next.y][next.x].hardness = 0;
+    } else {
+      dun->map[next.y][next.x].hardness -= 85;
+    }
+    dun->updateDistMaps();
+  }
+
+  if(dun->map[next.y][next.x].hardness <= 0) {
+    if(dun->map[next.y][next.x].type != HALL && dun->map[next.y][next.x].type != ROOM) {
+      dun->map[next.y][next.x].setType(0);
+    }
+    dun->updateSpace(this->coord, NULL);
+    foundID = getCharacterId(next);
+    this->coord = {next.y, next.x};
+    dun->updateSpace(this->coord, this);
+    dun->draw();
+  }
+  return foundID;
 }
 
 int NPC::moveTowardTunneling(Coordinate coord) {

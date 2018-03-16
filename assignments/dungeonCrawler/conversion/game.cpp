@@ -38,7 +38,8 @@ void runGame(Dungeon& dun) {
 
   for(int i = 0; i < settings.nummon; i++) {
     int speed = rand() % 15 + 5;
-    turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed, genCharacterType(), pc));
+//    turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed, genCharacterType(), pc));
+      turnQueue.push(new NPC(id++, {1,1}, speed, &dun, 1000/speed, genCharacterType(), pc));
   }
 
   dun.draw();
@@ -70,7 +71,7 @@ char genCharacterType() {
   if(rand() % 2 == 0) {
     type |= ERRATIC_BIT;
   }
-  type = 0b0110;
+  type = 0b0111;
   return type;
 }
 
