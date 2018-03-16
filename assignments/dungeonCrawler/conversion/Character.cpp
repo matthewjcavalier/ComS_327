@@ -114,6 +114,14 @@ int PC::takeTurn() {
     if(userPressed == '2' || userPressed == 'j') {
       res = tryToMove({coord.y + 1, coord.x});
     }
+    // move down left
+    if(userPressed == '1' || userPressed == 'b') {
+      res = tryToMove({coord.y + 1, coord.x - 1});
+    }
+    // move left
+    if(userPressed == '4' || userPressed == 'h') {
+      res = tryToMove({coord.y, coord.x - 1});
+    }
   } while(!res.success);
   dun->updateDistMaps();
   dun->draw();
