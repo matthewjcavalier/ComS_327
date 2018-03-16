@@ -102,6 +102,10 @@ int PC::takeTurn() {
     if(userPressed == '9' || userPressed == 'u') {
       res = tryToMove({coord.y - 1, coord.x + 1});
     }
+    // move right
+    if(userPressed == '6' || userPressed == 'l') {
+      res = tryToMove({coord.y, coord.x + 1});
+    }
   } while(!res.success);
   dun->updateDistMaps();
   dun->draw();
