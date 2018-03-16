@@ -133,6 +133,11 @@ int PC::takeTurn() {
     if(userPressed == '5' || userPressed == ' ') {
       res.success = true; 
     }
+    // Quit
+    if(userPressed == 'Q') {
+      res.success = true; 
+      res.killed = this->id;
+    }
   } while(!res.success);
   dun->updateDistMaps();
   dun->draw();
