@@ -269,11 +269,11 @@ void Dungeon::draw() {
 }
 
 void Dungeon::updateDistMaps() {
-  int y = 6;
-  int x = 53;
+  int x = pc->coord.x;
+  int y = pc->coord.y;
   openMap = genDistMap(y, x, false);
   tunnelMap = genDistMap(y, x, true);
-/*
+  /*
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
       if(row == y && col == x) {
@@ -288,6 +288,7 @@ void Dungeon::updateDistMaps() {
     }
     cout << endl;
   }
+  
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
       if(row == y && col == x) {
@@ -387,6 +388,10 @@ Coordinate Dungeon::getEmptySpace() {
 
 void Dungeon::updateSpace(Coordinate coord, Character* ptr) {
   charMap[coord.y][coord.x] = ptr;
+}
+void Dungeon::setPC(PC* pc) {
+  this->pc = pc;
+  updateDistMaps();
 }
 
 vector<vector<int>> getEmptyMap() {

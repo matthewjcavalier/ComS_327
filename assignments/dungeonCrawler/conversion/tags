@@ -109,6 +109,7 @@ nummon	game.h	/^    int nummon;$/;"	m	class:Settings
 openMap	dungeon.h	/^    vector <vector<int>> openMap;$/;"	m	class:Dungeon
 operator ()	game.cpp	/^  bool operator()(Character* a, Character* b) {$/;"	f	struct:Compare
 pc	Character.h	/^    PC* pc;$/;"	m	class:NPC
+pc	dungeon.h	/^    PC* pc;$/;"	m	class:Dungeon
 putRoomsInDungeon	dungeon.cpp	/^void Dungeon::putRoomsInDungeon() {$/;"	f	class:Dungeon
 readRooms	dungeon.cpp	/^void Dungeon::readRooms(FILE* file, int fileSize) {$/;"	f	class:Dungeon
 readTiles	dungeon.cpp	/^void Dungeon::readTiles(FILE* file) {$/;"	f	class:Dungeon
@@ -117,6 +118,7 @@ runGame	game.cpp	/^void runGame(Dungeon& dun) {$/;"	f
 save	dungeon.cpp	/^void Dungeon::save(string loc) {$/;"	f	class:Dungeon
 save	game.h	/^    bool save;$/;"	m	class:Settings
 seed	game.h	/^    int seed;$/;"	m	class:Settings
+setPC	dungeon.cpp	/^void Dungeon::setPC(PC* pc) {$/;"	f	class:Dungeon
 setSettings	game.cpp	/^void setSettings(int argc, char* argv[]) {$/;"	f
 setTurnLogic	Character.cpp	/^void NPC::setTurnLogic() {$/;"	f	class:NPC
 setType	dungeon.cpp	/^void Tile::setType(TileType type) {$/;"	f	class:Tile

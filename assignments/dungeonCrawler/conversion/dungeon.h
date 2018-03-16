@@ -27,6 +27,7 @@
 using namespace std;
 
 class Character;
+class PC;
 
 enum TileType {
   ROCK,
@@ -82,9 +83,11 @@ class Dungeon {
     void updateSpace(Coordinate coord, Character* ptr);
     bool isOpenSpace(Coordinate coord);
     bool canSeeFrom(Coordinate from, Coordinate to);
+    void setPC(PC* pc);
 
   private:
     vector<Room> rooms;
+    PC* pc;
     void genBaseDun();
     void addRooms(int numRooms); 
     void makePathToRoom(Room from, Room to);

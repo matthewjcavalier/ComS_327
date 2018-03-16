@@ -154,7 +154,17 @@ int NPC::movement0010(){
   return moveToward(pc->coord);
 }
 int NPC::movement0011(){
-  return 0;
+  Coordinate next = coord;
+  int min = INT_MAX;
+  for(int y = coord.y - 1; y < coord.y + 2; y++) {
+    for(int x = coord.x - 1; x < coord.x + 2; x++) {
+      if(dun->openMap[y][x] < min) {
+        min = dun->openMap[y][x];
+        next = {y,x};
+      }
+    }
+  }
+  return moveTo(next);
 }
 int NPC::movement0100(){
   return 0;

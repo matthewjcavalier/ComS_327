@@ -17,8 +17,6 @@ int main(int argc, char* argv[]) {
   // get the basic dungeon
   Dungeon dun = dungeonInit();
 
-  dun.updateDistMaps();
-
   runGame(dun);
 
   if(settings.save) {
@@ -32,7 +30,8 @@ void runGame(Dungeon& dun) {
   Character curr;
   int id = 1;
   PC* pc = new PC(id++, dun.getEmptySpace(), 10, &dun, 1000/10);
-
+  
+  dun.setPC(pc);
   turnQueue.push(pc);
 
   for(int i = 0; i < settings.nummon; i++) {
@@ -41,13 +40,12 @@ void runGame(Dungeon& dun) {
   }
 
   dun.draw();
-  
   while(!gameOver) {
     id = turnQueue.top()->takeTurn();
     turnQueue.top()->nextEventTime += turnQueue.top()->speed;
     turnQueue.push(turnQueue.top());
     turnQueue.pop();
-    sleep(1);
+    usleep(50000);
     if(id == pc->id) {
       gameOver = true;
     }
@@ -69,7 +67,7 @@ char genCharacterType() {
   if(rand() % 2 == 0) {
     type |= ERRATIC_BIT;
   }
-  type = 0b0010;
+  type = 0b0011;
   return type;
 }
 
