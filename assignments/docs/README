@@ -1,0 +1,15 @@
+What the files are:
+  
+  327_assignment1.0*-s2018.pdf
+    The assignment docs
+
+  rougelike_roadmap.pdf
+    The overview of each week's assignment
+
+  distance_maps.txt
+    The expected distance maps that are generated when
+    loading in the provided dungeons
+
+  test_dungeon_files
+    The binary files that each contain the data to build
+    a different dungoen

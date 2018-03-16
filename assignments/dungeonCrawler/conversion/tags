@@ -105,6 +105,13 @@ movement0100	Character.cpp	/^int NPC::movement0100(){$/;"	f	class:NPC
 movement0101	Character.cpp	/^int NPC::movement0101(){$/;"	f	class:NPC
 movement0110	Character.cpp	/^int NPC::movement0110(){$/;"	f	class:NPC
 movement0111	Character.cpp	/^int NPC::movement0111(){$/;"	f	class:NPC
+movement1001	Character.cpp	/^int NPC::movement1001() {$/;"	f	class:NPC
+movement1010	Character.cpp	/^int NPC::movement1010(){$/;"	f	class:NPC
+movement1011	Character.cpp	/^int NPC::movement1011(){$/;"	f	class:NPC
+movement1100	Character.cpp	/^int NPC::movement1100(){$/;"	f	class:NPC
+movement1101	Character.cpp	/^int NPC::movement1101(){$/;"	f	class:NPC
+movement1110	Character.cpp	/^int NPC::movement1110(){$/;"	f	class:NPC
+movement1111	Character.cpp	/^int NPC::movement1111(){$/;"	f	class:NPC
 nextEventTime	Character.h	/^    int nextEventTime;$/;"	m	class:Character
 noOverlapFound	dungeon.cpp	/^bool Dungeon::noOverlapFound(Room newRoom) {$/;"	f	class:Dungeon
 nummon	game.h	/^    int nummon;$/;"	m	class:Settings

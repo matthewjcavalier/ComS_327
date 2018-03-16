@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/conversion/game",
-            "args": ["--nummon","1","--s","4"],
+            "args": ["--nummon","5","--s","2"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

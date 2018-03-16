@@ -58,6 +58,15 @@ class NPC : public Character {
     int movement0101();
     int movement0110();
     int movement0111();
+    int movement1000();
+    int movement1001();
+    int movement1010();
+    int movement1011();
+    int movement1100();
+    int movement1101();
+    int movement1110();
+    int movement1111();
+
     int moveRandTunneling();
     int moveTowardTunneling(Coordinate coord);
 };

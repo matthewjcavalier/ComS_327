@@ -288,7 +288,7 @@ void Dungeon::updateDistMaps() {
     }
     cout << endl;
   }
-  */
+  
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
       if(row == y && col == x) {
@@ -303,7 +303,7 @@ void Dungeon::updateDistMaps() {
     }
     cout << endl;
   }
-  /**/
+  */
 }
 
 bool Dungeon::isOpenSpace(Coordinate coord) {

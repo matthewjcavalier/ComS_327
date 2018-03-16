@@ -38,8 +38,7 @@ void runGame(Dungeon& dun) {
 
   for(int i = 0; i < settings.nummon; i++) {
     int speed = rand() % 15 + 5;
-//    turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed, genCharacterType(), pc));
-      turnQueue.push(new NPC(id++, {1,1}, speed, &dun, 1000/speed, genCharacterType(), pc));
+    turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed, genCharacterType(), pc));
   }
 
   dun.draw();
@@ -49,7 +48,7 @@ void runGame(Dungeon& dun) {
     turnQueue.top()->nextEventTime += turnQueue.top()->speed;
     turnQueue.push(turnQueue.top());
     turnQueue.pop();
-    usleep(50000);
+    usleep(10000);
     if(id == pc->id) {
       gameOver = true;
     }
@@ -71,7 +70,7 @@ char genCharacterType() {
   if(rand() % 2 == 0) {
     type |= ERRATIC_BIT;
   }
-  type = 0b0111;
+  type = 0b1110;
   return type;
 }
 

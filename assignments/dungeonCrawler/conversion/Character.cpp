@@ -22,21 +22,29 @@ int Character::moveRand() {
   int newY = 0;
   int modX = 0;
   int modY = 0;
-  int id;
+  int foundId;
 
   while(dun->map[newY][newX].hardness != 0) {
-    modX = (rand() % 2 == 0) ? 1 : -1;
-    modY = (rand() % 2 == 0) ? 1 : -1;
+    if(rand() % 2 == 0) {
+      modX = (rand() % 2 == 0) ? 1 : -1;
+    } else {
+      modX = 0;
+    }
+    if(rand() % 2 == 0) {
+      modY = (rand() % 2 == 0) ? 1 : -1;
+    } else {
+      modY = 0;
+    }
     newX = coord.x + modX;
     newY = coord.y + modY;
   }
   
   dun->updateSpace(coord, NULL);
-  id = getCharacterId(coord);
+  foundId = getCharacterId(coord);
   coord = {newY, newX};
   dun->updateSpace(coord, this);
   dun->draw();
-  return id;
+  return foundId;
 }
 
 int Character::moveToward(Coordinate coord) {
@@ -51,13 +59,13 @@ int Character::moveToward(Coordinate coord) {
 }
 
 int Character::moveTo(Coordinate coord) {
-  int id = getCharacterId(coord);
+  int foundId = getCharacterId(coord);
   if(dun->isOpenSpace(coord)) {
     dun->updateSpace(this->coord, NULL);
     this->coord = coord;
     dun->updateSpace(this->coord, this);
   }
-  return id;
+  return foundId;
 }
 
 int Character::getCharacterId(Coordinate loc) {
@@ -120,17 +128,37 @@ void NPC::setTurnLogic() {
     case 0b0111:
       turnLogic = &NPC::movement0111;
       break;
+    case 0b1001:
+      turnLogic = &NPC::movement1001;
+      break;
+    case 0b1010:
+      turnLogic = &NPC::movement1010;
+      break;
+    case 0b1011:
+      turnLogic = &NPC::movement1011;
+      break;
+    case 0b1100:
+      turnLogic = &NPC::movement1100;
+      break;
+    case 0b1101:
+      turnLogic = &NPC::movement1101;
+      break;
+    case 0b1110:
+      turnLogic = &NPC::movement1110;
+      break;
+    case 0b1111:
+      turnLogic = &NPC::movement1111;
+      break;
     default:
-//      return [this](void) mutable{NPC::moveRand();};
       turnLogic = &Character::moveRand;
   }
 }
 
 int NPC::takeTurn() {
   nextEventTime += 1000/speed;
-  int id = (this->*turnLogic)();
+  int foundId = (this->*turnLogic)();
   dun->draw();
-  return id;
+  return foundId;
 }
 
 void NPC::updatePCLoc() {
@@ -177,7 +205,6 @@ int NPC::movement0101(){
   }
 }
 
-// Erratic Tunneling Telepathy Intelligence
 int NPC::movement0110(){
   return moveTowardTunneling(pc->coord);
 }
@@ -216,8 +243,37 @@ int NPC::movement0111(){
   return foundID;
 }
 
+int NPC::movement1001() {
+  return (rand() % 2) ? moveRand() : movement0001();
+}
+int NPC::movement1010(){
+  return (rand() % 2) ? moveRand() : movement0010();
+}
+
+// Erratic Tunneling Telepathy Intelligence
+int NPC::movement1011(){
+  return (rand() % 2) ? moveRand() : movement0011();
+}
+
+int NPC::movement1100(){
+  return movement0100();
+}
+
+int NPC::movement1101(){
+  return (rand() % 2) ? moveRand() : movement0101();
+}
+
+int NPC::movement1110(){
+  return (rand() % 2) ? moveRand() : movement0110();
+}
+
+int NPC::movement1111(){
+  return (rand() % 2) ? moveRand() : movement0111();
+}
+
 int NPC::moveTowardTunneling(Coordinate coord) {
   Coordinate to = this->coord;
+  int foundId;
   if(to.y != coord.y) {
     to.y += (to.y > coord.y) ? -1 : 1;
   }
@@ -238,12 +294,12 @@ int NPC::moveTowardTunneling(Coordinate coord) {
       dun->map[to.y][to.x].setType(0);
     }
     dun->updateSpace(this->coord, NULL);
-    id = getCharacterId(to);
+    foundId = getCharacterId(to);
     this->coord = {to.y, to.x};
     dun->updateSpace(this->coord, this);
     dun->draw();
   }
-  return id;
+  return foundId;
 }
 
 int NPC::moveRandTunneling() {
@@ -251,7 +307,7 @@ int NPC::moveRandTunneling() {
   int newY = 0;
   int modX = 0;
   int modY = 0;
-  int id = 0;
+  int foundId = 0;
 
   do {
     if(rand() % 2 == 0) {
@@ -277,12 +333,12 @@ int NPC::moveRandTunneling() {
       dun->map[newY][newX].setType(0);
     }
     dun->updateSpace(coord, NULL);
-    id = getCharacterId(coord);
+    foundId = getCharacterId(coord);
     coord = {newY, newX};
     dun->updateSpace(coord, this);
     dun->draw();
   }
-  return id;
+  return foundId;
 }
 
 char getSymbol(char type) {
