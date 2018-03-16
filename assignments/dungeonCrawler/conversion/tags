@@ -97,6 +97,7 @@ moveRand	Character.cpp	/^int Character::moveRand() {$/;"	f	class:Character
 moveRandTunneling	Character.cpp	/^int NPC::moveRandTunneling() {$/;"	f	class:NPC
 moveTo	Character.cpp	/^int Character::moveTo(Coordinate coord) {$/;"	f	class:Character
 moveToward	Character.cpp	/^int Character::moveToward(Coordinate coord) {$/;"	f	class:Character
+moveTowardTunneling	Character.cpp	/^int NPC::moveTowardTunneling(Coordinate coord) {$/;"	f	class:NPC
 movement0001	Character.cpp	/^int NPC::movement0001() {$/;"	f	class:NPC
 movement0010	Character.cpp	/^int NPC::movement0010(){$/;"	f	class:NPC
 movement0011	Character.cpp	/^int NPC::movement0011(){$/;"	f	class:NPC

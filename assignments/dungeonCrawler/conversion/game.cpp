@@ -70,7 +70,7 @@ char genCharacterType() {
   if(rand() % 2 == 0) {
     type |= ERRATIC_BIT;
   }
-  type = 0b0101;
+  type = 0b0110;
   return type;
 }
 

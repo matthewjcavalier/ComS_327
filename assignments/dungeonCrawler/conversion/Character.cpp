@@ -141,7 +141,6 @@ void NPC::updatePCLoc() {
   }
 }
 
-// Erratic Tunneling Telepathy Intelligence
 int NPC::movement0001() {
   updatePCLoc();
   if(lastSeenPCLoc.x != 0 && lastSeenPCLoc.y != 0) {
@@ -177,11 +176,43 @@ int NPC::movement0101(){
     return moveRandTunneling();
   }
 }
+
+// Erratic Tunneling Telepathy Intelligence
 int NPC::movement0110(){
-  return 0;
+  return moveTowardTunneling(pc->coord);
 }
 int NPC::movement0111(){
   return 0;
+}
+
+int NPC::moveTowardTunneling(Coordinate coord) {
+  Coordinate to = this->coord;
+  if(to.y != coord.y) {
+    to.y += (to.y > coord.y) ? -1 : 1;
+  }
+  if(to.x != coord.x) {
+    to.x += (to.x > coord.x) ? -1 : 1;
+  }
+
+  if(dun->map[to.y][to.x].hardness > 0) {
+    if(dun->map[to.y][to.x].hardness < 85) {
+      dun->map[to.y][to.x].hardness = 0;
+    } else {
+      dun->map[to.y][to.x].hardness -= 85;
+    }
+  }
+
+  if(dun->map[to.y][to.x].hardness <= 0) {
+    if(dun->map[to.y][to.x].type != HALL && dun->map[to.y][to.x].type != ROOM) {
+      dun->map[to.y][to.x].setType(0);
+    }
+    dun->updateSpace(this->coord, NULL);
+    id = getCharacterId(to);
+    this->coord = {to.y, to.x};
+    dun->updateSpace(this->coord, this);
+    dun->draw();
+  }
+  return id;
 }
 
 int NPC::moveRandTunneling() {
