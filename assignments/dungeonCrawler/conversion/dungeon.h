@@ -22,6 +22,10 @@
   #define CHARACTER_H
   #include "Character.h"
 #endif
+#ifndef SCREEN_H
+  #define SCREEN_H
+  #include "screen.h"
+#endif
 
 
 using namespace std;

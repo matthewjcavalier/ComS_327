@@ -244,27 +244,28 @@ void Dungeon::save(string loc) {
 }
 
 void Dungeon::draw() {
+  char toDraw = '~';
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
       if(charMap[row][col] != NULL) {
-        cout << charMap[row][col]->symbol;
+        toDraw = charMap[row][col]->symbol;
       } else {
         switch (map[row][col].type) {
           case BORDER:
-            cout<< "|";
+            toDraw = '|';
             break;
           case ROOM:
-            cout<< ".";
+            toDraw = '.';
             break;
           case HALL:
-            cout<< "#";
+            toDraw = '#';
             break;
           default:
-            cout<< " ";
+            toDraw = ' ';
         }
       }
+      drawCharacter({row + 1, col}, toDraw);
     }
-    cout<<endl;
   }
 }
 

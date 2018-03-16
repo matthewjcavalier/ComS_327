@@ -43,7 +43,6 @@ int Character::moveRand() {
   foundId = getCharacterId(coord);
   coord = {newY, newX};
   dun->updateSpace(coord, this);
-  dun->draw();
   return foundId;
 }
 
@@ -86,10 +85,31 @@ PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
 
 int PC::takeTurn() {
   nextEventTime += 1000/speed;
-  //int id = moveRand();
+  int userPressed;
+  movementResDTO res;
+  do {
+    userPressed = getch();
+    drawCharacter({0,0}, userPressed);
+    // move up left
+    if(userPressed == '7' || userPressed == 'y') {
+      res = tryToMove({coord.y - 1, coord.x -1});
+    }
+  } while(!res.success);
   dun->updateDistMaps();
-  return 0;
-//  return id;
+  dun->draw();
+  return res.killed;
+}
+
+movementResDTO PC::tryToMove(Coordinate to) {
+  movementResDTO res;
+  if(dun->isOpenSpace(to)) {
+    dun->updateSpace(coord, NULL);
+    res.killed = getCharacterId(coord);
+    coord = to;
+    dun->updateSpace(coord, this);
+    res.success = true;
+  }
+  return res;
 }
 
 NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {
@@ -157,7 +177,6 @@ void NPC::setTurnLogic() {
 int NPC::takeTurn() {
   nextEventTime += 1000/speed;
   int foundId = (this->*turnLogic)();
-  dun->draw();
   return foundId;
 }
 
@@ -238,7 +257,6 @@ int NPC::movement0111(){
     foundID = getCharacterId(next);
     this->coord = {next.y, next.x};
     dun->updateSpace(this->coord, this);
-    dun->draw();
   }
   return foundID;
 }
@@ -297,7 +315,6 @@ int NPC::moveTowardTunneling(Coordinate coord) {
     foundId = getCharacterId(to);
     this->coord = {to.y, to.x};
     dun->updateSpace(this->coord, this);
-    dun->draw();
   }
   return foundId;
 }
@@ -336,7 +353,6 @@ int NPC::moveRandTunneling() {
     foundId = getCharacterId(coord);
     coord = {newY, newX};
     dun->updateSpace(coord, this);
-    dun->draw();
   }
   return foundId;
 }

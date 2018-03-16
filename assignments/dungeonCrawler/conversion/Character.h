@@ -17,6 +17,16 @@
 
 class Dungeon;
 
+class movementResDTO {
+  public:
+    bool success;
+    int killed;
+    movementResDTO() {
+      success = false;
+      killed = 0;
+    }
+};
+
 class Character {
   public:
     Coordinate coord;
@@ -38,6 +48,8 @@ class PC : public Character {
   public:
     PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime);
     int takeTurn();
+  private:
+    movementResDTO tryToMove(Coordinate to);
 };
 
 class NPC : public Character {
