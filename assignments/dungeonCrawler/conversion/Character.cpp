@@ -166,17 +166,48 @@ void PC::showMonsterList() {
   int vertBorderWidth = 2;
   int horBorderWidth = 5;
   int stringAreaWidth = 50;
-  //int currentTopMonst = 0;
+  int currentTopMonst = 0;
   int numMonstersShown = 5;
+  int userPressed;
+  bool end = false;
 
   // init monster list
   vector<string> monsterList;
   
   // fill the list
   monsterList = fillMonsterList();
-  
-  drawMonsterBox(topLeft_y, topLeft_x, horBorderWidth, vertBorderWidth, numMonstersShown, stringAreaWidth);
-  
+
+  do {
+    drawMonsterBox(topLeft_y, topLeft_x, horBorderWidth, vertBorderWidth, numMonstersShown, stringAreaWidth);
+
+    // populate the monster list
+    for(int i = currentTopMonst; i < (int)monsterList.size() && i < currentTopMonst + numMonstersShown; i++) {
+      drawString({topLeft_y + i - currentTopMonst + vertBorderWidth + 1, topLeft_x + horBorderWidth}, (char*)monsterList[i].c_str());
+      fflush(stdout);
+    }
+    do {
+      userPressed = getch();
+      if(userPressed != ERR) {
+        if(userPressed == KEY_DOWN) {
+          drawString({0,0}, (char*)string("DOWN pressed").c_str());
+          if((int)monsterList.size() > numMonstersShown) {
+            currentTopMonst = (currentTopMonst < (int)monsterList.size() - numMonstersShown)? currentTopMonst + 1 : (int)monsterList.size() - numMonstersShown;
+          }
+        } else if(userPressed == KEY_UP) {
+          drawString({0,0}, (char*)string("UP pressed").c_str());
+          if((int)monsterList.size() > numMonstersShown) {
+            currentTopMonst = (currentTopMonst > 0)? currentTopMonst - 1 : 0;
+          }
+        } else if(userPressed == 27) {
+          if(getch() == ERR) {
+            drawString({0,0}, (char*)string("ESC pressed").c_str());
+            end = true;
+          }
+        }
+      }
+    } while(userPressed == ERR);
+  } while (!end);
+  dun->draw();
 }
 
 void PC::drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth) {

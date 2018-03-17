@@ -4,6 +4,7 @@
 int scrStartup() {
   initscr();
   noecho();
+  timeout(0);
   curs_set(FALSE);
   keypad(stdscr, TRUE);
   return 0;
