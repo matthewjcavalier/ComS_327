@@ -49,23 +49,23 @@ int Character::moveRand() {
   return foundId;
 }
 
-int Character::moveToward(Coordinate coord) {
-  Coordinate to = this->coord;
-  if(to.y != coord.y) {
-    to.y += (to.y > coord.y) ? -1 : 1;
+int Character::moveToward(Coordinate moveingTo) {
+  Coordinate to = coord;
+  if(to.y != moveingTo.y) {
+    to.y += (to.y > moveingTo.y) ? -1 : 1;
   }
-  if(to.x != coord.x) {
-    to.x += (to.x > coord.x) ? -1 : 1;
+  if(to.x != moveingTo.x) {
+    to.x += (to.x > moveingTo.x) ? -1 : 1;
   }
   return moveTo(to);
 }
 
-int Character::moveTo(Coordinate coord) {
-  int foundId = getCharacterId(coord);
+int Character::moveTo(Coordinate to) {
+  int foundId = getCharacterId(to);
   if(dun->isOpenSpace(coord)) {
-    dun->updateSpace(this->coord, NULL);
-    this->coord = coord;
-    dun->updateSpace(this->coord, this);
+    dun->updateSpace(coord, NULL);
+    coord = to;
+    dun->updateSpace(coord, this);
   }
   return foundId;
 }

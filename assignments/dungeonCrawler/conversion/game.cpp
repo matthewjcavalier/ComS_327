@@ -112,6 +112,7 @@ char genCharacterType() {
   if(rand() % 2 == 0) {
     type |= ERRATIC_BIT;
   }
+  type = 0b1001;
   return type;
 }
 
