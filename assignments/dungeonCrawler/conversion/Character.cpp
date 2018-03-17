@@ -150,11 +150,40 @@ int PC::takeTurn() {
         return MOVE_BETWEEN_FLOORS;
       }
     }
-
+    // go up stairs
+    if(userPressed == 'm') {
+      showMonsterList();
+    }
   } while(!res.success);
   dun->updateDistMaps();
   dun->draw();
   return res.killed;
+}
+
+void PC::showMonsterList() {
+  int topLeft_x = 10;
+  int topLeft_y = 5;
+  int vertBorderWidth = 2;
+  int horBorderWith = 5;
+  int stringAreaWidth = 50;
+  int xdiff, ydiff;
+  int currentTopMonst = 0;
+  int row, col, i;
+  int numMonstersShowing = 5;
+  int monstersFound = 0;
+  char userPressed;
+    
+  // init monster list
+  vector<string> monsterList;
+  
+  // fill the list
+  for(auto row : dun->charMap) {
+    for(Character* character : row) {
+      if(character != NULL && character->symbol != '@') {
+        //TODO
+      }
+    }
+  }
 }
 
 movementResDTO PC::tryToMove(Coordinate to) {

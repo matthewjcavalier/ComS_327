@@ -52,6 +52,7 @@ class PC : public Character {
     int takeTurn();
   private:
     movementResDTO tryToMove(Coordinate to);
+    void showMonsterList();
 };
 
 class NPC : public Character {
