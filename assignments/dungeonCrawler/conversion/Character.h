@@ -14,6 +14,16 @@
   #define UNISTD_H
   #include <unistd.h>
 #endif
+#ifndef STRING
+  #define STRING
+  #include <string>
+#endif
+#ifndef SSTREAM
+  #define SSTREAM
+  #include <sstream>
+#endif
+
+using namespace std;
 
 class Dungeon;
 
@@ -53,6 +63,9 @@ class PC : public Character {
   private:
     movementResDTO tryToMove(Coordinate to);
     void showMonsterList();
+    vector<string> fillMonsterList();
+    string genMonsterString(int ydiff, int xdiff, char symbol);
+    void drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth);
 };
 
 class NPC : public Character {

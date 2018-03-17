@@ -161,29 +161,61 @@ int PC::takeTurn() {
 }
 
 void PC::showMonsterList() {
-  int topLeft_x = 10;
+  int topLeft_x = 13;
   int topLeft_y = 5;
   int vertBorderWidth = 2;
-  int horBorderWith = 5;
+  int horBorderWidth = 5;
   int stringAreaWidth = 50;
-  int xdiff, ydiff;
-  int currentTopMonst = 0;
-  int row, col, i;
-  int numMonstersShowing = 5;
-  int monstersFound = 0;
-  char userPressed;
-    
+  //int currentTopMonst = 0;
+  int numMonstersShown = 5;
+
   // init monster list
   vector<string> monsterList;
   
   // fill the list
-  for(auto row : dun->charMap) {
-    for(Character* character : row) {
-      if(character != NULL && character->symbol != '@') {
-        //TODO
+  monsterList = fillMonsterList();
+  
+  drawMonsterBox(topLeft_y, topLeft_x, horBorderWidth, vertBorderWidth, numMonstersShown, stringAreaWidth);
+  
+}
+
+void PC::drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth) {
+  for(int row = topLeft_y; row < topLeft_y + horBorderWidth + numMonstersShown - 1; row++) {
+    for(int col = topLeft_x; col < topLeft_x + vertBorderWidth + stringAreaWidth - 1; col++) {
+      if(row == topLeft_y || row == topLeft_y + horBorderWidth + numMonstersShown - 2) {
+        drawCharacter({row + 1, col}, '_');
+      } else if(col == topLeft_x || col == topLeft_x + vertBorderWidth + stringAreaWidth - 2) {
+        drawCharacter({row + 1, col}, '|');
+      } else {
+        drawCharacter({row + 1, col}, ' ');
       }
     }
   }
+}
+
+vector<string> PC::fillMonsterList() {
+  vector<string> monsterList;
+  for(auto row : dun->charMap) {
+    for(Character* character : row) {
+      if(character != NULL && character->symbol != '@') {
+        monsterList.push_back(genMonsterString(this->coord.y - character->coord.y, 
+              this->coord.x - character->coord.x, character->symbol));
+      }
+    }
+  }
+  return monsterList;
+}
+
+string PC::genMonsterString(int ydiff, int xdiff, char symbol) {
+  ostringstream ret;
+  if(ydiff == 0) {
+    ret << symbol << " is " << abs(xdiff) << " to the " << ((xdiff > 0) ? "West" : "East");
+  } else if(xdiff == 0) {
+    ret << symbol << " is " << abs(ydiff) << " to the " << ((ydiff > 0) ? "North" : "South");
+  } else {
+    ret << symbol << " is " << abs(ydiff) << " to the " << ((ydiff > 0) ? "North" : "South") << " and " << abs(xdiff) << " to the " << ((xdiff > 0) ? "West" : "East");
+  }
+  return ret.str();
 }
 
 movementResDTO PC::tryToMove(Coordinate to) {

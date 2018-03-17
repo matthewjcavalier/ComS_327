@@ -57,9 +57,11 @@ Room	dungeon.cpp	/^Room::Room(int y, int x, int height, int width) {$/;"	f	class
 Room	dungeon.h	/^class Room {$/;"	c
 SCREEN_H	dungeon.h	26;"	d
 SCREEN_H	game.h	34;"	d
+SSTREAM	Character.h	22;"	d
 STDLIB_H	dungeon.h	2;"	d
 STDLIB_H	game.h	10;"	d
 STDLIB_H	game.h	6;"	d
+STRING	Character.h	18;"	d
 STRING	game.h	22;"	d
 Settings	game.h	/^class Settings{$/;"	c
 TELEPATHY_BIT	defs.h	9;"	d
@@ -82,14 +84,17 @@ comparingTo	dungeon.h	/^    Coordinate comparingTo;$/;"	m	class:CoordPair
 coord	Character.h	/^    Coordinate coord;$/;"	m	class:Character
 draw	dungeon.cpp	/^void Dungeon::draw() {$/;"	f	class:Dungeon
 drawCharacter	screen.cpp	/^int drawCharacter(Coordinate coord, char symbol) {$/;"	f
+drawMonsterBox	Character.cpp	/^void PC::drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth) {$/;"	f	class:PC
 drawString	screen.cpp	/^int drawString(Coordinate coord, char* str) {$/;"	f
 dun	Character.h	/^    Dungeon* dun;$/;"	m	class:Character
 dungeonInit	game.cpp	/^Dungeon dungeonInit() {$/;"	f
 endianSwap_uInt	dungeon.cpp	/^uint32_t Dungeon:: endianSwap_uInt(int input) {$/;"	f	class:Dungeon
 fillDistMap	dungeon.cpp	/^void Dungeon::fillDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, bool canTunnel) {$/;"	f	class:Dungeon
+fillMonsterList	Character.cpp	/^vector<string> PC::fillMonsterList() {$/;"	f	class:PC
 genBaseDun	dungeon.cpp	/^void Dungeon::genBaseDun() {$/;"	f	class:Dungeon
 genCharacterType	game.cpp	/^char genCharacterType() {$/;"	f
 genDistMap	dungeon.cpp	/^vector<vector<int>> Dungeon::genDistMap(int y, int x, bool canTunnel) {$/;"	f	class:Dungeon
+genMonsterString	Character.cpp	/^string PC::genMonsterString(int ydiff, int xdiff, char symbol) {$/;"	f	class:PC
 getCharacterId	Character.cpp	/^int Character::getCharacterId(Coordinate loc) {$/;"	f	class:Character
 getEmptyMap	dungeon.cpp	/^vector<vector<int>> getEmptyMap() {$/;"	f
 getEmptySpace	dungeon.cpp	/^Coordinate Dungeon::getEmptySpace() {$/;"	f	class:Dungeon
@@ -151,6 +156,7 @@ setTurnLogic	Character.cpp	/^void NPC::setTurnLogic() {$/;"	f	class:NPC
 setType	dungeon.cpp	/^void Tile::setType(TileType type) {$/;"	f	class:Tile
 setType	dungeon.cpp	/^void Tile::setType(int hardness) {$/;"	f	class:Tile
 settings	game.cpp	/^Settings settings;$/;"	v
+showMonsterList	Character.cpp	/^void PC::showMonsterList() {$/;"	f	class:PC
 speed	Character.h	/^    int speed;$/;"	m	class:Character
 success	Character.h	/^    bool success;$/;"	m	class:movementResDTO
 symbol	Character.h	/^    char symbol;$/;"	m	class:Character
