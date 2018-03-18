@@ -12,6 +12,11 @@
 
 #define MOVE_BETWEEN_FLOORS -2
 
+#define HALL_CHAR '#'
+#define ROOM_CHAR '.'
+#define ROCK_CHAR ' '
+#define BORDER_CHAR '|'
+
 class Coordinate {
   public:
     int x;
@@ -24,4 +29,13 @@ class Coordinate {
       this->y = y;
       this->x = x;
     }
+};
+
+enum TileType {
+  ROCK,
+  HALL,
+  ROOM,
+  BORDER,
+  UPSTAIR,
+  DOWNSTAIR
 };

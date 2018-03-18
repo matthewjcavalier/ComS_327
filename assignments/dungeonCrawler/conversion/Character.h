@@ -57,15 +57,20 @@ class Character {
 
 class PC : public Character {
   public:
+    vector<vector<TileType>> dunMap;
     PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime);
     ~PC();
     int takeTurn();
   private:
+    int sightDist;
     movementResDTO tryToMove(Coordinate to);
     void showMonsterList();
     vector<string> fillMonsterList();
     string genMonsterString(int ydiff, int xdiff, char symbol);
     void drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth);
+    void setupDunMap();
+    void updateDunMap();
+    void drawDunMap();
 };
 
 class NPC : public Character {

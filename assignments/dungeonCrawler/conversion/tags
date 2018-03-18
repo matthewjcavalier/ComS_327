@@ -4,7 +4,8 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-BORDER	dungeon.h	/^  BORDER,$/;"	e	enum:TileType
+BORDER	defs.h	/^  BORDER,$/;"	e	enum:TileType
+BORDER_CHAR	defs.h	18;"	d
 CC	Makefile	/^CC=g++$/;"	m
 CFLAGS	Makefile	/^CFLAGS=-g -Wall -Werror -std=c++11$/;"	m
 CHARACTER_H	Character.cpp	1;"	d	file:
@@ -21,7 +22,7 @@ Coordinate	defs.h	/^    Coordinate(int y, int x) {$/;"	f	class:Coordinate
 Coordinate	defs.h	/^class Coordinate {$/;"	c
 DEFS_H	dungeon.h	10;"	d
 DEFS_H	screen.h	10;"	d
-DOWNSTAIR	dungeon.h	/^  DOWNSTAIR$/;"	e	enum:TileType
+DOWNSTAIR	defs.h	/^  DOWNSTAIR$/;"	e	enum:TileType
 DUNGEON_H	Character.h	6;"	d
 DUNGEON_H	dungeon.cpp	1;"	d	file:
 DUNGEON_H	game.h	2;"	d
@@ -31,7 +32,8 @@ Dungeon	dungeon.h	/^class Dungeon {$/;"	c
 ERRATIC_BIT	defs.h	11;"	d
 FUNCTIONAL	Character.h	10;"	d
 GAME_H	game.cpp	1;"	d	file:
-HALL	dungeon.h	/^  HALL,$/;"	e	enum:TileType
+HALL	defs.h	/^  HALL,$/;"	e	enum:TileType
+HALL_CHAR	defs.h	15;"	d
 INTELLIGENCE_BIT	defs.h	8;"	d
 IOSTREAM	Character.h	2;"	d
 IOSTREAM	dungeon.h	14;"	d
@@ -50,8 +52,10 @@ PC	Character.cpp	/^PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int
 PC	Character.h	/^class PC : public Character {$/;"	c
 QUEUE	game.h	26;"	d
 REQ	Makefile	/^REQ=clean genCtags game.cpp dungeon.cpp Character.cpp screen.o$/;"	m
-ROCK	dungeon.h	/^  ROCK,$/;"	e	enum:TileType
-ROOM	dungeon.h	/^  ROOM,$/;"	e	enum:TileType
+ROCK	defs.h	/^  ROCK,$/;"	e	enum:TileType
+ROCK_CHAR	defs.h	17;"	d
+ROOM	defs.h	/^  ROOM,$/;"	e	enum:TileType
+ROOM_CHAR	defs.h	16;"	d
 Room	dungeon.cpp	/^Room::Room() {$/;"	f	class:Room
 Room	dungeon.cpp	/^Room::Room(int y, int x, int height, int width) {$/;"	f	class:Room
 Room	dungeon.h	/^class Room {$/;"	c
@@ -69,10 +73,10 @@ TIME_H	game.h	14;"	d
 TUNNELING_BIT	defs.h	10;"	d
 Tile	dungeon.cpp	/^Tile::Tile(TileType type) {$/;"	f	class:Tile
 Tile	dungeon.h	/^class Tile {$/;"	c
-TileType	dungeon.h	/^enum TileType {$/;"	g
+TileType	defs.h	/^enum TileType {$/;"	g
 UNISTD_H	Character.h	14;"	d
 UNISTD_H	screen.h	6;"	d
-UPSTAIR	dungeon.h	/^  UPSTAIR,$/;"	e	enum:TileType
+UPSTAIR	defs.h	/^  UPSTAIR,$/;"	e	enum:TileType
 VECTOR	dungeon.h	6;"	d
 addHallways	dungeon.cpp	/^void Dungeon::addHallways() {$/;"	f	class:Dungeon
 addRooms	dungeon.cpp	/^void Dungeon::addRooms(int numRooms) {$/;"	f	class:Dungeon
@@ -84,9 +88,11 @@ comparingTo	dungeon.h	/^    Coordinate comparingTo;$/;"	m	class:CoordPair
 coord	Character.h	/^    Coordinate coord;$/;"	m	class:Character
 draw	dungeon.cpp	/^void Dungeon::draw() {$/;"	f	class:Dungeon
 drawCharacter	screen.cpp	/^int drawCharacter(Coordinate coord, char symbol) {$/;"	f
+drawDunMap	Character.cpp	/^void PC::drawDunMap() {$/;"	f	class:PC
 drawMonsterBox	Character.cpp	/^void PC::drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth) {$/;"	f	class:PC
 drawString	screen.cpp	/^int drawString(Coordinate coord, char* str) {$/;"	f
 dun	Character.h	/^    Dungeon* dun;$/;"	m	class:Character
+dunMap	Character.h	/^    vector<vector<TileType>> dunMap;$/;"	m	class:PC
 dungeonInit	game.cpp	/^Dungeon dungeonInit() {$/;"	f
 endianSwap_uInt	dungeon.cpp	/^uint32_t Dungeon:: endianSwap_uInt(int input) {$/;"	f	class:Dungeon
 fillDistMap	dungeon.cpp	/^void Dungeon::fillDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, bool canTunnel) {$/;"	f	class:Dungeon
@@ -99,6 +105,7 @@ getCharacterId	Character.cpp	/^int Character::getCharacterId(Coordinate loc) {$/
 getEmptyMap	dungeon.cpp	/^vector<vector<int>> getEmptyMap() {$/;"	f
 getEmptySpace	dungeon.cpp	/^Coordinate Dungeon::getEmptySpace() {$/;"	f	class:Dungeon
 getSymbol	Character.cpp	/^char getSymbol(char type) {$/;"	f
+getTileSym	dungeon.cpp	/^char getTileSym(TileType type) {$/;"	f
 hardness	dungeon.h	/^    uint8_t hardness;$/;"	m	class:Tile
 height	dungeon.h	/^    uint8_t height;$/;"	m	class:Room
 id	Character.h	/^    int id;$/;"	m	class:Character
@@ -156,7 +163,9 @@ setTurnLogic	Character.cpp	/^void NPC::setTurnLogic() {$/;"	f	class:NPC
 setType	dungeon.cpp	/^void Tile::setType(TileType type) {$/;"	f	class:Tile
 setType	dungeon.cpp	/^void Tile::setType(int hardness) {$/;"	f	class:Tile
 settings	game.cpp	/^Settings settings;$/;"	v
+setupDunMap	Character.cpp	/^void PC::setupDunMap() {$/;"	f	class:PC
 showMonsterList	Character.cpp	/^void PC::showMonsterList() {$/;"	f	class:PC
+sightDist	Character.h	/^    int sightDist;$/;"	m	class:PC
 speed	Character.h	/^    int speed;$/;"	m	class:Character
 success	Character.h	/^    bool success;$/;"	m	class:movementResDTO
 symbol	Character.h	/^    char symbol;$/;"	m	class:Character
@@ -170,6 +179,7 @@ type	Character.h	/^    char type;$/;"	m	class:NPC
 type	dungeon.h	/^    TileType type;$/;"	m	class:Tile
 updateDistMap	dungeon.cpp	/^void Dungeon::updateDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, CoordPair pair, bool canTunnel) {$/;"	f	class:Dungeon
 updateDistMaps	dungeon.cpp	/^void Dungeon::updateDistMaps() {$/;"	f	class:Dungeon
+updateDunMap	Character.cpp	/^void PC::updateDunMap() {$/;"	f	class:PC
 updatePCLoc	Character.cpp	/^void NPC::updatePCLoc() {$/;"	f	class:NPC
 updateSpace	dungeon.cpp	/^void Dungeon::updateSpace(Coordinate coord, Character* ptr) {$/;"	f	class:Dungeon
 width	dungeon.h	/^    uint8_t width;$/;"	m	class:Room

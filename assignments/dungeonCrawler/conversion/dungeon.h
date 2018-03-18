@@ -33,14 +33,7 @@ using namespace std;
 class Character;
 class PC;
 
-enum TileType {
-  ROCK,
-  HALL,
-  ROOM,
-  BORDER,
-  UPSTAIR,
-  DOWNSTAIR
-};
+
 
 class CoordPair {
   public:
@@ -112,3 +105,5 @@ class Dungeon {
 
 
 vector<vector<int>> getEmptyMap();
+
+char getTileSym(TileType type); 

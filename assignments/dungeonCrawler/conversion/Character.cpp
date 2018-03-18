@@ -85,6 +85,8 @@ PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   this->nextEventTime = nextEventTime;
   this->id = id;
   dun->updateSpace(coord, this);
+  setupDunMap();
+  sightDist = 5;
 }
 
 PC::~PC(){}
@@ -93,7 +95,8 @@ int PC::takeTurn() {
   nextEventTime += 1000/speed;
   int userPressed;
   movementResDTO res;
-  dun->draw();
+  updateDunMap();
+  drawDunMap();
   do {
     userPressed = getch();
     drawCharacter({0,0}, userPressed);
@@ -156,7 +159,6 @@ int PC::takeTurn() {
     }
   } while(!res.success);
   dun->updateDistMaps();
-  dun->draw();
   return res.killed;
 }
 
@@ -207,7 +209,7 @@ void PC::showMonsterList() {
       }
     } while(userPressed == ERR);
   } while (!end);
-  dun->draw();
+  drawDunMap();
 }
 
 void PC::drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth) {
@@ -249,6 +251,14 @@ string PC::genMonsterString(int ydiff, int xdiff, char symbol) {
   return ret.str();
 }
 
+void PC::setupDunMap() {
+  TileType spot = ROCK;
+  dunMap.resize(MAX_HEIGHT);
+  for(int row = 0; row < MAX_HEIGHT; row++) {
+    dunMap[row].resize(MAX_WIDTH, spot);
+  }
+}
+
 movementResDTO PC::tryToMove(Coordinate to) {
   movementResDTO res;
   if(dun->isOpenSpace(to)) {
@@ -257,8 +267,45 @@ movementResDTO PC::tryToMove(Coordinate to) {
     coord = to;
     dun->updateSpace(coord, this);
     res.success = true;
+    // update the personal dungeon map
+    updateDunMap();
   }
   return res;
+}
+
+void PC::updateDunMap() {
+  for(int row = coord.y - sightDist; row < coord.y + sightDist; row++) {
+    for(int col = coord.x - sightDist; col < coord.x + sightDist; col++) {
+      if(row > 0 && row < MAX_HEIGHT &&
+         col > 0 && col < MAX_WIDTH &&
+         dun->canSeeFrom(coord, {row,col})) {
+
+        dunMap[row][col] = dun->map[row][col].type;
+      }
+    }
+  }
+}
+
+void PC::drawDunMap() {
+  // draw known map
+  for(int row = 0; row < MAX_HEIGHT; row++) {
+    for(int col = 0; col < MAX_WIDTH; col++) {
+      if(row > 0 && row < MAX_HEIGHT && col > 0 && col < MAX_WIDTH) {
+        drawCharacter({row,col}, getTileSym(dunMap[row][col]));
+      }
+    }
+  }
+  // draw monsters in sight radius
+  for(int row = coord.y - sightDist; row < coord.y + sightDist; row++) {
+    for(int col = coord.x - sightDist; col < coord.x + sightDist; col++) {
+      if(row > 0 && row < MAX_HEIGHT &&
+         col > 0 && col < MAX_WIDTH &&
+         dun->charMap[row][col] != NULL) {
+
+        drawCharacter({row,col}, dun->charMap[row][col]->symbol);
+      }
+    }
+  }
 }
 
 NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {

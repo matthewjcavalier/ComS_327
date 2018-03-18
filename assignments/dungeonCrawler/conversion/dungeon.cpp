@@ -461,3 +461,14 @@ vector<vector<int>> getEmptyMap() {
   }
   return emptyMap;
 }
+
+char getTileSym(TileType type) {
+  switch(type) {
+    case ROOM:
+      return ROOM_CHAR;
+    case HALL:
+      return HALL_CHAR;
+    default:
+      return ROCK_CHAR;
+  }
+}

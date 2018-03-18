@@ -42,7 +42,6 @@ void runGame(Dungeon& dun) {
     turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed, genCharacterType(), pc));
   }
 
-  dun.draw();
   while(!gameOver) {
     resultId = turnQueue.top()->takeTurn();
     turnQueue.top()->nextEventTime += turnQueue.top()->speed;
@@ -88,7 +87,6 @@ void runGame(Dungeon& dun) {
         int speed = rand() % 15 + 5;
         turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed + pc->nextEventTime, genCharacterType(), pc));
       }
-      dun.draw();
     }
     if(turnQueue.size() == 1) {
       gameOver = true;
