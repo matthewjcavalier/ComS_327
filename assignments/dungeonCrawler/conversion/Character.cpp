@@ -97,15 +97,19 @@ int PC::takeTurn() {
   movementResDTO res;
   updateDunMap();
   drawDunMap();
+  clearMessageArea();
   do {
     userPressed = getch();
     if(DEBUG) {
       if(userPressed == 'f') {
         dun->draw();
       }
-    }
-    if(userPressed != ERR) {
-      drawCharacter({0,0}, userPressed);
+      if(userPressed == 't') {
+        printMessage("Now in targeting mode");
+        if(!startTeleportMode()) {
+          
+        }
+      }
     }
     // move up left
     if(userPressed == '7' || userPressed == 'y') {
@@ -324,7 +328,97 @@ void PC::resetDunMap() {
     for(int col = 0; col < MAX_WIDTH; col++) {
       dunMap[row][col] = ROCK;
     }
-  }}
+  }
+}
+
+bool PC::startTeleportMode() {
+  int userPressed;
+  Coordinate teleportTo = coord;
+  drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+  bool done = false;
+  dun->draw();
+
+  do {
+    userPressed = getch();
+    // move up left
+    if(userPressed == '7' || userPressed == 'y') {
+      if(isInDun({teleportTo.y - 1, teleportTo.x -1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y--;
+        teleportTo.x--;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move up
+    if(userPressed == '8' || userPressed == 'k') {
+      if(isInDun({teleportTo.y - 1, teleportTo.x})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y--;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move up right
+    if(userPressed == '9' || userPressed == 'u') {
+      if(isInDun({teleportTo.y - 1, teleportTo.x +1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y--;
+        teleportTo.x++;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move right
+    if(userPressed == '6' || userPressed == 'l') {
+      if(isInDun({teleportTo.y, teleportTo.x +1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.x++;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move down right
+    if(userPressed == '3' || userPressed == 'n') {
+      if(isInDun({teleportTo.y + 1, teleportTo.x +1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y++;
+        teleportTo.x++;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move down
+    if(userPressed == '2' || userPressed == 'j') {
+      if(isInDun({teleportTo.y + 1, teleportTo.x})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y++;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move down left
+    if(userPressed == '1' || userPressed == 'b') {
+      if(isInDun({teleportTo.y + 1, teleportTo.x -1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y++;
+        teleportTo.x--;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move left
+    if(userPressed == '4' || userPressed == 'h') {
+      if(isInDun({teleportTo.y, teleportTo.x -1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.x--;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+  } while(!done);
+  return false;
+}
+
+void PC::drawNormalSpot(Coordinate spot) {
+  if(dun->charMap[spot.y][spot.x] != NULL) {
+    drawCharacter({spot.y + 1, spot.x}, dun->charMap[spot.y][spot.x]->symbol);
+  } else {
+    drawCharacter({spot.y + 1, spot.x}, getTileSym(dun->map[spot.y][spot.x].type));
+  }
+}
 
 NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {
   this->coord = coord;
@@ -609,4 +703,8 @@ char getSymbol(char type) {
     default:
       return '0';
   }
+}
+
+bool isInDun(Coordinate coord) {
+  return coord.y > 0 && coord.y < MAX_HEIGHT - 1 && coord.x > 0 && coord.x < MAX_WIDTH - 1;
 }

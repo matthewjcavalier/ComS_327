@@ -72,6 +72,8 @@ class PC : public Character {
     void updateDunMap();
     void drawDunMap();
     void resetDunMap();
+    bool startTeleportMode();
+    void drawNormalSpot(Coordinate spot);
 };
 
 class NPC : public Character {
@@ -107,3 +109,5 @@ class NPC : public Character {
 };
 
 char getSymbol(char type);
+
+bool isInDun(Coordinate coord);

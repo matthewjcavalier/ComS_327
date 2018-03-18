@@ -19,6 +19,8 @@
 #define UPSTAIR_CHAR '<'
 #define DOWNSTAIR_CHAR '>'
 
+#define TELEPORT_CHAR '*'
+
 #define MAX_RAND_MONST_COUNT 10
 
 #define DEBUG true

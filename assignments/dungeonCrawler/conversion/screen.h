@@ -10,6 +10,16 @@
   #define DEFS_H
   #include "defs.h"
 #endif
+#ifndef STRING
+  #define STRING
+  #include <string>
+#endif
+#ifndef SSTREAM
+  #define NCURSES_H
+  #include <sstream>
+#endif
+
+using namespace std;
 
 int scrStartup();
 
@@ -18,3 +28,7 @@ int drawString(Coordinate coord, char* str);
 int drawCharacter(Coordinate coord, char symbol);
 
 int scrTearDown();
+
+int printMessage(string message);
+
+int clearMessageArea();

@@ -20,7 +20,7 @@ CoordPair	dungeon.h	/^class CoordPair {$/;"	c
 Coordinate	defs.h	/^    Coordinate() {$/;"	f	class:Coordinate
 Coordinate	defs.h	/^    Coordinate(int y, int x) {$/;"	f	class:Coordinate
 Coordinate	defs.h	/^class Coordinate {$/;"	c
-DEBUG	defs.h	24;"	d
+DEBUG	defs.h	26;"	d
 DEFS_H	dungeon.h	10;"	d
 DEFS_H	screen.h	10;"	d
 DOWNSTAIR	defs.h	/^  DOWNSTAIR$/;"	e	enum:TileType
@@ -42,12 +42,13 @@ IOSTREAM	dungeon.h	14;"	d
 IOSTREAM	game.h	18;"	d
 MAX_HARDNESS	defs.h	1;"	d
 MAX_HEIGHT	defs.h	3;"	d
-MAX_RAND_MONST_COUNT	defs.h	22;"	d
+MAX_RAND_MONST_COUNT	defs.h	24;"	d
 MAX_WIDTH	defs.h	2;"	d
 MIN_ROOM_COUNT	defs.h	6;"	d
 MIN_ROOM_HEIGHT	defs.h	4;"	d
 MIN_ROOM_WIDTH	defs.h	5;"	d
 MOVE_BETWEEN_FLOORS	defs.h	13;"	d
+NCURSES_H	screen.h	18;"	d
 NCURSES_H	screen.h	2;"	d
 NPC	Character.cpp	/^NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {$/;"	f	class:NPC
 NPC	Character.h	/^class NPC : public Character {$/;"	c
@@ -70,8 +71,10 @@ STDLIB_H	game.h	10;"	d
 STDLIB_H	game.h	6;"	d
 STRING	Character.h	18;"	d
 STRING	game.h	22;"	d
+STRING	screen.h	14;"	d
 Settings	game.h	/^class Settings{$/;"	c
 TELEPATHY_BIT	defs.h	9;"	d
+TELEPORT_CHAR	defs.h	22;"	d
 TIME_H	game.h	14;"	d
 TUNNELING_BIT	defs.h	10;"	d
 Tile	dungeon.cpp	/^Tile::Tile(TileType type) {$/;"	f	class:Tile
@@ -88,12 +91,14 @@ addStairs	dungeon.cpp	/^void Dungeon::addStairs() {$/;"	f	class:Dungeon
 build	dungeon.cpp	/^void Dungeon::build() {$/;"	f	class:Dungeon
 canSeeFrom	dungeon.cpp	/^bool Dungeon::canSeeFrom(Coordinate from, Coordinate to) {$/;"	f	class:Dungeon
 charMap	dungeon.h	/^    vector <vector<Character*>> charMap;$/;"	m	class:Dungeon
+clearMessageArea	screen.cpp	/^int clearMessageArea() {$/;"	f
 comparingTo	dungeon.h	/^    Coordinate comparingTo;$/;"	m	class:CoordPair
 coord	Character.h	/^    Coordinate coord;$/;"	m	class:Character
 draw	dungeon.cpp	/^void Dungeon::draw() {$/;"	f	class:Dungeon
 drawCharacter	screen.cpp	/^int drawCharacter(Coordinate coord, char symbol) {$/;"	f
 drawDunMap	Character.cpp	/^void PC::drawDunMap() {$/;"	f	class:PC
 drawMonsterBox	Character.cpp	/^void PC::drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth) {$/;"	f	class:PC
+drawNormalSpot	Character.cpp	/^void PC::drawNormalSpot(Coordinate spot) {$/;"	f	class:PC
 drawString	screen.cpp	/^int drawString(Coordinate coord, char* str) {$/;"	f
 dun	Character.h	/^    Dungeon* dun;$/;"	m	class:Character
 dunMap	Character.h	/^    vector<vector<TileType>> dunMap;$/;"	m	class:PC
@@ -114,6 +119,7 @@ hardness	dungeon.h	/^    uint8_t hardness;$/;"	m	class:Tile
 height	dungeon.h	/^    uint8_t height;$/;"	m	class:Room
 id	Character.h	/^    int id;$/;"	m	class:Character
 initial	dungeon.h	/^    Coordinate initial;$/;"	m	class:CoordPair
+isInDun	Character.cpp	/^bool isInDun(Coordinate coord) {$/;"	f
 isOpenSpace	dungeon.cpp	/^bool Dungeon::isOpenSpace(Coordinate coord) {$/;"	f	class:Dungeon
 killed	Character.h	/^    int killed;$/;"	m	class:movementResDTO
 lastSeenPCLoc	Character.h	/^    Coordinate lastSeenPCLoc;$/;"	m	class:NPC
@@ -150,6 +156,7 @@ openMap	dungeon.h	/^    vector <vector<int>> openMap;$/;"	m	class:Dungeon
 operator ()	game.cpp	/^  bool operator()(Character* a, Character* b) {$/;"	f	struct:Compare
 pc	Character.h	/^    PC* pc;$/;"	m	class:NPC
 pc	dungeon.h	/^    PC* pc;$/;"	m	class:Dungeon
+printMessage	screen.cpp	/^int printMessage(string message) {$/;"	f
 putRoomsInDungeon	dungeon.cpp	/^void Dungeon::putRoomsInDungeon() {$/;"	f	class:Dungeon
 readRooms	dungeon.cpp	/^void Dungeon::readRooms(FILE* file, int fileSize) {$/;"	f	class:Dungeon
 readTiles	dungeon.cpp	/^void Dungeon::readTiles(FILE* file) {$/;"	f	class:Dungeon
@@ -172,6 +179,7 @@ setupDunMap	Character.cpp	/^void PC::setupDunMap() {$/;"	f	class:PC
 showMonsterList	Character.cpp	/^void PC::showMonsterList() {$/;"	f	class:PC
 sightDist	Character.h	/^    int sightDist;$/;"	m	class:PC
 speed	Character.h	/^    int speed;$/;"	m	class:Character
+startTeleportMode	Character.cpp	/^bool PC::startTeleportMode() {$/;"	f	class:PC
 success	Character.h	/^    bool success;$/;"	m	class:movementResDTO
 symbol	Character.h	/^    char symbol;$/;"	m	class:Character
 takeTurn	Character.cpp	/^int Character::takeTurn() {$/;"	f	class:Character

@@ -15,4 +15,4 @@ clean:
 genCtags:
 	ctags -R
 run: all
-	./game --nummon 1 --s 4
+	./game --s 1521383513
