@@ -72,8 +72,9 @@ class PC : public Character {
     void updateDunMap();
     void drawDunMap();
     void resetDunMap();
-    bool startTeleportMode();
+    int startTeleportMode();
     void drawNormalSpot(Coordinate spot);
+    int teleport(Coordinate to);
 };
 
 class NPC : public Character {

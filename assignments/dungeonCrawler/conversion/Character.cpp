@@ -106,9 +106,12 @@ int PC::takeTurn() {
       }
       if(userPressed == 't') {
         printMessage("Now in targeting mode");
-        if(!startTeleportMode()) {
-          
-        }
+        res.killed = startTeleportMode();
+        tryToMove(coord);
+        updateDunMap();
+        clearMessageArea();
+        drawDunMap();
+        res.success = true;
       }
     }
     // move up left
@@ -331,13 +334,12 @@ void PC::resetDunMap() {
   }
 }
 
-bool PC::startTeleportMode() {
+int PC::startTeleportMode() {
   int userPressed;
   Coordinate teleportTo = coord;
   drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
   bool done = false;
   dun->draw();
-
   do {
     userPressed = getch();
     // move up left
@@ -408,8 +410,22 @@ bool PC::startTeleportMode() {
         drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
       }
     }
+    if(userPressed == 'r') {
+      done = true;
+      teleportTo.y = rand() % (MAX_HEIGHT - 1) + 1;
+      teleportTo.x = rand() % (MAX_WIDTH - 1) + 1;
+    }
+    if(userPressed == 't') {
+      done = true;
+    }
+    if(userPressed == 'Q') {
+      teleportTo = coord;
+      done = true;
+    }
   } while(!done);
-  return false;
+  int foundId = teleport(teleportTo);
+  drawNormalSpot(teleportTo);
+  return foundId;
 }
 
 void PC::drawNormalSpot(Coordinate spot) {
@@ -418,6 +434,14 @@ void PC::drawNormalSpot(Coordinate spot) {
   } else {
     drawCharacter({spot.y + 1, spot.x}, getTileSym(dun->map[spot.y][spot.x].type));
   }
+}
+
+int PC::teleport(Coordinate to) {
+  int foundId = getCharacterId(to);
+  dun->updateSpace(coord, NULL);
+  coord = to;
+  dun->updateSpace(coord, this);
+  return foundId;
 }
 
 NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {

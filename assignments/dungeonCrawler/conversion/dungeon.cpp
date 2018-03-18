@@ -354,6 +354,9 @@ bool Dungeon::isOpenSpace(Coordinate coord) {
 }
 
 bool Dungeon::canSeeFrom(Coordinate from, Coordinate to) {
+  if(from.y == to.y && from.x == to.x) {
+    return true;
+  }
   Coordinate curr = from;
   do{
     if(curr.y != to.y) {
