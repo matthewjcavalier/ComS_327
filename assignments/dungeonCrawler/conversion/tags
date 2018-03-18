@@ -20,9 +20,11 @@ CoordPair	dungeon.h	/^class CoordPair {$/;"	c
 Coordinate	defs.h	/^    Coordinate() {$/;"	f	class:Coordinate
 Coordinate	defs.h	/^    Coordinate(int y, int x) {$/;"	f	class:Coordinate
 Coordinate	defs.h	/^class Coordinate {$/;"	c
+DEBUG	defs.h	24;"	d
 DEFS_H	dungeon.h	10;"	d
 DEFS_H	screen.h	10;"	d
 DOWNSTAIR	defs.h	/^  DOWNSTAIR$/;"	e	enum:TileType
+DOWNSTAIR_CHAR	defs.h	20;"	d
 DUNGEON_H	Character.h	6;"	d
 DUNGEON_H	dungeon.cpp	1;"	d	file:
 DUNGEON_H	game.h	2;"	d
@@ -40,6 +42,7 @@ IOSTREAM	dungeon.h	14;"	d
 IOSTREAM	game.h	18;"	d
 MAX_HARDNESS	defs.h	1;"	d
 MAX_HEIGHT	defs.h	3;"	d
+MAX_RAND_MONST_COUNT	defs.h	22;"	d
 MAX_WIDTH	defs.h	2;"	d
 MIN_ROOM_COUNT	defs.h	6;"	d
 MIN_ROOM_HEIGHT	defs.h	4;"	d
@@ -77,6 +80,7 @@ TileType	defs.h	/^enum TileType {$/;"	g
 UNISTD_H	Character.h	14;"	d
 UNISTD_H	screen.h	6;"	d
 UPSTAIR	defs.h	/^  UPSTAIR,$/;"	e	enum:TileType
+UPSTAIR_CHAR	defs.h	19;"	d
 VECTOR	dungeon.h	6;"	d
 addHallways	dungeon.cpp	/^void Dungeon::addHallways() {$/;"	f	class:Dungeon
 addRooms	dungeon.cpp	/^void Dungeon::addRooms(int numRooms) {$/;"	f	class:Dungeon
@@ -150,6 +154,7 @@ putRoomsInDungeon	dungeon.cpp	/^void Dungeon::putRoomsInDungeon() {$/;"	f	class:
 readRooms	dungeon.cpp	/^void Dungeon::readRooms(FILE* file, int fileSize) {$/;"	f	class:Dungeon
 readTiles	dungeon.cpp	/^void Dungeon::readTiles(FILE* file) {$/;"	f	class:Dungeon
 rebuild	dungeon.cpp	/^void Dungeon::rebuild() {$/;"	f	class:Dungeon
+resetDunMap	Character.cpp	/^void PC::resetDunMap() {$/;"	f	class:PC
 rooms	dungeon.h	/^    vector<Room> rooms;$/;"	m	class:Dungeon
 runGame	game.cpp	/^void runGame(Dungeon& dun) {$/;"	f
 save	dungeon.cpp	/^void Dungeon::save(string loc) {$/;"	f	class:Dungeon

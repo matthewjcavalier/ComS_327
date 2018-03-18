@@ -16,6 +16,12 @@
 #define ROOM_CHAR '.'
 #define ROCK_CHAR ' '
 #define BORDER_CHAR '|'
+#define UPSTAIR_CHAR '<'
+#define DOWNSTAIR_CHAR '>'
+
+#define MAX_RAND_MONST_COUNT 10
+
+#define DEBUG true
 
 class Coordinate {
   public:

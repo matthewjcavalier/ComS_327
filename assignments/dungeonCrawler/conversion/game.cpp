@@ -117,6 +117,7 @@ char genCharacterType() {
 void setSettings(int argc, char* argv[]) {
   string home(getenv("HOME"));
   string loadLocSubPath("/.rlg327/dungeon");
+  settings.nummon = 0;
   for(int i = 0; i < argc; i++) {
     if(strcmp("--s", argv[i]) == 0 && i != argc -1) {
       cout << argv[i+1] << endl;
@@ -142,6 +143,10 @@ void setSettings(int argc, char* argv[]) {
     srand(settings.seed);
   } else {
     srand(settings.seed); 
+  }
+
+  if(settings.nummon == 0) {
+    settings.nummon = rand() % MAX_RAND_MONST_COUNT;
   }
 }
 

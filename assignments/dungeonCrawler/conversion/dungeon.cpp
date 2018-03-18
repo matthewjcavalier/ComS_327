@@ -78,7 +78,6 @@ void Dungeon::rebuild() {
     }
   }
   build();
-  draw();
 }
 
 Dungeon::Dungeon(string loc) {
@@ -468,6 +467,10 @@ char getTileSym(TileType type) {
       return ROOM_CHAR;
     case HALL:
       return HALL_CHAR;
+    case UPSTAIR:
+      return UPSTAIR_CHAR;
+    case DOWNSTAIR:
+      return DOWNSTAIR_CHAR;
     default:
       return ROCK_CHAR;
   }

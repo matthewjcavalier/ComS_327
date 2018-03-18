@@ -71,6 +71,7 @@ class PC : public Character {
     void setupDunMap();
     void updateDunMap();
     void drawDunMap();
+    void resetDunMap();
 };
 
 class NPC : public Character {

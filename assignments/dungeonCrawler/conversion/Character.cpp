@@ -99,7 +99,14 @@ int PC::takeTurn() {
   drawDunMap();
   do {
     userPressed = getch();
-    drawCharacter({0,0}, userPressed);
+    if(DEBUG) {
+      if(userPressed == 'f') {
+        dun->draw();
+      }
+    }
+    if(userPressed != ERR) {
+      drawCharacter({0,0}, userPressed);
+    }
     // move up left
     if(userPressed == '7' || userPressed == 'y') {
       res = tryToMove({coord.y - 1, coord.x -1});
@@ -144,12 +151,14 @@ int PC::takeTurn() {
     // go down stairs
     if(userPressed == '>') {
       if(dun->map[coord.y][coord.x].type == DOWNSTAIR) {
+        resetDunMap();
         return MOVE_BETWEEN_FLOORS;
       }
     }
     // go up stairs
     if(userPressed == '<') {
       if(dun->map[coord.y][coord.x].type == UPSTAIR) {
+        resetDunMap();
         return MOVE_BETWEEN_FLOORS;
       }
     }
@@ -276,8 +285,7 @@ movementResDTO PC::tryToMove(Coordinate to) {
 void PC::updateDunMap() {
   for(int row = coord.y - sightDist; row < coord.y + sightDist; row++) {
     for(int col = coord.x - sightDist; col < coord.x + sightDist; col++) {
-      if(row > 0 && row < MAX_HEIGHT &&
-         col > 0 && col < MAX_WIDTH &&
+      if(row < MAX_HEIGHT && col < MAX_WIDTH &&
          dun->canSeeFrom(coord, {row,col})) {
 
         dunMap[row][col] = dun->map[row][col].type;
@@ -287,11 +295,12 @@ void PC::updateDunMap() {
 }
 
 void PC::drawDunMap() {
+  bool canSee = false;
   // draw known map
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
-      if(row > 0 && row < MAX_HEIGHT && col > 0 && col < MAX_WIDTH) {
-        drawCharacter({row,col}, getTileSym(dunMap[row][col]));
+      if(row < MAX_HEIGHT && col < MAX_WIDTH) {
+        drawCharacter({row+1,col}, getTileSym(dunMap[row][col]));
       }
     }
   }
@@ -301,12 +310,21 @@ void PC::drawDunMap() {
       if(row > 0 && row < MAX_HEIGHT &&
          col > 0 && col < MAX_WIDTH &&
          dun->charMap[row][col] != NULL) {
-
-        drawCharacter({row,col}, dun->charMap[row][col]->symbol);
+          canSee = dun->canSeeFrom(coord, {row,col});
+          if(canSee) {
+            drawCharacter({row+1,col}, dun->charMap[row][col]->symbol);
+          }
       }
     }
   }
 }
+
+void PC::resetDunMap() {
+  for(int row = 0; row < MAX_HEIGHT; row++) {
+    for(int col = 0; col < MAX_WIDTH; col++) {
+      dunMap[row][col] = ROCK;
+    }
+  }}
 
 NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {
   this->coord = coord;

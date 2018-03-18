@@ -1,0 +1,15 @@
+
+
+STATUS  |   ID  |  DESCRIPTION                          | HOW TO GET TO BUG 
+----------------------------------------------------------------------------------------------------------
+OPEN         1    One of the rooms in the dungeon         1) Start game using ./game --nummon 1 --s 4
+                  when using PC sight doesn't have        2) Move PC to the right to the first room
+                  one of it's room tiles being            3) Move PC to the south east down the hallway
+                  drawn, but the PC can still move        4) In the room that PC comes to along the west
+                  to it                                       wall you should find the bug
+
+
+
+
+
+
