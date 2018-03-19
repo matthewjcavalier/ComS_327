@@ -21,7 +21,9 @@
 
 #define TELEPORT_CHAR '*'
 
-#define MAX_RAND_MONST_COUNT 10
+#define MAX_RAND_MONST_COUNT 15
+
+#define PC_MAX_SIGHT_DIST 3
 
 #define DEBUG true
 

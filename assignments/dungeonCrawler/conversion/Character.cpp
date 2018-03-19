@@ -129,7 +129,7 @@ PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   this->id = id;
   dun->updateSpace(coord, this);
   setupDunMap();
-  sightDist = 5;
+  sightDist = PC_MAX_SIGHT_DIST;
 }
 
 /**
@@ -384,8 +384,8 @@ movementResDTO PC::tryToMove(Coordinate to) {
  * 
  */
 void PC::updateDunMap() {
-  for(int row = coord.y - sightDist; row < coord.y + sightDist; row++) {
-    for(int col = coord.x - sightDist; col < coord.x + sightDist; col++) {
+  for(int row = coord.y - sightDist; row <= coord.y + sightDist; row++) {
+    for(int col = coord.x - sightDist; col <= coord.x + sightDist; col++) {
       if(row < MAX_HEIGHT && col < MAX_WIDTH &&
          dun->canSeeFrom(coord, {row,col})) {
 
@@ -413,8 +413,8 @@ void PC::drawDunMap() {
   attroff(A_STANDOUT);
   attron(A_DIM);
   // draw monsters in sight radius
-  for(int row = coord.y - sightDist; row < coord.y + sightDist; row++) {
-    for(int col = coord.x - sightDist; col < coord.x + sightDist; col++) {
+  for(int row = coord.y - sightDist; row <= coord.y + sightDist; row++) {
+    for(int col = coord.x - sightDist; col <= coord.x + sightDist; col++) {
       if(row > 0 && row < MAX_HEIGHT &&
          col > 0 && col < MAX_WIDTH) {
           canSee = dun->canSeeFrom(coord, {row,col});
@@ -572,6 +572,9 @@ int PC::teleport(Coordinate to) {
   dun->updateSpace(coord, NULL);
   coord = to;
   dun->updateSpace(coord, this);
+  if (foundId == id) {
+    foundId = 0;
+  }
   return foundId;
 }
 /**

@@ -5,6 +5,10 @@ Settings settings;
 
 using namespace std;
 
+/**
+ * @brief Comparitor used in the priority queue
+ * 
+ */
 struct Compare {
   bool operator()(Character* a, Character* b) {
     return a->nextEventTime > b->nextEventTime;
@@ -26,6 +30,11 @@ int main(int argc, char* argv[]) {
   }
 }
 
+/**
+ * @brief Main game procedure
+ * 
+ * @param dun 
+ */
 void runGame(Dungeon& dun) {
   priority_queue<Character, vector<Character*>, Compare> turnQueue;
   bool gameOver = false;
@@ -96,6 +105,11 @@ void runGame(Dungeon& dun) {
   }
 }
 
+/**
+ * @brief Generate a type for a monster in a random fashion
+ * 
+ * @return char 
+ */
 char genCharacterType() {
   char type = 0;
   if(rand() % 2 == 0) {
@@ -113,6 +127,12 @@ char genCharacterType() {
   return type;
 }
 
+/**
+ * @brief Set the settings global based upon the cmd line args
+ * 
+ * @param argc 
+ * @param argv 
+ */
 void setSettings(int argc, char* argv[]) {
   string home(getenv("HOME"));
   string loadLocSubPath("/.rlg327/dungeon");
@@ -145,10 +165,15 @@ void setSettings(int argc, char* argv[]) {
   }
 
   if(settings.nummon == 0) {
-    settings.nummon = rand() % MAX_RAND_MONST_COUNT;
+    settings.nummon = rand() % MAX_RAND_MONST_COUNT + 1;
   }
 }
 
+/**
+ * @brief set up the dungeon that will be used
+ * 
+ * @return Dungeon 
+ */
 Dungeon dungeonInit() {
   Dungeon dun;
   if(settings.load) {

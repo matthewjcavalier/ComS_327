@@ -12,7 +12,8 @@ screen.o: screen.cpp
 	$(CC) $(CFLAGS) screen.cpp -c
 clean:
 		- rm *.o
+		- rm game
 genCtags:
 	ctags -R
 run: all
-	./game --s 1521383513
+	./game

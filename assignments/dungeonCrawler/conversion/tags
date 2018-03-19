@@ -20,7 +20,7 @@ CoordPair	dungeon.h	/^class CoordPair {$/;"	c
 Coordinate	defs.h	/^    Coordinate() {$/;"	f	class:Coordinate
 Coordinate	defs.h	/^    Coordinate(int y, int x) {$/;"	f	class:Coordinate
 Coordinate	defs.h	/^class Coordinate {$/;"	c
-DEBUG	defs.h	26;"	d
+DEBUG	defs.h	28;"	d
 DEFS_H	dungeon.h	10;"	d
 DEFS_H	screen.h	10;"	d
 DOWNSTAIR	defs.h	/^  DOWNSTAIR$/;"	e	enum:TileType
@@ -54,6 +54,7 @@ NPC	Character.cpp	/^NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, 
 NPC	Character.h	/^class NPC : public Character {$/;"	c
 PC	Character.cpp	/^PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {$/;"	f	class:PC
 PC	Character.h	/^class PC : public Character {$/;"	c
+PC_MAX_SIGHT_DIST	defs.h	26;"	d
 QUEUE	game.h	26;"	d
 REQ	Makefile	/^REQ=clean genCtags game.cpp dungeon.cpp Character.cpp screen.o$/;"	m
 ROCK	defs.h	/^  ROCK,$/;"	e	enum:TileType
@@ -96,7 +97,6 @@ comparingTo	dungeon.h	/^    Coordinate comparingTo;$/;"	m	class:CoordPair
 coord	Character.h	/^    Coordinate coord;$/;"	m	class:Character
 draw	dungeon.cpp	/^void Dungeon::draw() {$/;"	f	class:Dungeon
 drawCharacter	screen.cpp	/^int drawCharacter(Coordinate coord, char symbol) {$/;"	f
-drawCharacterBold	screen.cpp	/^int drawCharacterBold(Coordinate coord, char symbol) {$/;"	f
 drawDunMap	Character.cpp	/^void PC::drawDunMap() {$/;"	f	class:PC
 drawMonsterBox	Character.cpp	/^void PC::drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth) {$/;"	f	class:PC
 drawNormalSpot	Character.cpp	/^void PC::drawNormalSpot(Coordinate spot) {$/;"	f	class:PC
