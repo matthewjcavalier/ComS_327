@@ -4,6 +4,10 @@
 
 using namespace std;
 
+/**
+ * @brief Construct a new Character:: Character object
+ * 
+ */
 Character::Character() {
   coord = {0,0};
   symbol = '&';
@@ -12,14 +16,26 @@ Character::Character() {
   dun = new Dungeon;
   id = -1;
 }
-
+/**
+ * @brief Destroy the Character:: Character object
+ * 
+ */
 Character::~Character() {}
-
+/**
+ * @brief make the generic character take their turn
+ * 
+ * @return int 
+ */
 int Character::takeTurn() {
   cout << "generic Character took turn" << endl;
   return 0;
 }
-
+/**
+ * @brief make the character move in a random fashion
+ *        but only allowing for movement into an open space
+ * 
+ * @return int the id of any character that was killed during the movement, 0 for no character found
+ */
 int Character::moveRand() {
   int newX = 0;
   int newY = 0;
@@ -48,7 +64,13 @@ int Character::moveRand() {
   dun->updateSpace(coord, this);
   return foundId;
 }
-
+/**
+ * @brief  move the character in the direction of the
+ *         coordinate passed in.
+ * 
+ * @param moveingTo 
+ * @return int the id of the character killed during the movement, 0 for no character found
+ */
 int Character::moveToward(Coordinate moveingTo) {
   Coordinate to = coord;
   if(to.y != moveingTo.y) {
@@ -60,6 +82,12 @@ int Character::moveToward(Coordinate moveingTo) {
   return moveTo(to);
 }
 
+/**
+ * @brief  move the character to the input coordinate
+ * 
+ * @param to 
+ * @return int the id of the character killed during the movement, 0 for no character found
+ */
 int Character::moveTo(Coordinate to) {
   int foundId = getCharacterId(to);
   if(dun->isOpenSpace(coord)) {
@@ -70,6 +98,12 @@ int Character::moveTo(Coordinate to) {
   return foundId;
 }
 
+/**
+ * @brief Gets the id of the character in the dungeon at the given coordinate
+ * 
+ * @param loc 
+ * @return int id of the character at the coord, 0 if none found
+ */
 int Character::getCharacterId(Coordinate loc) {
   if(dun->charMap[loc.y][loc.x] != NULL) {
     return dun->charMap[loc.y][loc.x]->id;
@@ -77,6 +111,15 @@ int Character::getCharacterId(Coordinate loc) {
   return 0;
 }
 
+/**
+ * @brief Construct a new PC::PC object
+ * 
+ * @param id 
+ * @param coord 
+ * @param speed 
+ * @param dun 
+ * @param nextEventTime 
+ */
 PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   symbol = '@';
   this->coord = coord;
@@ -89,8 +132,17 @@ PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   sightDist = 5;
 }
 
+/**
+ * @brief Destroy the PC::PC object
+ * 
+ */
 PC::~PC(){}
 
+/**
+ * @brief make the PC take their turn
+ * 
+ * @return int  the id of any charcter killed during the turn
+ */
 int PC::takeTurn() {
   nextEventTime += 1000/speed;
   int userPressed;
@@ -178,6 +230,10 @@ int PC::takeTurn() {
   return res.killed;
 }
 
+/**
+ * @brief Shows the monster list menue
+ * 
+ */
 void PC::showMonsterList() {
   int topLeft_x = 13;
   int topLeft_y = 5;
@@ -228,6 +284,16 @@ void PC::showMonsterList() {
   drawDunMap();
 }
 
+/**
+ * @brief Draws the box that the monster list will be shown in to screen
+ * 
+ * @param topLeft_y 
+ * @param topLeft_x 
+ * @param horBorderWidth 
+ * @param vertBorderWidth 
+ * @param numMonstersShown 
+ * @param stringAreaWidth 
+ */
 void PC::drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth) {
   for(int row = topLeft_y; row < topLeft_y + horBorderWidth + numMonstersShown - 1; row++) {
     for(int col = topLeft_x; col < topLeft_x + vertBorderWidth + stringAreaWidth - 1; col++) {
@@ -242,6 +308,11 @@ void PC::drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int ve
   }
 }
 
+/**
+ * @brief fills a vector with strings that will be shown in the monster list menue
+ * 
+ * @return vector<string> 
+ */
 vector<string> PC::fillMonsterList() {
   vector<string> monsterList;
   for(auto row : dun->charMap) {
@@ -255,6 +326,15 @@ vector<string> PC::fillMonsterList() {
   return monsterList;
 }
 
+/**
+ * @brief  generates a string based upon the attributes passed in as parameters for where
+ *         a monster is in relation to the PC
+ * 
+ * @param ydiff 
+ * @param xdiff 
+ * @param symbol 
+ * @return string 
+ */
 string PC::genMonsterString(int ydiff, int xdiff, char symbol) {
   ostringstream ret;
   if(ydiff == 0) {
@@ -267,6 +347,10 @@ string PC::genMonsterString(int ydiff, int xdiff, char symbol) {
   return ret.str();
 }
 
+/**
+ * @brief Sets up the PC's personal dungeon map of what has been seen geographically
+ * 
+ */
 void PC::setupDunMap() {
   TileType spot = ROCK;
   dunMap.resize(MAX_HEIGHT);
@@ -275,6 +359,12 @@ void PC::setupDunMap() {
   }
 }
 
+/**
+ * @brief tries to move the character to the input coordinate
+ * 
+ * @param to 
+ * @return movementResDTO a DTO that contains if the movement was successfull and the id of a character that was killed if any
+ */
 movementResDTO PC::tryToMove(Coordinate to) {
   movementResDTO res;
   if(dun->isOpenSpace(to)) {
@@ -289,6 +379,10 @@ movementResDTO PC::tryToMove(Coordinate to) {
   return res;
 }
 
+/**
+ * @brief updates the PC's personal dungeon map
+ * 
+ */
 void PC::updateDunMap() {
   for(int row = coord.y - sightDist; row < coord.y + sightDist; row++) {
     for(int col = coord.x - sightDist; col < coord.x + sightDist; col++) {
@@ -301,6 +395,10 @@ void PC::updateDunMap() {
   }
 }
 
+/**
+ * @brief Draws the PC's dungeon map taking into account how far the PC can see
+ * 
+ */
 void PC::drawDunMap() {
   bool canSee = false;
   // draw known map
@@ -339,6 +437,10 @@ void PC::drawDunMap() {
   attroff(A_DIM);
 }
 
+/**
+ * @brief Set all indicies in the PC dungeon map to Rock
+ * 
+ */
 void PC::resetDunMap() {
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
@@ -347,6 +449,11 @@ void PC::resetDunMap() {
   }
 }
 
+/**
+ * @brief Starts up the the teleportaion mode for the PC
+ * 
+ * @return int  returns the id of any monster that the PC kills when it teleports
+ */
 int PC::startTeleportMode() {
   int userPressed;
   Coordinate teleportTo = coord;
@@ -441,6 +548,11 @@ int PC::startTeleportMode() {
   return foundId;
 }
 
+/**
+ * @brief Draw the character at the given spot
+ * 
+ * @param spot 
+ */
 void PC::drawNormalSpot(Coordinate spot) {
   if(dun->charMap[spot.y][spot.x] != NULL) {
     drawCharacter({spot.y + 1, spot.x}, dun->charMap[spot.y][spot.x]->symbol);
@@ -449,6 +561,12 @@ void PC::drawNormalSpot(Coordinate spot) {
   }
 }
 
+/**
+ * @brief teleport the PC to the input coordinate
+ * 
+ * @param to 
+ * @return int the id of any character that was killed when the PC teleported, 0 if none killed
+ */
 int PC::teleport(Coordinate to) {
   int foundId = getCharacterId(to);
   dun->updateSpace(coord, NULL);
@@ -456,7 +574,17 @@ int PC::teleport(Coordinate to) {
   dun->updateSpace(coord, this);
   return foundId;
 }
-
+/**
+ * @brief Construct a new NPC::NPC object
+ * 
+ * @param id 
+ * @param coord 
+ * @param speed 
+ * @param dun 
+ * @param nextEventTime 
+ * @param type 
+ * @param pc 
+ */
 NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {
   this->coord = coord;
   this->speed = speed;
@@ -471,8 +599,16 @@ NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, c
   setTurnLogic();
 }
 
+/**
+ * @brief Destroy the NPC::NPC object
+ * 
+ */
 NPC::~NPC(){}
 
+/**
+ * @brief sets which movement routine the NPC will use when it takes it's turn based on what type of Monster it is
+ * 
+ */
 void NPC::setTurnLogic() {
   switch(type) {
     case 0b0001:
@@ -522,12 +658,23 @@ void NPC::setTurnLogic() {
   }
 }
 
+/**
+ * @brief Have the NPC take it's turn
+ * 
+ * @return int 
+ */
 int NPC::takeTurn() {
   nextEventTime += 1000/speed;
   int foundId = (this->*turnLogic)();
   return foundId;
 }
 
+/**
+ * @brief updtaes the last known location of the PC. If the PC is in sight, the location
+ *        saved is accurate. If the PC hasn't been seen the location is 0,0. If the monster
+ *        reaches the last known PC location and the pc isn't killed, the location is set to 0,0
+ * 
+ */
 void NPC::updatePCLoc() {
   if(dun->canSeeFrom(coord, pc->coord)) {
     lastSeenPCLoc = pc->coord;
@@ -536,6 +683,11 @@ void NPC::updatePCLoc() {
   }
 }
 
+/**
+ * @brief movement routine where the Monster is Intelligent
+ * 
+ * @return int 
+ */
 int NPC::movement0001() {
   updatePCLoc();
   if(lastSeenPCLoc.x != 0 && lastSeenPCLoc.y != 0) {
@@ -544,9 +696,19 @@ int NPC::movement0001() {
     return moveRand();
   }
 }
+/**
+ * @brief movement routine where the Monster is telepathic
+ * 
+ * @return int 
+ */
 int NPC::movement0010(){
   return moveToward(pc->coord);
 }
+/**
+ * @brief movement routine where the Monster is intelligent and telepathic
+ * 
+ * @return int 
+ */
 int NPC::movement0011(){
   Coordinate next = coord;
   int min = INT_MAX;
@@ -560,9 +722,20 @@ int NPC::movement0011(){
   }
   return moveTo(next);
 }
+/**
+ * @brief movement routine where the Monster is able to tunnel
+ * 
+ * @return int 
+ */
 int NPC::movement0100(){
   return moveRandTunneling();
 }
+
+/**
+ * @brief movement routine where the Monster is able to tunnel and is intelligent
+ * 
+ * @return int 
+ */
 int NPC::movement0101(){
   updatePCLoc();
   if(lastSeenPCLoc.x != 0 && lastSeenPCLoc.y != 0) {
@@ -572,9 +745,19 @@ int NPC::movement0101(){
   }
 }
 
+/**
+ * @brief movement routine where the Monster is able to tunnel and is telepathic
+ * 
+ * @return int 
+ */
 int NPC::movement0110(){
   return moveTowardTunneling(pc->coord);
 }
+/**
+ * @brief movement routine where the Monster is able to tunnel, is intelligent, and is telepathic
+ * 
+ * @return int 
+ */
 int NPC::movement0111(){
   Coordinate next = coord;
   int min = INT_MAX;
@@ -609,34 +792,75 @@ int NPC::movement0111(){
   return foundID;
 }
 
+/**
+ * @brief movement routine where the Monster is erratic and intelligent
+ * 
+ * @return int 
+ */
 int NPC::movement1001() {
   return (rand() % 2) ? moveRand() : movement0001();
 }
+/**
+ * @brief Amovement routine where the Monster is erratic and telepathic
+ * 
+ * @return int 
+ */
 int NPC::movement1010(){
   return (rand() % 2) ? moveRand() : movement0010();
 }
 
 // Erratic Tunneling Telepathy Intelligence
+/**
+ * @brief movement routine where the Monster is erratic and is intelligent and telepathic
+ * 
+ * @return int 
+ */
 int NPC::movement1011(){
   return (rand() % 2) ? moveRand() : movement0011();
 }
 
+/**
+ * @brief movement routine where the Monster is erratic and can tunnel
+ * 
+ * @return int 
+ */
 int NPC::movement1100(){
   return movement0100();
 }
 
+/**
+ * @brief  movement routine where the Monster is erratic and is both able to tunnel and is intelligent
+ * 
+ * @return int 
+ */
 int NPC::movement1101(){
   return (rand() % 2) ? moveRand() : movement0101();
 }
 
+/**
+ * @brief movement routine where the Monster is erratic and telepathic and able to tunnel
+ * 
+ * @return int 
+ */
 int NPC::movement1110(){
   return (rand() % 2) ? moveRand() : movement0110();
 }
 
+/**
+ * @brief movement routine where the Monster is erratic, able to tunnel, telepathic, and is intelligent 
+ * 
+ * @return int 
+ */
 int NPC::movement1111(){
   return (rand() % 2) ? moveRand() : movement0111();
 }
 
+/**
+ * @brief move the monster toward the input coordinate while allowing for tunneling
+ * 
+ * @param coord 
+ * @return int 
+ */
 int NPC::moveTowardTunneling(Coordinate coord) {
   Coordinate to = this->coord;
   int foundId;
@@ -667,6 +891,11 @@ int NPC::moveTowardTunneling(Coordinate coord) {
   return foundId;
 }
 
+/**
+ * @brief Move the monster in a random direction allowing them to tunnel
+ * 
+ * @return int 
+ */
 int NPC::moveRandTunneling() {
   int newX = 0;
   int newY = 0;
@@ -705,6 +934,12 @@ int NPC::moveRandTunneling() {
   return foundId;
 }
 
+/**
+ * @brief Get the symbol for a monster type
+ * 
+ * @param type 
+ * @return char 
+ */
 char getSymbol(char type) {
   switch(type) {
     case 1:
@@ -742,6 +977,13 @@ char getSymbol(char type) {
   }
 }
 
+/**
+ * @brief Returns if the coordinate is in the dungeon and is inside the border
+ * 
+ * @param coord 
+ * @return true 
+ * @return false 
+ */
 bool isInDun(Coordinate coord) {
   return coord.y > 0 && coord.y < MAX_HEIGHT - 1 && coord.x > 0 && coord.x < MAX_WIDTH - 1;
 }
