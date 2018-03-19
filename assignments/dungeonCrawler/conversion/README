@@ -1,0 +1,45 @@
+Compliance:
+
+  This assignment meets the doc specification in that the fog of war feature has
+  been implemented, the teleportation debugging features have been implemented,
+  and the 'show whole dungeon' debugging feature has been implemented. Since I
+  had a lot of time on my hands, instead of just converting the codebase to c++,
+  I did a ground-up rewrite of the project in c++.
+
+Functions:
+  
+  PC::drawDunMap    (see Character.cpp)
+    
+      This method is how the PC displays it's personal dungeon map
+
+  PC::updateDunMap  (see Character.cpp)
+  
+      This method updates the PC's personal dungeon map taking into
+      account how far the PC can see and if the PC has direct line of sight
+      to each tile being saved.
+ 
+Data structures:
+  
+  priority_queue    (see game.cpp)
+    
+      I ended up replacing my custom priority queue implementation with the one provided by c++
+
+File Names:
+  
+  Character.cpp   The soucre file that has the character class and it's sub classes
+
+  Character.h     The header file for Character.cpp
+  
+  defs.h          A general header that defines multiple constants as well as a coordinate data structure
+
+  dungeon.cpp     The source file that has the dungeon, tile, and room classes
+
+  dungeon.h       The header file for dungeon.cpp
+
+  game.cpp        The source file that drives the main game loop
+
+  game.h          The header file for game.cpp
+
+  screen.cpp      The source file that does most of the ncurses stuff for drawing to screen
+
+  screen.h        The header file for screen.h
