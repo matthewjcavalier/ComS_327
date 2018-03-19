@@ -23,6 +23,12 @@ int drawCharacter(Coordinate coord, char symbol) {
   return 0;
 }
 
+int drawCharacterBold(Coordinate coord, char symbol) {
+  move(coord.y, coord.x);
+  addch(symbol);
+  refresh();
+  return 0;
+}
 
 int scrTearDown() {
   endwin();

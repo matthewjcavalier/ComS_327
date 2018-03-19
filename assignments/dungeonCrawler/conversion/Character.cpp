@@ -304,6 +304,7 @@ void PC::updateDunMap() {
 void PC::drawDunMap() {
   bool canSee = false;
   // draw known map
+  attron(A_STANDOUT);
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
       if(row < MAX_HEIGHT && col < MAX_WIDTH) {
@@ -311,19 +312,31 @@ void PC::drawDunMap() {
       }
     }
   }
+  attroff(A_STANDOUT);
+  attron(A_DIM);
   // draw monsters in sight radius
   for(int row = coord.y - sightDist; row < coord.y + sightDist; row++) {
     for(int col = coord.x - sightDist; col < coord.x + sightDist; col++) {
       if(row > 0 && row < MAX_HEIGHT &&
-         col > 0 && col < MAX_WIDTH &&
-         dun->charMap[row][col] != NULL) {
+         col > 0 && col < MAX_WIDTH) {
           canSee = dun->canSeeFrom(coord, {row,col});
           if(canSee) {
-            drawCharacter({row+1,col}, dun->charMap[row][col]->symbol);
+            if(dun->charMap[row][col] == NULL) {
+              if(dunMap[row][col] == UPSTAIR || dunMap[row][col] == DOWNSTAIR) {
+                attron(A_BOLD);
+              }
+              drawCharacter({row+1,col}, getTileSym(dunMap[row][col]));
+              attroff(A_BOLD);
+            } else {
+              attron(A_BOLD);
+              drawCharacter({row+1,col}, dun->charMap[row][col]->symbol);
+              attroff(A_BOLD);
+            }
           }
       }
     }
   }
+  attroff(A_DIM);
 }
 
 void PC::resetDunMap() {

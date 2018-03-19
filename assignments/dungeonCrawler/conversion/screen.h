@@ -27,6 +27,8 @@ int drawString(Coordinate coord, char* str);
 
 int drawCharacter(Coordinate coord, char symbol);
 
+int drawCharacterBold(Coordinate coord, char symbol);
+
 int scrTearDown();
 
 int printMessage(string message);

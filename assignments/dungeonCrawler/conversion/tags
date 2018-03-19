@@ -96,6 +96,7 @@ comparingTo	dungeon.h	/^    Coordinate comparingTo;$/;"	m	class:CoordPair
 coord	Character.h	/^    Coordinate coord;$/;"	m	class:Character
 draw	dungeon.cpp	/^void Dungeon::draw() {$/;"	f	class:Dungeon
 drawCharacter	screen.cpp	/^int drawCharacter(Coordinate coord, char symbol) {$/;"	f
+drawCharacterBold	screen.cpp	/^int drawCharacterBold(Coordinate coord, char symbol) {$/;"	f
 drawDunMap	Character.cpp	/^void PC::drawDunMap() {$/;"	f	class:PC
 drawMonsterBox	Character.cpp	/^void PC::drawMonsterBox(int topLeft_y, int topLeft_x, int horBorderWidth, int vertBorderWidth, int numMonstersShown, int stringAreaWidth) {$/;"	f	class:PC
 drawNormalSpot	Character.cpp	/^void PC::drawNormalSpot(Coordinate spot) {$/;"	f	class:PC
