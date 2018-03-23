@@ -388,7 +388,6 @@ void PC::updateDunMap() {
     for(int col = coord.x - sightDist; col <= coord.x + sightDist; col++) {
       if(row < MAX_HEIGHT && col < MAX_WIDTH &&
          dun->canSeeFrom(coord, {row,col})) {
-
         dunMap[row][col] = dun->map[row][col].type;
       }
     }
