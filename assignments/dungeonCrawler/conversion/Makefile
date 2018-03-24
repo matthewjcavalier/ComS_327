@@ -11,6 +11,12 @@ Character.o: Character.cpp
 	$(CC) $(CFLAGS) Character.cpp -c
 screen.o: screen.cpp
 	$(CC) $(CFLAGS) screen.cpp -c
+dice.o: dice.cpp
+	$(CC) $(CFLAGS) dice.cpp -c
+diceTest: dice.cpp
+	$(CC) $(CFLAGS) dice.cpp -o dice
+fileReading.o: fileReading.cpp
+	$(CC) $(CFLAGS) fileReading.cpp -c 
 clean:
 		- rm *.o
 		- rm game
