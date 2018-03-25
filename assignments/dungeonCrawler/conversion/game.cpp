@@ -37,6 +37,7 @@ int main(int argc, char* argv[]) {
    * DEBUGGING print out monster descriptions
    * TODO : remove this in release version
    */
+  cout<<endl<<endl<<"/**"<<endl<<" * Monster descriptions" <<endl<<" */"<<endl<<endl;
   for(monsterDesc monster: monsterDescs) {
     cout<<monster.name<< endl;
     cout<<monster.description<<endl;
@@ -54,6 +55,29 @@ int main(int argc, char* argv[]) {
     printDice(monster.ad);
     cout<<monster.rarity<<endl;
     cout<<endl;
+  }
+
+  vector<objectDesc> objectDescs = parseObjectDescFile(settings.objectDescLoc);
+
+  cout<<endl<<endl<<"/**"<<endl<<" * Object descriptions" <<endl<<" */"<<endl<<endl;
+  for(objectDesc obj : objectDescs) {
+    cout<<obj.name<<endl;
+    cout<<obj.description<<endl;
+    cout<<obj.type<<endl;
+    for(string color: obj.colors) {
+      cout<<color;
+    }
+    cout<<endl;
+    printDice(obj.hitBonus);
+    printDice(obj.damBonus);
+    printDice(obj.dodgeBonus);
+    printDice(obj.defenseBonus);
+    printDice(obj.weight);
+    printDice(obj.speedBuff);
+    printDice(obj.specialAttr);
+    printDice(obj.value);
+    cout<<((obj.isArtifact) ? "TRUE" : "FALSE") <<endl;
+    cout<<obj.rarity<<endl<<endl;
   }
   /*
   scrStartup();
@@ -175,6 +199,8 @@ void setSettings(int argc, char* argv[]) {
   settings.nummon = 0;
   settings.monsterDescLoc = home;
   settings.monsterDescLoc += "/.rlg327/monster_desc.txt";
+  settings.objectDescLoc = home;
+  settings.objectDescLoc += "/.rlg327/object_desc.txt";
   for(int i = 0; i < argc; i++) {
     if(strcmp("--s", argv[i]) == 0 && i != argc -1) {
       cout << argv[i+1] << endl;

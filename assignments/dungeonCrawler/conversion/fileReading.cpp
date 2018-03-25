@@ -1,7 +1,9 @@
 #include "fileReading.h"
 
-#define FIRST_LINE "RLG327 MONSTER DESCRIPTION 1"
-#define START_LINE "BEGIN MONSTER"
+#define FIRST_LINE_MONST "RLG327 MONSTER DESCRIPTION 1"
+#define START_LINE_MONST "BEGIN MONSTER"
+#define START_LINE_OBJ "BEGIN OBJECT"
+#define FIRST_LINE_OBJ "RLG327 OBJECT DESCRIPTION 1"
 #define END_LINE "END"
 
 void readDiceDesc(rollUp& desc, ifstream& file) {
@@ -36,7 +38,93 @@ void getWordsOnLine(vector<string> &storage, ifstream& file) {
     file >> word;
     storage.push_back(word);
   } while (file.peek() != '\n');
+}
 
+vector<objectDesc> parseObjectDescFile(string fileLoc) {
+  vector<objectDesc> list;
+  ifstream file(fileLoc);
+  bool buildingObject = true;
+  string line;
+  string word;
+
+  // read first line
+  getline(file, line);
+  if(line.compare(FIRST_LINE_OBJ) != 0) {
+    exit(1);
+  }
+
+  while(buildingObject) {
+    objectDesc desc;
+    // read until it starts
+    do {
+      getline(file, line);
+    } while(!file.eof() && line.compare(START_LINE_OBJ) != 0);
+
+    if(!file.eof()) {
+      do {
+        file >> word;
+
+        if(word.compare("NAME") == 0) {
+          getline(file, desc.name);
+        }
+        else if(word.compare("TYPE") == 0) {
+          file >> desc.type;
+        }
+        else if(word.compare("COLOR") == 0) {
+          getWordsOnLine(desc.colors, file);
+        }
+        else if(word.compare("WEIGHT") == 0) {
+          readDiceDesc(desc.weight, file);
+        }
+        else if(word.compare("HIT") == 0) {
+          readDiceDesc(desc.hitBonus, file);
+        }
+        else if(word.compare("DAM") == 0) {
+          readDiceDesc(desc.damBonus, file);
+        }
+        else if(word.compare("ATTR") == 0) {
+          readDiceDesc(desc.specialAttr, file);
+        }
+        else if(word.compare("VAL") == 0) {
+          readDiceDesc(desc.value, file);
+        }
+        else if(word.compare("DODGE") == 0) {
+          readDiceDesc(desc.dodgeBonus, file);
+        }
+        else if(word.compare("DEF") == 0) {
+          readDiceDesc(desc.defenseBonus, file);
+        }
+        else if(word.compare("SPEED") == 0) {
+          readDiceDesc(desc.speedBuff, file);
+        }
+        else if(word.compare("ART") == 0) {
+          file >> word;
+          desc.isArtifact = word.compare("TRUE") == 0;
+        }
+        else if(word.compare("RRTY") == 0) {
+          file >> word;
+          desc.rarity = stoi(word);
+        }
+        else if(word.compare("DESC") == 0) {
+          while(file.peek() != '.') {
+            getline(file, line);
+            desc.description += line;
+            desc.description += '\n';
+          }
+        }
+      } while(word.compare(START_LINE_OBJ) != 0 && word.compare(END_LINE) != 0 && !file.eof());
+    }
+
+    if(word.compare(END_LINE) == 0) {
+      cleanObjDesc(desc);
+      list.push_back(desc);
+    }
+
+    if(file.eof()) {
+      buildingObject = false;
+    }
+  }
+  return list;
 }
 
 vector<monsterDesc> parseMonsterDescFile(string fileLoc) {
@@ -48,7 +136,7 @@ vector<monsterDesc> parseMonsterDescFile(string fileLoc) {
 
   // read first line
   getline(file, line);
-  if(line.compare(FIRST_LINE) != 0) {
+  if(line.compare(FIRST_LINE_MONST) != 0) {
     exit(1);
   }
 
@@ -57,7 +145,7 @@ vector<monsterDesc> parseMonsterDescFile(string fileLoc) {
     // read until it starts
     do {
       getline(file, line);
-    } while(!file.eof() && line.compare(START_LINE) != 0);
+    } while(!file.eof() && line.compare(START_LINE_MONST) != 0);
 
     if(!file.eof()) {
       do {
@@ -103,11 +191,11 @@ vector<monsterDesc> parseMonsterDescFile(string fileLoc) {
             desc.description += '\n';
           }
         }
-      } while(word.compare(START_LINE) != 0 && word.compare(END_LINE) != 0 && !file.eof());
+      } while(word.compare(START_LINE_MONST) != 0 && word.compare(END_LINE) != 0 && !file.eof());
     }
 
-    if(word.compare(END_LINE) == 0 && !file.eof()) {
-      cleanDesc(desc);
+    if(word.compare(END_LINE) == 0) {
+      cleanMonstDesc(desc);
       list.push_back(desc);
     }
 
@@ -118,7 +206,12 @@ vector<monsterDesc> parseMonsterDescFile(string fileLoc) {
   return list;
 }
 
-void cleanDesc(monsterDesc& desc) {
+void cleanObjDesc(objectDesc& desc) {
+  cleanString(desc.name);
+  cleanString(desc.description);
+}
+
+void cleanMonstDesc(monsterDesc& desc) {
   cleanString(desc.name);
   cleanString(desc.description);
 }

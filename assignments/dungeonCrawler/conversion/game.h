@@ -47,6 +47,7 @@ class Settings{
     string loadSaveLoc;
     int nummon;
     string monsterDescLoc;
+    string objectDescLoc;
 };
 
 Dungeon dungeonInit();

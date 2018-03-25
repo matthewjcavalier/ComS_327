@@ -19,9 +19,13 @@ void readDiceDesc(rollUp& desc, ifstream& file);
 
 void getWordsOnLine(vector<string> &storage, ifstream& file);
 
+vector<objectDesc> parseObjectDescFile(string fileLoc);
+
 vector<monsterDesc> parseMonsterDescFile(string fileLoc);
 
-void cleanDesc(monsterDesc& desc);
+void cleanMonstDesc(monsterDesc& desc);
+
+void cleanObjDesc(objectDesc& desc);
 
 char getLastChar(string str);
 

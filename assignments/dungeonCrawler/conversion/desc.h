@@ -28,3 +28,21 @@ class monsterDesc {
     int rarity;
     char symbol;
 };
+
+class objectDesc {
+  public:
+    string name;
+    string description;
+    string type;
+    vector<string> colors;
+    rollUp hitBonus;
+    rollUp damBonus;
+    rollUp dodgeBonus;
+    rollUp defenseBonus;
+    rollUp weight;
+    rollUp speedBuff;
+    rollUp specialAttr;
+    rollUp value;
+    bool isArtifact;
+    int rarity;
+};
