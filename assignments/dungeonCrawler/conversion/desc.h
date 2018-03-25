@@ -25,6 +25,6 @@ class monsterDesc {
     vector<string> abilities;
     rollUp hp;
     rollUp ad;
-    rollUp rarity;
+    int rarity;
     char symbol;
 };

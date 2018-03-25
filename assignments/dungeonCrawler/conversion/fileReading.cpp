@@ -1,19 +1,4 @@
-#ifndef IOSTREAM
-  #define IOSTREAM
-  #include <iostream>
-#endif
-#ifndef STRING
-  #define STRING
-  #include <string>
-#endif
-#ifndef DESC_H
-  #define DESC_H
-  #include "desc.h"
-#endif
-#ifndef FSTREAM
-  #define FSTREAM
-  #include <fstream>
-#endif
+#include "fileReading.h"
 
 #define FIRST_LINE "RLG327 MONSTER DESCRIPTION 1"
 #define START_LINE "BEGIN MONSTER"
@@ -28,7 +13,7 @@ void readDiceDesc(rollUp& desc, ifstream& file) {
   file.get();
 
   desc.base = stoi(num);
-  num = "";
+  num.clear();
 
   while(file.peek() != 'd') {
     num += file.get();
@@ -37,7 +22,7 @@ void readDiceDesc(rollUp& desc, ifstream& file) {
   file.get();
 
   desc.diceCount = stoi(num);
-  num == "";
+  num.clear(); 
 
   while(file.peek() != '\n') {
     num += file.get();
@@ -72,45 +57,57 @@ vector<monsterDesc> parseMonsterDescFile(string fileLoc) {
     // read until it starts
     do {
       getline(file, line);
-    } while(line.compare(START_LINE) != 0);
+    } while(!file.eof() && line.compare(START_LINE) != 0);
 
-    do {
-      file >> word;
-      if(word.compare("NAME") == 0) {
-        desc.name = word;
-      }
-      
-      else if(word.compare("COLOR") == 0) {
-        getWordsOnLine(desc.colors, file);
-      }
-
-      else if(word.compare("SPEED") == 0) {
-        readDiceDesc(desc.speed, file);
-      }
-
-      else if(word.compare("ABIL") == 0) {
-        getWordsOnLine(desc.abilities, file);
-      }
-      
-      else if(word.compare("HP") == 0) {
-        readDiceDesc(desc.hp, file);
-      }
-
-      else if(word.compare("DAM") == 0) {
-        readDiceDesc(desc.ad, file);
-      }
-
-      else if(word.compare("RRTY") == 0) {
-        readDiceDesc(desc.rarity, file);
-      }
-
-      else if(word.compare("SYMB") == 0) {
+    if(!file.eof()) {
+      do {
         file >> word;
-        desc.symbol = word.c_str()[0];
-      }
-    } while(word.compare(START_LINE) != 0 && word.compare(END_LINE) != 0 && !file.eof());
+        if(word.compare("NAME") == 0) {
+          getline(file, desc.name);
+        }
+        
+        else if(word.compare("COLOR") == 0) {
+          getWordsOnLine(desc.colors, file);
+        }
 
-    if(word.compare(END_LINE) == 0) {
+        else if(word.compare("SPEED") == 0) {
+          readDiceDesc(desc.speed, file);
+        }
+
+        else if(word.compare("ABIL") == 0) {
+          getWordsOnLine(desc.abilities, file);
+        }
+        
+        else if(word.compare("HP") == 0) {
+          readDiceDesc(desc.hp, file);
+        }
+
+        else if(word.compare("DAM") == 0) {
+          readDiceDesc(desc.ad, file);
+        }
+
+        else if(word.compare("RRTY") == 0) {
+          file >> word;
+          desc.rarity = stoi(word);
+        }
+
+        else if(word.compare("SYMB") == 0) {
+          file >> word;
+          desc.symbol = word.c_str()[0];
+        }
+
+        else if(word.compare("DESC") == 0) {
+          while(file.peek() != '.') {
+            getline(file, line);
+            desc.description += line;
+            desc.description += '\n';
+          }
+        }
+      } while(word.compare(START_LINE) != 0 && word.compare(END_LINE) != 0 && !file.eof());
+    }
+
+    if(word.compare(END_LINE) == 0 && !file.eof()) {
+      cleanDesc(desc);
       list.push_back(desc);
     }
 
@@ -121,3 +118,24 @@ vector<monsterDesc> parseMonsterDescFile(string fileLoc) {
   return list;
 }
 
+void cleanDesc(monsterDesc& desc) {
+  cleanString(desc.name);
+  cleanString(desc.description);
+}
+
+void cleanString(string& toClean) {
+  while(getFirstChar(toClean) == ' ' || getFirstChar(toClean) == '\n') {
+    toClean.erase(0,1);
+  }
+  while(getLastChar(toClean) == ' ' || getLastChar(toClean) == '\n') {
+    toClean.resize(toClean.length() - 1);
+  }
+}
+
+char getLastChar(string str) {
+  return str[str.length() - 1];
+}
+
+char getFirstChar(string str) {
+  return str[0];
+}

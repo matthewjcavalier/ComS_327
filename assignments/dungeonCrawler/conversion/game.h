@@ -34,6 +34,10 @@
   #define SCREEN_H
   #include "screen.h"
 #endif
+#ifndef FILEREADING_H
+  #define FILEREADING_H
+  #include "fileReading.h"
+#endif
 
 class Settings{
   public:
@@ -42,6 +46,7 @@ class Settings{
     bool save;
     string loadSaveLoc;
     int nummon;
+    string monsterDescLoc;
 };
 
 Dungeon dungeonInit();

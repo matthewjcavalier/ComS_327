@@ -1,10 +1,11 @@
 CC=g++
 CFLAGS=-g -Wall -Werror -std=c++11
-REQ=clean genCtags game.cpp dungeon.cpp Character.cpp screen.o
-REQ1=clean game.cpp dungeon.cpp Character.cpp screen.o
+REQ=genCtags game.cpp dungeon.cpp Character.cpp screen.o
+REQ1=game.cpp dungeon.cpp Character.cpp screen.o fileReading.o
 
 all: $(REQ1)
-	$(CC) $(CFLAGS) game.cpp dungeon.cpp Character.cpp screen.o -o game -lncurses
+	$(CC) $(CFLAGS) game.cpp dungeon.cpp Character.cpp screen.o fileReading.o -o game -lncurses
+rebuild: clean all
 dungeon.o: dungeon.cpp
 	$(CC) $(CFLAGS) dungeon.cpp -c
 Character.o: Character.cpp

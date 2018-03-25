@@ -15,20 +15,56 @@ struct Compare {
   }
 };
 
+/**
+ * @brief Prints the description for an input rollUp attribute
+ * 
+ * TODO: Remove this function before final game shipment
+ * 
+ * @param fruit rollUp
+ */
+void printDice(rollUp fruit) {
+  cout<<fruit.base<<"+"<<fruit.diceCount<<"d"<<fruit.diceType<<endl;
+}
+
 int main(int argc, char* argv[]) {
   setSettings(argc, argv);
   cout<<"Using Seed: "<< settings.seed <<endl;
   // get the basic dungeon
   Dungeon dun = dungeonInit();
 
+  vector<monsterDesc> monsterDescs = parseMonsterDescFile(settings.monsterDescLoc);
+  /**
+   * DEBUGGING print out monster descriptions
+   * TODO : remove this in release version
+   */
+  for(monsterDesc monster: monsterDescs) {
+    cout<<monster.name<< endl;
+    cout<<monster.description<<endl;
+    cout<<monster.symbol<<endl;
+    for(string color : monster.colors) {
+      cout<<color<<" ";
+    }
+    cout<<endl;
+    printDice(monster.speed);
+    for(string attr: monster.abilities) {
+      cout<<attr;
+    }
+    cout<<endl;
+    printDice(monster.hp);
+    printDice(monster.ad);
+    cout<<monster.rarity<<endl;
+    cout<<endl;
+  }
+  /*
   scrStartup();
 
   runGame(dun);
-
+  */
   if(settings.save) {
     dun.save(settings.loadSaveLoc);
   }
 }
+
 
 /**
  * @brief Main game procedure
@@ -137,6 +173,8 @@ void setSettings(int argc, char* argv[]) {
   string home(getenv("HOME"));
   string loadLocSubPath("/.rlg327/dungeon");
   settings.nummon = 0;
+  settings.monsterDescLoc = home;
+  settings.monsterDescLoc += "/.rlg327/monster_desc.txt";
   for(int i = 0; i < argc; i++) {
     if(strcmp("--s", argv[i]) == 0 && i != argc -1) {
       cout << argv[i+1] << endl;
