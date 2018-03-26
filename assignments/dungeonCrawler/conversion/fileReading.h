@@ -32,3 +32,38 @@ char getLastChar(string str);
 char getFirstChar(string str);
 
 void cleanString(string& toClean);
+
+class monstBools {
+  public:
+    bool nameSet;
+    bool descriptionSet;
+    bool colorsSet;
+    bool speedSet;
+    bool abilitiesSet;
+    bool hpSet;
+    bool adSet;
+    bool raritySet;
+    bool symbolSet;
+    monstBools();
+    bool isFilledOut();
+};
+
+class objectBools {
+  public:
+    bool nameSet;
+    bool descriptionSet;
+    bool typeSet;
+    bool colorsSet;
+    bool hitBonusSet;
+    bool damBonusSet;
+    bool dodgeBonusSet;
+    bool defencesBonusSet;
+    bool weightSet;
+    bool specialAttrSet;
+    bool valueSet;
+    bool isArtifactSet;
+    bool raritySet;
+    bool speedBuffSet;
+    objectBools();
+    bool isFilledOut();
+};
