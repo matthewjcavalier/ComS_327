@@ -30,12 +30,12 @@ run: all
 exportLog:
 	git --no-pager log > CHANGELOG
 package: clean exportLog
-	mkdir cavalier_matthew.assignment-1.06
-	cp Character.* defs.h dungeon.* game.* Makefile screen.* README CHANGELOG cavalier_matthew.assignment-1.06
-	tar cvfz cavalier_matthew.assignment-1.06.tar.gz cavalier_matthew.assignment-1.06
-	rm -rf cavalier_matthew.assignment-1.06
+	mkdir cavalier_matthew.assignment-1.07
+	cp Character.* defs.h dungeon.* game.* Makefile screen.* fileReading.* desc.h README CHANGELOG cavalier_matthew.assignment-1.07
+	tar cvfz cavalier_matthew.assignment-1.07.tar.gz cavalier_matthew.assignment-1.07
+	rm -rf cavalier_matthew.assignment-1.07
 test: package
 	mkdir test
-	tar -xf cavalier_matthew.assignment-1.06.tar.gz -C test/
+	tar -xf cavalier_matthew.assignment-1.07.tar.gz -C test/
 connect:
 	ssh cavalier@pyrite.cs.iastate.edu

@@ -1,3 +1,33 @@
+commit 510d3e74e9dc6318b7e6d0a70ac5dc2f095adbff
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Mar 25 18:36:07 2018 -0500
+
+    object descriptions are being parsed and printed
+
+commit 6ca28c7983a9bbde82d56e65248ee063a19d78a4
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Sun Mar 25 17:25:11 2018 -0500
+
+    the monster file is being parsed, the list built, and printted out properly
+
+commit 00fdd3e9a81aad36b4a1a012ec3c525d8921a50b
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Mar 23 22:46:01 2018 -0500
+
+    taking a break
+
+commit ee5870fdff567fc8e6b444772f6ecb54a0bba91d
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Fri Mar 23 09:36:22 2018 -0500
+
+    about to start hw7
+
+commit ceb2ec1c3043767917a09061187e7a93a95d6cc5
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Mon Mar 19 13:27:27 2018 -0500
+
+    removed the CTAGS from main recipie
+
 commit 3371e489693791e6f75d467db29c00e20f15bc53
 Author: Matt Cavalier <matthewjcavalier@gmail.com>
 Date:   Mon Mar 19 13:19:12 2018 -0500
