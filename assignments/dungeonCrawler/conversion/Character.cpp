@@ -404,14 +404,12 @@ void PC::drawDunMap() {
   attron(A_STANDOUT);
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
-      if(row < MAX_HEIGHT && col < MAX_WIDTH) {
-        drawCharacter({row+1,col}, getTileSym(dunMap[row][col]));
-      }
+      drawCharacter({row+1,col}, getTileSym(dunMap[row][col]));
     }
   }
   attroff(A_STANDOUT);
   attron(A_DIM);
-  // draw monsters in sight radius
+  // draw stuff in sight radius
   for(int row = coord.y - sightDist; row <= coord.y + sightDist; row++) {
     for(int col = coord.x - sightDist; col <= coord.x + sightDist; col++) {
       if(row > 0 && row < MAX_HEIGHT &&
