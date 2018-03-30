@@ -79,11 +79,11 @@ int main(int argc, char* argv[]) {
     cout<<((obj.isArtifact) ? "TRUE" : "FALSE") <<endl;
     cout<<obj.rarity<<endl<<endl;
   }
-  /*
+  
   scrStartup();
 
   runGame(dun);
-  */
+  
   if(settings.save) {
     dun.save(settings.loadSaveLoc);
   }

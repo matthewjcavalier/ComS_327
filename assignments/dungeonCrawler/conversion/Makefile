@@ -18,6 +18,9 @@ diceTest: dice.cpp
 	$(CC) $(CFLAGS) dice.cpp -o dice
 fileReading.o: fileReading.cpp
 	$(CC) $(CFLAGS) fileReading.cpp -c 
+object.o: object.cpp
+	$(CC) $(CFLAGS) object.cpp -c
+
 clean:
 		- rm *.o
 		- rm game
