@@ -108,6 +108,7 @@ void Dungeon::build() {
  * 
  */
 void Dungeon::rebuild() {
+  rooms.clear();
   for(int y = 0; y < MAX_HEIGHT; y++){
     for(int x = 0; x < MAX_WIDTH; x++) {
       charMap[y][x] = NULL;
