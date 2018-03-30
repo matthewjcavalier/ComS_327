@@ -27,7 +27,7 @@ clean:
 genCtags:
 	ctags -R
 run: all
-	./game
+	./game --s 123
 exportLog:
 	git --no-pager log > CHANGELOG
 package: clean exportLog

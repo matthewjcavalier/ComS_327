@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/game",
-            "args": [],
+            "args": ["--s", "123"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

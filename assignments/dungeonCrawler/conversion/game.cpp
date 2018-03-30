@@ -98,11 +98,13 @@ void runGame(Dungeon& dun) {
       }
 
       // get a new dungeon
+      srand(time(NULL));
       dun.rebuild();
       pc->coord = dun.getEmptySpace();
       dun.setPC(pc);
       dun.updateSpace(pc->coord, pc);
       turnQueue.push(pc);
+      objFact.buildObjects(objectDescs, 10);
 
       for(int i = 0; i < settings.nummon; i++) {
         int speed = rand() % 15 + 5;
