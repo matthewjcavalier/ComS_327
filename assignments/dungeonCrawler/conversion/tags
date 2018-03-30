@@ -317,6 +317,7 @@ setTurnLogic	Character.cpp	/^void NPC::setTurnLogic() {$/;"	f	class:NPC
 setType	dungeon.cpp	/^void Tile::setType(TileType type) {$/;"	f	class:Tile
 setType	dungeon.cpp	/^void Tile::setType(int hardness) {$/;"	f	class:Tile
 settings	game.cpp	/^Settings settings;$/;"	v
+setupColors	screen.cpp	/^int setupColors() {$/;"	f
 setupDunMap	Character.cpp	/^void PC::setupDunMap() {$/;"	f	class:PC
 showMonsterList	Character.cpp	/^void PC::showMonsterList() {$/;"	f	class:PC
 sightDist	Character.h	/^    int sightDist;$/;"	m	class:PC
@@ -344,6 +345,8 @@ teleport	Character.cpp	/^int PC::teleport(Coordinate to) {$/;"	f	class:PC
 tryToMove	Character.cpp	/^movementResDTO PC::tryToMove(Coordinate to) {$/;"	f	class:PC
 tunnelMap	dungeon.h	/^    vector <vector<int>> tunnelMap;$/;"	m	class:Dungeon
 turnLogic	Character.h	/^    int (NPC::*turnLogic)();$/;"	m	class:NPC
+turnOffColorPair	screen.cpp	/^int turnOffColorPair(string str) {$/;"	f
+turnOnColorPair	screen.cpp	/^int turnOnColorPair(string str) {$/;"	f
 type	Character.h	/^    char type;$/;"	m	class:NPC
 type	desc.h	/^    string type;$/;"	m	class:objectDesc
 type	dungeon.h	/^    TileType type;$/;"	m	class:Tile

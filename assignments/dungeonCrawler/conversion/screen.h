@@ -34,3 +34,9 @@ int scrTearDown();
 int printMessage(string message);
 
 int clearMessageArea();
+
+int setupColors();
+
+int turnOnColorPair(string str);
+
+int turnOffColorPair(string str);

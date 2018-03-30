@@ -11,6 +11,21 @@ int scrStartup() {
   timeout(0);
   curs_set(FALSE);
   keypad(stdscr, TRUE);
+  start_color();
+  setupColors();
+  return 0;
+}
+
+int setupColors() {
+  init_pair(COLOR_RED, COLOR_RED, COLOR_BLACK);
+  init_pair(COLOR_GREEN, COLOR_GREEN, COLOR_BLACK);
+  init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
+  init_pair(COLOR_CYAN, COLOR_CYAN, COLOR_BLACK);
+  init_pair(COLOR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(COLOR_MAGENTA, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK);
+  init_pair(COLOR_BLACK, COLOR_WHITE, COLOR_BLACK);
+
   return 0;
 }
 
@@ -73,4 +88,46 @@ int clearMessageArea() {
     spaces << " ";
   }
   return drawString({0,0}, (char*)spaces.str().c_str());
+}
+
+int turnOnColorPair(string str) {
+  if(str.compare("RED") == 0) {
+    attron(COLOR_PAIR(COLOR_RED));
+  } else if(str.compare("GREEN") == 0) {
+    attron(COLOR_PAIR(COLOR_GREEN));
+  } else if(str.compare("BLUE") == 0) {
+    attron(COLOR_PAIR(COLOR_BLUE));
+  } else if(str.compare("CYAN") == 0) {
+    attron(COLOR_PAIR(COLOR_CYAN));
+  } else if(str.compare("YELLOW") == 0) {
+    attron(COLOR_PAIR(COLOR_YELLOW));
+  } else if(str.compare("MAGENTA") == 0) {
+    attron(COLOR_PAIR(COLOR_MAGENTA));
+  } else if(str.compare("WHITE") == 0) {
+    attron(COLOR_PAIR(COLOR_WHITE));
+  } else if(str.compare("BLACK") == 0) {
+    attron(COLOR_PAIR(COLOR_BLACK));
+  }
+  return 0;
+}
+
+int turnOffColorPair(string str) {
+  if(str.compare("RED") == 0) {
+    attroff(COLOR_PAIR(COLOR_RED));
+  } else if(str.compare("GREEN") == 0) {
+    attroff(COLOR_PAIR(COLOR_GREEN));
+  } else if(str.compare("BLUE") == 0) {
+    attroff(COLOR_PAIR(COLOR_BLUE));
+  } else if(str.compare("CYAN") == 0) {
+    attroff(COLOR_PAIR(COLOR_CYAN));
+  } else if(str.compare("YELLOW") == 0) {
+    attroff(COLOR_PAIR(COLOR_YELLOW));
+  } else if(str.compare("MAGENTA") == 0) {
+    attroff(COLOR_PAIR(COLOR_MAGENTA));
+  } else if(str.compare("WHITE") == 0) {
+    attroff(COLOR_PAIR(COLOR_WHITE));
+  } else if(str.compare("BLACK") == 0) {
+    attroff(COLOR_PAIR(COLOR_BLACK));
+  }
+  return 0;
 }

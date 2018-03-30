@@ -420,7 +420,11 @@ void PC::drawDunMap() {
           if(canSee) {
             if(dun->charMap[row][col] == NULL) {
               if(dun->objectMap[row][col] != NULL) {
+                turnOnColorPair(dun->objectMap[row][col]->colors[0]);
+                attron(A_BOLD);
                 drawCharacter({row+1, col}, dun->objectMap[row][col]->symbol);
+                attroff(A_BOLD);
+                turnOffColorPair(dun->objectMap[row][col]->colors[0]);
               } else { 
                 if(dunMap[row][col] == UPSTAIR || dunMap[row][col] == DOWNSTAIR) {
                   attron(A_BOLD);
