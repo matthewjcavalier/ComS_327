@@ -212,6 +212,7 @@ void Dungeon::genBaseDun() {
   Tile borderTile(BORDER);
   map.resize(MAX_HEIGHT);
   charMap.resize(MAX_HEIGHT);
+  objectMap.resize(MAX_HEIGHT);
 
   // make the basic dungeon with the first and last rows border
   for(int i = 0; i < MAX_HEIGHT; i++) {
@@ -221,6 +222,7 @@ void Dungeon::genBaseDun() {
       map[i].resize(MAX_WIDTH, normalTile);
     }
     charMap[i].resize(MAX_WIDTH, NULL);
+    objectMap[i].resize(MAX_WIDTH, NULL);
   }
 
   for(int i = 0; i < MAX_HEIGHT; i++) {
@@ -389,6 +391,8 @@ void Dungeon::draw() {
     for(int col = 0; col < MAX_WIDTH; col++) {
       if(charMap[row][col] != NULL) {
         toDraw = charMap[row][col]->symbol;
+      } else if(objectMap[row][col] != NULL) {
+        toDraw = objectMap[row][col]->symbol;
       } else {
         toDraw = getTileSym(map[row][col].type);
       }

@@ -1,10 +1,10 @@
 CC=g++
 CFLAGS=-g -Wall -Werror -std=c++11
 REQ=genCtags game.cpp dungeon.cpp Character.cpp screen.o
-REQ1=game.cpp dungeon.cpp Character.cpp screen.o fileReading.o
+REQ1=genCtags game.cpp dungeon.cpp Character.cpp screen.o fileReading.o
 
 all: $(REQ1)
-	$(CC) $(CFLAGS) game.cpp dungeon.cpp Character.cpp screen.o fileReading.o -o game -lncurses
+	$(CC) $(CFLAGS) game.cpp dungeon.cpp Character.cpp screen.o fileReading.o object.cpp -o game -lncurses
 rebuild: clean all
 dungeon.o: dungeon.cpp
 	$(CC) $(CFLAGS) dungeon.cpp -c
@@ -18,8 +18,6 @@ diceTest: dice.cpp
 	$(CC) $(CFLAGS) dice.cpp -o dice
 fileReading.o: fileReading.cpp
 	$(CC) $(CFLAGS) fileReading.cpp -c 
-object.o: object.cpp
-	$(CC) $(CFLAGS) object.cpp -c
 
 clean:
 		- rm *.o

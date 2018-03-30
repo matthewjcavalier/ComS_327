@@ -19,9 +19,9 @@ void readDiceDesc(rollUp& desc, ifstream& file);
 
 void getWordsOnLine(vector<string> &storage, ifstream& file);
 
-vector<objectDesc> parseObjectDescFile(string fileLoc);
+int parseObjectDescFile(string fileLoc, vector<objectDesc>& list);
 
-vector<monsterDesc> parseMonsterDescFile(string fileLoc);
+int parseMonsterDescFile(string fileLoc, vector<monsterDesc>& list);
 
 void cleanMonstDesc(monsterDesc& desc);
 

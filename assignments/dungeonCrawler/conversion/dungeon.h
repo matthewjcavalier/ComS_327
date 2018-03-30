@@ -26,6 +26,10 @@
   #define SCREEN_H
   #include "screen.h"
 #endif
+#ifndef OBJECT_H
+  #define OBJECT_H
+  #include "object.h"
+#endif
 
 
 using namespace std;
@@ -71,6 +75,7 @@ class Dungeon {
     vector <vector<int>> tunnelMap;
     vector <vector<int>> openMap;
     vector <vector<Character*>> charMap;
+    vector <vector<object*>> objectMap;
 
     Dungeon(); 
     Dungeon(string loc);

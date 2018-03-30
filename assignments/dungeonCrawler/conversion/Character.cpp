@@ -419,11 +419,15 @@ void PC::drawDunMap() {
           canSee = dun->canSeeFrom(coord, {row,col});
           if(canSee) {
             if(dun->charMap[row][col] == NULL) {
-              if(dunMap[row][col] == UPSTAIR || dunMap[row][col] == DOWNSTAIR) {
-                attron(A_BOLD);
+              if(dun->objectMap[row][col] != NULL) {
+                drawCharacter({row+1, col}, dun->objectMap[row][col]->symbol);
+              } else { 
+                if(dunMap[row][col] == UPSTAIR || dunMap[row][col] == DOWNSTAIR) {
+                  attron(A_BOLD);
+                }
+                drawCharacter({row+1,col}, getTileSym(dunMap[row][col]));
+                attroff(A_BOLD);
               }
-              drawCharacter({row+1,col}, getTileSym(dunMap[row][col]));
-              attroff(A_BOLD);
             } else {
               attron(A_BOLD);
               drawCharacter({row+1,col}, dun->charMap[row][col]->symbol);

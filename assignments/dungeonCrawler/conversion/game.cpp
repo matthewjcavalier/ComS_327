@@ -5,6 +5,9 @@ Settings settings;
 
 using namespace std;
 
+vector<monsterDesc> monsterDescs;
+vector<objectDesc> objectDescs;
+
 /**
  * @brief Comparitor used in the priority queue
  * 
@@ -15,71 +18,16 @@ struct Compare {
   }
 };
 
-/**
- * @brief Prints the description for an input rollUp attribute
- * 
- * TODO: Remove this function before final game shipment
- * 
- * @param fruit rollUp
- */
-void printDice(rollUp fruit) {
-  cout<<fruit.base<<"+"<<fruit.diceCount<<"d"<<fruit.diceType<<endl;
-}
-
 int main(int argc, char* argv[]) {
   setSettings(argc, argv);
   cout<<"Using Seed: "<< settings.seed <<endl;
   // get the basic dungeon
   Dungeon dun = dungeonInit();
 
-  vector<monsterDesc> monsterDescs = parseMonsterDescFile(settings.monsterDescLoc);
-  /**
-   * DEBUGGING print out monster descriptions
-   * TODO : remove this in release version
-   */
-  cout<<endl<<endl<<"/**"<<endl<<" * Monster descriptions" <<endl<<" */"<<endl<<endl;
-  for(monsterDesc monster: monsterDescs) {
-    cout<<monster.name<< endl;
-    cout<<monster.description<<endl;
-    cout<<monster.symbol<<endl;
-    for(string color : monster.colors) {
-      cout<<color<<" ";
-    }
-    cout<<endl;
-    printDice(monster.speed);
-    for(string attr: monster.abilities) {
-      cout<<attr;
-    }
-    cout<<endl;
-    printDice(monster.hp);
-    printDice(monster.ad);
-    cout<<monster.rarity<<endl;
-    cout<<endl;
-  }
+  parseMonsterDescFile(settings.monsterDescLoc, monsterDescs);
 
-  vector<objectDesc> objectDescs = parseObjectDescFile(settings.objectDescLoc);
+  parseObjectDescFile(settings.objectDescLoc, objectDescs);
 
-  cout<<endl<<endl<<"/**"<<endl<<" * Object descriptions" <<endl<<" */"<<endl<<endl;
-  for(objectDesc obj : objectDescs) {
-    cout<<obj.name<<endl;
-    cout<<obj.description<<endl;
-    cout<<obj.type<<endl;
-    for(string color: obj.colors) {
-      cout<<color;
-    }
-    cout<<endl;
-    printDice(obj.hitBonus);
-    printDice(obj.damBonus);
-    printDice(obj.dodgeBonus);
-    printDice(obj.defenseBonus);
-    printDice(obj.weight);
-    printDice(obj.speedBuff);
-    printDice(obj.specialAttr);
-    printDice(obj.value);
-    cout<<((obj.isArtifact) ? "TRUE" : "FALSE") <<endl;
-    cout<<obj.rarity<<endl<<endl;
-  }
-  
   scrStartup();
 
   runGame(dun);
@@ -101,13 +49,17 @@ void runGame(Dungeon& dun) {
   Character curr;
   int id = 1;
   int resultId;
+  objectFactory objFact(&dun);
+  
+  objFact.buildObjects(objectDescs, 10);
+
   PC* pc = new PC(id++, dun.getEmptySpace(), 10, &dun, 1000/10);
   
   dun.setPC(pc);
   turnQueue.push(pc);
 
   for(int i = 0; i < settings.nummon; i++) {
-    int speed = rand() % 15 + 5;
+    int speed = 1;
     turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed, genCharacterType(), pc));
   }
 

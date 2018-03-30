@@ -87,8 +87,7 @@ void getWordsOnLine(vector<string> &storage, ifstream& file) {
   } while (file.peek() != '\n');
 }
 
-vector<objectDesc> parseObjectDescFile(string fileLoc) {
-  vector<objectDesc> list;
+int parseObjectDescFile(string fileLoc, vector<objectDesc>& list) {
   ifstream file(fileLoc);
   bool buildingObject = true;
   string line;
@@ -186,11 +185,10 @@ vector<objectDesc> parseObjectDescFile(string fileLoc) {
       buildingObject = false;
     }
   }
-  return list;
+  return 0;
 }
 
-vector<monsterDesc> parseMonsterDescFile(string fileLoc) {
-  vector<monsterDesc> list;
+int parseMonsterDescFile(string fileLoc, vector<monsterDesc>& list) {
   ifstream file(fileLoc);
   bool buildingMonster = true;
   string line;
@@ -275,7 +273,7 @@ vector<monsterDesc> parseMonsterDescFile(string fileLoc) {
       buildingMonster = false;
     }
   }
-  return list;
+  return 0;
 }
 
 void cleanObjDesc(objectDesc& desc) {

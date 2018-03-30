@@ -14,9 +14,16 @@
   #define STRING
   #include <string>
 #endif
-
+#ifndef DUNGEON_H
+  #define DUNGEON_H
+  #include "dungeon.h"
+#endif
+#ifndef OBJECT_H_BUILT
+#define OBJECT_H_BUILT
 
 using namespace std;
+
+class Dungeon;
 
 class object {
   public:
@@ -41,9 +48,14 @@ class object {
 
 class objectFactory {
   public:
-    objectFactory();
-    vector<object> buildObjects(vector<objectDesc> descList);
-    object buildObject(objectDesc desc);
+    Dungeon* dun;
+    objectFactory(Dungeon* dun);
+    int buildObjects(vector<objectDesc> descList, int numToBuild);
+    int buildObject(objectDesc desc, object* obj);
 };
 
 int rollDice(rollUp fruit);
+
+char getObjSym(string type);
+
+#endif
