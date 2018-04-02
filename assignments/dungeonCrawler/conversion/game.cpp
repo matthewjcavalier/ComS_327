@@ -50,6 +50,7 @@ void runGame(Dungeon& dun) {
   int id = 1;
   int resultId;
   objectFactory objFact(&dun);
+  monsterFactory monstFact(&dun);
   
   objFact.buildObjects(objectDescs, 10);
 
@@ -58,9 +59,8 @@ void runGame(Dungeon& dun) {
   dun.setPC(pc);
   turnQueue.push(pc);
 
-  for(int i = 0; i < settings.nummon; i++) {
-    int speed = 1;
-    turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed, genCharacterType(), pc));
+  for(NPC* monst : monstFact.buildMonsters(monsterDescs, settings.nummon, 0, pc)) {
+    turnQueue.push(monst);
   }
 
   while(!gameOver) {
@@ -106,9 +106,14 @@ void runGame(Dungeon& dun) {
       turnQueue.push(pc);
       objFact.buildObjects(objectDescs, 10);
 
+/*
       for(int i = 0; i < settings.nummon; i++) {
         int speed = rand() % 15 + 5;
         turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed + pc->nextEventTime, genCharacterType(), pc));
+      }
+*/
+      for(NPC* monst : monstFact.buildMonsters(monsterDescs, settings.nummon, pc->nextEventTime, pc)) {
+        turnQueue.push(monst);
       }
     }
     if(turnQueue.size() == 1) {

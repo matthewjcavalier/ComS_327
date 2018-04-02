@@ -36,7 +36,7 @@ void monsterFactory::buildMonster(monsterDesc desc, NPC* monster, int currentEve
     monster->ad = desc.ad;
     monster->symbol = desc.symbol;
     monster->speed = rollDice(desc.speed);
-    monster->nextEventTime = monster->speed + currentEventTime;
+    monster->nextEventTime = (1000/ monster->speed) + currentEventTime;
     monster->dun = this->dun;
     monster->id = id++;
     monster->lastSeenPCLoc = {0,0};

@@ -38,6 +38,10 @@
   #define FILEREADING_H
   #include "fileReading.h"
 #endif
+#ifndef MONSTER_H
+  #define MONSTER_H
+  #include "monster.h"
+#endif
 
 class Settings{
   public:

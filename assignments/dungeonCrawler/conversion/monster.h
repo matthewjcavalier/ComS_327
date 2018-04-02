@@ -22,6 +22,10 @@
   #define FILEREADING_H
   #include "fileReading.h"
 #endif
+#ifndef DUNGEON_H
+  #define DUNGEON_H
+  #include "dungeon.h"
+#endif
 
 
 class monsterFactory {
