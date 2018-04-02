@@ -22,6 +22,10 @@
   #define SSTREAM
   #include <sstream>
 #endif
+#ifndef DESC_H
+  #define DESC_H
+  #include "desc.h"
+#endif
 
 using namespace std;
 
@@ -39,6 +43,12 @@ class movementResDTO {
 
 class Character {
   public:
+    string name;
+    string description;
+    vector<string> colors;
+    int hp;
+    rollUp ad;
+
     Coordinate coord;
     char symbol;
     int speed;
@@ -81,13 +91,15 @@ class NPC : public Character {
   public:
     char type;
     Coordinate lastSeenPCLoc;
+    rollUp ad;
+    PC* pc;
+    NPC();
     NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc);
     ~NPC();
     int takeTurn();
-  private:
-    PC* pc;
-    int (NPC::*turnLogic)();
     void setTurnLogic();
+  private:
+    int (NPC::*turnLogic)();
     void updatePCLoc();
     int movement0001();
     int movement0010();

@@ -18,6 +18,12 @@
   #define DUNGEON_H
   #include "dungeon.h"
 #endif
+#ifndef FILEREADING_H
+  #define FILEREADING_H
+  #include "fileReading.h"
+#endif
+
+
 #ifndef OBJECT_H_BUILT
 #define OBJECT_H_BUILT
 
@@ -53,8 +59,6 @@ class objectFactory {
     int buildObjects(vector<objectDesc> descList, int numToBuild);
     int buildObject(objectDesc desc, object* obj);
 };
-
-int rollDice(rollUp fruit);
 
 char getObjSym(string type);
 

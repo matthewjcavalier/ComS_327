@@ -113,7 +113,7 @@ void Dungeon::rebuild() {
     for(int x = 0; x < MAX_WIDTH; x++) {
       charMap[y][x] = NULL;
       if(objectMap[y][x]) {
-        //objectMap[y][x]->~object();
+        objectMap[y][x]->~object();
       }
       objectMap[y][x] = NULL;
       if(y > 0 && y < MAX_HEIGHT - 1 && x > 0 && x < MAX_WIDTH) {

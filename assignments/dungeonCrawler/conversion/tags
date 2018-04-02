@@ -31,6 +31,8 @@ Coordinate	defs.h	/^class Coordinate {$/;"	c
 DEBUG	defs.h	28;"	d
 DEFS_H	dungeon.h	10;"	d
 DEFS_H	screen.h	10;"	d
+DESC_H	Character.h	26;"	d
+DESC_H	dice.cpp	6;"	d	file:
 DESC_H	fileReading.h	10;"	d
 DESC_H	monster.h	10;"	d
 DESC_H	object.h	10;"	d
@@ -46,6 +48,8 @@ Dungeon	dungeon.h	/^class Dungeon {$/;"	c
 END_LINE	fileReading.cpp	7;"	d	file:
 ERRATIC_BIT	defs.h	11;"	d
 FILEREADING_H	game.h	38;"	d
+FILEREADING_H	monster.h	22;"	d
+FILEREADING_H	object.h	22;"	d
 FIRST_LINE_MONST	fileReading.cpp	3;"	d	file:
 FIRST_LINE_OBJ	fileReading.cpp	6;"	d	file:
 FLASK_SYM	desc.h	27;"	d
@@ -74,10 +78,11 @@ MIN_ROOM_WIDTH	defs.h	5;"	d
 MOVE_BETWEEN_FLOORS	defs.h	13;"	d
 NCURSES_H	screen.h	18;"	d
 NCURSES_H	screen.h	2;"	d
+NPC	Character.cpp	/^NPC::NPC(){};$/;"	f	class:NPC
 NPC	Character.cpp	/^NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {$/;"	f	class:NPC
 NPC	Character.h	/^class NPC : public Character {$/;"	c
 OBJECT_H	dungeon.h	30;"	d
-OBJECT_H_BUILT	object.h	22;"	d
+OBJECT_H_BUILT	object.h	28;"	d
 OFFHAND_SYM	desc.h	15;"	d
 PC	Character.cpp	/^PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {$/;"	f	class:PC
 PC	Character.h	/^class PC : public Character {$/;"	c
@@ -128,25 +133,24 @@ UNISTD_H	screen.h	6;"	d
 UPSTAIR	defs.h	/^  UPSTAIR,$/;"	e	enum:TileType
 UPSTAIR_CHAR	defs.h	19;"	d
 VECTOR	desc.h	6;"	d
-VECTOR	dice.cpp	6;"	d	file:
 VECTOR	dungeon.h	6;"	d
 VECTOR	monster.h	6;"	d
 VECTOR	object.h	6;"	d
 WAND_SYM	desc.h	31;"	d
 WEAPON_SYM	desc.h	14;"	d
 abilities	desc.h	/^    vector<string> abilities;$/;"	m	class:monsterDesc
-abilities	monster.h	/^    vector<string> abilities;$/;"	m	class:monster
 abilitiesSet	fileReading.h	/^    bool abilitiesSet;$/;"	m	class:monstBools
+ad	Character.h	/^    rollUp ad;$/;"	m	class:Character
+ad	Character.h	/^    rollUp ad;$/;"	m	class:NPC
 ad	desc.h	/^    rollUp ad;$/;"	m	class:monsterDesc
-ad	monster.h	/^    rollUp ad;$/;"	m	class:monster
 adSet	fileReading.h	/^    bool adSet;$/;"	m	class:monstBools
 addHallways	dungeon.cpp	/^void Dungeon::addHallways() {$/;"	f	class:Dungeon
 addRooms	dungeon.cpp	/^void Dungeon::addRooms(int numRooms) {$/;"	f	class:Dungeon
 addStairs	dungeon.cpp	/^void Dungeon::addStairs() {$/;"	f	class:Dungeon
 base	desc.h	/^    int base;$/;"	m	class:rollUp
 build	dungeon.cpp	/^void Dungeon::build() {$/;"	f	class:Dungeon
-buildMonster	monster.cpp	/^monsterFactory::buildMonster(monsterDesc desc) {$/;"	f	class:monsterFactory
-buildMonsters	monster.cpp	/^monsterFactory::buildMonsters(vector<monsterDesc> descList) {$/;"	f	class:monsterFactory
+buildMonster	monster.cpp	/^void monsterFactory::buildMonster(monsterDesc desc, NPC* monster, int currentEventTime, PC* pc) {$/;"	f	class:monsterFactory
+buildMonsters	monster.cpp	/^vector<NPC*> monsterFactory::buildMonsters(vector<monsterDesc> descList, int numToBuild, int currentEventTime, PC* pc) {$/;"	f	class:monsterFactory
 buildObject	object.cpp	/^int objectFactory::buildObject(objectDesc desc, object* obj) {$/;"	f	class:objectFactory
 buildObjects	object.cpp	/^int objectFactory::buildObjects(vector<objectDesc> descList, int numToBuild) {$/;"	f	class:objectFactory
 canSeeFrom	dungeon.cpp	/^bool Dungeon::canSeeFrom(Coordinate from, Coordinate to) {$/;"	f	class:Dungeon
@@ -155,9 +159,9 @@ cleanMonstDesc	fileReading.cpp	/^void cleanMonstDesc(monsterDesc& desc) {$/;"	f
 cleanObjDesc	fileReading.cpp	/^void cleanObjDesc(objectDesc& desc) {$/;"	f
 cleanString	fileReading.cpp	/^void cleanString(string& toClean) {$/;"	f
 clearMessageArea	screen.cpp	/^int clearMessageArea() {$/;"	f
+colors	Character.h	/^    vector<string> colors;$/;"	m	class:Character
 colors	desc.h	/^    vector<string> colors;$/;"	m	class:monsterDesc
 colors	desc.h	/^    vector<string> colors;$/;"	m	class:objectDesc
-colors	monster.h	/^    vector<string> colors;$/;"	m	class:monster
 colors	object.h	/^    vector<string> colors;$/;"	m	class:object
 colorsSet	fileReading.h	/^    bool colorsSet;$/;"	m	class:monstBools
 colorsSet	fileReading.h	/^    bool colorsSet;$/;"	m	class:objectBools
@@ -169,14 +173,12 @@ damBonusSet	fileReading.h	/^    bool damBonusSet;$/;"	m	class:objectBools
 defencesBonusSet	fileReading.h	/^    bool defencesBonusSet;$/;"	m	class:objectBools
 defenseBonus	desc.h	/^    rollUp defenseBonus;$/;"	m	class:objectDesc
 defenseBonus	object.h	/^    int defenseBonus;$/;"	m	class:object
+description	Character.h	/^    string description;$/;"	m	class:Character
 description	desc.h	/^    string description;$/;"	m	class:monsterDesc
 description	desc.h	/^    string description;$/;"	m	class:objectDesc
-description	monster.h	/^    string description;$/;"	m	class:monster
 description	object.h	/^    string description;$/;"	m	class:object
 descriptionSet	fileReading.h	/^    bool descriptionSet;$/;"	m	class:monstBools
 descriptionSet	fileReading.h	/^    bool descriptionSet;$/;"	m	class:objectBools
-dice	dice.cpp	/^    dice(int numSides) {$/;"	f	class:dice
-dice	dice.cpp	/^class dice {$/;"	c	file:
 diceCount	desc.h	/^    int diceCount;$/;"	m	class:rollUp
 diceType	desc.h	/^    int diceType;$/;"	m	class:rollUp
 dodgeBonus	desc.h	/^    rollUp dodgeBonus;$/;"	m	class:objectDesc
@@ -189,6 +191,7 @@ drawMonsterBox	Character.cpp	/^void PC::drawMonsterBox(int topLeft_y, int topLef
 drawNormalSpot	Character.cpp	/^void PC::drawNormalSpot(Coordinate spot) {$/;"	f	class:PC
 drawString	screen.cpp	/^int drawString(Coordinate coord, char* str) {$/;"	f
 dun	Character.h	/^    Dungeon* dun;$/;"	m	class:Character
+dun	monster.h	/^    Dungeon* dun;$/;"	m	class:monsterFactory
 dun	object.h	/^    Dungeon* dun;$/;"	m	class:objectFactory
 dunMap	Character.h	/^    vector<vector<TileType>> dunMap;$/;"	m	class:PC
 dungeonInit	game.cpp	/^Dungeon dungeonInit() {$/;"	f
@@ -199,6 +202,7 @@ genBaseDun	dungeon.cpp	/^void Dungeon::genBaseDun() {$/;"	f	class:Dungeon
 genCharacterType	game.cpp	/^char genCharacterType() {$/;"	f
 genDistMap	dungeon.cpp	/^vector<vector<int>> Dungeon::genDistMap(int y, int x, bool canTunnel) {$/;"	f	class:Dungeon
 genMonsterString	Character.cpp	/^string PC::genMonsterString(int ydiff, int xdiff, char symbol) {$/;"	f	class:PC
+genType	monster.cpp	/^char genType(vector<string> abilities) {$/;"	f
 getCharacterId	Character.cpp	/^int Character::getCharacterId(Coordinate loc) {$/;"	f	class:Character
 getEmptyMap	dungeon.cpp	/^vector<vector<int>> getEmptyMap() {$/;"	f
 getEmptySpace	dungeon.cpp	/^Coordinate Dungeon::getEmptySpace() {$/;"	f	class:Dungeon
@@ -213,8 +217,8 @@ height	dungeon.h	/^    uint8_t height;$/;"	m	class:Room
 hitBonus	desc.h	/^    rollUp hitBonus;$/;"	m	class:objectDesc
 hitBonus	object.h	/^    int hitBonus;$/;"	m	class:object
 hitBonusSet	fileReading.h	/^    bool hitBonusSet;$/;"	m	class:objectBools
+hp	Character.h	/^    int hp;$/;"	m	class:Character
 hp	desc.h	/^    rollUp hp;$/;"	m	class:monsterDesc
-hp	monster.h	/^    int hp;$/;"	m	class:monster
 hpSet	fileReading.h	/^    bool hpSet;$/;"	m	class:monstBools
 id	Character.h	/^    int id;$/;"	m	class:Character
 initial	dungeon.h	/^    Coordinate initial;$/;"	m	class:CoordPair
@@ -229,18 +233,15 @@ killed	Character.h	/^    int killed;$/;"	m	class:movementResDTO
 lastSeenPCLoc	Character.h	/^    Coordinate lastSeenPCLoc;$/;"	m	class:NPC
 load	game.h	/^    bool load;$/;"	m	class:Settings
 loadSaveLoc	game.h	/^    string loadSaveLoc;$/;"	m	class:Settings
-main	dice.cpp	/^int main() {$/;"	f
 main	game.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 makePathToRoom	dungeon.cpp	/^void  Dungeon::makePathToRoom(Room from, Room to) {$/;"	f	class:Dungeon
 map	dungeon.h	/^    vector <vector<Tile>> map;$/;"	m	class:Dungeon
 monstBools	fileReading.cpp	/^monstBools::monstBools() {$/;"	f	class:monstBools
 monstBools	fileReading.h	/^class monstBools {$/;"	c
-monster	monster.cpp	/^monster::monster(){}$/;"	f	class:monster
-monster	monster.h	/^class monster: public NPC {$/;"	c
 monsterDesc	desc.h	/^class monsterDesc {$/;"	c
 monsterDescLoc	game.h	/^    string monsterDescLoc;$/;"	m	class:Settings
-monsterFactory	monster.cpp	/^monsterFactory::monsterFactory(){}$/;"	f	class:monsterFactory
-monsterFactory	monster.h	/^class monsterFactory() {$/;"	f
+monsterFactory	monster.cpp	/^monsterFactory::monsterFactory(Dungeon* dun){$/;"	f	class:monsterFactory
+monsterFactory	monster.h	/^class monsterFactory {$/;"	c
 moveRand	Character.cpp	/^int Character::moveRand() {$/;"	f	class:Character
 moveRandTunneling	Character.cpp	/^int NPC::moveRandTunneling() {$/;"	f	class:NPC
 moveTo	Character.cpp	/^int Character::moveTo(Coordinate to) {$/;"	f	class:Character
@@ -262,15 +263,14 @@ movement1110	Character.cpp	/^int NPC::movement1110(){$/;"	f	class:NPC
 movement1111	Character.cpp	/^int NPC::movement1111(){$/;"	f	class:NPC
 movementResDTO	Character.h	/^    movementResDTO() {$/;"	f	class:movementResDTO
 movementResDTO	Character.h	/^class movementResDTO {$/;"	c
+name	Character.h	/^    string name;$/;"	m	class:Character
 name	desc.h	/^    string name;$/;"	m	class:monsterDesc
 name	desc.h	/^    string name;$/;"	m	class:objectDesc
-name	monster.h	/^    string name;$/;"	m	class:monster
 name	object.h	/^    string name;$/;"	m	class:object
 nameSet	fileReading.h	/^    bool nameSet;$/;"	m	class:monstBools
 nameSet	fileReading.h	/^    bool nameSet;$/;"	m	class:objectBools
 nextEventTime	Character.h	/^    int nextEventTime;$/;"	m	class:Character
 noOverlapFound	dungeon.cpp	/^bool Dungeon::noOverlapFound(Room newRoom) {$/;"	f	class:Dungeon
-numSides	dice.cpp	/^    int numSides;$/;"	m	class:dice	file:
 nummon	game.h	/^    int nummon;$/;"	m	class:Settings
 object	object.cpp	/^object::object() {}$/;"	f	class:object
 object	object.h	/^class object {$/;"	c
@@ -292,7 +292,6 @@ printMessage	screen.cpp	/^int printMessage(string message) {$/;"	f
 putRoomsInDungeon	dungeon.cpp	/^void Dungeon::putRoomsInDungeon() {$/;"	f	class:Dungeon
 rarity	desc.h	/^    int rarity;$/;"	m	class:monsterDesc
 rarity	desc.h	/^    int rarity;$/;"	m	class:objectDesc
-rarity	monster.h	/^    int rarity;$/;"	m	class:monster
 raritySet	fileReading.h	/^    bool raritySet;$/;"	m	class:monstBools
 raritySet	fileReading.h	/^    bool raritySet;$/;"	m	class:objectBools
 readDiceDesc	fileReading.cpp	/^void readDiceDesc(rollUp& desc, ifstream& file) {$/;"	f
@@ -300,9 +299,8 @@ readRooms	dungeon.cpp	/^void Dungeon::readRooms(FILE* file, int fileSize) {$/;"	
 readTiles	dungeon.cpp	/^void Dungeon::readTiles(FILE* file) {$/;"	f	class:Dungeon
 rebuild	dungeon.cpp	/^void Dungeon::rebuild() {$/;"	f	class:Dungeon
 resetDunMap	Character.cpp	/^void PC::resetDunMap() {$/;"	f	class:PC
-roll	dice.cpp	/^    int roll() {$/;"	f	class:dice
-roll	dice.cpp	/^    vector<int> roll(int numDice) {$/;"	f	class:dice
-rollDice	object.cpp	/^int rollDice(rollUp fruit) {$/;"	f
+rollDice	dice.cpp	/^int rollDice(rollUp fruit) {$/;"	f
+rollDice	fileReading.cpp	/^int rollDice(rollUp fruit) {$/;"	f
 rollUp	desc.h	/^class rollUp {$/;"	c
 rooms	dungeon.h	/^    vector<Room> rooms;$/;"	m	class:Dungeon
 runGame	game.cpp	/^void runGame(Dungeon& dun) {$/;"	f
@@ -326,7 +324,6 @@ specialAttr	object.h	/^    int specialAttr;$/;"	m	class:object
 specialAttrSet	fileReading.h	/^    bool specialAttrSet;$/;"	m	class:objectBools
 speed	Character.h	/^    int speed;$/;"	m	class:Character
 speed	desc.h	/^    rollUp speed;$/;"	m	class:monsterDesc
-speed	monster.h	/^    int speed;$/;"	m	class:monster
 speedBuff	desc.h	/^    rollUp speedBuff;$/;"	m	class:objectDesc
 speedBuff	object.h	/^    int speedBuff;$/;"	m	class:object
 speedBuffSet	fileReading.h	/^    bool speedBuffSet;$/;"	m	class:objectBools
@@ -335,7 +332,6 @@ startTeleportMode	Character.cpp	/^int PC::startTeleportMode() {$/;"	f	class:PC
 success	Character.h	/^    bool success;$/;"	m	class:movementResDTO
 symbol	Character.h	/^    char symbol;$/;"	m	class:Character
 symbol	desc.h	/^    char symbol;$/;"	m	class:monsterDesc
-symbol	monster.h	/^    char symbol;$/;"	m	class:monster
 symbol	object.h	/^    char symbol;$/;"	m	class:object
 symbolSet	fileReading.h	/^    bool symbolSet;$/;"	m	class:monstBools
 takeTurn	Character.cpp	/^int Character::takeTurn() {$/;"	f	class:Character

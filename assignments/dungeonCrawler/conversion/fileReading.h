@@ -31,6 +31,8 @@ char getLastChar(string str);
 
 char getFirstChar(string str);
 
+int rollDice(rollUp fruit);
+
 void cleanString(string& toClean);
 
 class monstBools {

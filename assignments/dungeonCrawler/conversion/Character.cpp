@@ -584,6 +584,11 @@ int PC::teleport(Coordinate to) {
 }
 /**
  * @brief Construct a new NPC::NPC object
+ */
+
+NPC::NPC(){};
+/**
+ * @brief Construct a new NPC::NPC object
  * 
  * @param id 
  * @param coord 

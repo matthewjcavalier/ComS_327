@@ -4,7 +4,7 @@ REQ=genCtags game.cpp dungeon.cpp Character.cpp screen.o
 REQ1=genCtags game.cpp dungeon.cpp Character.cpp screen.o fileReading.o
 
 all: $(REQ1)
-	$(CC) $(CFLAGS) game.cpp dungeon.cpp Character.cpp screen.o fileReading.o object.cpp -o game -lncurses
+	$(CC) $(CFLAGS) game.cpp dungeon.cpp Character.cpp screen.o fileReading.o object.cpp monster.cpp -o game -lncurses
 rebuild: clean all
 dungeon.o: dungeon.cpp
 	$(CC) $(CFLAGS) dungeon.cpp -c

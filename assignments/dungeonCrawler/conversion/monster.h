@@ -16,26 +16,21 @@
 #endif
 #ifndef CHARACTER_H
   #define CHARACTER_H
-  #include "character.h"
+  #include "Character.h"
+#endif
+#ifndef FILEREADING_H
+  #define FILEREADING_H
+  #include "fileReading.h"
 #endif
 
-class monster: public NPC {
-  public:
-    string name;
-    string description;
-    vector<string> colors;
-    int speed;
-    vector<string> abilities;
-    int hp;
-    rollUp ad;
-    int rarity;
-    char symbol;
-    monster();
+
+class monsterFactory {
+  public: 
+    Dungeon* dun;
+    monsterFactory(Dungeon* dun);
+    vector<NPC*> buildMonsters(vector<monsterDesc> descList, int numToBuild, int currentEventTime, PC* pc);
+    void buildMonster(monsterDesc desc, NPC* monster, int currentEventTime, PC* pc);
 };
 
-class monsterFactory() {
-  public: 
-    monsterFactory();
-    vector<monster> buildMonsters(vector<monsterDesc> descList);
-    monster buildMonster(monsterDesc desc);
-};
+char genType(vector<string> abilities);
+int rollDice(rollUp fruit);
