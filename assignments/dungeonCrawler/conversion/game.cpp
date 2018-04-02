@@ -106,12 +106,6 @@ void runGame(Dungeon& dun) {
       turnQueue.push(pc);
       objFact.buildObjects(objectDescs, 10);
 
-/*
-      for(int i = 0; i < settings.nummon; i++) {
-        int speed = rand() % 15 + 5;
-        turnQueue.push(new NPC(id++, dun.getEmptySpace(), speed, &dun, 1000/speed + pc->nextEventTime, genCharacterType(), pc));
-      }
-*/
       for(NPC* monst : monstFact.buildMonsters(monsterDescs, settings.nummon, pc->nextEventTime, pc)) {
         turnQueue.push(monst);
       }

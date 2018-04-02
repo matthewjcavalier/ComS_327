@@ -392,16 +392,22 @@ void Dungeon::save(string loc) {
  */
 void Dungeon::draw() {
   char toDraw = '~';
+  string turnedOnColorPair = "BLACK";
   for(int row = 0; row < MAX_HEIGHT; row++) {
     for(int col = 0; col < MAX_WIDTH; col++) {
       if(charMap[row][col] != NULL) {
         toDraw = charMap[row][col]->symbol;
+        turnedOnColorPair = charMap[row][col]->colors[0];
+        turnOffColorPair(turnedOnColorPair);
       } else if(objectMap[row][col] != NULL) {
         toDraw = objectMap[row][col]->symbol;
+        turnedOnColorPair = objectMap[row][col]->colors[0];
+        turnOffColorPair(turnedOnColorPair);
       } else {
         toDraw = getTileSym(map[row][col].type);
       }
       drawCharacter({row + 1, col}, toDraw);
+      turnOffColorPair(turnedOnColorPair);
     }
   }
 }

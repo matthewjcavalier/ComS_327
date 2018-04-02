@@ -122,6 +122,7 @@ int Character::getCharacterId(Coordinate loc) {
  */
 PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   symbol = '@';
+  this->colors.push_back("WHITE");
   this->coord = coord;
   this->speed = speed;
   this->dun = dun;
@@ -432,7 +433,9 @@ void PC::drawDunMap() {
               }
             } else {
               attron(A_BOLD);
+              turnOnColorPair(dun->charMap[row][col]->colors[0]);
               drawCharacter({row+1,col}, dun->charMap[row][col]->symbol);
+              turnOffColorPair(dun->charMap[row][col]->colors[0]);
               attroff(A_BOLD);
             }
           }
