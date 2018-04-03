@@ -1,9 +1,9 @@
 CC=g++
 CFLAGS=-g -Wall -Werror -std=c++11
-REQ=genCtags game.cpp dungeon.cpp Character.cpp screen.o
+REQ=game.cpp dungeon.cpp Character.cpp screen.o fileReading.o
 REQ1=genCtags game.cpp dungeon.cpp Character.cpp screen.o fileReading.o
 
-all: $(REQ1)
+all: $(REQ)
 	$(CC) $(CFLAGS) game.cpp dungeon.cpp Character.cpp screen.o fileReading.o object.cpp monster.cpp -o game -lncurses
 rebuild: clean all
 dungeon.o: dungeon.cpp
@@ -30,12 +30,12 @@ run: all
 exportLog:
 	git --no-pager log > CHANGELOG
 package: clean exportLog
-	mkdir cavalier_matthew.assignment-1.07
-	cp Character.* defs.h dungeon.* game.* Makefile screen.* fileReading.* desc.h object.* monster.* README CHANGELOG cavalier_matthew.assignment-1.07
-	tar cvfz cavalier_matthew.assignment-1.07.tar.gz cavalier_matthew.assignment-1.07
-	rm -rf cavalier_matthew.assignment-1.07
+	mkdir cavalier_matthew.assignment-1.08
+	cp Character.* defs.h dungeon.* game.* Makefile screen.* fileReading.* desc.h object.* monster.* README CHANGELOG cavalier_matthew.assignment-1.08
+	tar cvfz cavalier_matthew.assignment-1.08.tar.gz cavalier_matthew.assignment-1.08
+	rm -rf cavalier_matthew.assignment-1.08
 test: package
 	mkdir test
-	tar -xf cavalier_matthew.assignment-1.07.tar.gz -C test/
+	tar -xf cavalier_matthew.assignment-1.08.tar.gz -C test/
 connect:
 	ssh cavalier@pyrite.cs.iastate.edu
