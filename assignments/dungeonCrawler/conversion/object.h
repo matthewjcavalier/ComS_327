@@ -56,7 +56,7 @@ class objectFactory {
   public:
     Dungeon* dun;
     objectFactory(Dungeon* dun);
-    int buildObjects(vector<objectDesc> descList, int numToBuild);
+    int buildObjects(vector<objectDesc>& descList, int numToBuild);
     int buildObject(objectDesc desc, object* obj);
 };
 

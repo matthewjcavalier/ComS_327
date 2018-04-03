@@ -154,7 +154,7 @@ build	dungeon.cpp	/^void Dungeon::build() {$/;"	f	class:Dungeon
 buildMonster	monster.cpp	/^void monsterFactory::buildMonster(monsterDesc desc, NPC* monster, int currentEventTime, PC* pc) {$/;"	f	class:monsterFactory
 buildMonsters	monster.cpp	/^vector<NPC*> monsterFactory::buildMonsters(vector<monsterDesc> descList, int numToBuild, int currentEventTime, PC* pc) {$/;"	f	class:monsterFactory
 buildObject	object.cpp	/^int objectFactory::buildObject(objectDesc desc, object* obj) {$/;"	f	class:objectFactory
-buildObjects	object.cpp	/^int objectFactory::buildObjects(vector<objectDesc> descList, int numToBuild) {$/;"	f	class:objectFactory
+buildObjects	object.cpp	/^int objectFactory::buildObjects(vector<objectDesc>& descList, int numToBuild) {$/;"	f	class:objectFactory
 canSeeFrom	dungeon.cpp	/^bool Dungeon::canSeeFrom(Coordinate from, Coordinate to) {$/;"	f	class:Dungeon
 charMap	dungeon.h	/^    vector <vector<Character*>> charMap;$/;"	m	class:Dungeon
 cleanMonstDesc	fileReading.cpp	/^void cleanMonstDesc(monsterDesc& desc) {$/;"	f
@@ -358,6 +358,7 @@ updateSpace	dungeon.cpp	/^void Dungeon::updateSpace(Coordinate coord, Character*
 value	desc.h	/^    rollUp value;$/;"	m	class:objectDesc
 value	object.h	/^    int value;$/;"	m	class:object
 valueSet	fileReading.h	/^    bool valueSet;$/;"	m	class:objectBools
+wasCreated	desc.h	/^    bool wasCreated;$/;"	m	class:objectDesc
 weight	desc.h	/^    rollUp weight;$/;"	m	class:objectDesc
 weight	object.h	/^    int weight;$/;"	m	class:object
 weightSet	fileReading.h	/^    bool weightSet;$/;"	m	class:objectBools

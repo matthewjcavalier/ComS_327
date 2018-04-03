@@ -6,7 +6,7 @@ objectFactory::objectFactory(Dungeon* dun) {
   this->dun = dun;
 }
 
-int objectFactory::buildObjects(vector<objectDesc> descList, int numToBuild) {
+int objectFactory::buildObjects(vector<objectDesc>& descList, int numToBuild) {
   int builtCount = 0;
   bool noDescSelected = true;
   objectDesc desc;
@@ -17,8 +17,14 @@ int objectFactory::buildObjects(vector<objectDesc> descList, int numToBuild) {
       int index = rand() % descList.size();
       int randInt = rand() % 100;
       if(descList[index].rarity > randInt) {
-        noDescSelected = false;
-        desc = descList[index];
+        if(descList[index].isArtifact && descList[index].wasCreated == false) {
+          noDescSelected = false;
+          desc = descList[index];
+          descList[index].wasCreated = true;
+        } else if(descList[index].isArtifact == false) {
+          noDescSelected = false;
+          desc = descList[index];
+        }
       }
     }
     object* obj = new object();

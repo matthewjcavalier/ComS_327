@@ -159,6 +159,7 @@ int parseObjectDescFile(string fileLoc, vector<objectDesc>& list) {
           file >> word;
           desc.isArtifact = word.compare("TRUE") == 0;
           things.isArtifactSet = true;
+          desc.wasCreated = false;
         }
         else if(word.compare("RRTY") == 0) {
           file >> word;

@@ -69,5 +69,6 @@ class objectDesc {
     rollUp specialAttr;
     rollUp value;
     bool isArtifact;
+    bool wasCreated;
     int rarity;
 };
