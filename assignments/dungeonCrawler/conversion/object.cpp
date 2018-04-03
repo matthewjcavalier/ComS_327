@@ -1,11 +1,27 @@
 #include "object.h"
 
+/**
+ * @brief Construct a new object::object object
+ * 
+ */
 object::object() {}
 
+/**
+ * @brief Construct a new object Factory::object Factory object
+ * 
+ * @param dun 
+ */
 objectFactory::objectFactory(Dungeon* dun) {
   this->dun = dun;
 }
 
+/**
+ * @brief Builds objects using the input list of descriptions and puts them into the dungeon
+ * 
+ * @param descList 
+ * @param numToBuild 
+ * @return int 
+ */
 int objectFactory::buildObjects(vector<objectDesc>& descList, int numToBuild) {
   int builtCount = 0;
   bool noDescSelected = true;
@@ -37,6 +53,13 @@ int objectFactory::buildObjects(vector<objectDesc>& descList, int numToBuild) {
   return 0;
 }
 
+/**
+ * @brief builds a single object
+ * 
+ * @param desc 
+ * @param obj 
+ * @return int 
+ */
 int objectFactory::buildObject(objectDesc desc, object* obj) {
   obj->name = desc.name;
   obj->description = desc.description;
@@ -55,8 +78,13 @@ int objectFactory::buildObject(objectDesc desc, object* obj) {
   return 0;
 }
 
+/**
+ * @brief Get the Obj Sym character
+ * 
+ * @param type 
+ * @return char 
+ */
 char getObjSym(string type) {
-  
   if(type.compare("WEAPON") == 0) {return WEAPON_SYM;}
   else if(type.compare("OFFHAND") == 0) {return OFFHAND_SYM;}
   else if(type.compare("RANGED") == 0) {return RANGED_SYM;}

@@ -1,52 +1,38 @@
 Compliance:
 
-  This current iteration of the dungeon project complies to the spec in that a
-  monster file is able to be read in, parsed, and passed on to the main program
-  which then prints out all of the descriptions. The program also will parse
-  an object description file and do the same procedure.
-
-  Notes:
-
-      The program expects both a monster description file and an object description
-      file to exist in the $HOME/.rlg327 directory, if one or both of the files are
-      missing, the program will fail to execute properly.
-
+    This iteration of the dungeon project has all of the specified
+    functionality implemented. Based upon the monster description and
+    object description files, monsters and objects generated and are 
+    placed into the dungeon. When the PC can see a monster or object
+    the monster or object is colored properly. Finally, if an artifact
+    is created, only one is ever created, even when the PC moves between
+    floors.
 
 Functions:
 
-    parseObjectDescFile and parseMonsterDescFile (see fileReading.cpp)
+    turnOnColorPair and turnOffColorPair        (see screen.cpp)
 
-        These two functions are where the files are parsed and the POCOs
-        are built to describe monsters and objects.
+        respectively turns on and turns off the input color for
+        drawing to screen
 
-    readDiceDesc (see fileReading.cpp)
-    
-        this function reads the parses the dice description that is on the current line
+    buildMonsters                               (see monster.cpp)
 
-    getWordsOnLine (see fileReading.cpp)
+        factory method that builds monsters
 
-        this function is used to read in multiple words that are in a line to store them
-        in a vector
+    buildObjects                                (see object.cpp)
+
+        factory method that builds objectd
  
 Data structures:
+
+    No new data structures
   
-    rollUp (see desc.h)
-
-        This is a POCO (plain old c++ object) that holds the data needed to roll up
-        a stat using dice
-    
-    monsterDesc and objectDesc (see desc.h)
-    
-        These are POCOs that hold all of the info that will be parsed from the input
-        files
-
 File Names:
   
-    desc.h            This file holds definitions of the parse objects, as well as
-                      a two objects used to validate that a description has been
-                      fully parsed
+    monster.cpp     is the cpp source file where the monster factory is
 
-    fileReading.cpp   This source file is where the logic for parsing the
-                      input files is
-    
-    fileReading.has   This is the header file for fileReading.cpp
+    monster.h       is the header file for monster.cpp
+
+    object.cpp      is the cpp source file where the object factory is
+
+    object.h        is the header file for object.cpp

@@ -1,9 +1,23 @@
 #include "monster.h"
 
+/**
+ * @brief Construct a new monster Factory::monster Factory object
+ * 
+ * @param dun 
+ */
 monsterFactory::monsterFactory(Dungeon* dun){
     this->dun = dun;
 }
 
+/**
+ * @brief builds a set of monsters and places them in the dungeon
+ * 
+ * @param descList 
+ * @param numToBuild 
+ * @param currentEventTime 
+ * @param pc 
+ * @return vector<NPC*> 
+ */
 vector<NPC*> monsterFactory::buildMonsters(vector<monsterDesc> descList, int numToBuild, int currentEventTime, PC* pc) {
     int builtCount = 0;
     bool noDescSelected = true;
@@ -27,6 +41,14 @@ vector<NPC*> monsterFactory::buildMonsters(vector<monsterDesc> descList, int num
     }
     return monstList;
 }
+/**
+ * @brief Builds a single monster
+ * 
+ * @param desc 
+ * @param monster 
+ * @param currentEventTime 
+ * @param pc 
+ */
 void monsterFactory::buildMonster(monsterDesc desc, NPC* monster, int currentEventTime, PC* pc) {
     static int id = 1;
     monster->name = desc.name;
@@ -48,6 +70,12 @@ void monsterFactory::buildMonster(monsterDesc desc, NPC* monster, int currentEve
     dun->updateSpace(monster->coord, monster);
 }
 
+/**
+ * @brief Converts a list of Ability descriptions into a 4 bit char
+ * 
+ * @param abilities 
+ * @return char 
+ */
 char genType(vector<string> abilities) {
     char type = 0b0000;
     for(string ability : abilities) {
