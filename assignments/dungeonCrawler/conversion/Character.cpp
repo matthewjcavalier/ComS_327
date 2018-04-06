@@ -171,7 +171,7 @@ int PC::takeTurn() {
     }
     // wear command
     if(userPressed == 'w') {
-      printMessage("pressed w");
+      putOnAssKickingOutfit();
     }
     if(userPressed == 't') {
       printMessage("pressed t");
@@ -259,10 +259,187 @@ int PC::takeTurn() {
   return res.killed;
 }
 
+/**
+ * @brief Equip one of the items in the player's inventory
+ *        method name is in reference to this video:
+ *        https://youtu.be/xq1tN9jZI80
+ * 
+ * @return int 
+ */
+int PC::putOnAssKickingOutfit() {
+  int userPressed;
+  bool cmdNotComplete = true;
+  printMessage("Which item from your bag do you want to equip? Enter in val between 'a' to 'l'");
+  do {
+    userPressed = getch();
+    switch(userPressed) {
+      case 'a':
+      case 'b':
+      case 'c':
+      case 'd':
+      case 'e':
+      case 'f':
+      case 'g':
+      case 'h':
+      case 'i':
+      case 'j':
+      case 'k':
+      case 'l':
+        tryToEquipItem(userPressed - 'a');
+        cmdNotComplete = false;
+        break;
+      case 'Q':
+        cmdNotComplete = false;
+        break;
+    }
+  } while(cmdNotComplete);
+  return 0;
+}
+
+int PC::tryToEquipItem(int index) {
+  clearMessageArea();
+  if(inventory[index]) {
+    inventory[index] = equipItem(inventory[index]);
+  } else {
+    printMessage("ERROR: you don't have any item in that inventory slot");
+  }
+  return 0;
+}
+
+/**
+ * @brief Equip the item, and if the slot being equipped to
+ *        is already occupied, swap the items
+ * 
+ * @param obj 
+ * @return object* 
+ */
+object* PC::equipItem(object* obj) {
+  object* ret = NULL;
+  if(obj->type.compare("WEAPON") == 0) {
+    ret = equipped[WEAPON];
+    equipped[WEAPON] = obj;
+  }
+  else if(obj->type.compare("OFFHAND") == 0) {
+    ret = equipped[OFFHAND];
+    equipped[OFFHAND] = obj;
+  }
+  else if(obj->type.compare("RANGED") == 0) {
+    ret = equipped[RANGED];
+    equipped[RANGED] = obj;
+  }
+  else if(obj->type.compare("ARMOR") == 0) {
+    ret = equipped[ARMOR];
+    equipped[ARMOR] = obj;
+  }
+  else if(obj->type.compare("HELMET") == 0) {
+    ret = equipped[HELMET];
+    equipped[HELMET] = obj;
+  }
+  else if(obj->type.compare("CLOAK") == 0) {
+    ret = equipped[CLOAK];
+    equipped[CLOAK] = obj;
+  }
+  else if(obj->type.compare("GLOVES") == 0) {
+    ret = equipped[GLOVES];
+    equipped[GLOVES] = obj;
+  }
+  else if(obj->type.compare("BOOTS") == 0) {
+    ret = equipped[BOOTS];
+    equipped[BOOTS] = obj;
+  }
+  else if(obj->type.compare("AMULET") == 0) {
+    ret = equipped[AMULET];
+    equipped[AMULET] = obj;
+  }
+  else if(obj->type.compare("LIGHT") == 0) {
+    ret = equipped[LIGHT];
+    equipped[LIGHT] = obj;
+  }
+  else if(obj->type.compare("RING") == 0) {
+    if(!equipped[RING1]) {
+      equipped[RING2] = obj;
+    } else {
+      ret = equipped[RING2];
+      equipped[RING2] = obj;
+    }
+  }
+  return ret;
+}
+
+/**
+ * @brief unequip an item
+ * 
+ * @return int 
+ */
+int PC::getMoreNaked() {
+
+  return 0;
+}
+
+/**
+ * @brief drop an item that is currently equipped
+ * 
+ * @return int 
+ */
+int PC::dropItLikeItsHot() {
+
+  return 0;
+}
+
+/**
+ * @brief destroy an item that is equipped
+ * 
+ * @return int 
+ */
+int PC::destroyItem() {
+
+  return 0;
+}
+
+/**
+ * @brief list out the current inventory
+ * 
+ * @return int 
+ */
+int PC::checkPockets() {
+
+  return 0;
+}
+
+/**
+ * @brief list everything that is equipped
+ * 
+ * @return int 
+ */
+int PC::waitWhatAmIWearing() {
+
+  return 0;
+}
+
+/**
+ * @brief inspect an item that is equipped
+ * 
+ * @return int 
+ */
+int PC::inspectItem() {
+
+  return 0;
+}
+
+/**
+ * @brief 
+ * 
+ * @return int 
+ */
+int PC::lookForSexyMonsters() {
+
+  return 0;
+}
+
 void PC::updateCurrentStats() {
   speed = baseSpeed;
   adBuff = 0;
-  for(object* obj : equiped) {
+  for(object* obj : equipped) {
     if(obj) {
       speed += obj->speedBuff;
       adBuff += obj->damBonus;

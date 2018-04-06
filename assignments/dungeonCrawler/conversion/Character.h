@@ -92,7 +92,7 @@ class PC : public Character {
   public:
     int baseSpeed;
     object* inventory[PC_INVENTORY_SIZE];
-    object* equiped[PC_EQUIP_SLOTS];
+    object* equipped[PC_EQUIP_SLOTS];
     vector<vector<TileType>> dunMap;
     PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime);
     ~PC();
@@ -115,6 +115,16 @@ class PC : public Character {
     bool isInventoryFull();
     void addToInventory(object* objPtr);
     void updateCurrentStats();
+    int putOnAssKickingOutfit();
+    int getMoreNaked();
+    int dropItLikeItsHot();
+    int destroyItem();
+    int checkPockets();
+    int waitWhatAmIWearing();
+    int inspectItem();
+    int lookForSexyMonsters();
+    int tryToEquipItem(int index);
+    object* equipItem(object* obj);
 };
 
 class NPC : public Character {
