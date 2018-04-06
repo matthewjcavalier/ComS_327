@@ -159,7 +159,7 @@ int PC::takeTurn() {
       if(userPressed == 'f') {
         dun->draw();
       }
-      if(userPressed == 't') {
+      if(userPressed == 'T') {
         printMessage("Now in targeting mode");
         res.killed = startTeleportMode();
         tryToMove(coord);
@@ -168,6 +168,31 @@ int PC::takeTurn() {
         drawDunMap();
         res.success = true;
       }
+    }
+    // wear command
+    if(userPressed == 'w') {
+      printMessage("pressed w");
+    }
+    if(userPressed == 't') {
+      printMessage("pressed t");
+    }
+    if(userPressed == 'd') {
+      printMessage("pressed d");
+    }
+    if(userPressed == 'x') {
+      printMessage("pressed x");
+    }
+    if(userPressed == 'i') {
+      printMessage("pressed i");
+    }
+    if(userPressed == 'e') {
+      printMessage("pressed e");
+    }
+    if(userPressed == 'I') {
+      printMessage("pressed I");
+    }
+    if(userPressed == 'L') {
+      printMessage("pressed L");
     }
     // move up left
     if(userPressed == '7' || userPressed == 'y') {
