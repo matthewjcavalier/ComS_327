@@ -128,6 +128,7 @@ PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   this->dun = dun;
   this->nextEventTime = nextEventTime;
   this->id = id;
+  this->ad = {0,1,4};
   dun->updateSpace(coord, this);
   setupDunMap();
   sightDist = PC_MAX_SIGHT_DIST;
@@ -376,8 +377,39 @@ movementResDTO PC::tryToMove(Coordinate to) {
     res.success = true;
     // update the personal dungeon map
     updateDunMap();
+
+    // try to pick up item
+    pickUpItem();
   }
   return res;
+}
+
+void PC::pickUpItem() {
+  if(dun->objectMap[coord.y][coord.x] != NULL) {
+    if(!isInventoryFull()) {
+      addToInventory(dun->objectMap[coord.y][coord.x]);
+      // remove the object from the dungeon's obj map
+      dun->objectMap[coord.y][coord.x] = NULL;
+    }
+  }
+}
+
+bool PC::isInventoryFull() {
+  for(object* objPtr: inventory) {
+    if(!objPtr) {
+      return false;
+    }
+  }
+  return true;
+}
+
+void PC::addToInventory(object* objPtr) {
+  for(int index = 0; index < PC_INVENTORY_SIZE; index++) {
+    if(!inventory[index]) {
+      inventory[index] = objPtr;
+      break;
+    }
+  }
 }
 
 /**

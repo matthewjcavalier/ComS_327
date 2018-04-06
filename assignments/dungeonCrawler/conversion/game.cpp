@@ -52,7 +52,7 @@ void runGame(Dungeon& dun) {
   objectFactory objFact(&dun);
   monsterFactory monstFact(&dun);
   
-  objFact.buildObjects(objectDescs, 10);
+  objFact.buildObjects(objectDescs, 10 + rand() % 6 );
 
   PC* pc = new PC(id++, dun.getEmptySpace(), 10, &dun, 1000/10);
   

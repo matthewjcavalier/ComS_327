@@ -1,2 +1,19 @@
-2) update how far the PC can see?
-3) add artifact functionality
+5)  Add new commands
+    a)  w   wear item
+    b)  t   take off item
+    c)  d   drop item
+    d)  x   destroy item
+    e)  i   list pc inventory
+    f)  I   inspect item (show item desc)
+    g)  L   look at monster
+6)  carried equipped items affect PC characteristics
+    a)  item speed bonus
+    b)  item ad bonus
+7)  NPC's don't attack each other, instead when moving to occupied cell push
+    monster in occupied cell out of the way
+8)  When an entity tries to move to an occupied space (pc monster combat) happens
+    a)  When attack happens the damage of the attack is calculated by rolling the ad dice
+        and the result is subtracted from the defenders hp
+    b)  when a character's hp goes below zero the character dies
+9)  The game ends in a win if the PC kills a NPC with the BOSS flag, not when the dungeon
+    is empty of NPC's

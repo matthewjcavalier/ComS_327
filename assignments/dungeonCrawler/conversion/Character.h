@@ -26,10 +26,32 @@
   #define DESC_H
   #include "desc.h"
 #endif
+#ifndef OBJECT_H
+  #define OBJECT_H
+  #include "object.h"
+#endif
+
+#define PC_INVENTORY_SIZE 10
+#define PC_EQUIP_SLOTS 12
 
 using namespace std;
 
 class Dungeon;
+
+enum weaponSlot {
+  WEAPON,
+  OFFHAND,
+  RANGED,
+  ARMOR,
+  HELMET,
+  CLOAK,
+  GLOVES,
+  BOOTS,
+  AMULET,
+  LIGHT,
+  RING1,
+  RING2,
+};
 
 class movementResDTO {
   public:
@@ -67,6 +89,8 @@ class Character {
 
 class PC : public Character {
   public:
+    object* inventory[PC_INVENTORY_SIZE];
+    object* equiped[PC_EQUIP_SLOTS];
     vector<vector<TileType>> dunMap;
     PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime);
     ~PC();
@@ -85,6 +109,9 @@ class PC : public Character {
     int startTeleportMode();
     void drawNormalSpot(Coordinate spot);
     int teleport(Coordinate to);
+    void pickUpItem();
+    bool isInventoryFull();
+    void addToInventory(object* objPtr);
 };
 
 class NPC : public Character {
