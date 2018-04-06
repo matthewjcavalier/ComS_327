@@ -183,10 +183,10 @@ int PC::takeTurn() {
       printMessage("pressed x");
     }
     if(userPressed == 'i') {
-      waitWhatAmIWearing();
+      checkPockets();
     }
     if(userPressed == 'e') {
-      printMessage("pressed e");
+      waitWhatAmIWearing();
     }
     if(userPressed == 'I') {
       printMessage("pressed I");
@@ -408,6 +408,64 @@ int PC::destroyItem() {
  * @return int 
  */
 int PC::checkPockets() {
+  clearBottomArea();
+  int row = 22; int col = 0;
+  int counter = 0;
+
+  /* column 1 */
+  string str("Slot a: ");
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  str.clear();
+  str += "Slot b: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  str.clear();
+  str += "Slot c: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  str.clear();
+  str += "Slot d: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  row = 22; col += MAX_WIDTH / 3;
+
+  /* column 2 */
+  str.clear();
+  str += "Slot e: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  str.clear();
+  str += "Slot f: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  str.clear();
+  str += "Slot g: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  str.clear();
+  str += "Slot h: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  row = 22; col += MAX_WIDTH / 3;
+
+  /* column 3 */
+  str.clear();
+  str += "Slot i: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  str.clear();
+  str += "Slot j: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  str.clear();
+  str += "Slot k: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  str.clear();
+  str += "Slot l: ";
+  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
 
   return 0;
 }
@@ -418,6 +476,7 @@ int PC::checkPockets() {
  * @return int 
  */
 int PC::waitWhatAmIWearing() {
+  clearBottomArea();
   string str("Head: ");
   int row = 22, col = 0;
 

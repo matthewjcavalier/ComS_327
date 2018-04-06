@@ -35,6 +35,8 @@ int printMessage(string message);
 
 int clearMessageArea();
 
+int clearBottomArea();
+
 int setupColors();
 
 int turnOnColorPair(string str);

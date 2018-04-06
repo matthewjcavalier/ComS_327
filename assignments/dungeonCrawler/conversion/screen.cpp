@@ -90,6 +90,16 @@ int clearMessageArea() {
   return drawString({0,0}, (char*)spaces.str().c_str());
 }
 
+
+int clearBottomArea() {
+  string line = ("                                                                                          ");
+  drawString({22, 0}, (char*)line.c_str());
+  drawString({23, 0}, (char*)line.c_str());
+  drawString({24, 0}, (char*)line.c_str());
+  drawString({25, 0}, (char*)line.c_str());
+  return 0;
+}
+
 int turnOnColorPair(string str) {
   if(str.compare("RED") == 0) {
     attron(COLOR_PAIR(COLOR_RED));
