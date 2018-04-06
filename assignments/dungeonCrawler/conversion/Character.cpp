@@ -183,7 +183,7 @@ int PC::takeTurn() {
       printMessage("pressed x");
     }
     if(userPressed == 'i') {
-      printMessage("pressed i");
+      waitWhatAmIWearing();
     }
     if(userPressed == 'e') {
       printMessage("pressed e");
@@ -296,6 +296,12 @@ int PC::putOnAssKickingOutfit() {
   return 0;
 }
 
+/**
+ * @brief Attempt to equip item from slot
+ * 
+ * @param index 
+ * @return int 
+ */
 int PC::tryToEquipItem(int index) {
   clearMessageArea();
   if(inventory[index]) {
@@ -412,9 +418,67 @@ int PC::checkPockets() {
  * @return int 
  */
 int PC::waitWhatAmIWearing() {
+  string str("Head: ");
+  int row = 22, col = 0;
+
+  /* column 1 */
+  str += (equipped[HELMET]) ? equipped[HELMET]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  str.clear();
+  str += "Weapon: ";
+  str += (equipped[WEAPON]) ? equipped[WEAPON]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  str.clear();
+  str += "Offhand: ";
+  str += (equipped[OFFHAND]) ? equipped[OFFHAND]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  str.clear();
+  str += "Ranged: ";
+  str += (equipped[RANGED]) ? equipped[RANGED]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  row = 22; col += MAX_WIDTH / 3;
+
+  /* column 2 */
+  str.clear();
+  str += "Armor: ";
+  str += (equipped[ARMOR]) ? equipped[ARMOR]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  str.clear();
+  str += "Cloak: ";
+  str += (equipped[CLOAK]) ? equipped[CLOAK]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  str.clear();
+  str += "Gloves: ";
+  str += (equipped[GLOVES]) ? equipped[GLOVES]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  str.clear();
+  str += "Boots: ";
+  str += (equipped[BOOTS]) ? equipped[BOOTS]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  row = 22; col += MAX_WIDTH / 3;
+
+  /* column 3 */
+  str.clear();
+  str += "Amulet: ";
+  str += (equipped[AMULET]) ? equipped[AMULET]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  str.clear();
+  str += "Light: ";
+  str += (equipped[LIGHT]) ? equipped[LIGHT]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  str.clear();
+  str += "Ring One: ";
+  str += (equipped[RING1]) ? equipped[RING1]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  str.clear();
+  str += "Ring Two: ";
+  str += (equipped[RING2]) ? equipped[RING2]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
 
   return 0;
 }
+
+
 
 /**
  * @brief inspect an item that is equipped
