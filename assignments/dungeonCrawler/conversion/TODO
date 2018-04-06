@@ -6,9 +6,6 @@
     e)  i   list pc inventory
     f)  I   inspect item (show item desc)
     g)  L   look at monster
-6)  carried equipped items affect PC characteristics
-    a)  item speed bonus
-    b)  item ad bonus
 7)  NPC's don't attack each other, instead when moving to occupied cell push
     monster in occupied cell out of the way
 8)  When an entity tries to move to an occupied space (pc monster combat) happens

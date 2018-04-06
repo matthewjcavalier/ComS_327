@@ -56,6 +56,7 @@ void monsterFactory::buildMonster(monsterDesc desc, NPC* monster, int currentEve
     monster->colors = desc.colors;
     monster->hp = rollDice(desc.hp);
     monster->ad = desc.ad;
+    monster->adBuff = 0;
     monster->symbol = desc.symbol;
     monster->speed = rollDice(desc.speed);
     monster->nextEventTime = (1000/ monster->speed) + currentEventTime;

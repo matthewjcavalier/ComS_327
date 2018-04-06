@@ -124,11 +124,13 @@ PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   symbol = '@';
   this->colors.push_back("WHITE");
   this->coord = coord;
+  this->baseSpeed = speed;
   this->speed = speed;
   this->dun = dun;
   this->nextEventTime = nextEventTime;
   this->id = id;
   this->ad = {0,1,4};
+  this->adBuff = 0;
   dun->updateSpace(coord, this);
   setupDunMap();
   sightDist = PC_MAX_SIGHT_DIST;
@@ -146,7 +148,6 @@ PC::~PC(){}
  * @return int  the id of any charcter killed during the turn
  */
 int PC::takeTurn() {
-  nextEventTime += 1000/speed;
   int userPressed;
   movementResDTO res;
   updateDunMap();
@@ -229,7 +230,20 @@ int PC::takeTurn() {
     }
   } while(!res.success);
   dun->updateDistMaps();
+  updateCurrentStats();
   return res.killed;
+}
+
+void PC::updateCurrentStats() {
+  speed = baseSpeed;
+  adBuff = 0;
+  for(object* obj : equiped) {
+    if(obj) {
+      speed += obj->speedBuff;
+      adBuff += obj->damBonus;
+    }
+  }
+  nextEventTime += 1000/speed;
 }
 
 /**
@@ -642,6 +656,7 @@ NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, c
   this->symbol = getSymbol(type);
   this->pc = pc;
   this->id = id;
+  this->adBuff = 0;
   lastSeenPCLoc = {0,0};
   dun->updateSpace(coord, this);
   setTurnLogic();

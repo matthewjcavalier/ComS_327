@@ -70,6 +70,7 @@ class Character {
     vector<string> colors;
     int hp;
     rollUp ad;
+    int adBuff;
 
     Coordinate coord;
     char symbol;
@@ -89,6 +90,7 @@ class Character {
 
 class PC : public Character {
   public:
+    int baseSpeed;
     object* inventory[PC_INVENTORY_SIZE];
     object* equiped[PC_EQUIP_SLOTS];
     vector<vector<TileType>> dunMap;
@@ -112,6 +114,7 @@ class PC : public Character {
     void pickUpItem();
     bool isInventoryFull();
     void addToInventory(object* objPtr);
+    void updateCurrentStats();
 };
 
 class NPC : public Character {
