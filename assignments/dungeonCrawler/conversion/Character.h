@@ -129,6 +129,7 @@ class PC : public Character {
     void placeOnFloor(object* obj);
     int describeEquipSlots();
     int tryToTakeOff(int index);
+    int deleteItem(int index);
 };
 
 class NPC : public Character {

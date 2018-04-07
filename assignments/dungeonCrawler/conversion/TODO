@@ -1,7 +1,7 @@
 5)  Add new commands
     XXXXXXXX a)  w   wear item  XXXXXXXXX
-    b)  t   take off item
-    c)  d   drop item
+    XXXXXXXX b)  t   take off item XXXXXXXX 
+    XXXXXXXX c)  d   drop item XXXXXXXX 
     XXXXXXXX d)  x   destroy item XXXXXXXX 
     XXXXXXXX e)  i   list pc inventory XXXXXXXX 
     XXXXXXXX f)  e   list pc equipment XXXXXXXX 

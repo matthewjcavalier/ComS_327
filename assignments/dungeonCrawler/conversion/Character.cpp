@@ -181,7 +181,7 @@ int PC::takeTurn() {
       dropItLikeItsHot();
     }
     if(userPressed == 'x') {
-      printMessage("pressed x");
+      destroyItem();
     }
     if(userPressed == 'i') {
       checkPockets();
@@ -293,6 +293,7 @@ int PC::putOnAssKickingOutfit() {
         break;
     }
   } while(cmdNotComplete);
+  clearBottomArea();
   return 0;
 }
 
@@ -406,6 +407,7 @@ int PC::getMoreNaked() {
         break;
     }
   } while(cmdNotComplete); 
+  clearBottomArea();
   return 0;
 }
 
@@ -527,6 +529,7 @@ int PC::dropItLikeItsHot() {
         break;
     }
   } while(cmdNotComplete);
+  clearBottomArea();
   return 0;
 }
 
@@ -542,12 +545,46 @@ void PC::placeOnFloor(object* obj){
 }
 
 /**
- * @brief destroy an item that is equipped
+ * @brief destroy an item that is in the inventory
  * 
  * @return int 
  */
 int PC::destroyItem() {
+  int userPressed;
+  bool cmdNotComplete = true;
+  checkPockets();
+  printMessage("Which Item do you want to destroy?");
+  do {
+    userPressed = getch();
+    switch(userPressed) {
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case '0':
+        userPressed = (userPressed > '0') ? userPressed - 1 : '9';
+        deleteItem(userPressed - '0');
+        cmdNotComplete = false;
+        break;
+      case 'Q':
+        cmdNotComplete = false;
+        break;
+    }
+  } while(cmdNotComplete);
+  clearBottomArea();
+  return 0;
+}
 
+int PC::deleteItem(int index) {
+  if(inventory[index]) {
+    delete inventory[index];
+    inventory[index] = NULL;
+  }
   return 0;
 }
 
