@@ -414,59 +414,55 @@ int PC::checkPockets() {
 
   /* column 1 */
   string str("Slot a: ");
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
+  counter++;
   str.clear();
   str += "Slot b: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
+  counter++;
   str.clear();
   str += "Slot c: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
+  counter++;
   str.clear();
   str += "Slot d: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
+  counter++;
   row = 22; col += MAX_WIDTH / 3;
 
   /* column 2 */
   str.clear();
   str += "Slot e: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
+  counter++;
   str.clear();
   str += "Slot f: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
+  counter++;
   str.clear();
   str += "Slot g: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
+  counter++;
   str.clear();
   str += "Slot h: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
+  counter++;
   row = 22; col += MAX_WIDTH / 3;
 
   /* column 3 */
   str.clear();
   str += "Slot i: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
+  str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
-  str.clear();
-  str += "Slot j: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
-  drawString({row++, col}, (char*)str.c_str());
-  str.clear();
-  str += "Slot k: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
-  drawString({row++, col}, (char*)str.c_str());
-  str.clear();
-  str += "Slot l: ";
-  str += (inventory[counter]) ? inventory[counter++]->name : "none";
-  drawString({row++, col}, (char*)str.c_str());
-
+  
   return 0;
 }
 
