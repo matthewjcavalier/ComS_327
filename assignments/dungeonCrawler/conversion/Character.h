@@ -125,6 +125,10 @@ class PC : public Character {
     int lookForSexyMonsters();
     int tryToEquipItem(int index);
     object* equipItem(object* obj);
+    void tryToDropItem(int index);
+    void placeOnFloor(object* obj);
+    int describeEquipSlots();
+    int tryToTakeOff(int index);
 };
 
 class NPC : public Character {

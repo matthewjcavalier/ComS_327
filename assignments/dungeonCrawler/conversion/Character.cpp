@@ -171,13 +171,14 @@ int PC::takeTurn() {
     }
     // wear command
     if(userPressed == 'w') {
+      checkPockets();
       putOnAssKickingOutfit();
     }
     if(userPressed == 't') {
-      printMessage("pressed t");
+      getMoreNaked();
     }
     if(userPressed == 'd') {
-      printMessage("pressed d");
+      dropItLikeItsHot();
     }
     if(userPressed == 'x') {
       printMessage("pressed x");
@@ -269,23 +270,22 @@ int PC::takeTurn() {
 int PC::putOnAssKickingOutfit() {
   int userPressed;
   bool cmdNotComplete = true;
-  printMessage("Which item from your bag do you want to equip? Enter in val between 'a' to 'l'");
+  printMessage("Which item from your bag do you want to equip? Enter in val 0-9");
   do {
     userPressed = getch();
     switch(userPressed) {
-      case 'a':
-      case 'b':
-      case 'c':
-      case 'd':
-      case 'e':
-      case 'f':
-      case 'g':
-      case 'h':
-      case 'i':
-      case 'j':
-      case 'k':
-      case 'l':
-        tryToEquipItem(userPressed - 'a');
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        userPressed = (userPressed > '0') ? userPressed - 1 : '9';
+        tryToEquipItem(userPressed - '0');
         cmdNotComplete = false;
         break;
       case 'Q':
@@ -378,7 +378,118 @@ object* PC::equipItem(object* obj) {
  * @return int 
  */
 int PC::getMoreNaked() {
+  int userPressed;
+  bool cmdNotComplete = true;
+  describeEquipSlots();
+  clearMessageArea();
+  printMessage("Enter which slot you would like to remove from wearing");
+   do {
+    userPressed = getch();
+    switch(userPressed) {
+      case 'a':
+      case 'b':
+      case 'c':
+      case 'd':
+      case 'e':
+      case 'f':
+      case 'g':
+      case 'h':
+      case 'i':
+      case 'j':
+      case 'k':
+      case 'l':
+        tryToTakeOff(userPressed - 'a');
+        cmdNotComplete = false;
+        break;
+      case 'Q':
+        cmdNotComplete = false;
+        break;
+    }
+  } while(cmdNotComplete); 
+  return 0;
+}
 
+int PC::tryToTakeOff(int index) {
+  if(isInventoryFull()) {
+    placeOnFloor(equipped[index]);
+  } else {
+    addToInventory(equipped[index]);
+  }
+
+  equipped[index] = NULL;
+  return 0;
+}
+
+int PC::describeEquipSlots() {
+  clearBottomArea();
+  int row = 22; int col = 0;
+  int counter = 0;
+
+  /* column 1 */
+  string str("Slot a: ");
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  str.clear();
+  str += "Slot b: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  str.clear();
+  str += "Slot c: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  str.clear();
+  str += "Slot d: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  row = 22; col += MAX_WIDTH / 3;
+
+  /* column 2 */
+  str.clear();
+  str += "Slot e: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  str.clear();
+  str += "Slot f: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  str.clear();
+  str += "Slot g: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  str.clear();
+  str += "Slot h: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  row = 22; col += MAX_WIDTH / 3;
+
+  /* column 3 */
+  str.clear();
+  str += "Slot i: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  str.clear();
+  str += "Slot j: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  str.clear();
+  str += "Slot k: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
+  counter++;
+  str.clear();
+  str += "Slot l: ";
+  str += (equipped[counter]) ? equipped[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
   return 0;
 }
 
@@ -389,7 +500,45 @@ int PC::getMoreNaked() {
  */
 int PC::dropItLikeItsHot() {
 
+  int userPressed;
+  bool cmdNotComplete = true;
+  clearMessageArea();
+  printMessage("Which item would you like to drop? (enter in an item slot number");
+  checkPockets();
+  do {
+    userPressed = getch();
+    switch(userPressed) {
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case '0':
+        userPressed = (userPressed > '0') ? userPressed - 1 : '9';
+        tryToDropItem(userPressed - '0');
+        cmdNotComplete = false;
+        break;
+      case 'Q':
+        cmdNotComplete = false;
+        break;
+    }
+  } while(cmdNotComplete);
   return 0;
+}
+
+void PC::tryToDropItem(int index) {
+  if(inventory[index]){
+    placeOnFloor(inventory[index]);
+    inventory[index] = NULL;
+  }
+}
+
+void PC::placeOnFloor(object* obj){
+  dun->objectMap[coord.y][coord.x] = obj;
 }
 
 /**
@@ -413,22 +562,22 @@ int PC::checkPockets() {
   int counter = 0;
 
   /* column 1 */
-  string str("Slot a: ");
+  string str("Slot 1: ");
   str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
   counter++;
   str.clear();
-  str += "Slot b: ";
+  str += "Slot 2: ";
   str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
   counter++;
   str.clear();
-  str += "Slot c: ";
+  str += "Slot 3: ";
   str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
   counter++;
   str.clear();
-  str += "Slot d: ";
+  str += "Slot 4: ";
   str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
   counter++;
@@ -436,22 +585,22 @@ int PC::checkPockets() {
 
   /* column 2 */
   str.clear();
-  str += "Slot e: ";
+  str += "Slot 5: ";
   str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
   counter++;
   str.clear();
-  str += "Slot f: ";
+  str += "Slot 6: ";
   str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
   counter++;
   str.clear();
-  str += "Slot g: ";
+  str += "Slot 7: ";
   str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
   counter++;
   str.clear();
-  str += "Slot h: ";
+  str += "Slot 8: ";
   str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
   counter++;
@@ -459,10 +608,14 @@ int PC::checkPockets() {
 
   /* column 3 */
   str.clear();
-  str += "Slot i: ";
+  str += "Slot 9: ";
   str += (inventory[counter]) ? inventory[counter]->name : "none";
   drawString({row++, col}, (char*)str.c_str());
-  
+  counter++;
+  str.clear();
+  str += "Slot 0: ";
+  str += (inventory[counter]) ? inventory[counter]->name : "none";
+  drawString({row++, col}, (char*)str.c_str());
   return 0;
 }
 
@@ -473,13 +626,10 @@ int PC::checkPockets() {
  */
 int PC::waitWhatAmIWearing() {
   clearBottomArea();
-  string str("Head: ");
+  string str;
   int row = 22, col = 0;
 
   /* column 1 */
-  str += (equipped[HELMET]) ? equipped[HELMET]->name : "none";
-  drawString({row++,col}, (char*)str.c_str());
-  str.clear();
   str += "Weapon: ";
   str += (equipped[WEAPON]) ? equipped[WEAPON]->name : "none";
   drawString({row++,col}, (char*)str.c_str());
@@ -491,12 +641,16 @@ int PC::waitWhatAmIWearing() {
   str += "Ranged: ";
   str += (equipped[RANGED]) ? equipped[RANGED]->name : "none";
   drawString({row++,col}, (char*)str.c_str());
-  row = 22; col += MAX_WIDTH / 3;
-
-  /* column 2 */
   str.clear();
   str += "Armor: ";
   str += (equipped[ARMOR]) ? equipped[ARMOR]->name : "none";
+  drawString({row++,col}, (char*)str.c_str());
+  str.clear();
+  row = 22; col += MAX_WIDTH / 3;
+
+  /* column 2 */
+  str += "Helmet: ";
+  str += (equipped[HELMET]) ? equipped[HELMET]->name : "none";
   drawString({row++,col}, (char*)str.c_str());
   str.clear();
   str += "Cloak: ";

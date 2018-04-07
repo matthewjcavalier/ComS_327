@@ -2,9 +2,9 @@
     XXXXXXXX a)  w   wear item  XXXXXXXXX
     b)  t   take off item
     c)  d   drop item
-    d)  x   destroy item
-    XXXXXXXX e)  i   list pc inventory
-    XXXXXXXX f)  e   list pc equipment
+    XXXXXXXX d)  x   destroy item XXXXXXXX 
+    XXXXXXXX e)  i   list pc inventory XXXXXXXX 
+    XXXXXXXX f)  e   list pc equipment XXXXXXXX 
     g)  I   inspect item (show item desc)
     h)  L   look at monster
 7)  NPC's don't attack each other, instead when moving to occupied cell push
