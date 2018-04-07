@@ -97,6 +97,8 @@ int clearBottomArea() {
   drawString({23, 0}, (char*)line.c_str());
   drawString({24, 0}, (char*)line.c_str());
   drawString({25, 0}, (char*)line.c_str());
+  drawString({26, 0}, (char*)line.c_str());
+  drawString({27, 0}, (char*)line.c_str());
   return 0;
 }
 

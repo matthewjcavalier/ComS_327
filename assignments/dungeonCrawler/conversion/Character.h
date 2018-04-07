@@ -130,6 +130,8 @@ class PC : public Character {
     int describeEquipSlots();
     int tryToTakeOff(int index);
     int deleteItem(int index);
+    int showItemDescription(int index);
+    bool isWithinSight(Coordinate coord);
 };
 
 class NPC : public Character {

@@ -190,10 +190,10 @@ int PC::takeTurn() {
       waitWhatAmIWearing();
     }
     if(userPressed == 'I') {
-      printMessage("pressed I");
+      inspectItem();
     }
     if(userPressed == 'L') {
-      printMessage("pressed L");
+      lookForSexyMonsters();
     }
     // move up left
     if(userPressed == '7' || userPressed == 'y') {
@@ -732,8 +732,47 @@ int PC::waitWhatAmIWearing() {
  * @return int 
  */
 int PC::inspectItem() {
-
+  int userPressed;
+  bool cmdNotComplete = true;
+  checkPockets();
+  printMessage("Which item do you want to look at?");
+  do {
+    userPressed = getch();
+    switch(userPressed) {
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case '0':
+        userPressed = (userPressed > '0') ? userPressed - 1 : '9';
+        showItemDescription(userPressed - '0');
+        cmdNotComplete = false;
+        break;
+      case 'Q':
+        cmdNotComplete = false;
+        break;
+    }
+  } while(cmdNotComplete);
   return 0;
+}
+
+int PC::showItemDescription(int index) {
+  clearBottomArea();
+  drawString({22,0}, (char*)inventory[index]->description.c_str());
+  return 0;
+}
+
+bool PC::isWithinSight(Coordinate to) {
+  return dun->map[to.y][to.x].type != ROCK && 
+         (to.y >= coord.y - sightDist) && 
+         (to.x >= coord.x - sightDist) && 
+         (to.y <= coord.y + sightDist) && 
+         (to.x <= coord.x + sightDist);
 }
 
 /**
@@ -742,6 +781,88 @@ int PC::inspectItem() {
  * @return int 
  */
 int PC::lookForSexyMonsters() {
+  int userPressed;
+  Coordinate teleportTo = coord;
+  drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+  bool done = false;
+  do {
+    userPressed = getch();
+    // move up left
+    if(userPressed == '7' || userPressed == 'y') {
+      if(isWithinSight({teleportTo.y-1, teleportTo.x-1}) && isInDun({teleportTo.y - 1, teleportTo.x -1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y--;
+        teleportTo.x--;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move up
+    if(userPressed == '8' || userPressed == 'k') {
+      if(isWithinSight({teleportTo.y-1, teleportTo.x}) && isInDun({teleportTo.y - 1, teleportTo.x})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y--;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move up right
+    if(userPressed == '9' || userPressed == 'u') {
+      if(isWithinSight({teleportTo.y-1, teleportTo.x+1}) && isInDun({teleportTo.y - 1, teleportTo.x +1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y--;
+        teleportTo.x++;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move right
+    if(userPressed == '6' || userPressed == 'l') {
+      if(isWithinSight({teleportTo.y, teleportTo.x+1}) && isInDun({teleportTo.y, teleportTo.x +1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.x++;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move down right
+    if(userPressed == '3' || userPressed == 'n') {
+      if(isWithinSight({teleportTo.y+1, teleportTo.x+1}) && isInDun({teleportTo.y + 1, teleportTo.x +1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y++;
+        teleportTo.x++;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move down
+    if(userPressed == '2' || userPressed == 'j') {
+      if(isWithinSight({teleportTo.y+1, teleportTo.x}) && isInDun({teleportTo.y + 1, teleportTo.x})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y++;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move down left
+    if(userPressed == '1' || userPressed == 'b') {
+      if(isWithinSight({teleportTo.y+1, teleportTo.x-1}) && isInDun({teleportTo.y + 1, teleportTo.x -1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.y++;
+        teleportTo.x--;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    // move left
+    if(userPressed == '4' || userPressed == 'h') {
+      if(isWithinSight({teleportTo.y, teleportTo.x-1}) && isInDun({teleportTo.y, teleportTo.x -1})){
+        drawNormalSpot(teleportTo);
+        teleportTo.x--;
+        drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
+      }
+    }
+    if(userPressed == 't') {
+      done = true;
+    }
+    if(userPressed == 'Q') {
+      teleportTo = coord;
+      done = true;
+    }
+  } while(!done);
 
   return 0;
 }
