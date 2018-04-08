@@ -4,6 +4,8 @@
 
 using namespace std;
 
+bool killed_boss = false;
+
 /**
  * @brief Construct a new Character:: Character object
  * 
@@ -36,7 +38,7 @@ int Character::takeTurn() {
  * 
  * @return int the id of any character that was killed during the movement, 0 for no character found
  */
-int Character::moveRand() {
+int NPC::moveRand() {
   int newX = 0;
   int newY = 0;
   int modX = 0;
@@ -71,7 +73,7 @@ int Character::moveRand() {
  * @param moveingTo 
  * @return int the id of the character killed during the movement, 0 for no character found
  */
-int Character::moveToward(Coordinate moveingTo) {
+int NPC::moveToward(Coordinate moveingTo) {
   Coordinate to = coord;
   if(to.y != moveingTo.y) {
     to.y += (to.y > moveingTo.y) ? -1 : 1;
@@ -88,7 +90,7 @@ int Character::moveToward(Coordinate moveingTo) {
  * @param to 
  * @return int the id of the character killed during the movement, 0 for no character found
  */
-int Character::moveTo(Coordinate to) {
+int NPC::moveTo(Coordinate to) {
   int foundId = getCharacterId(to);
   if(dun->isOpenSpace(coord)) {
     dun->updateSpace(coord, NULL);
@@ -107,6 +109,17 @@ int Character::moveTo(Coordinate to) {
 int Character::getCharacterId(Coordinate loc) {
   if(dun->charMap[loc.y][loc.x] != NULL) {
     return dun->charMap[loc.y][loc.x]->id;
+  }
+  return 0;
+}
+
+int Character::attack(Character* defender) {
+  defender->hp -= rollDice(this->ad) + adBuff;
+  if(defender->hp < 0) {
+    if(defender->isBossMonster) {
+      killed_boss = true;
+    }
+    return defender->id;
   }
   return 0;
 }
@@ -893,7 +906,7 @@ void PC::updateCurrentStats() {
 }
 
 /**
- * @brief Shows the monster list menue
+ * @brief Shows the monster list menu
  * 
  */
 void PC::showMonsterList() {
@@ -1031,8 +1044,12 @@ movementResDTO PC::tryToMove(Coordinate to) {
   movementResDTO res;
   if(dun->isOpenSpace(to)) {
     dun->updateSpace(coord, NULL);
-    res.killed = getCharacterId(to);
-    coord = to;
+    if(dun->charMap[to.y][to.x]) {
+      res.killed = attack(dun->charMap[to.y][to.x]);
+    }
+    if(res.killed != 0 || !dun->charMap[to.y][to.x]) {
+      coord = to;
+    }
     dun->updateSpace(coord, this);
     res.success = true;
     // update the personal dungeon map
@@ -1363,7 +1380,7 @@ void NPC::setTurnLogic() {
       turnLogic = &NPC::movement1111;
       break;
     default:
-      turnLogic = &Character::moveRand;
+      turnLogic = &NPC::moveRand;
   }
 }
 

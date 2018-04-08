@@ -82,14 +82,14 @@ class Character {
     int nextEventTime;
     Dungeon* dun;
     int id;
+    bool isBossMonster;
 
     Character();
     virtual ~Character();
     virtual int takeTurn();
-    int moveRand();
-    int moveTo(Coordinate coord);
-    int moveToward(Coordinate coord);
+    
     int getCharacterId(Coordinate loc);
+    int attack(Character* defender);
 };
 
 class PC : public Character {
@@ -150,6 +150,9 @@ class NPC : public Character {
     ~NPC();
     int takeTurn();
     void setTurnLogic();
+    int moveRand();
+    int moveTo(Coordinate coord);
+    int moveToward(Coordinate coord);
   private:
     int (NPC::*turnLogic)();
     void updatePCLoc();

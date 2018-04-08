@@ -1,12 +1,3 @@
-5)  Add new commands
-    XXXXXXXX a)  w   wear item  XXXXXXXXX
-    XXXXXXXX b)  t   take off item XXXXXXXX 
-    XXXXXXXX c)  d   drop item XXXXXXXX 
-    XXXXXXXX d)  x   destroy item XXXXXXXX 
-    XXXXXXXX e)  i   list pc inventory XXXXXXXX 
-    XXXXXXXX f)  e   list pc equipment XXXXXXXX 
-    XXXXXXXX g)  I   inspect item (show item desc)
-    h)  L   look at monster
 7)  NPC's don't attack each other, instead when moving to occupied cell push
     monster in occupied cell out of the way
 8)  When an entity tries to move to an occupied space (pc monster combat) happens
