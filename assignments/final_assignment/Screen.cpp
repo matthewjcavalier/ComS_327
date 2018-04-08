@@ -13,6 +13,17 @@ GameScreen* GameScreen::Instance() {
 GameScreen::GameScreen(int height, int width) {
     this->height = height;
     this->width = width;
+
+    initscr();
+    noecho();
+    timeout(0);
+    curs_set(FALSE);
+    start_color();
+    setupColors();
+}
+
+GameScreen::~GameScreen() {
+    endwin();
 }
 
 void GameScreen::setWidth(int width) {
@@ -41,16 +52,31 @@ bool GameScreen::isInScreenArea(Coordinate* loc) {
    return isInScreenArea(temp);
 }
 
-int main(int argc, char* argv[]) {
-    GameScreen* screen = GameScreen::Instance();
-    screen->setHeight(10);
-    screen->setWidth(12);
-    Coordinate c1(4,4);
+void GameScreen::drawScreen() {
+    for(int y = 0; y < getHeight() + 1; y++) {
+        for(int x = 0; x < getWidth() + 1; x++) {
+            if(y == 0 || y == getHeight() || x == 0 || x == getWidth()) {
+                attron(COLOR_PAIR(BORDER));
+                drawCharacter(new Coordinate(y,x), 'O');
+                attroff(COLOR_PAIR(BORDER));
+            } else {
+                attron(COLOR_PAIR(EMPTY));
+                drawCharacter(new Coordinate(y,x), '_');
+                attroff(COLOR_PAIR(EMPTY));
+            }
+        }
+    }
+    refresh();
+}
 
-    cout<<screen->getHeight()<<endl;
-    cout<<screen->getWidth()<<endl;
-    cout<<screen->isInScreenArea(Coordinate(4,4))<<endl;
-    cout<<screen->isInScreenArea(new Coordinate(15,15))<<endl;
+void GameScreen::drawCharacter(Coordinate* loc, char c) {
+    move(loc->getY(), loc->getX());
+    addch(c);
+}
 
-    return 0;
+void GameScreen::setupColors() {
+    init_pair(EMPTY, COLOR_WHITE, COLOR_WHITE);
+    init_pair(BORDER, COLOR_BLACK, COLOR_BLACK);
+    init_pair(APPLE, COLOR_RED, COLOR_RED);
+    init_pair(SNAKE, COLOR_GREEN, COLOR_GREEN);
 }

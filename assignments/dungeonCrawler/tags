@@ -5,6 +5,14 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 -log-file	Makefile	/^	valgrind --log-file="valgrind_output.txt" --leak-check=full .\/debug$/;"	m
+AMMUNITION_SYM	conversion/desc.h	29;"	d
+AMULET	conversion/Character.h	/^  AMULET,$/;"	e	enum:weaponSlot
+AMULET_SYM	conversion/desc.h	23;"	d
+ARMOR	conversion/Character.h	/^  ARMOR,$/;"	e	enum:weaponSlot
+ARMOR_SYM	conversion/desc.h	17;"	d
+BOOK_SYM	conversion/desc.h	26;"	d
+BOOTS	conversion/Character.h	/^  BOOTS,$/;"	e	enum:weaponSlot
+BOOTS_SYM	conversion/desc.h	21;"	d
 BORDER	conversion/defs.h	/^  BORDER,$/;"	e	enum:TileType
 BORDER_CHAR	conversion/defs.h	18;"	d
 BORDER_HOR_CHAR	dungeon.h	24;"	d
@@ -16,7 +24,11 @@ CFLAGS	conversion/Makefile	/^CFLAGS=-g -Wall -Werror -std=c++11$/;"	m
 CHARACTER_H	conversion/Character.cpp	1;"	d	file:
 CHARACTER_H	conversion/dungeon.h	22;"	d
 CHARACTER_H	conversion/game.h	30;"	d
+CHARACTER_H	conversion/monster.h	18;"	d
 CLIMITS	conversion/dungeon.h	18;"	d
+CLOAK	conversion/Character.h	/^  CLOAK,$/;"	e	enum:weaponSlot
+CLOAK_SYM	conversion/desc.h	19;"	d
+CONTAINER_SYM	conversion/desc.h	32;"	d
 COOL_BORDER_BOTTOM_LEFT	dungeon.h	37;"	d
 COOL_BORDER_BOTTOM_RIGHT	dungeon.h	38;"	d
 COOL_BORDER_HOR	dungeon.h	40;"	d
@@ -44,14 +56,21 @@ Coordinate	conversion/defs.h	/^    Coordinate(int y, int x) {$/;"	f	class:Coordi
 Coordinate	conversion/defs.h	/^class Coordinate {$/;"	c
 Coordinate	dungeon.h	/^typedef struct Coordinate {$/;"	s
 Coordinate	dungeon.h	/^} Coordinate;$/;"	t	typeref:struct:Coordinate
-DEBUG	conversion/defs.h	26;"	d
+DEBUG	conversion/defs.h	28;"	d
 DEFS_H	conversion/dungeon.h	10;"	d
 DEFS_H	conversion/screen.h	10;"	d
+DESC_H	conversion/Character.h	26;"	d
+DESC_H	conversion/dice.cpp	6;"	d	file:
+DESC_H	conversion/fileReading.h	10;"	d
+DESC_H	conversion/monster.h	10;"	d
+DESC_H	conversion/object.h	10;"	d
 DOWNSTAIR	conversion/defs.h	/^  DOWNSTAIR$/;"	e	enum:TileType
 DOWNSTAIR_CHAR	conversion/defs.h	20;"	d
 DUNGEON_H	conversion/Character.h	6;"	d
 DUNGEON_H	conversion/dungeon.cpp	1;"	d	file:
 DUNGEON_H	conversion/game.h	2;"	d
+DUNGEON_H	conversion/monster.h	26;"	d
+DUNGEON_H	conversion/object.h	18;"	d
 DUNGEON_H	generator.h	22;"	d
 DUNGEON_H	heap.h	6;"	d
 DUNGEON_H	pathFinding.h	2;"	d
@@ -62,23 +81,40 @@ Dungeon	conversion/dungeon.cpp	/^Dungeon::Dungeon(string loc) {$/;"	f	class:Dung
 Dungeon	conversion/dungeon.h	/^class Dungeon {$/;"	c
 Dungeon	dungeon.h	/^} Dungeon;$/;"	t	typeref:struct:__anon3
 ELEMENT_NOT_FOUND	heap.h	21;"	d
+END_LINE	conversion/fileReading.cpp	7;"	d	file:
 ERRATIC_BIT	conversion/defs.h	11;"	d
 ERRATIC_BIT	dungeon.h	22;"	d
 EXPECTED_ROOM_COUNT	dungeon.h	16;"	d
+FILEREADING_H	conversion/game.h	38;"	d
+FILEREADING_H	conversion/monster.h	22;"	d
+FILEREADING_H	conversion/object.h	22;"	d
+FIRST_LINE_MONST	conversion/fileReading.cpp	3;"	d	file:
+FIRST_LINE_OBJ	conversion/fileReading.cpp	6;"	d	file:
+FLASK_SYM	conversion/desc.h	27;"	d
+FOOD_SYM	conversion/desc.h	30;"	d
+FSTREAM	conversion/fileReading.h	14;"	d
 FUNCTIONAL	conversion/Character.h	10;"	d
 GAME_H	conversion/game.cpp	1;"	d	file:
 GENERATOR_H	crawler.h	14;"	d
+GLOVES	conversion/Character.h	/^  GLOVES,$/;"	e	enum:weaponSlot
+GLOVES_SYM	conversion/desc.h	20;"	d
+GOLD_SYM	conversion/desc.h	28;"	d
 HALL	conversion/defs.h	/^  HALL,$/;"	e	enum:TileType
 HALL_CHAR	conversion/defs.h	15;"	d
 HALL_CHAR	dungeon.h	27;"	d
 HEAP_H	crawler.h	22;"	d
 HEAP_OVERFLOW	heap.h	20;"	d
+HELMET	conversion/Character.h	/^  HELMET,$/;"	e	enum:weaponSlot
+HELMET_SYM	conversion/desc.h	18;"	d
 INTELLIGENCE_BIT	conversion/defs.h	8;"	d
 INTELLIGENCE_BIT	dungeon.h	19;"	d
 INVALID_INDEX_EXCEPTION	list.h	10;"	d
 IOSTREAM	conversion/Character.h	2;"	d
 IOSTREAM	conversion/dungeon.h	14;"	d
+IOSTREAM	conversion/fileReading.h	2;"	d
 IOSTREAM	conversion/game.h	18;"	d
+LIGHT	conversion/Character.h	/^  LIGHT,$/;"	e	enum:weaponSlot
+LIGHT_SYM	conversion/desc.h	24;"	d
 LIMITS_H	pathFinding.h	10;"	d
 LIST_H	generator.h	18;"	d
 List	list.h	/^typedef struct List{$/;"	s
@@ -97,30 +133,46 @@ MIN_ROOM_HEIGHT	conversion/defs.h	4;"	d
 MIN_ROOM_HEIGHT	dungeon.h	14;"	d
 MIN_ROOM_WIDTH	conversion/defs.h	5;"	d
 MIN_ROOM_WIDTH	dungeon.h	15;"	d
+MONSTER_H	conversion/game.h	42;"	d
 MOVE_BETWEEN_FLOORS	conversion/defs.h	13;"	d
 MinHeap	heap.h	/^typedef struct MinHeap {$/;"	s
 MinHeap	heap.h	/^} MinHeap;$/;"	t	typeref:struct:MinHeap
 NCURSES_H	conversion/screen.h	18;"	d
 NCURSES_H	conversion/screen.h	2;"	d
 NCURSES_H	printer.h	2;"	d
+NPC	conversion/Character.cpp	/^NPC::NPC(){};$/;"	f	class:NPC
 NPC	conversion/Character.cpp	/^NPC::NPC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime, char type, PC* pc) {$/;"	f	class:NPC
 NPC	conversion/Character.h	/^class NPC : public Character {$/;"	c
 NPC	dungeon.h	/^typedef struct NPC {$/;"	s
 NPC	dungeon.h	/^} NPC;$/;"	t	typeref:struct:NPC
 Node	list.h	/^typedef struct Node{$/;"	s
 Node	list.h	/^} Node;$/;"	t	typeref:struct:Node
+OBJECT_H	conversion/Character.h	30;"	d
+OBJECT_H	conversion/dungeon.h	30;"	d
+OBJECT_H_BUILT	conversion/object.h	28;"	d
 OBJS	Makefile	/^OBJS=crawler.o generator.o list.o list.o pathFinding.o queue.o heap.o printer.o$/;"	m
+OFFHAND	conversion/Character.h	/^  OFFHAND,$/;"	e	enum:weaponSlot
+OFFHAND_SYM	conversion/desc.h	15;"	d
 PATHFINDING_H	crawler.h	18;"	d
 PATHFINDING_H	pathFinding.c	2;"	d	file:
 PC	conversion/Character.cpp	/^PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {$/;"	f	class:PC
 PC	conversion/Character.h	/^class PC : public Character {$/;"	c
 PC_CHAR	dungeon.h	28;"	d
+PC_EQUIP_SLOTS	conversion/Character.h	39;"	d
+PC_INVENTORY_SIZE	conversion/Character.h	38;"	d
+PC_MAX_SIGHT_DIST	conversion/defs.h	26;"	d
 PRINTER_H	crawler.h	30;"	d
 Player	dungeon.h	/^typedef struct Player {$/;"	s
 Player	dungeon.h	/^} Player;$/;"	t	typeref:struct:Player
 QUEUE	conversion/game.h	26;"	d
 QUEUE_H	pathFinding.h	14;"	d
-REQ	conversion/Makefile	/^REQ=clean genCtags game.cpp dungeon.cpp Character.cpp screen.o$/;"	m
+RANGED	conversion/Character.h	/^  RANGED,$/;"	e	enum:weaponSlot
+RANGED_SYM	conversion/desc.h	16;"	d
+REQ	conversion/Makefile	/^REQ=game.cpp dungeon.cpp Character.cpp screen.o fileReading.o$/;"	m
+REQ1	conversion/Makefile	/^REQ1=genCtags game.cpp dungeon.cpp Character.cpp screen.o fileReading.o$/;"	m
+RING1	conversion/Character.h	/^  RING1,$/;"	e	enum:weaponSlot
+RING2	conversion/Character.h	/^  RING2,$/;"	e	enum:weaponSlot
+RING_SYM	conversion/desc.h	22;"	d
 ROCK	conversion/defs.h	/^  ROCK,$/;"	e	enum:TileType
 ROCK_CHAR	conversion/defs.h	17;"	d
 ROOM	conversion/defs.h	/^  ROOM,$/;"	e	enum:TileType
@@ -132,16 +184,24 @@ Room	conversion/dungeon.h	/^class Room {$/;"	c
 Room	dungeon.h	/^} Room;$/;"	t	typeref:struct:__anon1
 SCREEN_H	conversion/dungeon.h	26;"	d
 SCREEN_H	conversion/game.h	34;"	d
+SCROLL_SYM	conversion/desc.h	25;"	d
 SSTREAM	conversion/Character.h	22;"	d
+STACK_SYM	conversion/desc.h	33;"	d
+START_LINE_MONST	conversion/fileReading.cpp	4;"	d	file:
+START_LINE_OBJ	conversion/fileReading.cpp	5;"	d	file:
 STDINT_H	dungeon.h	2;"	d
 STDINT_H	generator.h	14;"	d
 STDINT_H	heap.h	10;"	d
 STDIO_H	generator.h	2;"	d
 STDIO_H	list.h	6;"	d
 STDIO_H	queue.h	10;"	d
+STDLIB_H	conversion/desc.h	2;"	d
+STDLIB_H	conversion/dice.cpp	2;"	d	file:
 STDLIB_H	conversion/dungeon.h	2;"	d
 STDLIB_H	conversion/game.h	10;"	d
 STDLIB_H	conversion/game.h	6;"	d
+STDLIB_H	conversion/monster.h	2;"	d
+STDLIB_H	conversion/object.h	2;"	d
 STDLIB_H	crawler.h	10;"	d
 STDLIB_H	generator.h	6;"	d
 STDLIB_H	heap.h	14;"	d
@@ -150,7 +210,11 @@ STDLIB_H	list.h	2;"	d
 STDLIB_H	pathFinding.h	6;"	d
 STDLIB_H	queue.h	6;"	d
 STRING	conversion/Character.h	18;"	d
+STRING	conversion/desc.h	10;"	d
+STRING	conversion/fileReading.h	6;"	d
 STRING	conversion/game.h	22;"	d
+STRING	conversion/monster.h	14;"	d
+STRING	conversion/object.h	14;"	d
 STRING	conversion/screen.h	14;"	d
 STRING_H	crawler.h	6;"	d
 STRING_H	generator.h	10;"	d
@@ -164,6 +228,7 @@ TIME_H	conversion/game.h	14;"	d
 TIME_H	crawler.h	2;"	d
 TUNNELING_BIT	conversion/defs.h	10;"	d
 TUNNELING_BIT	dungeon.h	21;"	d
+TYPEINFO	conversion/Character.h	34;"	d
 Tile	conversion/dungeon.cpp	/^Tile::Tile(TileType type) {$/;"	f	class:Tile
 Tile	conversion/dungeon.h	/^class Tile {$/;"	c
 Tile	dungeon.h	/^} Tile;$/;"	t	typeref:struct:__anon2
@@ -174,40 +239,91 @@ UNISTD_H	crawler.h	26;"	d
 UNISTD_H	printer.h	6;"	d
 UPSTAIR	conversion/defs.h	/^  UPSTAIR,$/;"	e	enum:TileType
 UPSTAIR_CHAR	conversion/defs.h	19;"	d
+VECTOR	conversion/desc.h	6;"	d
 VECTOR	conversion/dungeon.h	6;"	d
+VECTOR	conversion/monster.h	6;"	d
+VECTOR	conversion/object.h	6;"	d
+WAND_SYM	conversion/desc.h	31;"	d
+WEAPON	conversion/Character.h	/^  WEAPON,$/;"	e	enum:weaponSlot
+WEAPON_SYM	conversion/desc.h	14;"	d
+abilities	conversion/desc.h	/^    vector<string> abilities;$/;"	m	class:monsterDesc
+abilitiesSet	conversion/fileReading.h	/^    bool abilitiesSet;$/;"	m	class:monstBools
+ad	conversion/Character.h	/^    rollUp ad;$/;"	m	class:Character
+ad	conversion/Character.h	/^    rollUp ad;$/;"	m	class:NPC
+ad	conversion/desc.h	/^    rollUp ad;$/;"	m	class:monsterDesc
+adBuff	conversion/Character.h	/^    int adBuff;$/;"	m	class:Character
+adSet	conversion/fileReading.h	/^    bool adSet;$/;"	m	class:monstBools
 addBorders	generator.c	/^void addBorders(Dungeon* dun) {$/;"	f
 addHallways	conversion/dungeon.cpp	/^void Dungeon::addHallways() {$/;"	f	class:Dungeon
 addRoomToDungeon	generator.c	/^void addRoomToDungeon(Dungeon* dun, Room newRoom) {$/;"	f
 addRooms	conversion/dungeon.cpp	/^void Dungeon::addRooms(int numRooms) {$/;"	f	class:Dungeon
 addStairs	conversion/dungeon.cpp	/^void Dungeon::addStairs() {$/;"	f	class:Dungeon
 addToHeap	heap.c	/^int addToHeap(MinHeap* minHeap, Character* character) {$/;"	f
+addToInventory	conversion/Character.cpp	/^void PC::addToInventory(object* objPtr) {$/;"	f	class:PC
 ahead	queue.h	/^  struct CoordQueueNode* ahead;$/;"	m	struct:CoordQueueNode	typeref:struct:CoordQueueNode::CoordQueueNode
 arr	heap.h	/^  struct Character** arr;$/;"	m	struct:MinHeap	typeref:struct:MinHeap::Character
+attack	conversion/Character.cpp	/^int Character::attack(rollUp attackerAD, int attackerADbuff, Character* defender) {$/;"	f	class:Character
 back	queue.h	/^  struct CoordQueueNode* back;$/;"	m	struct:CoordQueue	typeref:struct:CoordQueue::CoordQueueNode
+base	conversion/desc.h	/^    int base;$/;"	m	class:rollUp
+baseSpeed	conversion/Character.h	/^    int baseSpeed;$/;"	m	class:PC
 behind	queue.h	/^  struct CoordQueueNode* behind;$/;"	m	struct:CoordQueueNode	typeref:struct:CoordQueueNode::CoordQueueNode
 bubbleUp	heap.c	/^int bubbleUp(MinHeap* minHeap) {$/;"	f
 build	conversion/dungeon.cpp	/^void Dungeon::build() {$/;"	f	class:Dungeon
+buildMonster	conversion/monster.cpp	/^void monsterFactory::buildMonster(monsterDesc desc, NPC* monster, int currentEventTime, PC* pc) {$/;"	f	class:monsterFactory
+buildMonsters	conversion/monster.cpp	/^vector<NPC*> monsterFactory::buildMonsters(vector<monsterDesc> descList, int numToBuild, int currentEventTime, PC* pc) {$/;"	f	class:monsterFactory
+buildObject	conversion/object.cpp	/^int objectFactory::buildObject(objectDesc desc, object* obj) {$/;"	f	class:objectFactory
+buildObjects	conversion/object.cpp	/^int objectFactory::buildObjects(vector<objectDesc>& descList, int numToBuild) {$/;"	f	class:objectFactory
 canSeeFrom	conversion/dungeon.cpp	/^bool Dungeon::canSeeFrom(Coordinate from, Coordinate to) {$/;"	f	class:Dungeon
 canSeePC	crawler.c	/^bool canSeePC(Character* pc, Character* monster, Dungeon* dun) {$/;"	f
 changeLevel	crawler.c	/^void changeLevel(Character* character, MinHeap* turnQueue, Dungeon* dun,Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], Setup setup) {$/;"	f
 charMap	conversion/dungeon.h	/^    vector <vector<Character*>> charMap;$/;"	m	class:Dungeon
 characteristics	dungeon.h	/^  char characteristics;$/;"	m	struct:NPC
+checkPockets	conversion/Character.cpp	/^int PC::checkPockets() {$/;"	f	class:PC
+cleanMonstDesc	conversion/fileReading.cpp	/^void cleanMonstDesc(monsterDesc& desc) {$/;"	f
+cleanObjDesc	conversion/fileReading.cpp	/^void cleanObjDesc(objectDesc& desc) {$/;"	f
 cleanPlacementMap	crawler.c	/^void cleanPlacementMap(Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
+cleanString	conversion/fileReading.cpp	/^void cleanString(string& toClean) {$/;"	f
+clearBottomArea	conversion/screen.cpp	/^int clearBottomArea() {$/;"	f
 clearMessageArea	conversion/screen.cpp	/^int clearMessageArea() {$/;"	f
 clearRooms	generator.c	/^void clearRooms(Dungeon* dun) {$/;"	f
 col	dungeon.h	/^  int col;$/;"	m	struct:Coordinate
+colors	conversion/Character.h	/^    vector<string> colors;$/;"	m	class:Character
+colors	conversion/desc.h	/^    vector<string> colors;$/;"	m	class:monsterDesc
+colors	conversion/desc.h	/^    vector<string> colors;$/;"	m	class:objectDesc
+colors	conversion/object.h	/^    vector<string> colors;$/;"	m	class:object
+colorsSet	conversion/fileReading.h	/^    bool colorsSet;$/;"	m	class:monstBools
+colorsSet	conversion/fileReading.h	/^    bool colorsSet;$/;"	m	class:objectBools
 comparingTo	conversion/dungeon.h	/^    Coordinate comparingTo;$/;"	m	class:CoordPair
 coord	conversion/Character.h	/^    Coordinate coord;$/;"	m	class:Character
 coord	dungeon.h	/^  struct Coordinate coord;$/;"	m	struct:Character	typeref:struct:Character::Coordinate
 coord	queue.h	/^  struct Coordinate coord;$/;"	m	struct:CoordQueueNode	typeref:struct:CoordQueueNode::Coordinate
+damBonus	conversion/desc.h	/^    rollUp damBonus;$/;"	m	class:objectDesc
+damBonus	conversion/object.h	/^    int damBonus;$/;"	m	class:object
+damBonusSet	conversion/fileReading.h	/^    bool damBonusSet;$/;"	m	class:objectBools
 dataPtr	list.h	/^  void* dataPtr;$/;"	m	struct:Node
+defencesBonusSet	conversion/fileReading.h	/^    bool defencesBonusSet;$/;"	m	class:objectBools
+defenseBonus	conversion/desc.h	/^    rollUp defenseBonus;$/;"	m	class:objectDesc
+defenseBonus	conversion/object.h	/^    int defenseBonus;$/;"	m	class:object
 defineTiles	generator.c	/^void defineTiles(Dungeon* dun) {$/;"	f
 deleteFromHeap	heap.c	/^int deleteFromHeap(MinHeap* heap, Character* toRemove) {$/;"	f
+deleteItem	conversion/Character.cpp	/^int PC::deleteItem(int index) {$/;"	f	class:PC
 dequeue	queue.c	/^void dequeue(CoordQueue* queue, Coordinate* coord) {$/;"	f
+describeEquipSlots	conversion/Character.cpp	/^int PC::describeEquipSlots() {$/;"	f	class:PC
+description	conversion/Character.h	/^    string description;$/;"	m	class:Character
+description	conversion/desc.h	/^    string description;$/;"	m	class:monsterDesc
+description	conversion/desc.h	/^    string description;$/;"	m	class:objectDesc
+description	conversion/object.h	/^    string description;$/;"	m	class:object
+descriptionSet	conversion/fileReading.h	/^    bool descriptionSet;$/;"	m	class:monstBools
+descriptionSet	conversion/fileReading.h	/^    bool descriptionSet;$/;"	m	class:objectBools
+destroyItem	conversion/Character.cpp	/^int PC::destroyItem() {$/;"	f	class:PC
+diceCount	conversion/desc.h	/^    int diceCount;$/;"	m	class:rollUp
+diceType	conversion/desc.h	/^    int diceType;$/;"	m	class:rollUp
+dodgeBonus	conversion/desc.h	/^    rollUp dodgeBonus;$/;"	m	class:objectDesc
+dodgeBonus	conversion/object.h	/^    int dodgeBonus;$/;"	m	class:object
+dodgeBonusSet	conversion/fileReading.h	/^    bool dodgeBonusSet;$/;"	m	class:objectBools
 draw	conversion/dungeon.cpp	/^void Dungeon::draw() {$/;"	f	class:Dungeon
 drawCharacter	conversion/screen.cpp	/^int drawCharacter(Coordinate coord, char symbol) {$/;"	f
 drawCharacter	printer.c	/^int drawCharacter(int row, int col, char character) {$/;"	f
-drawCharacterBold	conversion/screen.cpp	/^int drawCharacterBold(Coordinate coord, char symbol) {$/;"	f
 drawCoolDun	printer.c	/^int drawCoolDun(Dungeon* dun) {$/;"	f
 drawDunMap	conversion/Character.cpp	/^void PC::drawDunMap() {$/;"	f	class:PC
 drawDungeon	printer.c	/^int drawDungeon(Dungeon* dun, Setup setup) {$/;"	f
@@ -217,12 +333,17 @@ drawNormalSpot	conversion/Character.cpp	/^void PC::drawNormalSpot(Coordinate spo
 drawStandardDun	printer.c	/^int drawStandardDun(Dungeon* dun) {$/;"	f
 drawString	conversion/screen.cpp	/^int drawString(Coordinate coord, char* str) {$/;"	f
 drawString	printer.c	/^int drawString(int row, int col, char* str) {$/;"	f
+dropItLikeItsHot	conversion/Character.cpp	/^int PC::dropItLikeItsHot() {$/;"	f	class:PC
 dun	conversion/Character.h	/^    Dungeon* dun;$/;"	m	class:Character
+dun	conversion/monster.h	/^    Dungeon* dun;$/;"	m	class:monsterFactory
+dun	conversion/object.h	/^    Dungeon* dun;$/;"	m	class:objectFactory
 dunMap	conversion/Character.h	/^    vector<vector<TileType>> dunMap;$/;"	m	class:PC
 dungeonInit	conversion/game.cpp	/^Dungeon dungeonInit() {$/;"	f
 endianSwap_uInt	conversion/dungeon.cpp	/^uint32_t Dungeon:: endianSwap_uInt(int input) {$/;"	f	class:Dungeon
 endianSwap_uInt	generator.c	/^uint32_t endianSwap_uInt(uint32_t input) {$/;"	f
 enqueue	queue.c	/^void enqueue(CoordQueue* queue, Coordinate coord) {$/;"	f
+equipItem	conversion/Character.cpp	/^object* PC::equipItem(object* obj) {$/;"	f	class:PC
+equipped	conversion/Character.h	/^    object* equipped[PC_EQUIP_SLOTS];$/;"	m	class:PC
 fillDistMap	conversion/dungeon.cpp	/^void Dungeon::fillDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, bool canTunnel) {$/;"	f	class:Dungeon
 fillLogic	pathFinding.c	/^void fillLogic(Dungeon* dun, int** map, CoordQueue* queue, bool canBurrow, Coordinate neighbor, Coordinate current) {$/;"	f
 fillMap	pathFinding.c	/^void fillMap(Dungeon* dun, int** map, CoordQueue* queue, bool canBurrow) {$/;"	f
@@ -233,26 +354,39 @@ genCharacterType	conversion/game.cpp	/^char genCharacterType() {$/;"	f
 genDistMap	conversion/dungeon.cpp	/^vector<vector<int>> Dungeon::genDistMap(int y, int x, bool canTunnel) {$/;"	f	class:Dungeon
 genDungeon	generator.c	/^void genDungeon(Dungeon* dun) {$/;"	f
 genMonsterString	conversion/Character.cpp	/^string PC::genMonsterString(int ydiff, int xdiff, char symbol) {$/;"	f	class:PC
+genType	conversion/monster.cpp	/^char genType(vector<string> abilities) {$/;"	f
 getCharacterId	conversion/Character.cpp	/^int Character::getCharacterId(Coordinate loc) {$/;"	f	class:Character
 getDunChar	printer.c	/^char getDunChar(Tile tile, int row, int col) {$/;"	f
 getEmptyMap	conversion/dungeon.cpp	/^vector<vector<int>> getEmptyMap() {$/;"	f
 getEmptySpace	conversion/dungeon.cpp	/^Coordinate Dungeon::getEmptySpace() {$/;"	f	class:Dungeon
 getEmptySpot	crawler.c	/^Coordinate getEmptySpot(Dungeon* dun,Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
+getFirstChar	conversion/fileReading.cpp	/^char getFirstChar(string str) {$/;"	f
 getIndexOfPC	heap.c	/^int getIndexOfPC(MinHeap* heap) {$/;"	f
+getLastChar	conversion/fileReading.cpp	/^char getLastChar(string str) {$/;"	f
 getMonsterLocString	crawler.c	/^char* getMonsterLocString(int ydiff, int xdiff, char sym) {$/;"	f
+getMoreNaked	conversion/Character.cpp	/^int PC::getMoreNaked() {$/;"	f	class:PC
 getNextPlacement	crawler.c	/^Coordinate getNextPlacement(int** map, Coordinate coord) {$/;"	f
 getNextPlacementTunneling	crawler.c	/^Coordinate getNextPlacementTunneling(int** map, Coordinate coord, Dungeon* dun) {$/;"	f
+getObjSym	conversion/object.cpp	/^char getObjSym(string type) {$/;"	f
 getPathMapEverywhere	pathFinding.c	/^int** getPathMapEverywhere(Coordinate* pc, Dungeon* dun) {$/;"	f
 getPathMapOnlyOpenArea	pathFinding.c	/^int** getPathMapOnlyOpenArea(Coordinate* pc, Dungeon* dun){$/;"	f
 getSymbol	conversion/Character.cpp	/^char getSymbol(char type) {$/;"	f
 getSymbol	crawler.c	/^char getSymbol(char ristics) {$/;"	f
 getTileSym	conversion/dungeon.cpp	/^char getTileSym(TileType type) {$/;"	f
+getWordsOnLine	conversion/fileReading.cpp	/^void getWordsOnLine(vector<string> &storage, ifstream& file) {$/;"	f
 hardness	conversion/dungeon.h	/^    uint8_t hardness;$/;"	m	class:Tile
 hardness	dungeon.h	/^  uint8_t hardness;$/;"	m	struct:__anon2
+hasKilledBoss	conversion/Character.h	/^    bool hasKilledBoss;$/;"	m	class:PC
 hasSeenPC	dungeon.h	/^  bool hasSeenPC;$/;"	m	struct:NPC
 head	list.h	/^  struct Node* head;$/;"	m	struct:List	typeref:struct:List::Node
 height	conversion/dungeon.h	/^    uint8_t height;$/;"	m	class:Room
 height	dungeon.h	/^  uint8_t height;$/;"	m	struct:__anon1
+hitBonus	conversion/desc.h	/^    rollUp hitBonus;$/;"	m	class:objectDesc
+hitBonus	conversion/object.h	/^    int hitBonus;$/;"	m	class:object
+hitBonusSet	conversion/fileReading.h	/^    bool hitBonusSet;$/;"	m	class:objectBools
+hp	conversion/Character.h	/^    int hp;$/;"	m	class:Character
+hp	conversion/desc.h	/^    rollUp hp;$/;"	m	class:monsterDesc
+hpSet	conversion/fileReading.h	/^    bool hpSet;$/;"	m	class:monstBools
 id	conversion/Character.h	/^    int id;$/;"	m	class:Character
 initCoordQueue	queue.c	/^CoordQueue* initCoordQueue() {$/;"	f
 initDungeon	generator.c	/^void initDungeon(Dungeon* dun) {$/;"	f
@@ -260,18 +394,29 @@ initHeap	heap.c	/^MinHeap* initHeap(int size) {$/;"	f
 initList	list.c	/^List* initList() {$/;"	f
 initMap	pathFinding.c	/^int** initMap() {$/;"	f
 initial	conversion/dungeon.h	/^    Coordinate initial;$/;"	m	class:CoordPair
+inspectItem	conversion/Character.cpp	/^int PC::inspectItem() {$/;"	f	class:PC
+inventory	conversion/Character.h	/^    object* inventory[PC_INVENTORY_SIZE];$/;"	m	class:PC
+isArtifact	conversion/desc.h	/^    bool isArtifact;$/;"	m	class:objectDesc
+isArtifact	conversion/object.h	/^    bool isArtifact;$/;"	m	class:object
+isArtifactSet	conversion/fileReading.h	/^    bool isArtifactSet;$/;"	m	class:objectBools
 isBorder	dungeon.h	/^  bool isBorder;$/;"	m	struct:__anon2
+isBossMonster	conversion/Character.h	/^    bool isBossMonster;$/;"	m	class:Character
 isDownstairs	dungeon.h	/^  bool isDownstairs;$/;"	m	struct:__anon2
 isEmpty	queue.c	/^bool isEmpty(CoordQueue* queue) {$/;"	f
 isEmptySpace	crawler.c	/^bool isEmptySpace(Coordinate coord, Dungeon* dun) {$/;"	f
+isFilledOut	conversion/fileReading.cpp	/^bool monstBools::isFilledOut() {$/;"	f	class:monstBools
+isFilledOut	conversion/fileReading.cpp	/^bool objectBools::isFilledOut() {$/;"	f	class:objectBools
 isFull	heap.c	/^bool isFull(MinHeap* heap) {$/;"	f
 isHallway	dungeon.h	/^  bool isHallway;$/;"	m	struct:__anon2
 isHeapEmpty	heap.c	/^bool isHeapEmpty(MinHeap* heap) {$/;"	f
 isInDun	conversion/Character.cpp	/^bool isInDun(Coordinate coord) {$/;"	f
+isInventoryFull	conversion/Character.cpp	/^bool PC::isInventoryFull() {$/;"	f	class:PC
 isOpenSpace	conversion/dungeon.cpp	/^bool Dungeon::isOpenSpace(Coordinate coord) {$/;"	f	class:Dungeon
 isRoom	dungeon.h	/^  bool isRoom;$/;"	m	struct:__anon2
+isThisABoss	conversion/monster.cpp	/^bool isThisABoss(vector<string> abil) {$/;"	f
 isUpstairs	dungeon.h	/^  bool isUpstairs;$/;"	m	struct:__anon2
 isValidRoomPlacement	generator.c	/^bool isValidRoomPlacement(int xLoc, int yLoc, Dungeon* dun, Room newRoom) {$/;"	f
+isWithinSight	conversion/Character.cpp	/^bool PC::isWithinSight(Coordinate to) {$/;"	f	class:PC
 killed	conversion/Character.h	/^    int killed;$/;"	m	class:movementResDTO
 lastKnowPCLoc	dungeon.h	/^  Coordinate lastKnowPCLoc;$/;"	m	struct:NPC
 lastSeenPCLoc	conversion/Character.h	/^    Coordinate lastSeenPCLoc;$/;"	m	class:NPC
@@ -282,6 +427,7 @@ load	conversion/game.h	/^    bool load;$/;"	m	class:Settings
 load	dungeon.h	/^  bool load;$/;"	m	struct:Setup
 loadDungeon	generator.c	/^void loadDungeon(char* loadLoc, Dungeon* dun) {$/;"	f
 loadSaveLoc	conversion/game.h	/^    string loadSaveLoc;$/;"	m	class:Settings
+lookForSexyMonsters	conversion/Character.cpp	/^int PC::lookForSexyMonsters() {$/;"	f	class:PC
 main	conversion/game.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 main	crawler.c	/^int main(int argc, char* argv[]) {$/;"	f
 makeNode	list.c	/^Node* makeNode(void* dataPtr) {$/;"	f
@@ -291,6 +437,12 @@ map	conversion/dungeon.h	/^    vector <vector<Tile>> map;$/;"	m	class:Dungeon
 map	dungeon.h	/^  Tile map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH];$/;"	m	struct:__anon3
 maxNumMonsters	crawler.c	/^int maxNumMonsters = 0;$/;"	v
 maxSize	heap.h	/^  int maxSize;$/;"	m	struct:MinHeap
+monstBools	conversion/fileReading.cpp	/^monstBools::monstBools() {$/;"	f	class:monstBools
+monstBools	conversion/fileReading.h	/^class monstBools {$/;"	c
+monsterDesc	conversion/desc.h	/^class monsterDesc {$/;"	c
+monsterDescLoc	conversion/game.h	/^    string monsterDescLoc;$/;"	m	class:Settings
+monsterFactory	conversion/monster.cpp	/^monsterFactory::monsterFactory(Dungeon* dun){$/;"	f	class:monsterFactory
+monsterFactory	conversion/monster.h	/^class monsterFactory {$/;"	c
 monsterList_routine	crawler.c	/^int monsterList_routine(Character* pc, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
 monster_routine	crawler.c	/^void monster_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], int** openSpaceMap, int** tunnelingMap, Character* pc) {$/;"	f
 moveCharacterNoTunnel	crawler.c	/^bool moveCharacterNoTunnel(Coordinate movingTo, Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
@@ -299,12 +451,12 @@ moveDown	crawler.c	/^bool moveDown(Character* character, MinHeap* turnQueue, Dun
 moveDownLeft	crawler.c	/^bool moveDownLeft(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {$/;"	f
 moveDownRight	crawler.c	/^bool moveDownRight(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {$/;"	f
 moveLeft	crawler.c	/^bool moveLeft(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {$/;"	f
-moveRand	conversion/Character.cpp	/^int Character::moveRand() {$/;"	f	class:Character
+moveRand	conversion/Character.cpp	/^int NPC::moveRand() {$/;"	f	class:NPC
 moveRandTunneling	conversion/Character.cpp	/^int NPC::moveRandTunneling() {$/;"	f	class:NPC
 moveRandomly	crawler.c	/^int moveRandomly(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {$/;"	f
 moveRight	crawler.c	/^bool moveRight(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {$/;"	f
-moveTo	conversion/Character.cpp	/^int Character::moveTo(Coordinate to) {$/;"	f	class:Character
-moveToward	conversion/Character.cpp	/^int Character::moveToward(Coordinate moveingTo) {$/;"	f	class:Character
+moveTo	conversion/Character.cpp	/^int NPC::moveTo(Coordinate to) {$/;"	f	class:NPC
+moveToward	conversion/Character.cpp	/^int NPC::moveToward(Coordinate moveingTo) {$/;"	f	class:NPC
 moveToward	crawler.c	/^Coordinate moveToward(Coordinate from, Coordinate to) {$/;"	f
 moveTowardTunneling	conversion/Character.cpp	/^int NPC::moveTowardTunneling(Coordinate coord) {$/;"	f	class:NPC
 moveUp	crawler.c	/^bool moveUp(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], bool canTunnel, int** hardnessMap) {$/;"	f
@@ -326,6 +478,12 @@ movement1110	conversion/Character.cpp	/^int NPC::movement1110(){$/;"	f	class:NPC
 movement1111	conversion/Character.cpp	/^int NPC::movement1111(){$/;"	f	class:NPC
 movementResDTO	conversion/Character.h	/^    movementResDTO() {$/;"	f	class:movementResDTO
 movementResDTO	conversion/Character.h	/^class movementResDTO {$/;"	c
+name	conversion/Character.h	/^    string name;$/;"	m	class:Character
+name	conversion/desc.h	/^    string name;$/;"	m	class:monsterDesc
+name	conversion/desc.h	/^    string name;$/;"	m	class:objectDesc
+name	conversion/object.h	/^    string name;$/;"	m	class:object
+nameSet	conversion/fileReading.h	/^    bool nameSet;$/;"	m	class:monstBools
+nameSet	conversion/fileReading.h	/^    bool nameSet;$/;"	m	class:objectBools
 next	list.h	/^  struct Node* next;$/;"	m	struct:Node	typeref:struct:Node::Node
 nextEventTime	conversion/Character.h	/^    int nextEventTime;$/;"	m	class:Character
 nextEventTime	dungeon.h	/^  int nextEventTime;$/;"	m	struct:Character
@@ -334,30 +492,54 @@ nonEraticMovment	crawler.c	/^void nonEraticMovment(Character* character, MinHeap
 npc	dungeon.h	/^  struct NPC* npc;$/;"	m	struct:Character	typeref:struct:Character::NPC
 numMonsters	dungeon.h	/^  int numMonsters;$/;"	m	struct:Setup
 nummon	conversion/game.h	/^    int nummon;$/;"	m	class:Settings
+object	conversion/object.cpp	/^object::object() {}$/;"	f	class:object
+object	conversion/object.h	/^class object {$/;"	c
+objectBools	conversion/fileReading.cpp	/^objectBools::objectBools() {$/;"	f	class:objectBools
+objectBools	conversion/fileReading.h	/^class objectBools {$/;"	c
+objectDesc	conversion/desc.h	/^class objectDesc {$/;"	c
+objectDescLoc	conversion/game.h	/^    string objectDescLoc;$/;"	m	class:Settings
+objectDescs	conversion/game.cpp	/^vector<objectDesc> objectDescs;$/;"	v
+objectFactory	conversion/object.cpp	/^objectFactory::objectFactory(Dungeon* dun) {$/;"	f	class:objectFactory
+objectFactory	conversion/object.h	/^class objectFactory {$/;"	c
+objectMap	conversion/dungeon.h	/^    vector <vector<object*>> objectMap;$/;"	m	class:Dungeon
 openMap	conversion/dungeon.h	/^    vector <vector<int>> openMap;$/;"	m	class:Dungeon
 operator ()	conversion/game.cpp	/^  bool operator()(Character* a, Character* b) {$/;"	f	struct:Compare
 parseArgs	crawler.c	/^Setup parseArgs(int argc, char* argv[]) {$/;"	f
+parseMonsterDescFile	conversion/fileReading.cpp	/^int parseMonsterDescFile(string fileLoc, vector<monsterDesc>& list) {$/;"	f
+parseObjectDescFile	conversion/fileReading.cpp	/^int parseObjectDescFile(string fileLoc, vector<objectDesc>& list) {$/;"	f
 pc	conversion/Character.h	/^    PC* pc;$/;"	m	class:NPC
 pc	conversion/dungeon.h	/^    PC* pc;$/;"	m	class:Dungeon
 pc	dungeon.h	/^  struct Player* pc;$/;"	m	struct:Character	typeref:struct:Character::Player
 pc_routine	crawler.c	/^int pc_routine(Character* character, MinHeap* turnQueue, Dungeon* dun, Character* map[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH], Setup setup) {$/;"	f
 peak	queue.c	/^void peak(CoordQueue* queue, Coordinate* coord) {$/;"	f
+pickUpItem	conversion/Character.cpp	/^void PC::pickUpItem() {$/;"	f	class:PC
 placeHallTile	generator.c	/^void placeHallTile(int row, int col, Dungeon* dun) {$/;"	f
 placeHallways	generator.c	/^void placeHallways(Dungeon* dun) {$/;"	f
+placeOnFloor	conversion/Character.cpp	/^void PC::placeOnFloor(object* obj){$/;"	f	class:PC
 placeRooms	generator.c	/^void placeRooms(Dungeon* dun) {$/;"	f
 prev	list.h	/^  struct Node* prev;$/;"	m	struct:Node	typeref:struct:Node::Node
 printCoolDun	crawler.c	/^void printCoolDun(Dungeon* dun, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
 printDungeon	crawler.c	/^void printDungeon(Dungeon* dun, Setup setup, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
 printMessage	conversion/screen.cpp	/^int printMessage(string message) {$/;"	f
+printMonsterInfo	conversion/Character.cpp	/^void PC::printMonsterInfo(Coordinate loc) {$/;"	f	class:PC
 printPathMap	crawler.c	/^void printPathMap(int** tunnelingMap, Player* pc) {$/;"	f
 printStandardDun	crawler.c	/^void printStandardDun(Dungeon* dun, Character* placementMap[MAX_DUNGEON_HEIGHT][MAX_DUNGEON_WIDTH]) {$/;"	f
+putOnAssKickingOutfit	conversion/Character.cpp	/^int PC::putOnAssKickingOutfit() {$/;"	f	class:PC
 putRoomsInDungeon	conversion/dungeon.cpp	/^void Dungeon::putRoomsInDungeon() {$/;"	f	class:Dungeon
 randomlyPlace	crawler.c	/^void randomlyPlace(Coordinate* coord, Dungeon* dun) {$/;"	f
+rarity	conversion/desc.h	/^    int rarity;$/;"	m	class:monsterDesc
+rarity	conversion/desc.h	/^    int rarity;$/;"	m	class:objectDesc
+raritySet	conversion/fileReading.h	/^    bool raritySet;$/;"	m	class:monstBools
+raritySet	conversion/fileReading.h	/^    bool raritySet;$/;"	m	class:objectBools
+readDiceDesc	conversion/fileReading.cpp	/^void readDiceDesc(rollUp& desc, ifstream& file) {$/;"	f
 readRooms	conversion/dungeon.cpp	/^void Dungeon::readRooms(FILE* file, int fileSize) {$/;"	f	class:Dungeon
 readTiles	conversion/dungeon.cpp	/^void Dungeon::readTiles(FILE* file) {$/;"	f	class:Dungeon
 rebuild	conversion/dungeon.cpp	/^void Dungeon::rebuild() {$/;"	f	class:Dungeon
 removeFromHeap	heap.c	/^Character* removeFromHeap(MinHeap* heap) {$/;"	f
 resetDunMap	conversion/Character.cpp	/^void PC::resetDunMap() {$/;"	f	class:PC
+rollDice	conversion/dice.cpp	/^int rollDice(rollUp fruit) {$/;"	f
+rollDice	conversion/fileReading.cpp	/^int rollDice(rollUp fruit) {$/;"	f
+rollUp	conversion/desc.h	/^class rollUp {$/;"	c
 rooms	conversion/dungeon.h	/^    vector<Room> rooms;$/;"	m	class:Dungeon
 rooms	dungeon.h	/^  struct List* rooms;$/;"	m	struct:__anon3	typeref:struct:__anon3::List
 row	dungeon.h	/^  int row;$/;"	m	struct:Coordinate
@@ -379,29 +561,51 @@ setTurnLogic	conversion/Character.cpp	/^void NPC::setTurnLogic() {$/;"	f	class:N
 setType	conversion/dungeon.cpp	/^void Tile::setType(TileType type) {$/;"	f	class:Tile
 setType	conversion/dungeon.cpp	/^void Tile::setType(int hardness) {$/;"	f	class:Tile
 settings	conversion/game.cpp	/^Settings settings;$/;"	v
+setupColors	conversion/screen.cpp	/^int setupColors() {$/;"	f
 setupDunMap	conversion/Character.cpp	/^void PC::setupDunMap() {$/;"	f	class:PC
+showItemDescription	conversion/Character.cpp	/^int PC::showItemDescription(int index) {$/;"	f	class:PC
 showMonsterList	conversion/Character.cpp	/^void PC::showMonsterList() {$/;"	f	class:PC
 sightDist	conversion/Character.h	/^    int sightDist;$/;"	m	class:PC
 size	heap.h	/^  int size;$/;"	m	struct:MinHeap
 size	queue.h	/^  int size;$/;"	m	struct:CoordQueue
+specialAttr	conversion/desc.h	/^    rollUp specialAttr;$/;"	m	class:objectDesc
+specialAttr	conversion/object.h	/^    int specialAttr;$/;"	m	class:object
+specialAttrSet	conversion/fileReading.h	/^    bool specialAttrSet;$/;"	m	class:objectBools
 speed	conversion/Character.h	/^    int speed;$/;"	m	class:Character
+speed	conversion/desc.h	/^    rollUp speed;$/;"	m	class:monsterDesc
 speed	dungeon.h	/^  int speed;$/;"	m	struct:Character
+speedBuff	conversion/desc.h	/^    rollUp speedBuff;$/;"	m	class:objectDesc
+speedBuff	conversion/object.h	/^    int speedBuff;$/;"	m	class:object
+speedBuffSet	conversion/fileReading.h	/^    bool speedBuffSet;$/;"	m	class:objectBools
+speedSet	conversion/fileReading.h	/^    bool speedSet;$/;"	m	class:monstBools
 startTeleportMode	conversion/Character.cpp	/^int PC::startTeleportMode() {$/;"	f	class:PC
 startup	printer.c	/^int startup() {$/;"	f
 success	conversion/Character.h	/^    bool success;$/;"	m	class:movementResDTO
 symbol	conversion/Character.h	/^    char symbol;$/;"	m	class:Character
+symbol	conversion/desc.h	/^    char symbol;$/;"	m	class:monsterDesc
+symbol	conversion/object.h	/^    char symbol;$/;"	m	class:object
 symbol	dungeon.h	/^  char symbol;$/;"	m	struct:Character
+symbolSet	conversion/fileReading.h	/^    bool symbolSet;$/;"	m	class:monstBools
 tail	list.h	/^  struct Node* tail;$/;"	m	struct:List	typeref:struct:List::Node
 takeTurn	conversion/Character.cpp	/^int Character::takeTurn() {$/;"	f	class:Character
 takeTurn	conversion/Character.cpp	/^int NPC::takeTurn() {$/;"	f	class:NPC
 takeTurn	conversion/Character.cpp	/^int PC::takeTurn() {$/;"	f	class:PC
 tearDown	printer.c	/^int tearDown() {$/;"	f
 teleport	conversion/Character.cpp	/^int PC::teleport(Coordinate to) {$/;"	f	class:PC
+tryToDropItem	conversion/Character.cpp	/^void PC::tryToDropItem(int index) {$/;"	f	class:PC
+tryToEquipItem	conversion/Character.cpp	/^int PC::tryToEquipItem(int index) {$/;"	f	class:PC
 tryToMove	conversion/Character.cpp	/^movementResDTO PC::tryToMove(Coordinate to) {$/;"	f	class:PC
+tryToTakeOff	conversion/Character.cpp	/^int PC::tryToTakeOff(int index) {$/;"	f	class:PC
 tunnelMap	conversion/dungeon.h	/^    vector <vector<int>> tunnelMap;$/;"	m	class:Dungeon
 turnLogic	conversion/Character.h	/^    int (NPC::*turnLogic)();$/;"	m	class:NPC
+turnOffColorPair	conversion/screen.cpp	/^int turnOffColorPair(string str) {$/;"	f
+turnOnColorPair	conversion/screen.cpp	/^int turnOnColorPair(string str) {$/;"	f
 type	conversion/Character.h	/^    char type;$/;"	m	class:NPC
+type	conversion/desc.h	/^    string type;$/;"	m	class:objectDesc
 type	conversion/dungeon.h	/^    TileType type;$/;"	m	class:Tile
+type	conversion/object.h	/^    string type;$/;"	m	class:object
+typeSet	conversion/fileReading.h	/^    bool typeSet;$/;"	m	class:objectBools
+updateCurrentStats	conversion/Character.cpp	/^void PC::updateCurrentStats() {$/;"	f	class:PC
 updateDistMap	conversion/dungeon.cpp	/^void Dungeon::updateDistMap(vector<vector<int>>& distMap, vector<Coordinate>& queue, CoordPair pair, bool canTunnel) {$/;"	f	class:Dungeon
 updateDistMaps	conversion/dungeon.cpp	/^void Dungeon::updateDistMaps() {$/;"	f	class:Dungeon
 updateDunMap	conversion/Character.cpp	/^void PC::updateDunMap() {$/;"	f	class:PC
@@ -409,6 +613,15 @@ updatePCLoc	conversion/Character.cpp	/^void NPC::updatePCLoc() {$/;"	f	class:NPC
 updateSeed	crawler.c	/^void updateSeed(Dungeon* dun) {$/;"	f
 updateSpace	conversion/dungeon.cpp	/^void Dungeon::updateSpace(Coordinate coord, Character* ptr) {$/;"	f	class:Dungeon
 useCoolChars	dungeon.h	/^  bool useCoolChars;$/;"	m	struct:Setup
+value	conversion/desc.h	/^    rollUp value;$/;"	m	class:objectDesc
+value	conversion/object.h	/^    int value;$/;"	m	class:object
+valueSet	conversion/fileReading.h	/^    bool valueSet;$/;"	m	class:objectBools
+waitWhatAmIWearing	conversion/Character.cpp	/^int PC::waitWhatAmIWearing() {$/;"	f	class:PC
+wasCreated	conversion/desc.h	/^    bool wasCreated;$/;"	m	class:objectDesc
+weaponSlot	conversion/Character.h	/^enum weaponSlot {$/;"	g
+weight	conversion/desc.h	/^    rollUp weight;$/;"	m	class:objectDesc
+weight	conversion/object.h	/^    int weight;$/;"	m	class:object
+weightSet	conversion/fileReading.h	/^    bool weightSet;$/;"	m	class:objectBools
 width	conversion/dungeon.h	/^    uint8_t width;$/;"	m	class:Room
 width	dungeon.h	/^  uint8_t width;$/;"	m	struct:__anon1
 x	conversion/defs.h	/^    int x;$/;"	m	class:Coordinate

@@ -9,6 +9,10 @@ Coordinate::Coordinate(int y, int x) {
     this->x = x;
 }
 
+Coordinate::Coordinate() {
+    y = x = -1;
+}
+
 int Coordinate::getX() {
     return x;
 }
