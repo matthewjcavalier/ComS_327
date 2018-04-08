@@ -153,6 +153,7 @@ int PC::takeTurn() {
   updateDunMap();
   drawDunMap();
   clearMessageArea();
+  clearBottomArea();
   do {
     userPressed = getch();
     if(DEBUG) {
@@ -859,12 +860,24 @@ int PC::lookForSexyMonsters() {
       done = true;
     }
     if(userPressed == 'Q') {
-      teleportTo = coord;
       done = true;
     }
   } while(!done);
-
+  printMonsterInfo(teleportTo);
   return 0;
+}
+
+void PC::printMonsterInfo(Coordinate loc) {
+  clearBottomArea();
+  if(dun->charMap[loc.y][loc.x] && (loc.y != coord.y || loc.x != coord.x)) {
+    string lineOne = "Designation: ";
+    lineOne += dun->charMap[loc.y][loc.x]->name;
+    turnOnColorPair(dun->charMap[loc.y][loc.x]->colors[0]);
+    drawString({22, 0}, (char*)lineOne.c_str());
+    drawCharacter({loc.y + 1, loc.x}, dun->charMap[loc.y][loc.x]->symbol);
+    turnOffColorPair(dun->charMap[loc.y][loc.x]->colors[0]);
+    drawString({23,0}, (char*)dun->charMap[loc.y][loc.x]->description.c_str());
+  }
 }
 
 void PC::updateCurrentStats() {

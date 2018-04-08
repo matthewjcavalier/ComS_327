@@ -93,12 +93,9 @@ int clearMessageArea() {
 
 int clearBottomArea() {
   string line = ("                                                                                          ");
-  drawString({22, 0}, (char*)line.c_str());
-  drawString({23, 0}, (char*)line.c_str());
-  drawString({24, 0}, (char*)line.c_str());
-  drawString({25, 0}, (char*)line.c_str());
-  drawString({26, 0}, (char*)line.c_str());
-  drawString({27, 0}, (char*)line.c_str());
+  for(int i = 0; i < 50; i++) {
+    drawString({22 + i, 0}, (char*)line.c_str());
+  }
   return 0;
 }
 

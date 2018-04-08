@@ -30,6 +30,10 @@
   #define OBJECT_H
   #include "object.h"
 #endif
+#ifndef TYPEINFO
+  #define TYPEINFO 
+  #include <typeinfo>
+#endif
 
 #define PC_INVENTORY_SIZE 10
 #define PC_EQUIP_SLOTS 12
@@ -132,6 +136,7 @@ class PC : public Character {
     int deleteItem(int index);
     int showItemDescription(int index);
     bool isWithinSight(Coordinate coord);
+    void printMonsterInfo(Coordinate loc);
 };
 
 class NPC : public Character {
