@@ -110,7 +110,7 @@ void runGame(Dungeon& dun) {
         turnQueue.push(monst);
       }
     }
-    if(turnQueue.size() == 1) {
+    if(pc->hasKilledBoss) {
       gameOver = true;
       scrTearDown();
       cout << "YOU WIN" << endl;

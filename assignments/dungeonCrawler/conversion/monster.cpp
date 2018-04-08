@@ -67,8 +67,18 @@ void monsterFactory::buildMonster(monsterDesc desc, NPC* monster, int currentEve
     monster->pc = pc;
     monster->type = genType(desc.abilities);
     monster->setTurnLogic();
+    monster->isBossMonster = isThisABoss(desc.abilities);
 
     dun->updateSpace(monster->coord, monster);
+}
+
+bool isThisABoss(vector<string> abil) {
+    for(string desc : abil) {
+        if(desc.compare("BOSS") == 0) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**

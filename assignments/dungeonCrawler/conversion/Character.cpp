@@ -95,7 +95,8 @@ int NPC::moveTo(Coordinate to) {
   NPC* otherMonster = NULL;
   if(dun->charMap[to.y][to.x]) {
     if(to.y == pc->coord.y && to.x == pc->coord.x) {
-      foundId = attack(pc);
+      foundId = attack(this->ad, this->adBuff, pc);
+      to = coord;
     } else {
       otherMonster = (NPC*)dun->charMap[to.y][to.x];
     }
@@ -121,9 +122,9 @@ int Character::getCharacterId(Coordinate loc) {
   return 0;
 }
 
-int Character::attack(Character* defender) {
-  defender->hp -= rollDice(this->ad) + adBuff;
-  if(defender->hp < 0) {
+int Character::attack(rollUp attackerAD, int attackerADbuff, Character* defender) {
+  defender->hp -= rollDice(attackerAD) + attackerADbuff;
+  if(defender->hp <= 0) {
     if(defender->isBossMonster) {
       killed_boss = true;
     }
@@ -143,6 +144,7 @@ int Character::attack(Character* defender) {
  */
 PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   symbol = '@';
+  hasKilledBoss = false;
   this->colors.push_back("WHITE");
   this->coord = coord;
   this->baseSpeed = speed;
@@ -150,7 +152,8 @@ PC::PC(int id, Coordinate coord, int speed, Dungeon* dun, int nextEventTime) {
   this->dun = dun;
   this->nextEventTime = nextEventTime;
   this->id = id;
-  this->ad = {0,1,4};
+  this->hp = 10;
+  this->ad = {0,4,1};
   this->adBuff = 0;
   dun->updateSpace(coord, this);
   setupDunMap();
@@ -1053,7 +1056,10 @@ movementResDTO PC::tryToMove(Coordinate to) {
   if(dun->isOpenSpace(to)) {
     dun->updateSpace(coord, NULL);
     if(dun->charMap[to.y][to.x]) {
-      res.killed = attack(dun->charMap[to.y][to.x]);
+      res.killed = attack(this->ad, this->adBuff, dun->charMap[to.y][to.x]);
+      if(killed_boss) {
+        hasKilledBoss = true;
+      }
     }
     if(res.killed != 0 || !dun->charMap[to.y][to.x]) {
       coord = to;

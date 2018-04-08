@@ -38,3 +38,4 @@ class monsterFactory {
 
 char genType(vector<string> abilities);
 int rollDice(rollUp fruit);
+bool isThisABoss(vector<string> abil);

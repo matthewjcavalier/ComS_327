@@ -89,12 +89,13 @@ class Character {
     virtual int takeTurn();
     
     int getCharacterId(Coordinate loc);
-    int attack(Character* defender);
+    int attack(rollUp attackerAD, int attackerADbuff, Character* defender);
 };
 
 class PC : public Character {
   public:
     int baseSpeed;
+    bool hasKilledBoss;
     object* inventory[PC_INVENTORY_SIZE];
     object* equipped[PC_EQUIP_SLOTS];
     vector<vector<TileType>> dunMap;
