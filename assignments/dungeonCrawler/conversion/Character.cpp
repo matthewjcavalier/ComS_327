@@ -91,9 +91,17 @@ int NPC::moveToward(Coordinate moveingTo) {
  * @return int the id of the character killed during the movement, 0 for no character found
  */
 int NPC::moveTo(Coordinate to) {
-  int foundId = getCharacterId(to);
+  int foundId = 0;
+  NPC* otherMonster = NULL;
+  if(dun->charMap[to.y][to.x]) {
+    if(to.y == pc->coord.y && to.x == pc->coord.x) {
+      foundId = attack(pc);
+    } else {
+      otherMonster = (NPC*)dun->charMap[to.y][to.x];
+    }
+  }
   if(dun->isOpenSpace(coord)) {
-    dun->updateSpace(coord, NULL);
+    dun->updateSpace(coord, otherMonster);
     coord = to;
     dun->updateSpace(coord, this);
   }
