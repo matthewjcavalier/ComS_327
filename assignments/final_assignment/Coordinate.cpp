@@ -1,5 +1,9 @@
 #include "Coordinate.hh"
 
+Coordinate::Coordinate(Coordinate* loc) {
+    Coordinate(loc->y, loc->x);
+}
+
 Coordinate::Coordinate(int y, int x) {
     this->y = y;
     this->x = x;

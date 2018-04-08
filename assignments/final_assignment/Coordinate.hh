@@ -2,6 +2,7 @@
 class Coordinate {
     public:
         Coordinate(int y, int x);
+        Coordinate(Coordinate* loc);
         int getX();
         int getY();
         void setX(int x);
