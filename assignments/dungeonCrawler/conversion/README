@@ -1,38 +1,59 @@
 Compliance:
 
-    This iteration of the dungeon project has all of the specified
-    functionality implemented. Based upon the monster description and
-    object description files, monsters and objects generated and are 
-    placed into the dungeon. When the PC can see a monster or object
-    the monster or object is colored properly. Finally, if an artifact
-    is created, only one is ever created, even when the PC moves between
-    floors.
+    This final iteration of the dungeon project complies
+    with the specification given. It includes the new 
+    commands for the player to use (NOTE: the teleport
+    command has had it's key changed over to the 'g' key
+    for startup, still uses 't' and 'r' like before though
+    when in the targeting mode). Also, comabat has been 
+    updated so that characters don't die in one hit (unless
+    one of them is really overpowered). Finally, the game 
+    ends in a loss if the player is killed, and ends in a 
+    win if the player kills a boss monster.
 
 Functions:
 
-    turnOnColorPair and turnOffColorPair        (see screen.cpp)
+    Character::attack       (see Character.cpp)
+        This function is where the combat happens
+        in regards to the damage that one character 
+        inflicts on another
 
-        respectively turns on and turns off the input color for
-        drawing to screen
+    PC::checkPockets        (see Character.cpp)
+        This function lists out the items that
+        are in the player's inventory
+    
+    PC::putOnButtKickingOutfit  (see Character.cpp)
+        This function allows the player to choose
+        to equip items from the inventory
 
-    buildMonsters                               (see monster.cpp)
+    PC::getMoreNaked        (see Character.cpp)
+        This function prompts the player to choose
+        which equipped item they would like to unequip,
+        if their inventory is full the item goes on
+        the floor
 
-        factory method that builds monsters
+    PC::dropItLikeItsHot    (see Character.cpp)
+        This method allows the player to drop an item
+        in their inventory
 
-    buildObjects                                (see object.cpp)
+    PC::destroyItem         (see Character.cpp)
+        This method allows the player to completely
+        destroy an item
+    
+    PC::inspectItem         (see Character.cpp)
+        This method shows the player more info about
+        a selected item
+    
+    PC::lookForSexyMonsters (see Character.cpp)
+        This method sends the player into a targeting
+        mode in which they can view the information
+        about a monster that is within their sight
+        radius
 
-        factory method that builds objectd
- 
 Data structures:
 
-    No new data structures
-  
+    No New Data structures
+
 File Names:
-  
-    monster.cpp     is the cpp source file where the monster factory is
-
-    monster.h       is the header file for monster.cpp
-
-    object.cpp      is the cpp source file where the object factory is
-
-    object.h        is the header file for object.cpp
+    
+    No New Files

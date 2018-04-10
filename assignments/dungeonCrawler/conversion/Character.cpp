@@ -195,10 +195,9 @@ int PC::takeTurn() {
         clearMessageArea();
       }
     }
-    // wear command
     if(userPressed == 'w') {
       checkPockets();
-      putOnAssKickingOutfit();
+      putOnButtKickingOutfit();
       clearMessageArea();
     }
     if(userPressed == 't') {
@@ -301,7 +300,7 @@ int PC::takeTurn() {
  * 
  * @return int 
  */
-int PC::putOnAssKickingOutfit() {
+int PC::putOnButtKickingOutfit() {
   int userPressed;
   bool cmdNotComplete = true;
   printMessage("Which item from your bag do you want to equip? Enter in val 0-9");
@@ -810,7 +809,8 @@ bool PC::isWithinSight(Coordinate to) {
 }
 
 /**
- * @brief 
+ * @brief look at any monster in the PC's sight radius and
+ *        print info on that monster to screen
  * 
  * @return int 
  */

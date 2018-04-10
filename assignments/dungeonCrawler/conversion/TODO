@@ -1,4 +1,0 @@
-7)  NPC's don't attack each other, instead when moving to occupied cell push
-    monster in occupied cell out of the way
-9)  The game ends in a win if the PC kills a NPC with the BOSS flag, not when the dungeon
-    is empty of NPC's

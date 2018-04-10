@@ -120,7 +120,7 @@ class PC : public Character {
     bool isInventoryFull();
     void addToInventory(object* objPtr);
     void updateCurrentStats();
-    int putOnAssKickingOutfit();
+    int putOnButtKickingOutfit();
     int getMoreNaked();
     int dropItLikeItsHot();
     int destroyItem();
