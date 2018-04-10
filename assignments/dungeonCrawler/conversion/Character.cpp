@@ -184,7 +184,7 @@ int PC::takeTurn() {
       if(userPressed == 'f') {
         dun->draw();
       }
-      if(userPressed == 'T') {
+      if(userPressed == 'g') {
         printMessage("Now in targeting mode");
         res.killed = startTeleportMode();
         tryToMove(coord);
@@ -192,33 +192,42 @@ int PC::takeTurn() {
         clearMessageArea();
         drawDunMap();
         res.success = true;
+        clearMessageArea();
       }
     }
     // wear command
     if(userPressed == 'w') {
       checkPockets();
       putOnAssKickingOutfit();
+      clearMessageArea();
     }
     if(userPressed == 't') {
       getMoreNaked();
+      clearMessageArea();
     }
     if(userPressed == 'd') {
       dropItLikeItsHot();
+      clearMessageArea();
     }
     if(userPressed == 'x') {
       destroyItem();
+      clearMessageArea();
     }
     if(userPressed == 'i') {
       checkPockets();
+      clearMessageArea();
     }
     if(userPressed == 'e') {
       waitWhatAmIWearing();
+      clearMessageArea();
     }
     if(userPressed == 'I') {
       inspectItem();
+      clearMessageArea();
     }
     if(userPressed == 'L') {
       lookForSexyMonsters();
+      clearMessageArea();
     }
     // move up left
     if(userPressed == '7' || userPressed == 'y') {
@@ -313,7 +322,7 @@ int PC::putOnAssKickingOutfit() {
         tryToEquipItem(userPressed - '0');
         cmdNotComplete = false;
         break;
-      case 'Q':
+      case 27:
         cmdNotComplete = false;
         break;
     }
@@ -427,7 +436,7 @@ int PC::getMoreNaked() {
         tryToTakeOff(userPressed - 'a');
         cmdNotComplete = false;
         break;
-      case 'Q':
+      case 27:
         cmdNotComplete = false;
         break;
     }
@@ -549,7 +558,7 @@ int PC::dropItLikeItsHot() {
         tryToDropItem(userPressed - '0');
         cmdNotComplete = false;
         break;
-      case 'Q':
+      case 27:
         cmdNotComplete = false;
         break;
     }
@@ -596,7 +605,7 @@ int PC::destroyItem() {
         deleteItem(userPressed - '0');
         cmdNotComplete = false;
         break;
-      case 'Q':
+      case 27:
         cmdNotComplete = false;
         break;
     }
@@ -778,7 +787,7 @@ int PC::inspectItem() {
         showItemDescription(userPressed - '0');
         cmdNotComplete = false;
         break;
-      case 'Q':
+      case 27:
         cmdNotComplete = false;
         break;
     }
@@ -810,6 +819,7 @@ int PC::lookForSexyMonsters() {
   Coordinate teleportTo = coord;
   drawCharacter({teleportTo.y + 1, teleportTo.x}, TELEPORT_CHAR);
   bool done = false;
+  bool doIt = false;
   do {
     userPressed = getch();
     // move up left
@@ -882,12 +892,15 @@ int PC::lookForSexyMonsters() {
     }
     if(userPressed == 't') {
       done = true;
+      doIt = true;
     }
-    if(userPressed == 'Q') {
+    if(userPressed == 27) {
       done = true;
     }
   } while(!done);
-  printMonsterInfo(teleportTo);
+  if(doIt) {
+    printMonsterInfo(teleportTo);
+  }
   return 0;
 }
 
