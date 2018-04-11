@@ -1,3 +1,15 @@
+commit 8a8a8aebc637a99d2abdc8d3da62ddf2103cbe92
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Apr 10 12:24:51 2018 -0500
+
+    updated makefile
+
+commit 9e748c986e856e30deacdcba6a30678fdd7949d8
+Author: Matt Cavalier <matthewjcavalier@gmail.com>
+Date:   Tue Apr 10 12:21:32 2018 -0500
+
+    testing on pyrite
+
 commit 8e468ff10ca389a9f61fd65967a584bd3de0cfb6
 Author: Matt Cavalier <matthewjcavalier@gmail.com>
 Date:   Tue Apr 10 12:18:08 2018 -0500
