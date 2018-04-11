@@ -55,7 +55,13 @@ bool GameScreen::isInScreenArea(Coordinate* loc) {
 void GameScreen::drawScreen() {
     for(int y = 0; y < getHeight() + 1; y++) {
         for(int x = 0; x < getWidth() + 1; x++) {
-            if(y == 0 || y == getHeight() || x == 0 || x == getWidth()) {
+            if(x==0 || y==0) {
+                if(x==0)
+                    drawCharacter(new Coordinate(y,0),  '0' + y%10);
+                else
+                    drawCharacter(new Coordinate(0,x),  '0' + x%10);
+            }
+            else if(y == 0 || y == getHeight() || x == 0 || x == getWidth()) {
                 attron(COLOR_PAIR(BORDER));
                 drawCharacter(new Coordinate(y,x), 'O');
                 attroff(COLOR_PAIR(BORDER));

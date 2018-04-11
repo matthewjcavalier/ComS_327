@@ -7,8 +7,8 @@ int main(int argc, char* argv[]) {
     Coordinate appleLoc;
     srand(time(NULL));
 
-    appleLoc.setX(rand() % width);
-    appleLoc.setY(rand() % height);
+    appleLoc.setX(rand() % width - 1);
+    appleLoc.setY(rand() % height - 1);
 
     GameScreen* screen = GameScreen::Instance();
     screen->setHeight(height);
