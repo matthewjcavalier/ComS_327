@@ -2,10 +2,13 @@
 #include <iostream>
 using namespace std;
 
+#define HEIGHT 30
+#define WIDTH 80
+
 GameScreen* GameScreen::_instance = 0;
 GameScreen* GameScreen::Instance() {
     if(_instance == 0) {
-        _instance = new GameScreen(0,0);
+        _instance = new GameScreen(HEIGHT,WIDTH);
     }
     return _instance;
 }
@@ -13,6 +16,9 @@ GameScreen* GameScreen::Instance() {
 GameScreen::GameScreen(int height, int width) {
     this->height = height;
     this->width = width;
+
+    appleLoc.setX(rand() % width - 1);
+    appleLoc.setY(rand() % height - 1);
 
     initscr();
     noecho();
@@ -24,14 +30,6 @@ GameScreen::GameScreen(int height, int width) {
 
 GameScreen::~GameScreen() {
     endwin();
-}
-
-void GameScreen::setWidth(int width) {
-    this->width = width;
-}
-
-void GameScreen::setHeight(int height) {
-    this->height = height;
 }
 
 int GameScreen::getHeight() {
@@ -72,12 +70,25 @@ void GameScreen::drawScreen() {
             }
         }
     }
+    drawApple();
     refresh();
 }
 
 void GameScreen::drawCharacter(Coordinate* loc, char c) {
     move(loc->getY(), loc->getX());
     addch(c);
+}
+
+void GameScreen::drawApple() {
+    attron(COLOR_PAIR(APPLE));
+    drawCharacter(&appleLoc, '_');
+    attroff(COLOR_PAIR(APPLE));
+}
+
+void GameScreen::drawEmpty(Coordinate loc) {
+    attron(COLOR_PAIR(EMPTY));
+    drawCharacter(&loc, '_');
+    attroff(COLOR_PAIR(EMPTY));
 }
 
 void GameScreen::setupColors() {

@@ -19,18 +19,20 @@ class GameScreen {
         static GameScreen* Instance();
         int getWidth();
         int getHeight();
-        void setWidth(int width);
-        void setHeight(int height);
         bool isInScreenArea(Coordinate loc);
         bool isInScreenArea(Coordinate* loc);
         void drawScreen();
         void drawCharacter(Coordinate* loc, char c);
+        void drawEmpty(Coordinate loc);
+        void drawApple();
+        Coordinate getAppleLoc();
     protected:
         GameScreen(int height, int width);
         ~GameScreen();
     private:
         int height;
         int width; 
+        Coordinate appleLoc;
         static GameScreen* _instance;
         void setupColors();
 };
