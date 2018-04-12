@@ -2,8 +2,10 @@
 
 Snake::Snake(Coordinate head) {
     length = 1;
-    direction = UP;
-    segments.push_back(head);
+    direction = RIGHT;
+    for(int i = 0; i < 3; i++) {
+        segments.push_back(head);
+    }
     draw();
 }
 
@@ -46,11 +48,26 @@ int Snake::moveForward() {
                 segments.insert(segments.begin(), newHead);
             }
             break;
+
         case DOWN:
+            if(true) {
+                Coordinate newHead(head.getY() + 1, head.getX());
+                segments.insert(segments.begin(), newHead);
+            }
             break;
+
         case LEFT:
+            if(true) {
+                Coordinate newHead(head.getY(), head.getX() - 1);
+                segments.insert(segments.begin(), newHead);
+            }
+
             break;
         case RIGHT:
+            if(true) {
+                Coordinate newHead(head.getY(), head.getX() + 1);
+                segments.insert(segments.begin(), newHead);
+            }
             break;
     }
     draw();

@@ -22,7 +22,10 @@
     #define CHRONO
     #include <chrono>
 #endif
+#include <stdio.h>
 
 using namespace std::chrono;
 
 long getCurrentMilliseconds();
+
+void setSnakeDir(int userChar, Snake& snake);

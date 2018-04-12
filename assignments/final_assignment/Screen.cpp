@@ -21,7 +21,6 @@ GameScreen::GameScreen(int height, int width) {
     appleLoc.setY(rand() % height - 1);
 
     initscr();
-    noecho();
     timeout(0);
     curs_set(FALSE);
     start_color();

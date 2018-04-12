@@ -4,6 +4,9 @@ CFLAGS=-g -Wall -Werror -std=c++11
 
 all: clean Snake
 
+run: all
+	./Snake
+
 Snake: Game.o Coordinate.o Screen.o Snake.cpp
 	$(CC) $(CFLAGS) Game.o Coordinate.o Screen.o Snake.cpp -o Snake -lncurses
 
