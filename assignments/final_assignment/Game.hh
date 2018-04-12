@@ -14,5 +14,15 @@
     #define TIME_H
     #include <time.h>
 #endif
+#ifndef SNAKE_HH
+    #define SNAKE_HH
+    #include "Snake.hh"
+#endif
+#ifndef CHRONO
+    #define CHRONO
+    #include <chrono>
+#endif
 
-void placeApple(Coordinate loc);
+using namespace std::chrono;
+
+long getCurrentMilliseconds();

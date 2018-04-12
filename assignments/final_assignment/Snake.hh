@@ -28,6 +28,8 @@ class Snake {
         Coordinate getSegment(int index);
         void setDirection(char direction);
         int moveForward();
+        void draw();
+        Coordinate getHead();
     private:
         int length;
         char direction;
