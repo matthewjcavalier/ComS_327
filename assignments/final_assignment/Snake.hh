@@ -10,6 +10,10 @@
     #define SCREEN_HH
     #include "Screen.hh"
 #endif
+#ifndef STDLIB_H
+    #define STDLIB_H
+    #include <stdlib.h>
+#endif
 
 using namespace std;
 
@@ -27,6 +31,7 @@ class Snake {
         vector<Coordinate> getSegments();
         Coordinate getSegment(int index);
         void setDirection(char direction);
+        char getDirection();
         int moveForward();
         void draw();
         Coordinate getHead();
@@ -34,4 +39,8 @@ class Snake {
         int length;
         char direction;
         vector<Coordinate> segments;
+        bool canMoveTo(Coordinate loc);
+        bool isOccupied(Coordinate loc);
+        void tryToEatApple(Coordinate loc);
+        Coordinate getNewLoc();
 };

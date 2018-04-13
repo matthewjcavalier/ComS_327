@@ -3,7 +3,7 @@
 Snake::Snake(Coordinate head) {
     length = 1;
     direction = RIGHT;
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 9; i++) {
         segments.push_back(head);
     }
     draw();
@@ -35,6 +35,10 @@ void Snake::setDirection(char direction) {
     this->direction = direction;
 }
 
+char Snake::getDirection() {
+    return direction;
+}
+
 int Snake::moveForward() {
     GameScreen* sc = GameScreen::Instance();
     Coordinate head = getHead();
@@ -42,38 +46,91 @@ int Snake::moveForward() {
     segments.pop_back();
 
     switch(direction) {
-        case UP:
-            if(true) {
-                Coordinate newHead(head.getY() - 1, head.getX());
+        case UP: {
+            Coordinate newHead(head.getY() - 1, head.getX());
+            if(canMoveTo(newHead)) {
+                tryToEatApple(newHead);
                 segments.insert(segments.begin(), newHead);
+            } else {
+                return 1;
             }
             break;
-
-        case DOWN:
-            if(true) {
-                Coordinate newHead(head.getY() + 1, head.getX());
+        }
+        case DOWN: {
+            Coordinate newHead(head.getY() + 1, head.getX());
+            if(canMoveTo(newHead)) {
+                tryToEatApple(newHead);
                 segments.insert(segments.begin(), newHead);
+            } else {
+                return 1;
             }
             break;
-
-        case LEFT:
-            if(true) {
-                Coordinate newHead(head.getY(), head.getX() - 1);
+        }
+        case LEFT: {
+            Coordinate newHead(head.getY(), head.getX() - 1);
+            if(canMoveTo(newHead)) {
+                tryToEatApple(newHead);
                 segments.insert(segments.begin(), newHead);
-            }
-
-            break;
-        case RIGHT:
-            if(true) {
-                Coordinate newHead(head.getY(), head.getX() + 1);
-                segments.insert(segments.begin(), newHead);
+            } else {
+                return 1;
             }
             break;
+        }
+        case RIGHT: {
+            Coordinate newHead(head.getY(), head.getX() + 1);
+            if(canMoveTo(newHead)) {
+                tryToEatApple(newHead);
+                segments.insert(segments.begin(), newHead);
+            } else {
+                return 1;
+            }
+            break;
+        }
     }
     draw();
     return 0;
 }
 
+void Snake::tryToEatApple(Coordinate loc) {
+    GameScreen* gs = GameScreen::Instance();
+    if(loc == gs->getAppleLoc()) {
+        segments.push_back(loc);
+        gs->setAppleLoc(getNewLoc());
+        gs->drawApple();
+        refresh();
+    }
+}
+
+//TODO fix eating apple from top in current seed for first apple
+
+Coordinate Snake::getNewLoc() {
+    Coordinate loc;
+    GameScreen* gs = GameScreen::Instance();
+    bool inArea;
+    bool isOCC;
+    do {
+        loc.setX(rand() % gs->getHeight() - 1);
+        loc.setY(rand() % gs->getWidth() -1);
+        inArea = gs->isInScreenArea(loc);
+        isOCC = isOccupied(loc);
+    } while(!inArea && !isOCC);
+    return loc;
+}
+
 Coordinate Snake::getHead() {
     return segments.front();
+}
+
+bool Snake::canMoveTo(Coordinate loc) {
+    GameScreen* sc = GameScreen::Instance();
+    return sc->isInScreenArea(loc) && !isOccupied(loc);
+}
+
+bool Snake::isOccupied(Coordinate loc) {
+    for(auto segment : segments) {
+        if(segment == loc) {
+            return true;
+        }
+    }
+    return false;
 }

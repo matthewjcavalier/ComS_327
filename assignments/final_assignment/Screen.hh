@@ -26,9 +26,10 @@ class GameScreen {
         void drawEmpty(Coordinate loc);
         void drawApple();
         Coordinate getAppleLoc();
+        void setAppleLoc(Coordinate loc);
+        ~GameScreen();
     protected:
         GameScreen(int height, int width);
-        ~GameScreen();
     private:
         int height;
         int width; 

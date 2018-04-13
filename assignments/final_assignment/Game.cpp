@@ -1,10 +1,11 @@
 #include "Game.hh"
 
-#define TIME_BETWEEN 250
+#define TIME_BETWEEN 100
 
 int main(int argc, char* argv[]) {
     bool gameOver = false;
-    srand(time(NULL));
+    //srand(time(NULL));
+    srand(1);
     int userChar;
     long prevTime;
     long currTime;
@@ -21,26 +22,38 @@ int main(int argc, char* argv[]) {
         setSnakeDir(userChar, snake);
         currTime = getCurrentMilliseconds();
         if(currTime - prevTime > TIME_BETWEEN) {
-            snake.moveForward();
+            if(snake.moveForward()) {
+                gameOver = true;
+            }
             prevTime = currTime;
         }
     }
+    delete screen;
     return 0;
 }
 
 void setSnakeDir(int userChar, Snake& snake) {
     switch(userChar) {
         case 'w':
-            snake.setDirection(UP);
+            if(snake.getDirection() != DOWN) {
+                snake.setDirection(UP);
+            }
             break;
         case 'a':
-            snake.setDirection(LEFT);
+            if(snake.getDirection() != RIGHT) {
+                snake.setDirection(LEFT);
+            }
             break;
         case 's':
-            snake.setDirection(DOWN);
+
+            if(snake.getDirection() != UP) {
+                snake.setDirection(DOWN);
+            }
             break;
         case 'd':
-            snake.setDirection(RIGHT);
+            if(snake.getDirection() != LEFT) {
+                snake.setDirection(RIGHT);
+            }
             break;
     }
 }

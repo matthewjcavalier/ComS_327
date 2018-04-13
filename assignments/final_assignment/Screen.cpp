@@ -16,9 +16,10 @@ GameScreen* GameScreen::Instance() {
 GameScreen::GameScreen(int height, int width) {
     this->height = height;
     this->width = width;
-
-    appleLoc.setX(rand() % width - 1);
-    appleLoc.setY(rand() % height - 1);
+    do {
+        appleLoc.setX(rand() % width - 1);
+        appleLoc.setY(rand() % height - 1);
+    } while(!isInScreenArea(appleLoc));
 
     initscr();
     timeout(0);
@@ -40,8 +41,9 @@ int GameScreen::getWidth() {
 }
 
 bool GameScreen::isInScreenArea(Coordinate loc) {
-    return (loc.getX() >= 0) && (loc.getX() < width) &&
-           (loc.getY() >= 0) && (loc.getY() < height);
+    bool ret = (loc.getX() >= 0) && (loc.getX() < width - 1) &&
+           (loc.getY() >= 0) && (loc.getY() < height - 1);
+    return ret;
 }
 
 bool GameScreen::isInScreenArea(Coordinate* loc) {
@@ -54,9 +56,9 @@ void GameScreen::drawScreen() {
         for(int x = 0; x < getWidth() + 1; x++) {
             if(x==0 || y==0) {
                 if(x==0)
-                    drawCharacter(new Coordinate(y,0),  '0' + y%10);
+                    drawCharacter(new Coordinate(y,0),  '0' + (y-1)%10);
                 else
-                    drawCharacter(new Coordinate(0,x),  '0' + x%10);
+                    drawCharacter(new Coordinate(0,x),  '0' + (x-1)%10);
             }
             else if(y == 0 || y == getHeight() || x == 0 || x == getWidth()) {
                 attron(COLOR_PAIR(BORDER));
@@ -80,8 +82,16 @@ void GameScreen::drawCharacter(Coordinate* loc, char c) {
 
 void GameScreen::drawApple() {
     attron(COLOR_PAIR(APPLE));
-    drawCharacter(&appleLoc, '_');
+    drawCharacter(new Coordinate(appleLoc.getY() + 1, appleLoc.getX() + 1), '_');
     attroff(COLOR_PAIR(APPLE));
+}
+
+Coordinate GameScreen::getAppleLoc() {
+    return appleLoc;
+}
+
+void GameScreen::setAppleLoc(Coordinate loc) {
+    appleLoc = loc;
 }
 
 void GameScreen::drawEmpty(Coordinate loc) {
