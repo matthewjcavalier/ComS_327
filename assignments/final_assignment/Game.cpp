@@ -4,19 +4,19 @@
 
 int main(int argc, char* argv[]) {
     bool gameOver = false;
-    //srand(time(NULL));
-    srand(1);
     int userChar;
     long prevTime;
     long currTime;
     char lastDirMoved;
-//    int score;
+    srand(time(NULL));
+
     screenSetup();
+    StartScreen startSc;
+    startSc.startUpRoutine();
     GameScreen* screen = GameScreen::Instance(20,20);
     screen->drawScreen();
 
     Snake snake({screen->getHeight() / 2, screen->getWidth() / 2});
-//    score = snake.getLength() * 150;
 
     prevTime = getCurrentMilliseconds();
     lastDirMoved = snake.getDirection();
@@ -37,28 +37,32 @@ int main(int argc, char* argv[]) {
 }
 
 void setSnakeDir(int userChar, Snake& snake, char lastDirMoved) {
-    switch(userChar) {
-        case 'w':
-            if(snake.getDirection() != DOWN && lastDirMoved != DOWN) {
-                snake.setDirection(UP);
-            }
-            break;
-        case 'a':
-            if(snake.getDirection() != RIGHT && lastDirMoved != RIGHT) {
-                snake.setDirection(LEFT);
-            }
-            break;
-        case 's':
+    if(userChar == '\033') {
+        char tmp = getch();
+        tmp = getch();
+        switch(tmp) {
+            case 'A':
+                if(snake.getDirection() != DOWN && lastDirMoved != DOWN) {
+                    snake.setDirection(UP);
+                }
+                break;
+            case 'D':
+                if(snake.getDirection() != RIGHT && lastDirMoved != RIGHT) {
+                    snake.setDirection(LEFT);
+                }
+                break;
+            case 'B':
 
-            if(snake.getDirection() != UP && lastDirMoved != UP) {
-                snake.setDirection(DOWN);
-            }
-            break;
-        case 'd':
-            if(snake.getDirection() != LEFT && lastDirMoved != LEFT) {
-                snake.setDirection(RIGHT);
-            }
-            break;
+                if(snake.getDirection() != UP && lastDirMoved != UP) {
+                    snake.setDirection(DOWN);
+                }
+                break;
+            case 'C':
+                if(snake.getDirection() != LEFT && lastDirMoved != LEFT) {
+                    snake.setDirection(RIGHT);
+                }
+                break;
+        }
     }
 }
 
