@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 
     Snake snake({screen->getHeight() / 2, screen->getWidth() / 2});
 
-    sleep(3);
+    sleep(1);
 
     prevTime = getCurrentMilliseconds();
     lastDirMoved = snake.getDirection();
