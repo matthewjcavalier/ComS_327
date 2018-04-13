@@ -30,10 +30,23 @@ enum colorTypes{
     BUTTON_TEXT
 };
 
+enum Screens {
+    WELCOME,
+    SETTINGS
+};
+
+enum ScreenSizeTypes{
+    SCR_SMALL,
+    SCR_MEDIUM,
+    SCR_LARGE,
+    SCR_INSANE
+};
+
 class Settings {
     public:
         int playAreaWidth;
         int playAreaHeight;
+        char type;
         Settings();
 };
 
@@ -65,8 +78,9 @@ class StartScreen {
         Settings settings;
         void setUpWelcomeScreen();
         void setUpSettingsScreen();
-        void drawInitialScreen();
+        void drawScreen(char index);
         void runSettingsRoutine();
+        void cycleThroughSizeOptions();
 };
 
 class GameScreen {

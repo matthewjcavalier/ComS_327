@@ -8,8 +8,10 @@ int _screen_width;
 int _screen_height;
 
 Settings::Settings() {
-    playAreaWidth = 80;
-    playAreaHeight = 30;
+    float sizeFactor = 0.15;
+    playAreaHeight = (int) _screen_height * sizeFactor;
+    playAreaWidth = (int) _screen_width * sizeFactor;
+    type = SCR_SMALL;
 }
 
 void Widget::draw() {
@@ -62,6 +64,13 @@ void Button::drawSelected() {
 }
 
 StartScreen::StartScreen() {
+    setUpWelcomeScreen();
+    setUpSettingsScreen();
+    drawScreen(WELCOME);
+    refresh();
+}
+
+void StartScreen::setUpWelcomeScreen() {
     Widget* widget = new Widget();
 
     widget->height = 10;
@@ -88,13 +97,39 @@ StartScreen::StartScreen() {
     widget->buttons.push_back(b);
 
     widgets.push_back(widget);
-
-    drawInitialScreen();
-    refresh();
 }
 
-void StartScreen::drawInitialScreen() {
-        widgets[0]->draw();
+void StartScreen::setUpSettingsScreen() {
+    Widget* widget = new Widget();
+    widget->height = 10;
+    widget-> width = 20;
+    widget->coord.setY((_screen_height - widget->height)/2);
+    widget->coord.setX((_screen_width - widget->width) / 2);
+
+    Button* b = new Button();
+    b->text = "Back";
+    b->width = b->text.length() + 2;
+    b->height = 3;
+    b->coord.setY(widget->coord.getY() + 1);
+    b->coord.setX((widget->coord.getX() + (widget->width - b->width) / 2));
+
+    widget->buttons.push_back(b);
+
+    b = new Button();
+    b->text = "Size: Small";
+    b->width = b->text.length() + 2;
+    b->height = 3;
+    b->coord.setY(widget->coord.getY() + widget->height - b->height);
+    b->coord.setX((widget->coord.getX() + (widget->width - b->width) / 2));
+
+    widget->buttons.push_back(b);
+
+    widgets.push_back(widget);
+}
+
+void StartScreen::drawScreen(char index) {
+    clearScreen();
+    widgets[index]->draw();
 }
 
 Settings StartScreen::startUpRoutine() {
@@ -103,30 +138,100 @@ Settings StartScreen::startUpRoutine() {
     char userPressed;
     while(true) {
         userPressed = getch();
-        if(userPressed == 's' && position < (int)widgets[0]->buttons.size() - 1) {
-            position++;
-            updateHappend = true;
-        } else if(userPressed == 'w' && position > 0) {
-            position--;
-            updateHappend = true;
-        } else if(userPressed == 10) {
+        if(userPressed == '\033') {
+            getch();
+            userPressed = getch();
+            if(userPressed == 'B' && position < (int)widgets[WELCOME]->buttons.size() - 1) {
+                position++;
+                updateHappend = true;
+            } else if(userPressed == 'A' && position > 0) {
+                position--;
+                updateHappend = true;
+            } 
+        }
+        else if(userPressed == 10) {
             if(position == 0) {
+                clearScreen();
                 return settings;
             } else if(position == 1) {
                 runSettingsRoutine();
+                updateHappend = true;
             }
         }
         if(updateHappend) {
-            drawInitialScreen();
+            drawScreen(WELCOME);
             updateHappend = false;
-            widgets[0]->buttons[position]->drawSelected();
+            widgets[WELCOME]->buttons[position]->drawSelected();
         }
     }
 }
 
 void StartScreen::runSettingsRoutine() {
     clearScreen();
-    
+    drawScreen(SETTINGS);
+    char position = 0;
+    bool updateHappend = true;
+    char userPressed;
+    bool notDone = true;
+    while(notDone) {
+        userPressed = getch();
+        if(userPressed == '\033') {
+            getch();
+            userPressed = getch();
+            if(userPressed == 'B' && position < (int)widgets[SETTINGS]->buttons.size() - 1) {
+                position++;
+                updateHappend = true;
+            } else if(userPressed == 'A' && position > 0) {
+                position--;
+                updateHappend = true;
+            } 
+        }
+        else if(userPressed == 10) {
+            if(position == 0) {
+                notDone = false;
+            } else if(position == 1) {
+                cycleThroughSizeOptions();
+                updateHappend = true;
+            }
+        }
+        if(updateHappend) {
+            drawScreen(SETTINGS);
+            updateHappend = false;
+            widgets[SETTINGS]->buttons[position]->drawSelected();
+        }
+    }
+}
+
+void StartScreen::cycleThroughSizeOptions() {
+    double sizeFactor = .15;
+    if(settings.type == SCR_INSANE){
+        settings.type = SCR_SMALL;
+    } else {
+        settings.type++;
+    }
+    Button* b = widgets[SETTINGS]->buttons.back();
+    sizeFactor *= (1 + settings.type);
+    switch(settings.type) {
+        case SCR_SMALL:
+            b->text = "Size: Small";
+            break;
+        case SCR_MEDIUM:
+            b->text = "Size: Medium";
+            break;
+        case SCR_LARGE:
+            b->text = "Size: Large";
+            break;
+        case SCR_INSANE:
+            b->text = "Size: Insane";
+            sizeFactor = 1;
+    }
+    b->width = b->text.length() + 2;
+    b->coord.setX(widgets[SETTINGS]->coord.getX() + (widgets[SETTINGS]->width - b->width) / 2);
+    settings.playAreaHeight = (int) _screen_height * sizeFactor;
+    settings.playAreaWidth = (int) _screen_width * sizeFactor;
+
+    clearScreen();
+    drawScreen(SETTINGS);
 }
 
 GameScreen* GameScreen::_instance = 0;
@@ -258,10 +363,13 @@ int screenSetup() {
 }
 
 void clearScreen() {
+    attron(COLOR_PAIR(BORDER));
     for(int x = 0; x < _screen_width; x++) {
         for(int y = 0; y < _screen_height; y++) {
             move(y,x);
             addch(' ');
         }
     }
+    attroff(COLOR_PAIR(BORDER));
+    refresh();
 }

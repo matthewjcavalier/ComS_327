@@ -22,7 +22,14 @@
     #define CHRONO
     #include <chrono>
 #endif
-#include <stdio.h>
+#ifndef UNISTD_H
+    #define UNISTD_H
+    #include <unistd.h>
+#endif
+#ifndef STDIO_H
+    #define STDIO_H
+    #include <stdio.h>
+#endif
 
 using namespace std::chrono;
 

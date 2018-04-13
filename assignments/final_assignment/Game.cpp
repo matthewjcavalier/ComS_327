@@ -12,11 +12,13 @@ int main(int argc, char* argv[]) {
 
     screenSetup();
     StartScreen startSc;
-    startSc.startUpRoutine();
-    GameScreen* screen = GameScreen::Instance(20,20);
+    Settings s = startSc.startUpRoutine();
+    GameScreen* screen = GameScreen::Instance(s.playAreaHeight, s.playAreaWidth);
     screen->drawScreen();
 
     Snake snake({screen->getHeight() / 2, screen->getWidth() / 2});
+
+    sleep(3);
 
     prevTime = getCurrentMilliseconds();
     lastDirMoved = snake.getDirection();
