@@ -28,4 +28,4 @@ using namespace std::chrono;
 
 long getCurrentMilliseconds();
 
-void setSnakeDir(int userChar, Snake& snake);
+void setSnakeDir(int userChar, Snake& snake, char lastDirMoved);

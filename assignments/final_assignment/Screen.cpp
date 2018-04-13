@@ -1,14 +1,21 @@
 #include "Screen.hh"
 #include <iostream>
+#define SCREEN_DEBUG false
+
 using namespace std;
 
-#define HEIGHT 30
-#define WIDTH 80
 
 GameScreen* GameScreen::_instance = 0;
 GameScreen* GameScreen::Instance() {
     if(_instance == 0) {
-        _instance = new GameScreen(HEIGHT,WIDTH);
+        _instance = new GameScreen(30,80);
+    }
+    return _instance;
+}
+
+GameScreen* GameScreen::Instance(int height, int width) {
+    if(_instance == 0) {
+        _instance = new GameScreen(height, width);
     }
     return _instance;
 }
@@ -24,6 +31,7 @@ GameScreen::GameScreen(int height, int width) {
     initscr();
     timeout(0);
     curs_set(FALSE);
+    noecho();
     start_color();
     setupColors();
 }
@@ -54,11 +62,13 @@ bool GameScreen::isInScreenArea(Coordinate* loc) {
 void GameScreen::drawScreen() {
     for(int y = 0; y < getHeight() + 1; y++) {
         for(int x = 0; x < getWidth() + 1; x++) {
-            if(x==0 || y==0) {
-                if(x==0)
-                    drawCharacter(new Coordinate(y,0),  '0' + (y-1)%10);
-                else
-                    drawCharacter(new Coordinate(0,x),  '0' + (x-1)%10);
+            if(SCREEN_DEBUG) {
+                if(x==0 || y==0) {
+                    if(x==0)
+                        drawCharacter(new Coordinate(y,0),  '0' + (y-1)%10);
+                    else
+                        drawCharacter(new Coordinate(0,x),  '0' + (x-1)%10);
+                }
             }
             else if(y == 0 || y == getHeight() || x == 0 || x == getWidth()) {
                 attron(COLOR_PAIR(BORDER));
@@ -104,5 +114,6 @@ void GameScreen::setupColors() {
     init_pair(EMPTY, COLOR_WHITE, COLOR_WHITE);
     init_pair(BORDER, COLOR_BLACK, COLOR_BLACK);
     init_pair(APPLE, COLOR_RED, COLOR_RED);
-    init_pair(SNAKE, COLOR_GREEN, COLOR_GREEN);
+    init_pair(SNAKE1, COLOR_GREEN, COLOR_BLACK);
+    init_pair(SNAKE2, COLOR_BLACK, COLOR_GREEN);
 }

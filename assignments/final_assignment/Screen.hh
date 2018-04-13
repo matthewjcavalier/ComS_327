@@ -8,7 +8,9 @@
 #endif
 
 enum colorTypes{
-    SNAKE,
+    BLUE,
+    SNAKE1,
+    SNAKE2,
     APPLE,
     BORDER,
     EMPTY
@@ -17,6 +19,7 @@ enum colorTypes{
 class GameScreen {
     public:
         static GameScreen* Instance();
+        static GameScreen* Instance(int height, int width);
         int getWidth();
         int getHeight();
         bool isInScreenArea(Coordinate loc);

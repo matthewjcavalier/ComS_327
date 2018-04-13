@@ -11,11 +11,14 @@ Snake::Snake(Coordinate head) {
 
 void Snake::draw() {
     GameScreen* sc = GameScreen::Instance();
-    attron(COLOR_PAIR(SNAKE));
+    int count = 1;
+
     for(Coordinate segment : segments) {
-        sc->drawCharacter(new Coordinate(segment.getY() + 1, segment.getX() + 1), '_');
+        (count++ % 2 == 0) ? attron(COLOR_PAIR(SNAKE1)) : attron(COLOR_PAIR(SNAKE2));
+        sc->drawCharacter(new Coordinate(segment.getY() + 1, segment.getX() + 1), '#');
+        attroff(COLOR_PAIR(SNAKE1));
+        attroff(COLOR_PAIR(SNAKE2));
     }
-    attroff(COLOR_PAIR(SNAKE));
     refresh();
 }
 
@@ -100,8 +103,6 @@ void Snake::tryToEatApple(Coordinate loc) {
         refresh();
     }
 }
-
-//TODO fix eating apple from top in current seed for first apple
 
 Coordinate Snake::getNewLoc() {
     Coordinate loc;

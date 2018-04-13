@@ -7,8 +7,8 @@ all: clean Snake
 run: all
 	./Snake
 
-Snake: Game.o Coordinate.o Screen.o Snake.cpp
-	$(CC) $(CFLAGS) Game.o Coordinate.o Screen.o Snake.cpp -o Snake -lncurses
+Snake: Game.o Coordinate.o Screen.cpp Snake.cpp
+	$(CC) $(CFLAGS) Game.o Coordinate.o Screen.cpp Snake.cpp -o Snake -lncurses
 
 clean:
 	- rm *.o
