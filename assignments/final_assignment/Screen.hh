@@ -36,7 +36,11 @@ class GameScreen {
     private:
         int height;
         int width; 
+        int v_offset;
+        int h_offset;
         Coordinate appleLoc;
         static GameScreen* _instance;
-        void setupColors();
 };
+
+int screenSetup();
+void setupColors();

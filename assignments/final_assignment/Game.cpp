@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     long currTime;
     char lastDirMoved;
 //    int score;
-
+    screenSetup();
     GameScreen* screen = GameScreen::Instance(20,20);
     screen->drawScreen();
 

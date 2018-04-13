@@ -4,6 +4,8 @@
 
 using namespace std;
 
+int _screen_width;
+int _screen_height;
 
 GameScreen* GameScreen::_instance = 0;
 GameScreen* GameScreen::Instance() {
@@ -27,13 +29,9 @@ GameScreen::GameScreen(int height, int width) {
         appleLoc.setX(rand() % width - 1);
         appleLoc.setY(rand() % height - 1);
     } while(!isInScreenArea(appleLoc));
-
-    initscr();
-    timeout(0);
-    curs_set(FALSE);
-    noecho();
-    start_color();
-    setupColors();
+    v_offset = (_screen_height - height) / 2;
+    h_offset = (_screen_width - width) / 2;
+    screenSetup();
 }
 
 GameScreen::~GameScreen() {
@@ -86,7 +84,7 @@ void GameScreen::drawScreen() {
 }
 
 void GameScreen::drawCharacter(Coordinate* loc, char c) {
-    move(loc->getY(), loc->getX());
+    move(loc->getY() + v_offset, loc->getX() + h_offset);
     addch(c);
 }
 
@@ -110,10 +108,25 @@ void GameScreen::drawEmpty(Coordinate loc) {
     attroff(COLOR_PAIR(EMPTY));
 }
 
-void GameScreen::setupColors() {
+void setupColors() {
     init_pair(EMPTY, COLOR_WHITE, COLOR_WHITE);
     init_pair(BORDER, COLOR_BLACK, COLOR_BLACK);
     init_pair(APPLE, COLOR_RED, COLOR_RED);
     init_pair(SNAKE1, COLOR_GREEN, COLOR_BLACK);
     init_pair(SNAKE2, COLOR_BLACK, COLOR_GREEN);
+}
+
+int screenSetup() {
+    static bool setup = false;
+    if(!setup) {
+        setup = true;
+        WINDOW * win = initscr();
+        timeout(0);
+        curs_set(FALSE);
+        noecho();
+        start_color();
+        setupColors();
+        getmaxyx(win, _screen_height, _screen_width);
+    }
+    return 0;
 }
