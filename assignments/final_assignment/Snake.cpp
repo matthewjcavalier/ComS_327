@@ -106,6 +106,7 @@ void Snake::tryToEatApple(Coordinate loc) {
 Coordinate Snake::getNewLoc() {
     Coordinate loc;
     GameScreen* gs = GameScreen::Instance();
+    bool isPlaced = false;
     bool inArea;
     bool isOCC;
     do {
@@ -113,7 +114,10 @@ Coordinate Snake::getNewLoc() {
         loc.setY(rand() % gs->getWidth() -1);
         inArea = gs->isInScreenArea(loc);
         isOCC = isOccupied(loc);
-    } while(!inArea && !isOCC);
+        if(inArea && !isOCC) {
+            isPlaced = true;
+        }
+    } while(isPlaced == false);
     return loc;
 }
 
