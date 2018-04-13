@@ -4,14 +4,18 @@
 
 using namespace std;
 
+#define SLOWEST_SPEED 100 
+
 int _screen_width;
 int _screen_height;
 
 Settings::Settings() {
-    float sizeFactor = 0.15;
-    playAreaHeight = (int) _screen_height * sizeFactor;
-    playAreaWidth = (int) _screen_width * sizeFactor;
+    float factor = 0.20;
+    playAreaHeight = (int) _screen_height * factor;
+    playAreaWidth = (int) _screen_width * factor;
     type = SCR_SMALL;
+    spdVariant = SPD_LOW;
+    speed = SLOWEST_SPEED - (int) (factor * spdVariant);
 }
 
 void Widget::draw() {
@@ -22,6 +26,21 @@ void Widget::draw() {
         move(coord.getY() + height, x);
         addch(ACS_HLINE);
     }
+    // draw side bounds
+    for(int y = coord.getY(); y < coord.getY() + height; y++) {
+        move(y, coord.getX());
+        addch(ACS_VLINE);
+        move(y, coord.getX() + width);
+        addch(ACS_VLINE);
+    }
+    move(coord.getY(), coord.getX());
+    addch(ACS_ULCORNER);
+    move(coord.getY(), coord.getX() + width);
+    addch(ACS_URCORNER);
+    move(coord.getY() + height, coord.getX());
+    addch(ACS_LLCORNER);
+    move(coord.getY() + height, coord.getX() + width);
+    addch(ACS_LRCORNER);
     refresh();
     for(Button* b : buttons) {
         b->draw();
@@ -101,7 +120,8 @@ void StartScreen::setUpWelcomeScreen() {
 
 void StartScreen::setUpSettingsScreen() {
     Widget* widget = new Widget();
-    widget->height = 10;
+    int stdHeight = 3;
+    widget->height = 12;
     widget-> width = 20;
     widget->coord.setY((_screen_height - widget->height)/2);
     widget->coord.setX((_screen_width - widget->width) / 2);
@@ -109,7 +129,7 @@ void StartScreen::setUpSettingsScreen() {
     Button* b = new Button();
     b->text = "Back";
     b->width = b->text.length() + 2;
-    b->height = 3;
+    b->height = stdHeight;
     b->coord.setY(widget->coord.getY() + 1);
     b->coord.setX((widget->coord.getX() + (widget->width - b->width) / 2));
 
@@ -118,11 +138,21 @@ void StartScreen::setUpSettingsScreen() {
     b = new Button();
     b->text = "Size: Small";
     b->width = b->text.length() + 2;
-    b->height = 3;
-    b->coord.setY(widget->coord.getY() + widget->height - b->height);
+    b->height = stdHeight;
+    b->coord.setY(widget->coord.getY() + stdHeight + 2);
     b->coord.setX((widget->coord.getX() + (widget->width - b->width) / 2));
 
     widget->buttons.push_back(b);
+
+    b = new Button();
+    b->text = "Granny Speed";
+    b->width = b->text.length() + 2;
+    b->height = stdHeight;
+    b->coord.setY(widget->coord.getY() + stdHeight * 2 + 3);
+    b->coord.setX((widget->coord.getX() + (widget->width - b->width) / 2));
+
+    widget->buttons.push_back(b);
+
 
     widgets.push_back(widget);
 }
@@ -187,10 +217,13 @@ void StartScreen::runSettingsRoutine() {
             } 
         }
         else if(userPressed == 10) {
-            if(position == 0) {
+            if(position == SETTINGS_BACK) {
                 notDone = false;
-            } else if(position == 1) {
+            } else if(position == SETTINGS_SIZE) {
                 cycleThroughSizeOptions();
+                updateHappend = true;
+            } else if(position == SETTINGS_SPEED) {
+                cycleThroughSpeedOptions();
                 updateHappend = true;
             }
         }
@@ -209,7 +242,7 @@ void StartScreen::cycleThroughSizeOptions() {
     } else {
         settings.type++;
     }
-    Button* b = widgets[SETTINGS]->buttons.back();
+    Button* b = widgets[SETTINGS]->buttons[SETTINGS_SIZE];
     sizeFactor *= (1 + settings.type);
     switch(settings.type) {
         case SCR_SMALL:
@@ -232,6 +265,36 @@ void StartScreen::cycleThroughSizeOptions() {
 
     clearScreen();
     drawScreen(SETTINGS);
+}
+
+void StartScreen::cycleThroughSpeedOptions() {
+    float factor = .10;
+    if(settings.spdVariant == SPD_EXT){
+        settings.spdVariant = SPD_LOW;
+    } else {
+        settings.spdVariant++;
+    }
+    Button* b = widgets[SETTINGS]->buttons[SETTINGS_SPEED];
+    factor *= (settings.spdVariant);
+    switch(settings.spdVariant) {
+        case SPD_LOW:
+            b->text = "Granny Speed";
+            break;
+        case SPD_MED:
+            b->text = "Normal Slither";
+            break;
+        case SPD_HIGH:
+            b->text = "Speedy Gonzales";
+            break;
+        case SPD_EXT:
+            b->text = "Ludicrous Speed";
+    }
+    b->width = b->text.length() + 2;
+    b->coord.setX(widgets[SETTINGS]->coord.getX() + (widgets[SETTINGS]->width - b->width) / 2);
+    settings.speed = SLOWEST_SPEED - (int) (SLOWEST_SPEED * factor * settings.spdVariant);
+
+    clearScreen();
+    drawScreen(SETTINGS);   
 }
 
 GameScreen* GameScreen::_instance = 0;

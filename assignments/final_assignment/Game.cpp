@@ -1,6 +1,6 @@
 #include "Game.hh"
 
-#define TIME_BETWEEN 100
+int timeBetween = 100;
 
 int main(int argc, char* argv[]) {
     bool gameOver = false;
@@ -14,6 +14,7 @@ int main(int argc, char* argv[]) {
     StartScreen startSc;
     Settings s = startSc.startUpRoutine();
     GameScreen* screen = GameScreen::Instance(s.playAreaHeight, s.playAreaWidth);
+    timeBetween = s.speed;
     screen->drawScreen();
 
     Snake snake({screen->getHeight() / 2, screen->getWidth() / 2});
@@ -26,7 +27,7 @@ int main(int argc, char* argv[]) {
         userChar = getch();
         setSnakeDir(userChar, snake, lastDirMoved);
         currTime = getCurrentMilliseconds();
-        if(currTime - prevTime > TIME_BETWEEN) {
+        if(currTime - prevTime > timeBetween) {
             lastDirMoved = snake.getDirection();
             if(snake.moveForward()) {
                 gameOver = true;

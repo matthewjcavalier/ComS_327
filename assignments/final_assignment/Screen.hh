@@ -30,6 +30,13 @@ enum colorTypes{
     BUTTON_TEXT
 };
 
+enum SnakeSpeed{
+    SPD_LOW,
+    SPD_MED,
+    SPD_HIGH,
+    SPD_EXT
+};
+
 enum Screens {
     WELCOME,
     SETTINGS
@@ -42,11 +49,19 @@ enum ScreenSizeTypes{
     SCR_INSANE
 };
 
+enum SettingsScreenButtons{
+    SETTINGS_BACK,
+    SETTINGS_SIZE,
+    SETTINGS_SPEED
+};
+
 class Settings {
     public:
         int playAreaWidth;
         int playAreaHeight;
         char type;
+        char spdVariant;
+        int speed;
         Settings();
 };
 
@@ -81,6 +96,7 @@ class StartScreen {
         void drawScreen(char index);
         void runSettingsRoutine();
         void cycleThroughSizeOptions();
+        void cycleThroughSpeedOptions();
 };
 
 class GameScreen {
